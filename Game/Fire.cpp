@@ -28,13 +28,13 @@ void Fire::Loop(float dt)
 			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, FIRE_BALL);
 			fireball->Fire(player->is_right, true);
 			App->cam->CameraShake(20, 120);
-			printf("big hadoken \n");
+			//printf("big fireball \n");
 		}
 		else
 		{
 			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, FIRE_BALL);
 			fireball->Fire(player->is_right, false);
-			printf("smol hadoken \n");
+			//printf("small fireball \n");
 			App->cam->CameraShake(3, 120);
 
 		}

@@ -267,10 +267,7 @@ void Input::GetJoystick(bool left, float& x, float& y)
 	if(controller_setups[current_setup]->keyboard)
 	{
 		if (GetKey(controller_setups[current_setup]->inputs[LEFT]))
-		{
-			printf("left ");
 			x -= 1;
-		}
 		if (GetKey(controller_setups[current_setup]->inputs[RIGHT]))
 			x += 1;
 		if (GetKey(controller_setups[current_setup]->inputs[DOWN]))
