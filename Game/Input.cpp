@@ -56,6 +56,8 @@ bool Input::Loop(float dt)
 	{
 		if (keys[i] == 1)
 		{
+			current_setup = 0;
+
 			if (keyboard[i] == KEY_IDLE)
 				keyboard[i] = KEY_DOWN;
 			else
@@ -82,6 +84,7 @@ bool Input::Loop(float dt)
 		{
 			if (buttons[i] == 1)
 			{
+				current_setup = 1;
 				if (controller[i] == KEY_IDLE)
 					controller[i] = KEY_DOWN;
 				else
