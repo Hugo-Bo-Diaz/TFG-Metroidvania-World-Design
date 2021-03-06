@@ -271,9 +271,9 @@ void Input::GetJoystick(bool left, float& x, float& y)
 		if (GetKey(controller_setups[current_setup]->inputs[RIGHT]))
 			x += 1;
 		if (GetKey(controller_setups[current_setup]->inputs[DOWN]))
-			y -= 1;
-		if (GetKey(controller_setups[current_setup]->inputs[UP]))
 			y += 1;
+		if (GetKey(controller_setups[current_setup]->inputs[UP]))
+			y -= 1;
 	}
 	else
 	{
@@ -409,7 +409,7 @@ bool Input::CreateConfig(pugi::xml_node& config_node)
 		keyboard_setup->inputs[4] = SDL_SCANCODE_KP_ENTER; set_key.append_child("start").append_attribute("value") = SDL_SCANCODE_KP_ENTER;
 		keyboard_setup->inputs[5] = SDL_SCANCODE_BACKSPACE; set_key.append_child("select").append_attribute("value") = SDL_SCANCODE_BACKSPACE;
 
-		keyboard_setup->inputs[6] = SDL_SCANCODE_A; set_key.append_child("sh_r").append_attribute("value") = SDL_SCANCODE_A;
+		keyboard_setup->inputs[6] = SDL_SCANCODE_A; set_key.append_child("sh_l").append_attribute("value") = SDL_SCANCODE_A;
 		keyboard_setup->inputs[7] = SDL_SCANCODE_S; set_key.append_child("sh_r").append_attribute("value") = SDL_SCANCODE_S;
 
 		keyboard_setup->inputs[10] = SDL_SCANCODE_O; set_key.append_child("dpad_l").append_attribute("value") = SDL_SCANCODE_O;

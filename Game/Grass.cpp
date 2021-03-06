@@ -31,13 +31,13 @@ void Grass::Loop(float dt)
 			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF))->Fire(player->is_right, 0);
 			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF))->Fire(player->is_right, -15);
 
-			printf("big hadoken \n");
+			//printf("big hadoken \n");
 		}
 		else
 		{
 			Leaf* leaf = (Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF);
 			leaf->Fire(player->is_right, 0);
-			printf("smol hadoken \n");
+			//printf("smol hadoken \n");
 		}
 		charge = 0;
 	}
