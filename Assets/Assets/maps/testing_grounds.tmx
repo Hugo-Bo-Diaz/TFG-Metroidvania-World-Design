@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="20" height="11" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="15">
+ <imagelayer id="2" name="background">
+  <image source="Backgrounds/ingamebackground.png" width="1280" height="720"/>
+  <properties>
+   <property name="directory" value="Assets/maps/"/>
+  </properties>
+ </imagelayer>
+ <objectgroup color="#0000ff" id="3" name="walls" tintcolor="#0000ff">
+  <object id="3" name="ceiling" x="0" y="0" width="1280" height="128"/>
+  <object id="5" name="Wall_left" x="0" y="128" width="64" height="576"/>
+  <object id="7" name="Wall_right" x="1216" y="128.25" width="64" height="578.5"/>
+  <object id="8" name="floor_left" x="192.182" y="576.273" width="384" height="128"/>
+  <object id="10" name="floor_right" x="704" y="576" width="384" height="128"/>
+  <object id="11" name="plat_left" x="192" y="384" width="256" height="64"/>
+  <object id="12" name="plat_right" x="832.049" y="383.917" width="255.901" height="64.1667"/>
+  <object id="13" name="plat_center" x="576.216" y="448" width="128" height="64"/>
+ </objectgroup>
+ <objectgroup color="#aa0000" id="4" name="objects" tintcolor="#aa0000">
+  <object id="14" name="player" x="576" y="322" width="64" height="64">
+   <properties>
+    <property name="entity_id" type="int" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

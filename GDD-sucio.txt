@@ -1,0 +1,46 @@
+controls:
+LT/RT: dash
+L/R: rotate spells
+A: jump
+X: use offensive part of the spell
+Y: use utility part of the spell
+B: use aoe part of the spell
+LJ: aim/camera
+select: change spells
+
+spells:
+
+fire: basic bullet spell			/ (utility)fire breath				/ (aoe)fire shield
+wind: shoots fast projectile that pierces	/ (utility)super jump				/ (aoe)increase mobility
+ice/water: ice beam(damage + stun)		/ (utility)create ice block in front		/ (aoe)summon cloud(place depends on stick)
+grass: shoots multiple projectiles(2-4)		/ (utility)create vine ground / hook		/ (aoe)set area with vines
+ground: throw rock				/ (utility)groundpound				/ (aoe)earthquake
+
+unlock projectiles soon
+
+level system?:
+per hability level(damage mainly + maybe utility?)
+bosses give points to use on them
+
+enemy types/advantages, so leveling 1 spell isn't broken:
+ground	-> fire
+ice 	-> ground
+wind	-> grass
+grass	-> ice
+fire	-> wind
+
+LORE:
+The Dungeon: was created from the void to protect the balance of the elements, each element got a protector with their own mind
+and were left to protect the purity of the elements, because of their mind they got angry with each other because of the weaknesses
+of each element and the balance was lost
+The player: is just an observer, appears after time the dungeon has fallen because he was frozen from imbalance or smth
+fire protector: is mean and short tempered, has to be defeated
+ice protector: can be reasoned with, cool calm and collected
+wind protector: can't be reasoned with, has to be chased. is scared and wants to hide
+grass protector: can't be reasoned with, is assertive and patient 
+ground protector: can be reasoned with
+
+enemys between protectors:
+fire-ground
+grass-fire
+ice-grass
