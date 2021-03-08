@@ -7,6 +7,8 @@
 #include "Render.h"
 #include "Physics.h"
 
+#include "Gui.h"
+
 SceneController::SceneController()
 {
 	name = "SceneController";
@@ -19,6 +21,7 @@ bool SceneController::Init()
 	LoadMap("Assets/maps/testing_grounds.tmx");
 
 	App->phy->AddObject(576, 322, 64, 64, PLAYER);
+	App->gui->Add_Image(0, 0, 500, 500, 0, "iceblock");
 
 	return true;//CHANGE PLS
 }

@@ -19,7 +19,7 @@ class Console;
 class Camera;
 class Audio;
 class Particles;
-
+class UserInterface;
 
 
 #endif // !PARTSDEF__H

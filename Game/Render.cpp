@@ -155,6 +155,44 @@ bool Render::Loop(float dt)
 		}
 	}
 
+	for (int i = 0; i < ui_blit_queue.size(); ++i)
+	{
+		BlitItem* item = ui_blit_queue[i];
+		//if (App->tex->Valid_Texture(item->tex))//validation method???
+		{
+
+			uint scale = App->win->GetScale();
+
+			SDL_Rect rect;
+			rect.x = item->x * scale;
+			rect.y = item->y * scale;
+
+			if (item->on_img != NULL)
+			{
+				rect.w = item->on_img->w;
+				rect.h = item->on_img->h;
+			}
+			else
+			{
+				SDL_QueryTexture(item->tex, NULL, NULL, &rect.w, &rect.h);
+			}
+
+			rect.w *= scale;
+			rect.h *= scale;
+
+			if (SDL_RenderCopyEx(renderer, item->tex, item->on_img, &rect, item->angle, NULL, SDL_FLIP_NONE) != 0)
+			{
+				printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+				ret = false;
+			}
+		}
+		//else {
+		//printf("Texture not found! \n");
+		//}
+		delete item;
+	}
+	ui_blit_queue.clear();
+
 	while (!quad_queue.empty())
 	{
 		BlitRect* item = quad_queue.front();
@@ -259,8 +297,55 @@ void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int d
 		}
 	}
 
+}
+
+void Render::BlitUI(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle)
+{
+	BlitItem* it = new BlitItem();
+	it->depth = depth;
+	it->on_img = rect_on_image;
+	it->x = x;
+	it->y = y;
+	it->tex = tex;
+
+	//it->img_center = {center_x,center_y};
+	it->angle = angle;
+
+	ui_blit_queue.push_back(it);
+
+	//order the elements
+
+	bool swapped = true;
+	while (swapped)
+	{
+		swapped = false;
+		int i = 0;
+		int size = ui_blit_queue.size() - 1;
+		for (i = 0; i < size; ++i)
+		{
+			if (ui_blit_queue[i]->depth < ui_blit_queue[i + 1]->depth)
+			{
+				swapped = true;
+				//swap em;
+
+				//save him into the temp
+				BlitItem* temp = new BlitItem();
+				*temp = *ui_blit_queue[i];
+
+				//swap em
+				*ui_blit_queue[i] = *ui_blit_queue[i + 1];
+
+				//normalize everything
+				*ui_blit_queue[i + 1] = *temp;
+				delete temp;
+
+			}
+		}
+	}
+
 
 }
+
 
 void Render::DrawRect(SDL_Rect* area, uint r, uint g, uint b, uint a, bool filled)
 {

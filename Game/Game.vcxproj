@@ -128,6 +128,7 @@
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="Gui.cpp" />
     <ClCompile Include="IceBlock.cpp" />
     <ClCompile Include="IceShard.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -147,6 +148,8 @@
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Thorns.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UIelement.cpp" />
+    <ClCompile Include="UIimage.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Wind.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -162,6 +165,7 @@
     <ClInclude Include="Fire.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="Gui.h" />
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="ParticleEmitter.h" />
@@ -185,6 +189,8 @@
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Thorns.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="UIelement.h" />
+    <ClInclude Include="UIimage.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Wind.h" />
     <ClInclude Include="Window.h" />

@@ -22,6 +22,7 @@ public:
 	Audio* aud;
 	Camera* cam;
 	Particles* par;
+	UserInterface* gui;
 
 	Application() {};
 

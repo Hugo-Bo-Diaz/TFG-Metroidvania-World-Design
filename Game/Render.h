@@ -57,6 +57,7 @@ public:
 	bool CleanUp();
 
 	void Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
+	void BlitUI(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
 	void DrawRect(SDL_Rect* area, uint r, uint g, uint b, uint a, bool filled);
 	void DrawTrail(SDL_Point* point_array, int amount, int r = 255, int g = 255, int b= 255);
 
@@ -70,6 +71,7 @@ private:
 	int		scale;
 	
 	std::vector<BlitItem*> blit_queue;
+	std::vector<BlitItem*> ui_blit_queue;
 	std::queue<BlitRect*> quad_queue;
 	std::queue<Trail*> trail_queue;
 

@@ -30,6 +30,9 @@
     <Filter Include="Tools\pugiXML">
       <UniqueIdentifier>{5a333267-a7b7-4c88-b1e0-146424dd0048}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{aa50a9e3-3308-4741-a7fd-1f98af730352}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -121,6 +124,15 @@
     </ClCompile>
     <ClCompile Include="ParticleEmitter.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="UIelement.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIimage.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,5 +232,14 @@
       <Filter>Parts</Filter>
     </ClInclude>
     <ClInclude Include="ParticleEmitter.h" />
+    <ClInclude Include="Gui.h">
+      <Filter>Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="UIelement.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIimage.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

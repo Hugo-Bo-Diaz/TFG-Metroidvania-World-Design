@@ -9,6 +9,7 @@
 #include "Audio.h"
 #include "Camera.h"
 #include "Particles.h"
+#include "Gui.h"
 
 bool Application::Init() 
 {
@@ -23,12 +24,14 @@ bool Application::Init()
 	cam = new Camera();
 	aud = new Audio();
 	par = new Particles();
+	gui = new UserInterface();
 
 	parts.push_back(con);
 	parts.push_back(inp);
 	parts.push_back(win);
 	parts.push_back(phy);
 	parts.push_back(cam);
+	parts.push_back(gui);
 	parts.push_back(scn);
 	parts.push_back(aud);
 	parts.push_back(par);
