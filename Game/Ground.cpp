@@ -44,7 +44,7 @@ void Ground::Loop(float dt)
 	if (groundpounding)
 	{
 		//add graphic
-		App->ren->Blit(App->tex->Get_Texture("groundpound"), player->collider->x, player->collider->y + player->collider->h, &groundpound, -2);
+		App->ren->Blit(App->tex->Get_Texture("spells"), player->collider->x, player->collider->y + player->collider->h, &groundpound, -2);
 
 		// move player accordingly
 		if (!is_on_gp_lag)

@@ -31,10 +31,10 @@ public:
 
 	ThornsState state = SEED;
 
-	SDL_Rect thorn_first = {0,0,32,32};
-	SDL_Rect thorn_second = {32,0,32,32};
-	SDL_Rect seed = {64,0,32,32};
-	SDL_Rect last_thorn_segment = { 0,0,8,32 };
+	SDL_Rect thorn_first = {128,0,32,32};
+	SDL_Rect thorn_second = {160,0,32,32};
+	SDL_Rect seed = {192,0,32,32};
+	SDL_Rect last_thorn_segment = { 128,0,8,32 };
 };
 
 #endif // !PLAYER__REP__H

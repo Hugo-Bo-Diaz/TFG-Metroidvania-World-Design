@@ -15,7 +15,7 @@ bool Particles::Init()
 	fire.area_in_texture.push_back(&r2);
 	fire.name = "fire";
 	fire.minmax_speed_y = std::make_pair(-1,-3);
-	fire.texture_name = "fireball";
+	fire.texture_name = "spells";
 
 	return true;
 }

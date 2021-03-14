@@ -4,6 +4,9 @@
 #include "Textures.h"
 #include "Camera.h"
 #include "Particles.h"
+#include "Text.h"
+
+#include <stdio.h>
 
 Render::Render()
 {
@@ -94,8 +97,8 @@ bool Render::Loop(float dt)
 			uint scale = App->win->GetScale();
 
 			SDL_Rect rect;
-			rect.x = item->x * scale + App->cam->GetCameraXoffset();
-			rect.y = item->y * scale + App->cam->GetCameraYoffset();
+			rect.x = item->x * scale + App->cam->GetCameraXoffset() * item->parallax_factor;
+			rect.y = item->y * scale + App->cam->GetCameraYoffset() * item ->parallax_factor;
 
 			if (item->on_img != NULL)
 			{
@@ -193,6 +196,71 @@ bool Render::Loop(float dt)
 	}
 	ui_blit_queue.clear();
 
+	while (!text_queue.empty())
+	{
+		TextBlit* item = text_queue.front();
+		uint scale = App->win->GetScale();
+		
+		TextPrint* print = item->to_print;
+
+
+		int length_so_far=0;
+		for (int i = 0; i < print->current_letter; i++)//-97
+		{
+			//characters A to Z (65 - 90)
+			if ((print->text[i] >= 65 && print->text[i] <= 90))
+			{
+				int fontsizex = print->font_used->hsize;
+				int fontsizey = print->font_used->vsize;
+				int x_on = ((print->text[i] - 65) % print->font_used->char_per_row) * fontsizex;
+				int y_on = ((print->text[i] - 65) / print->font_used->char_per_row) * fontsizey;
+				SDL_Rect on_img = { x_on, y_on, fontsizex, fontsizey };
+
+				fontsizey *= print->scale*1.3;
+				fontsizex *= print->scale*1.3;
+
+				int x_scr = item->x + length_so_far;
+				int y_scr = item->y- fontsizey;
+				SDL_Rect on_screen = { x_scr,y_scr,fontsizex,fontsizey};
+
+				length_so_far += on_screen.w;
+
+				if (SDL_RenderCopyEx(renderer, item->to_print->font_used->font_texture, &on_img, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)
+				{
+					printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+					ret = false;
+				}
+			}
+			//characters a to z (97 - 122)
+			else if (print->text[i] >= 97 && print->text[i] <= 122)
+			{
+				int fontsizex = print->font_used->hsize;
+				int fontsizey = print->font_used->vsize;
+				int x_on = ((print->text[i] - 97) % print->font_used->char_per_row) *fontsizex;
+				int y_on = ((print->text[i] - 97) / print->font_used->char_per_row) * fontsizey;
+				SDL_Rect on_img = { x_on, y_on, fontsizex, fontsizey };
+
+				fontsizey *= print->scale;
+				fontsizex *= print->scale;
+
+				int x_scr = item->x + length_so_far;
+				int y_scr = item->y - fontsizey;
+				SDL_Rect on_screen = { x_scr,y_scr,fontsizex,fontsizey };
+				
+				length_so_far += on_screen.w;
+
+				if (SDL_RenderCopyEx(renderer, item->to_print->font_used->font_texture, &on_img, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)
+				{
+					printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+					ret = false;
+				}
+			}
+			
+		}
+		delete item;
+		text_queue.pop();
+	}
+
 	while (!quad_queue.empty())
 	{
 		BlitRect* item = quad_queue.front();
@@ -253,7 +321,7 @@ bool Render::Loop(float dt)
 	return ret;
 }
 
-void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle)
+void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle, float parallax_factor)
 {
 	BlitItem* it = new BlitItem();
 	it->depth = depth;
@@ -264,6 +332,7 @@ void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int d
 
 	//it->img_center = {center_x,center_y};
 	it->angle = angle;
+	it->parallax_factor = parallax_factor;
 
 	blit_queue.push_back(it);
 	
@@ -344,6 +413,16 @@ void Render::BlitUI(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int
 	}
 
 
+}
+
+void Render::BlitText(TextPrint * text, int x, int y)
+{
+	TextBlit* it = new TextBlit();
+	it->x = x;
+	it->y = y;
+	it->to_print = text;
+
+	text_queue.push(it);
 }
 
 

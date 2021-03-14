@@ -6,7 +6,7 @@
 
 Rock::Rock()
 {
-	rock_sprite.AddFrame({ 0,0,32,32 });
+	rock_sprite.AddFrame({ 96,160,32,32 });
 }
 
 bool Rock::Loop(float dt)
@@ -21,7 +21,7 @@ bool Rock::Loop(float dt)
 
 	y_speed += gravity;
 
-	App->ren->Blit(App->tex->Get_Texture("rock"), collider->x, collider->y, rock_sprite.GetCurrentFrame(), -2);
+	App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, rock_sprite.GetCurrentFrame(), -2);
 
 	std::vector<SDL_Rect*> colliders;
 	App->phy->GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);

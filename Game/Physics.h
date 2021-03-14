@@ -11,7 +11,7 @@
 
 #include "SDL/include/SDL.h"
 
-#define MAX_WALLS 15
+#define MAX_WALLS 30
 
 struct SDL_Texture;
 

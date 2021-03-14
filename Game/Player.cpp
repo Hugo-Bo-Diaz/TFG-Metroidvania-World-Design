@@ -94,7 +94,13 @@ Player::Player()
 	ground_spell->player = this;
 	spells.push_back(ground_spell);
 
+	unlocked_spells = 5;
 
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
 }
 
 bool Player::Loop(float dt)
@@ -324,26 +330,16 @@ bool Player::Loop(float dt)
 	//the habilities are handled here
 
 	spells[current_spell]->Loop(dt);
-	if (App->inp->GetInput(L_SHOULDER) == KEY_DOWN)
+
+	if (unlocked_spells > 1)
 	{
-		if (current_spell == FIRE)//loop to last
+		if (App->inp->GetInput(L_SHOULDER) == KEY_DOWN)
 		{
-			current_spell =GROUND;
+			cycle_spell(-1);
 		}
-		else
+		if (App->inp->GetInput(R_SHOULDER) == KEY_DOWN)//START
 		{
-			current_spell = (spell_type)(current_spell - 1);
-		}
-	}
-	if (App->inp->GetInput(R_SHOULDER) == KEY_DOWN)//START
-	{
-		if (current_spell == GROUND)//loop to FIRST
-		{
-			current_spell = FIRE;
-		}
-		else
-		{
-			current_spell = (spell_type)(current_spell + 1);
+			cycle_spell(1);
 		}
 	}
 
@@ -437,6 +433,61 @@ void Player::UnlockMovement()
 	movement_lock.Reset();
 
 	spells[current_spell]->UnlockMovementEvent();
+}
+
+void Player::unlock_spell(spell_type to_unlock)
+{
+	
+}
+
+void Player::cycle_spell(int direction)
+{
+	int iterator = current_spell;
+	bool exit = false;
+	while (!exit)
+	{
+		iterator += direction;
+
+		if (iterator>=5)
+		{
+			iterator = 0;
+		}
+		if (iterator <= -1)
+		{
+			iterator = 4;
+		}
+
+		if (unlocked[iterator])
+		{
+			current_spell = (spell_type)iterator;
+			exit = true;
+		}
+	}
+}
+
+int Player::get_next_spell(int direction)
+{
+	int iterator = current_spell;
+	bool exit = false;
+	while (!exit)
+	{
+		iterator += direction;
+
+		if (iterator >= 5)
+		{
+			iterator = 0;
+		}
+		if (iterator <= -1)
+		{
+			iterator = 4;
+		}
+
+		if (unlocked[iterator])
+		{
+			exit = true;
+		}
+	}
+	return iterator;
 }
 
 Player::~Player()

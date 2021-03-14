@@ -9,9 +9,13 @@
 
 void Fire::Init()
 {
-	firebreath_left.AddFrame({ 32,0,32,64 });
-	firebreath_right.AddFrame({ 0,0,32,64 });
-	fireshield.AddFrame({ 0,0,96,96 });
+	firebreath_left.AddFrame({ 224,0,32,64 });
+	firebreath_right.AddFrame({ 224,64,32,64 });
+	fireshield.AddFrame({ 0,64,96,96 });
+
+	fireball_big = { 0,0,64,64 };
+	fireball_small = { 96,0,32,32 };
+
 
 	fireshield_timer.Pause();
 	fireshield_timer.Reset();
@@ -25,14 +29,14 @@ void Fire::Loop(float dt)
 
 		if (charge > 100)
 		{
-			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, FIRE_BALL);
+			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, FIRE_BALL);
 			fireball->Fire(player->is_right, true);
 			App->cam->CameraShake(20, 120);
 			//printf("big fireball \n");
 		}
 		else
 		{
-			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, FIRE_BALL);
+			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, FIRE_BALL);
 			fireball->Fire(player->is_right, false);
 			//printf("small fireball \n");
 			App->cam->CameraShake(3, 120);
@@ -48,14 +52,14 @@ void Fire::Loop(float dt)
 		{
 			if (player->is_right)
 			{
-				App->ren->Blit(App->tex->Get_Texture("fireball"),
+				App->ren->Blit(App->tex->Get_Texture("spells"),
 					player->collider->x + player->collider->w - 5,
 					player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
 					&fireball_big, -2);
 			}
 			else
 			{
-				App->ren->Blit(App->tex->Get_Texture("fireball"),
+				App->ren->Blit(App->tex->Get_Texture("spells"),
 					player->collider->x - fireball_big.w + 5,
 					player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
 					&fireball_big, -2);
@@ -65,14 +69,14 @@ void Fire::Loop(float dt)
 		{
 			if (player->is_right)
 			{
-				App->ren->Blit(App->tex->Get_Texture("fireball"),
+				App->ren->Blit(App->tex->Get_Texture("spells"),
 					player->collider->x + player->collider->w - 15,
 					player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
 					&fireball_small, -2);
 			}
 			else
 			{
-				App->ren->Blit(App->tex->Get_Texture("fireball"),
+				App->ren->Blit(App->tex->Get_Texture("spells"),
 					player->collider->x - fireball_small.w + 15,
 					player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
 					&fireball_small, -2);
@@ -90,14 +94,14 @@ void Fire::Loop(float dt)
 	{
 		if(player->is_right)
 		{
-			App->ren->Blit(App->tex->Get_Texture("firebreath"),
+			App->ren->Blit(App->tex->Get_Texture("spells"),
 				player->collider->x + player->collider->w,
 				player->collider->y,
 				firebreath_right.GetCurrentFrame(), -2);
 		}
 		else
 		{
-			App->ren->Blit(App->tex->Get_Texture("firebreath"),
+			App->ren->Blit(App->tex->Get_Texture("spells"),
 				player->collider->x - firebreath_left.GetCurrentFrame()->w,
 				player->collider->y,
 				firebreath_left.GetCurrentFrame(), -2);
@@ -140,7 +144,7 @@ void Fire::Loop(float dt)
 
 	if (is_fireshield_up)
 	{
-		App->ren->Blit(App->tex->Get_Texture("fireshield"),
+		App->ren->Blit(App->tex->Get_Texture("spells"),
 			player->collider->x + (player->collider->w - fireshield.GetCurrentFrame()->w)/2 ,
 			player->collider->y + (player->collider->h - fireshield.GetCurrentFrame()->h) / 2,
 			fireshield.GetCurrentFrame(), -2);

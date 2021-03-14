@@ -5,6 +5,8 @@
 #include "SDL/include/SDL.h"
 #include <queue>
 
+struct TextPrint;
+
 struct BlitItem
 {
 	int x;
@@ -12,6 +14,7 @@ struct BlitItem
 	SDL_Texture* tex;
 	SDL_Rect* on_img;
 	int depth;
+	float parallax_factor;
 
 	//rotation point and angle
 	//SDL_Point img_center;
@@ -48,6 +51,13 @@ struct Trail
 	uint b;
 };
 
+struct TextBlit
+{
+	TextPrint* to_print;
+	int x;
+	int y;
+};
+
 class Render : public Part
 {
 public:
@@ -56,8 +66,9 @@ public:
 	bool Loop(float dt);
 	bool CleanUp();
 
-	void Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
+	void Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0, float parallax_factor = 1);
 	void BlitUI(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
+	void BlitText(TextPrint* text,int x, int y);
 	void DrawRect(SDL_Rect* area, uint r, uint g, uint b, uint a, bool filled);
 	void DrawTrail(SDL_Point* point_array, int amount, int r = 255, int g = 255, int b= 255);
 
@@ -72,6 +83,7 @@ private:
 	
 	std::vector<BlitItem*> blit_queue;
 	std::vector<BlitItem*> ui_blit_queue;
+	std::queue<TextBlit*> text_queue;
 	std::queue<BlitRect*> quad_queue;
 	std::queue<Trail*> trail_queue;
 

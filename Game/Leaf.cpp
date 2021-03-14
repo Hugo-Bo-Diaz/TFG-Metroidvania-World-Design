@@ -6,8 +6,8 @@
 
 Leaf::Leaf()
 {
-	leaf_right.AddFrame({ 0,0,64,32 });
-	leaf_left.AddFrame({ 64,0,64,32 });
+	leaf_right.AddFrame({ 96,64,64,32 });
+	leaf_left.AddFrame({ 96,32,64,32 });//48 16
 }
 
 bool Leaf::Loop(float dt)
@@ -22,12 +22,12 @@ bool Leaf::Loop(float dt)
 
 	if (direction == 1)
 	{
-		App->ren->Blit(App->tex->Get_Texture("leaf"), collider->x, collider->y, leaf_right.GetCurrentFrame(), -2,angle);
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, leaf_right.GetCurrentFrame(), -2,angle);
 		leaf_right.NextFrame();
 	}
 	else
 	{
-		App->ren->Blit(App->tex->Get_Texture("leaf"), collider->x, collider->y, leaf_left.GetCurrentFrame(), -2,angle);
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, leaf_left.GetCurrentFrame(), -2,angle);
 		leaf_left.NextFrame();
 	}
 

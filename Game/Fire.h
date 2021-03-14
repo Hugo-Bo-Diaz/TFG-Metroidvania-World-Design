@@ -33,8 +33,8 @@ public:
 	Timer fireshield_timer;
 
 	//sprites
-	SDL_Rect fireball_big = { 0,0,48,48 };
-	SDL_Rect fireball_small = { 48,0,48,48 };
+	SDL_Rect fireball_big;
+	SDL_Rect fireball_small;
 
 	Animation firebreath_right;
 	Animation firebreath_left;

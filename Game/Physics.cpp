@@ -152,7 +152,7 @@ int Physics::AddWall(SDL_Rect rect)
 	int i = 0;
 	bool exit = false;
 
-	while (i < 15 && !exit)
+	while (i < MAX_WALLS && !exit)
 	{
 		if (walls[i] == nullptr)
 		{

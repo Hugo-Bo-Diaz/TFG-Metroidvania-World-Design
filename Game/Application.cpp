@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "Particles.h"
 #include "Gui.h"
+#include "Text.h"
 
 bool Application::Init() 
 {
@@ -25,6 +26,7 @@ bool Application::Init()
 	aud = new Audio();
 	par = new Particles();
 	gui = new UserInterface();
+	txt = new Text();
 
 	parts.push_back(con);
 	parts.push_back(inp);
@@ -37,6 +39,7 @@ bool Application::Init()
 	parts.push_back(par);
 	parts.push_back(ren);
 	parts.push_back(tex);
+	parts.push_back(txt);
 
 	LoadConfig("config.xml");
 	

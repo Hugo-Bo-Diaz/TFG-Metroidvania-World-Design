@@ -18,13 +18,16 @@ bool IceBlock::Loop(float dt)
 {
 	bool ret = true;
 
-	App->ren->Blit(App->tex->Get_Texture("iceblock"), collider->x, collider->y, nullptr, -2);
-
 	if(timer.Read()>life_expectancy)
 	{
 		App->phy->DeleteWall(wall_id);
 		App->phy->DeleteObject(this);
 	}
+	else
+	{
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, &spr_on_img, -2);
+	}
+
 
 	return ret;
 }

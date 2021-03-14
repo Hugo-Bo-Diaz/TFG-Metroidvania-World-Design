@@ -59,25 +59,11 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 	pugi::xml_node textures_node = config_node.append_child("textures");
 
 	Load_Texture("Assets/Sprites/Player.png", "player", textures_node);
+	Load_Texture("Assets/Sprites/spells.png", "spells", textures_node);
+	Load_Texture("Assets/UI/books.png", "spell_books", textures_node);
+	Load_Texture("Assets/UI/healthandmana.png", "healthbars", textures_node);
+	Load_Texture("Assets/UI/spell_location.png", "spell_display_base", textures_node);
 
-	Load_Texture("Assets/Sprites/fire/fireball.png", "fireball",textures_node);
-	Load_Texture("Assets/Sprites/fire/firebreath.png", "firebreath", textures_node);
-	Load_Texture("Assets/Sprites/fire/fireshield.png", "fireshield", textures_node);
-
-	Load_Texture("Assets/Sprites/wind/windslash.png", "windslash", textures_node);
-
-	Load_Texture("Assets/Sprites/water/iceshard.png", "iceshard", textures_node);
-	Load_Texture("Assets/Sprites/water/iceblock.png", "iceblock", textures_node);
-	Load_Texture("Assets/Sprites/water/cloud.png", "cloud", textures_node);
-	Load_Texture("Assets/Sprites/water/rain.png", "rain", textures_node);
-
-	Load_Texture("Assets/Sprites/grass/leaf.png", "leaf", textures_node);
-	Load_Texture("Assets/Sprites/grass/grasshook.png", "grasshook", textures_node);
-	Load_Texture("Assets/Sprites/grass/thorns.png", "thorns", textures_node);
-
-	Load_Texture("Assets/Sprites/ground/rock.png", "rock", textures_node);
-	Load_Texture("Assets/Sprites/ground/groundpound.png", "groundpound", textures_node);
-	Load_Texture("Assets/Sprites/ground/earthquake.png", "earthquake", textures_node);
 	return ret;
 
 

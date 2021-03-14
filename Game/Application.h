@@ -23,6 +23,7 @@ public:
 	Camera* cam;
 	Particles* par;
 	UserInterface* gui;
+	Text* txt;
 
 	Application() {};
 

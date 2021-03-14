@@ -134,6 +134,18 @@
     <ClCompile Include="UIimage.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="UIingameUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIhealthbar.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIspelldisplay.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -239,6 +251,18 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="UIimage.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="UIingameUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIhealthbar.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIspelldisplay.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>

@@ -85,6 +85,19 @@ public:
 
 	spell_type current_spell=FIRE;
 	std::vector<Spell*> spells;
+	int unlocked_spells;
+	std::vector<bool> unlocked;
+
+	void unlock_spell(spell_type to_unlock);
+
+	void cycle_spell(int direction);
+
+	int get_next_spell(int direction);
+
+	float max_health = 4;
+	float max_mana = 3;
+	float health = 4;
+	float mana = 3;
 };
 
 #endif // !PLAYER__H

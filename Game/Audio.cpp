@@ -156,14 +156,15 @@ uint Audio::LoadSFX(const char * file, const char*name, float volume)
 void Audio::PlayMusic(uint music_id, float fade_in_ms)
 {
 	Music* music_selected = music_list[music_id];
+	
 	if (Mix_PlayingMusic() == 1)
 	{
 		//fade out music
-		Mix_FadeOutMusic(current_fade_out);
+		/*Mix_FadeOutMusic(current_fade_out);
 		next_song_after_fade_out = music_selected->music;
 		next_song_after_fade_out_fade_time = music_selected->fade;
 		Mix_HookMusicFinished(StartNextSongAfterFadeOut);
-		current_fade_out = music_selected->fade;
+		current_fade_out = music_selected->fade;*/
 	}
 	else
 	{

@@ -46,8 +46,8 @@ public:
 
 	//sprites
 	SDL_Rect leaf = { 0,0,64,32 };
-	SDL_Rect vine = {0,0,32,32};
-	SDL_Rect hook = {32,0,32,32};
+	SDL_Rect vine = {160,32,32,32};
+	SDL_Rect hook = {192,32,32,32};
 };
 
 #endif

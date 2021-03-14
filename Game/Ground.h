@@ -42,8 +42,7 @@ public:
 
 
 	//sprites
-	SDL_Rect groundpound = { 0,0,64,32 };
-	SDL_Rect hook = { 32,0,32,32 };
+	SDL_Rect groundpound = { 128,160,64,32 };
 };
 
 #endif

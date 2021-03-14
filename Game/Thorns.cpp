@@ -40,7 +40,7 @@ bool Thorns::Loop(float dt)
 				life_timer.Start();
 			}
 		}
-		App->ren->Blit(App->tex->Get_Texture("thorns"), collider->x, collider->y, &seed, -1);
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, &seed, -1);
 	}
 		break;
 	case THORNS_ON_FLOOR:
@@ -81,16 +81,16 @@ bool Thorns::Loop(float dt)
 			if (i % 2 == 0)
 			{
 				//draw thorns 1
-				App->ren->Blit(App->tex->Get_Texture("thorns"), collider->x + i * 32, collider->y, &thorn_first, -2);
+				App->ren->Blit(App->tex->Get_Texture("spells"), collider->x + i * 32, collider->y, &thorn_first, -2);
 			}
 			else
 			{
 				//draw thorns 2
-				App->ren->Blit(App->tex->Get_Texture("thorns"), collider->x + i * 32, collider->y, &thorn_second, -2);
+				App->ren->Blit(App->tex->Get_Texture("spells"), collider->x + i * 32, collider->y, &thorn_second, -2);
 			}
 		}
 		last_thorn_segment.w = extra_distance;
-		App->ren->Blit(App->tex->Get_Texture("thorns"), collider->x + i * 32, collider->y, &last_thorn_segment, -2);
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x + i * 32, collider->y, &last_thorn_segment, -2);
 		
 
 		if (life_timer.Read() > lifespan)

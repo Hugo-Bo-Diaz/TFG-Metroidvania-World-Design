@@ -6,8 +6,8 @@
 
 Shockwave::Shockwave()
 {
-	shockwave_left.AddFrame({0,0,32,32});
-	shockwave_right.AddFrame({32,0,32,32});
+	shockwave_left.AddFrame({0,160,32,32});
+	shockwave_right.AddFrame({32,160,32,32});
 }
 
 bool Shockwave::Loop(float dt)
@@ -21,11 +21,11 @@ bool Shockwave::Loop(float dt)
 
 	if (x_speed > 0)
 	{
-		App->ren->Blit(App->tex->Get_Texture("earthquake"), collider->x, collider->y, shockwave_right.GetCurrentFrame(), -2);
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, shockwave_right.GetCurrentFrame(), -2);
 	}
 	else
 	{
-		App->ren->Blit(App->tex->Get_Texture("earthquake"), collider->x, collider->y, shockwave_left.GetCurrentFrame(), -2);
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, shockwave_left.GetCurrentFrame(), -2);
 	}
 
 	std::vector<SDL_Rect*> colliders;

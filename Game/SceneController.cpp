@@ -6,8 +6,12 @@
 #include "MainMenuScene.h"
 #include "Render.h"
 #include "Physics.h"
+#include "Audio.h"
+
+#include "Player.h"
 
 #include "Gui.h"
+#include "Text.h"
 
 SceneController::SceneController()
 {
@@ -20,8 +24,14 @@ bool SceneController::Init()
 
 	LoadMap("Assets/maps/testing_grounds.tmx");
 
-	App->phy->AddObject(576, 322, 64, 64, PLAYER);
-	App->gui->Add_Image(0, 0, 500, 500, 0, "iceblock");
+	
+	Player* pl= (Player*)App->phy->AddObject(576, 322, 64, 64, PLAYER);
+	App->gui->Add_GameUI(pl);
+	p = App->txt->CreateText("Hello", SDL_Color{ 0,0,0 }, 1000,"",3);
+	c = App->txt->CreateText("Hello", SDL_Color{ 0,0,0 }, 1000, "", 5);
+	v = App->txt->CreateText("Hello", SDL_Color{ 0,0,0 }, 1000, "", 7);
+
+	song_try = App->aud->LoadMusic("Assets/Music/wtf.ogg","track1");
 
 	return true;//CHANGE PLS
 }
@@ -30,9 +40,17 @@ bool SceneController::Loop(float dt)
 {
 	bool ret = true;
 
+	App->aud->PlayMusic(song_try,1000);
+
+
+	/*App->ren->BlitText(p, 100, 100);
+	App->ren->BlitText(c, 100, 175);
+	App->ren->BlitText(v, 100, 275);
+	*/
+
 	for (std::vector<std::string>::iterator it = backgrounds.begin(); it != backgrounds.end(); it++)
 	{
-		App->ren->Blit(App->tex->Get_Texture((*it).c_str()), 0, 0, NULL, 50);
+		App->ren->Blit(App->tex->Get_Texture((*it).c_str()), 0, 0, NULL, 50,0);
 	}
 
 	return ret;

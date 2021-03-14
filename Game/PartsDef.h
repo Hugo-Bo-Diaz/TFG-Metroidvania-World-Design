@@ -20,6 +20,7 @@ class Camera;
 class Audio;
 class Particles;
 class UserInterface;
+class Text;
 
 
 #endif // !PARTSDEF__H

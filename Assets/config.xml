@@ -40,7 +40,7 @@
 		</controllers>
 	</Input>
 	<Window>
-		<dimensions width="1280" height="720" scale="1" />
+		<dimensions width="1024" height="576" scale="1" />
 		<fullscreen value="false" />
 		<borderless value="false" />
 		<resizable value="false" />
@@ -61,20 +61,10 @@
 	<Textures>
 		<textures>
 			<texture path="Assets/Sprites/Player.png" name="player" />
-			<texture path="Assets/Sprites/fire/fireball.png" name="fireball" />
-			<texture path="Assets/Sprites/fire/firebreath.png" name="firebreath" />
-			<texture path="Assets/Sprites/fire/fireshield.png" name="fireshield" />
-			<texture path="Assets/Sprites/wind/windslash.png" name="windslash" />
-			<texture path="Assets/Sprites/water/iceshard.png" name="iceshard" />
-			<texture path="Assets/Sprites/water/iceblock.png" name="iceblock" />
-			<texture path="Assets/Sprites/water/cloud.png" name="cloud" />
-			<texture path="Assets/Sprites/water/rain.png" name="rain" />
-			<texture path="Assets/Sprites/grass/leaf.png" name="leaf" />
-			<texture path="Assets/Sprites/grass/grasshook.png" name="grasshook" />
-			<texture path="Assets/Sprites/grass/thorns.png" name="thorns" />
-			<texture path="Assets/Sprites/ground/rock.png" name="rock" />
-			<texture path="Assets/Sprites/ground/groundpound.png" name="groundpound" />
-			<texture path="Assets/Sprites/ground/earthquake.png" name="earthquake" />
+			<texture path="Assets/Sprites/spells.png" name="spells" />
+			<texture path="Assets/UI/books.png" name="spell_books" />
+			<texture path="Assets/UI/healthandmana.png" name="healthbars" />
+			<texture path="Assets/UI/spell_location.png" name="spell_display_base" />
 		</textures>
 	</Textures>
 </config>

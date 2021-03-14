@@ -6,9 +6,9 @@
 
 enum UItype
 {
-	TEXT,
-	WINDOW,
-	IMAGE,
+	TEXT_EL,
+	WINDOW_EL,
+	IMAGE_EL,
 };
 
 

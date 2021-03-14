@@ -18,17 +18,21 @@ Camera::Camera()
 
 bool Camera::Init()
 {
-	width = App->win->width;
-	height = App->win->height;
+	width = 1024;//App->win->width;
+	height = 576;//App->win->height;
 	return true;
 }
 
-bool Camera::Loop(float dt)
+bool Camera::Loop(float dt)//camera can't drop further than 704-height
 {
 	if (target != nullptr)
 	{
 		position_x = (target->collider->x + target->collider->w / 2) - width / 2;
 		position_y = (target->collider->y + target->collider->h / 2) - height / 2;
+		if (position_y > 576 - height)
+		{
+			position_y = 576 - height;
+		}
 		if (is_shaking)
 		{
 			position_x += rand() % amount + 1;

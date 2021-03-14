@@ -24,8 +24,8 @@ bool Window::LoadConfig(pugi::xml_node& config_node)
 		Uint32 flags = SDL_WINDOW_SHOWN;
 
 		pugi::xml_node dimension_node = config_node.child("dimensions");
-		width = dimension_node.attribute("width").as_int(1280);
-		height = dimension_node.attribute("height").as_int(720);//PIXEL ART RATIO = 2
+		width = dimension_node.attribute("width").as_int(1024);
+		height = dimension_node.attribute("height").as_int(576);//PIXEL ART RATIO = 2
 		scale = dimension_node.attribute("scale").as_int(1);
 
 		if (config_node.child("fullscreen").attribute("value").as_bool())
@@ -79,8 +79,8 @@ bool Window::CreateConfig(pugi::xml_node& config_node)
 	{
 		Uint32 flags = SDL_WINDOW_SHOWN;
 
-		width = 1280;
-		height = 720;//PIXEL ART RATIO = 4
+		width = 1024;
+		height = 576;//PIXEL ART RATIO = 4
 		scale = 1;
 		pugi::xml_node dimensions = config_node.append_child("dimensions");
 

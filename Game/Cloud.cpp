@@ -9,14 +9,14 @@ Cloud::Cloud()
 {
 	SDL_Rect wall = { collider->x,collider->y,collider->w,collider->h };
 
-	blitrect = {0,0,64,32};
+	blitrect = {96,64,64,32};
 }
 
 bool Cloud::Loop(float dt)
 {
 	bool ret = true;
 
-	App->ren->Blit(App->tex->Get_Texture("cloud"), collider->x, collider->y, &blitrect, -2);
+	App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, &blitrect, -2);
 
 	if (timer.Read()>life_expectancy)
 	{
@@ -29,9 +29,9 @@ bool Cloud::Loop(float dt)
 	if (rain_timer.Read() > rain_frequency)
 	{
 		Rain* r = new Rain();
-		r->blitrect = { 0, 2, 64, 18};
+		r->blitrect = { 0, 192, 64, 32};
 		r->speed = rain_speed;
-		r->hitbox = { collider->x,collider->y,64,18};
+		r->hitbox = { collider->x,collider->y,64,32};
 		r->parent = this;
 		rain_timer.Reset();
 		rain_vector.push_back(r);

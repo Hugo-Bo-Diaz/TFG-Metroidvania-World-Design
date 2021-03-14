@@ -6,8 +6,8 @@
 
 IceShard::IceShard()
 {
-	ice_shard_right.AddFrame({ 0,0,48,24 });
-	ice_shard_left.AddFrame({ 48,0,48,24 });
+	ice_shard_right.AddFrame({ 162,134,48,24 });
+	ice_shard_left.AddFrame({ 102,134,48,24 });
 }
 
 bool IceShard::Loop(float dt)
@@ -19,12 +19,12 @@ bool IceShard::Loop(float dt)
 
 	if (direction == 1)
 	{
-		App->ren->Blit(App->tex->Get_Texture("iceshard"), collider->x, collider->y, ice_shard_right.GetCurrentFrame(), -2);
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, ice_shard_right.GetCurrentFrame(), -2);
 		ice_shard_right.NextFrame();
 	}
 	else
 	{
-		App->ren->Blit(App->tex->Get_Texture("iceshard"), collider->x, collider->y, ice_shard_left.GetCurrentFrame(), -2);
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, ice_shard_left.GetCurrentFrame(), -2);
 		ice_shard_left.NextFrame();
 	}
 

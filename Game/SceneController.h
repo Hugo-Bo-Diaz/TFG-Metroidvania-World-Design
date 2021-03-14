@@ -3,6 +3,7 @@
 
 #include "PartsDef.h"
 #include<vector>
+#include "Text.h"
 
 class SceneController : public Part
 {
@@ -18,6 +19,12 @@ public:
 	bool LoadBackground(pugi::xml_node&);
 	bool LoadWalls(pugi::xml_node&);
 	bool LoadObjects(pugi::xml_node&);
+
+	TextPrint* p;
+	TextPrint* c;
+	TextPrint* v;
+
+	uint song_try;
 
 private:
 

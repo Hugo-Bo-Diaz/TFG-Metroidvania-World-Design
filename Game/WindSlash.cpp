@@ -6,10 +6,10 @@
 
 WindSlash::WindSlash()
 {
-	windslash.AddFrame({ 0,0,48,48 });
-	windslash.AddFrame({ 48,0,48,48 });
-	windslash.AddFrame({ 96,0,48,48 });
-	windslash.AddFrame({ 144,0,48,48 });
+	windslash.AddFrame({ 0,222,48,48 });
+	windslash.AddFrame({ 48,222,48,48 });
+	windslash.AddFrame({ 96,222,48,48 });
+	windslash.AddFrame({ 144,222,48,48 });
 }
 
 bool WindSlash::Loop(float dt)
@@ -18,7 +18,7 @@ bool WindSlash::Loop(float dt)
 
 	collider->x += direction * speed;
 	nextpos->x += direction * speed;
-	App->ren->Blit(App->tex->Get_Texture("windslash"), collider->x, collider->y, windslash.GetCurrentFrame(), -2);
+	App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, windslash.GetCurrentFrame(), -2);
 	windslash.NextFrame();
 
 	std::vector<SDL_Rect*> colliders;

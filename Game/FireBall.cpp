@@ -7,8 +7,8 @@
 
 FireBall::FireBall()
 {
-	fireball_big.AddFrame({0,0,48,48});
-	fireball_small.AddFrame({16,16,16,16});
+	fireball_big.AddFrame({0,0,64,64});
+	fireball_small.AddFrame({96,0,32,32});
 }
 
 bool FireBall::Loop(float dt)
@@ -18,9 +18,9 @@ bool FireBall::Loop(float dt)
 	collider->x += direction * speed;
 	nextpos->x += direction * speed;
 	if(is_big)
-		App->ren->Blit(App->tex->Get_Texture("fireball"), collider->x, collider->y, fireball_big.GetCurrentFrame(), -2);
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, fireball_big.GetCurrentFrame(), -2);
 	else
-		App->ren->Blit(App->tex->Get_Texture("fireball"), collider->x, collider->y, fireball_small.GetCurrentFrame(), -2);
+		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, fireball_small.GetCurrentFrame(), -2);
 
 	std::vector<SDL_Rect*> colliders;
 	App->phy->GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
