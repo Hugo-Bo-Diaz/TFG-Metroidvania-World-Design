@@ -146,6 +146,9 @@
     <ClCompile Include="UIspelldisplay.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="ProgressTracker.cpp">
+      <Filter>Parts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -264,6 +267,9 @@
     </ClInclude>
     <ClInclude Include="UIspelldisplay.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressTracker.h">
+      <Filter>Parts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

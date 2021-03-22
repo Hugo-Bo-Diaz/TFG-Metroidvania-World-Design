@@ -88,6 +88,24 @@ void Physics::GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*
 	}
 }
 
+void Physics::GetCollisions(physobj * obj, std::vector<collision*>& collisions)
+{
+	//std::vector<collision*>* ret;
+
+	for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
+	{
+		if (SDL_HasIntersection((*it)->collider,obj->collider))
+		{
+			collision* col = new collision();
+
+			col->object = *it;
+			col->type = (*it)->type;
+
+			collisions.push_back(col);
+		}
+	}
+}
+
 physobj* Physics::AddObject(int x, int y, int w_col, int h_col, object_type type)
 {
 	physobj* r;
@@ -187,6 +205,26 @@ void Physics::DeleteWall(int id)
 	
 }
 
+void Physics::AddPortal(SDL_Rect area, int destination, bool horizontal)
+{
+	Portal* p = new Portal();
+
+	p->area = area;
+	p->id_destination = destination;
+	p->horizontal = horizontal;
+
+	portals.push_back(p);
+}
+
+void Physics::DeletePortals()
+{
+	for (std::list<Portal*>::iterator it = portals.begin(); it != portals.end(); it++)
+	{
+		delete *it;
+	}
+	portals.clear();
+}
+
 bool Physics::CleanUp()
 {
 	bool ret = true;
@@ -225,6 +263,8 @@ bool Physics::Clearphysics()
 		delete(*it);
 	}
 	objects.clear();
+
+	DeletePortals();
 
 	return ret;
 }

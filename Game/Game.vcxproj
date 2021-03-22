@@ -139,6 +139,7 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="FireBall.cpp" />
+    <ClCompile Include="ProgressTracker.cpp" />
     <ClCompile Include="pugiXML\src\pugixml.cpp" />
     <ClCompile Include="Rain.cpp" />
     <ClCompile Include="Render.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Math.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="Particles.h" />
+    <ClInclude Include="ProgressTracker.h" />
     <ClInclude Include="pugiXML\src\pugiconfig.hpp" />
     <ClInclude Include="pugiXML\src\pugixml.hpp" />
     <ClInclude Include="Rain.h" />

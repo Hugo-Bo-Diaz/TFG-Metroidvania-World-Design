@@ -14,7 +14,8 @@ struct BlitItem
 	SDL_Texture* tex;
 	SDL_Rect* on_img;
 	int depth;
-	float parallax_factor;
+	float parallax_factor_x;
+	float parallax_factor_y;
 
 	//rotation point and angle
 	//SDL_Point img_center;
@@ -29,6 +30,45 @@ struct BlitItem
 	}
 };
 
+struct BlitTile
+{
+	int x_tile;
+	int y_tile;
+	SDL_Texture* tex;
+	int depth;
+	float parallax_factor_x;
+	float parallax_factor_y;
+
+	float on_tile_x;
+	float on_tile_y;
+	float on_tile_w;
+	float on_tile_h;
+
+	bool operator<(const BlitItem& rhs) const
+	{
+		if (depth < rhs.depth)
+			return true;
+		else
+			return false;
+	}
+};
+
+struct BlitBackground
+{
+	SDL_Texture*tex;
+ 	bool repeat_y;
+	float parallax_x;
+	float parallax_y;
+	int depth;
+
+	bool operator<(const BlitItem& rhs) const
+	{
+		if (depth < rhs.depth)
+			return true;
+		else
+			return false;
+	}
+};
 struct BlitRect
 {
 	uint r;
@@ -66,7 +106,9 @@ public:
 	bool Loop(float dt);
 	bool CleanUp();
 
-	void Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0, float parallax_factor = 1);
+	void Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1);
+	void BlitMapTile(SDL_Texture* tex, int x_tile, int y_tile,SDL_Rect on_img, int depth, float parallax_factor_x = 1, float parallax_factor_y = 1);
+	void BlitMapBackground(SDL_Texture* tex, int depth, bool repeat_y, float parallax_factor_x = 1, float parallax_factor_y = 1);
 	void BlitUI(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
 	void BlitText(TextPrint* text,int x, int y);
 	void DrawRect(SDL_Rect* area, uint r, uint g, uint b, uint a, bool filled);
@@ -86,6 +128,9 @@ private:
 	std::queue<TextBlit*> text_queue;
 	std::queue<BlitRect*> quad_queue;
 	std::queue<Trail*> trail_queue;
+	std::vector<BlitTile*> tile_queue;
+	std::vector<BlitBackground*> background_queue;
+	
 
 public:
 

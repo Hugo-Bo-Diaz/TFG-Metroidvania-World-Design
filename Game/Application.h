@@ -37,6 +37,12 @@ public:
 
 	void LoadConfig(const char* filename);
 
+	void HideConsole();
+	void ShowConsole();
+	bool IsConsoleVisible();
+
+	bool debug = false;
+
 private:
 
 	float dt;

@@ -130,6 +130,38 @@ void Textures::Load_Texture(const char*path,const char* name, pugi::xml_node& no
 	return;
 }
 
+SDL_Texture * Textures::Load_Texture_Scene(const char * path)
+{
+	SDL_Texture* texture = NULL;
+	SDL_Surface* surface = IMG_Load(path);
+
+	if (surface == NULL)
+	{
+		printf("Could not load surface with path: %s. IMG_Load: %s \n", path, IMG_GetError());
+	}
+	else
+	{
+		texture = SDL_CreateTextureFromSurface(App->ren->renderer, surface);
+		if (texture == NULL)
+		{
+			printf("couldn't make texture from surface \n");
+		}
+		SDL_FreeSurface(surface);
+
+		Texture* new_tex = new Texture();
+		new_tex->texture = texture;
+		new_tex->id = number_of_textures;
+		++number_of_textures;
+		new_tex->name = name;
+
+		texture_list.push_back(new_tex);
+	}
+
+
+
+	return texture;
+}
+
 SDL_Texture* Textures::Get_Texture(const char* name)
 {
 	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)

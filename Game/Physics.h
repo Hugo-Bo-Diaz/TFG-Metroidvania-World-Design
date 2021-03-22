@@ -68,6 +68,22 @@ public:
 	}
 };
 
+struct collision
+{
+	object_type type;
+	physobj* object;
+};
+
+class Portal
+{
+public:
+	SDL_Rect area;
+	int id_destination;
+	bool horizontal;
+
+	void GoToDestination(int diff);
+};
+
 class Physics : public Part
 {
 public:
@@ -81,8 +97,13 @@ public:
 	void DeleteObject(physobj*);
 	void GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*>& colliders_near);
 	
+	void GetCollisions(physobj* obj,std::vector<collision*>&collisions);
+
 	int AddWall(SDL_Rect rect);
 	void DeleteWall(int id);
+
+	void AddPortal(SDL_Rect area, int destination, bool horizontal = true);
+	void DeletePortals();
 
 	physobj* AddObject(int x, int y, int w_col, int h_col, object_type type);
 
@@ -92,6 +113,8 @@ private:
 	std::list<physobj*> objects;
 
 	std::list<physobj*>to_delete;
+
+	std::list<Portal*> portals;
 
 };
 

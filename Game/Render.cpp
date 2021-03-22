@@ -88,6 +88,135 @@ bool Render::Loop(float dt)
 	bool ret = true;
 	SDL_RenderClear(renderer);
 
+	for (int i = 0; i < background_queue.size(); ++i)
+	{
+		BlitBackground* item = background_queue[i];
+		//if (App->tex->Valid_Texture(item->tex))//validation method???
+		{
+			
+			int back_w, back_h;
+
+			SDL_QueryTexture(item->tex,NULL,NULL,&back_w,&back_h);
+
+			uint scale = App->win->GetScale();
+
+			//calculate camera tile
+
+			int cam_tile_x;
+			int cam_tile_y;
+			int j = 0;
+			bool exit = false;
+			while (!exit)
+			{
+				if (App->cam->position_x >= (j-1)*back_w && App->cam->position_x < j*back_w)
+				{
+					exit = true;
+					cam_tile_x = j;
+				}
+				j++;
+			}
+			j = 0;
+			exit = false;
+			while (!exit)
+			{
+				if (App->cam->position_y >= (j - 1)*back_h && App->cam->position_y < j*back_h)
+				{
+					exit = true;
+					cam_tile_y = j;
+				}
+				j++;
+			}
+
+			int rel_x = App->cam->position_x - cam_tile_x * back_w;
+			int rel_y = App->cam->position_y - cam_tile_y * back_h;
+
+			float images_that_fit_in_cam_x = App->cam->width / back_w;
+			float images_that_fit_in_cam_y = App->cam->height / back_h;
+
+			for (int i = 0; i <= images_that_fit_in_cam_x; ++i)
+			{
+				for (int j = 0; j <= images_that_fit_in_cam_y; ++j)
+				{
+					SDL_Rect rect;//DUAL LOOP THIS
+
+					int pos_x = ((cam_tile_x - 1 + i) * back_w);
+					int pos_y = ((cam_tile_y - 1 + j) * back_h);
+
+					rect.x = pos_x + App->cam->GetCameraXoffset() * item->parallax_x;
+					rect.y = pos_y + App->cam->GetCameraYoffset() * item->parallax_y;
+					
+					if (!item->repeat_y)
+					{
+						rect.y = 0;
+					}
+
+					rect.w = back_w;
+					rect.h = back_h;
+
+					rect.w *= scale;
+					rect.h *= scale;
+
+					if (SDL_RenderCopyEx(renderer, item->tex, NULL, &rect, 0, NULL, SDL_FLIP_NONE) != 0)
+					{
+						printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+						ret = false;
+					}
+
+					if (!item->repeat_y)
+					{
+						break;
+					}
+				}
+			}
+		}
+		//else {
+		//printf("Texture not found! \n");
+		//}
+		delete item;
+	}
+	background_queue.clear();
+
+	for (int i = 0; i < tile_queue.size(); ++i)
+	{
+		BlitTile* item = tile_queue[i];
+		//if (App->tex->Valid_Texture(item->tex))//validation method???
+		{
+
+			float real_x = item->x_tile *item->on_tile_w;
+			float real_y = item->y_tile *item->on_tile_h;
+
+			uint scale = App->win->GetScale();
+
+			SDL_Rect rect;
+			rect.x = real_x *scale + App->cam->GetCameraXoffset() * item->parallax_factor_x;
+			rect.y = real_y * scale + App->cam->GetCameraYoffset() * item->parallax_factor_y;
+
+			rect.w = item->on_tile_w;
+			rect.h = item->on_tile_h;
+
+			rect.w *= scale;
+			rect.h *= scale;
+
+			SDL_Rect on_img;
+			on_img.x = item->on_tile_x;
+			on_img.y = item->on_tile_y;
+			on_img.w = item->on_tile_w;
+			on_img.h = item->on_tile_h;
+
+			if (SDL_RenderCopyEx(renderer, item->tex, &on_img, &rect, 0, NULL, SDL_FLIP_NONE) != 0)
+			{
+				printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+				ret = false;
+			}
+		}
+		//else {
+		//printf("Texture not found! \n");
+		//}
+		delete item;
+	}
+	tile_queue.clear();
+
+
 	for (int i = 0; i < blit_queue.size(); ++i)
 	{
 		BlitItem* item = blit_queue[i];
@@ -97,8 +226,8 @@ bool Render::Loop(float dt)
 			uint scale = App->win->GetScale();
 
 			SDL_Rect rect;
-			rect.x = item->x * scale + App->cam->GetCameraXoffset() * item->parallax_factor;
-			rect.y = item->y * scale + App->cam->GetCameraYoffset() * item ->parallax_factor;
+			rect.x = item->x * scale + App->cam->GetCameraXoffset() * item->parallax_factor_x;
+			rect.y = item->y * scale + App->cam->GetCameraYoffset() * item ->parallax_factor_y;
 
 			if (item->on_img != NULL)
 			{
@@ -321,7 +450,7 @@ bool Render::Loop(float dt)
 	return ret;
 }
 
-void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle, float parallax_factor)
+void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle, float parallax_factor_x, float parallax_factor_y)
 {
 	BlitItem* it = new BlitItem();
 	it->depth = depth;
@@ -332,7 +461,8 @@ void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int d
 
 	//it->img_center = {center_x,center_y};
 	it->angle = angle;
-	it->parallax_factor = parallax_factor;
+	it->parallax_factor_x = parallax_factor_x;
+	it->parallax_factor_y = parallax_factor_y;
 
 	blit_queue.push_back(it);
 	
@@ -362,6 +492,103 @@ void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int d
 				*blit_queue[i + 1] = *temp;
 				delete temp;
 				
+			}
+		}
+	}
+
+}
+
+void Render::BlitMapTile(SDL_Texture * tex, int x_tile, int y_tile,SDL_Rect on_img, int depth, float parallax_factor_x, float parallax_factor_y)
+{
+	BlitTile* it = new BlitTile();
+	it->depth = depth;
+	it->x_tile = x_tile;
+	it->y_tile = y_tile;
+	it->tex = tex;
+
+	it->on_tile_w = on_img.w;
+	it->on_tile_h = on_img.h;
+	it->on_tile_x = on_img.x;
+	it->on_tile_y = on_img.y;
+
+	//it->img_center = {center_x,center_y};
+	it->parallax_factor_x = parallax_factor_x;
+	it->parallax_factor_y = parallax_factor_y;
+
+	tile_queue.push_back(it);
+
+	//order the elements// GOTTA PRAY IT IS ON THE RIGHT ORDER :(
+/*
+	bool swapped = true;
+	while (swapped)
+	{
+		swapped = false;
+		int i = 0;
+		int size = tile_queue.size() - 1;
+		for (i = 0; i < size; ++i)
+		{
+			if (tile_queue[i]->depth < tile_queue[i + 1]->depth)
+			{
+				swapped = true;
+				//swap em;
+
+				//save him into the temp
+				BlitTile* temp = new BlitTile();
+				*temp = *tile_queue[i];
+
+				//swap em
+				*tile_queue[i] = *tile_queue[i + 1];
+
+				//normalize everything
+				*tile_queue[i + 1] = *temp;
+				delete temp;
+
+			}
+		}
+	}*/
+}
+
+void Render::BlitMapBackground(SDL_Texture * tex, int depth, bool repeat_y, float parallax_factor_x, float parallax_factor_y)
+{
+	BlitBackground* it = new BlitBackground();
+
+	it->depth = depth;
+	it->tex = tex;
+
+	it->repeat_y = repeat_y;
+
+	//it->img_center = {center_x,center_y};
+	it->parallax_x = parallax_factor_x;
+	it->parallax_y = parallax_factor_y;
+
+	background_queue.push_back(it);
+
+	//order the elements
+	
+	bool swapped = true;
+	while (swapped)
+	{
+		swapped = false;
+		int i = 0;
+		int size = background_queue.size() - 1;
+		for (i = 0; i < size; ++i)
+		{
+			if (background_queue[i]->depth < background_queue[i + 1]->depth)
+			{
+				swapped = true;
+				//swap em;
+
+				//save him into the temp
+				BlitBackground* temp = new BlitBackground();
+				*temp = *background_queue[i];
+
+				//swap em
+				*background_queue[i] = *background_queue[i + 1];
+
+				//normalize everything
+				*background_queue[i + 1] = *temp;
+				delete temp;
+
 			}
 		}
 	}

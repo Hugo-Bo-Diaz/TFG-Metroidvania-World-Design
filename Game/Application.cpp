@@ -12,8 +12,20 @@
 #include "Gui.h"
 #include "Text.h"
 
+#include <Windows.h>
+
 bool Application::Init() 
 {
+
+	if (debug)
+	{
+		ShowConsole();
+	}
+	else
+	{
+		HideConsole();
+	}
+
 	bool ret = true;
 	inp = new Input();
 	win = new Window();
@@ -127,4 +139,20 @@ void Application::LoadConfig(const char* filename)
 	{
 		config_file.save_file(filename);
 	}
+}
+
+
+void Application::HideConsole()
+{
+	::ShowWindow(::GetConsoleWindow(), SW_HIDE);
+}
+
+void Application::ShowConsole()
+{
+	::ShowWindow(::GetConsoleWindow(), SW_SHOW);
+}
+
+bool Application::IsConsoleVisible()
+{
+	return ::IsWindowVisible(::GetConsoleWindow()) != FALSE;
 }

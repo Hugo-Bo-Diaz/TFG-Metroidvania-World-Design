@@ -75,6 +75,5 @@ int main(int argc, char* args[])
 		}
 	}
 	SDL_Quit();
-	getchar();
 	return 1;
 }
