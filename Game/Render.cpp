@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Particles.h"
 #include "Text.h"
+#include "SceneController.h"
 
 #include <stdio.h>
 
@@ -108,7 +109,7 @@ bool Render::Loop(float dt)
 			bool exit = false;
 			while (!exit)
 			{
-				if (App->cam->position_x >= (j-1)*back_w && App->cam->position_x < j*back_w)
+				if (App->cam->position_x * item->parallax_x >= (j-1)*back_w && App->cam->position_x* item->parallax_x < j*back_w)
 				{
 					exit = true;
 					cam_tile_x = j;
@@ -119,7 +120,7 @@ bool Render::Loop(float dt)
 			exit = false;
 			while (!exit)
 			{
-				if (App->cam->position_y >= (j - 1)*back_h && App->cam->position_y < j*back_h)
+				if (App->cam->position_y* item->parallax_y >= (j - 1)*back_h && App->cam->position_y* item->parallax_y < j*back_h)
 				{
 					exit = true;
 					cam_tile_y = j;
@@ -142,12 +143,12 @@ bool Render::Loop(float dt)
 					int pos_x = ((cam_tile_x - 1 + i) * back_w);
 					int pos_y = ((cam_tile_y - 1 + j) * back_h);
 
-					rect.x = pos_x + App->cam->GetCameraXoffset() * item->parallax_x;
-					rect.y = pos_y + App->cam->GetCameraYoffset() * item->parallax_y;
+					rect.x = pos_x + App->cam->GetCameraXoffset() *item->parallax_x;
+					rect.y = pos_y + App->cam->GetCameraYoffset() *item->parallax_y;
 					
 					if (!item->repeat_y)
 					{
-						rect.y = 0;
+						rect.y = 0;// App->scn->room_h * 48 - App->cam->height;
 					}
 
 					rect.w = back_w;
@@ -176,9 +177,11 @@ bool Render::Loop(float dt)
 	}
 	background_queue.clear();
 
+	App->scn->RenderTiles();
+	/*
 	for (int i = 0; i < tile_queue.size(); ++i)
 	{
-		BlitTile* item = tile_queue[i];
+		BlitTile* item = tile_queue[i];/*
 		//if (App->tex->Valid_Texture(item->tex))//validation method???
 		{
 
@@ -215,7 +218,7 @@ bool Render::Loop(float dt)
 		delete item;
 	}
 	tile_queue.clear();
-
+	*/
 
 	for (int i = 0; i < blit_queue.size(); ++i)
 	{
@@ -272,8 +275,11 @@ bool Render::Loop(float dt)
 				rect.y = (*it)->particles[i]->target_on_screen.y * scale +App->cam->GetCameraYoffset();
 
 
-				rect.w = (*it)->particles[i]->target_on_screen.w;
-				rect.h = (*it)->particles[i]->target_on_screen.h;
+				rect.w = (*it)->particles[i]->target_on_screen.w*(*it)->particles[i]->current_scale;
+				rect.h = (*it)->particles[i]->target_on_screen.h*(*it)->particles[i]->current_scale;
+
+				rect.x -= rect.w / 2;
+				rect.y -= rect.h / 2;
 
 				/*rect.w *= scale;
 				rect.h *= scale;
@@ -332,10 +338,19 @@ bool Render::Loop(float dt)
 		
 		TextPrint* print = item->to_print;
 
-
+		int y_level = 0;
 		int length_so_far=0;
+
 		for (int i = 0; i < print->current_letter; i++)//-97
 		{
+			//CHECK FOR NEXT LINE
+			if (length_so_far > print->max_width)
+			{
+				y_level += 1;
+				length_so_far = 0;
+			}
+
+
 			//characters A to Z (65 - 90)
 			if ((print->text[i] >= 65 && print->text[i] <= 90))
 			{
@@ -349,7 +364,7 @@ bool Render::Loop(float dt)
 				fontsizex *= print->scale*1.3;
 
 				int x_scr = item->x + length_so_far;
-				int y_scr = item->y- fontsizey;
+				int y_scr = item->y- fontsizey + y_level * print->scale*(print->font_used->vsize + 5);//10 = SPACING
 				SDL_Rect on_screen = { x_scr,y_scr,fontsizex,fontsizey};
 
 				length_so_far += on_screen.w;
@@ -373,7 +388,7 @@ bool Render::Loop(float dt)
 				fontsizex *= print->scale;
 
 				int x_scr = item->x + length_so_far;
-				int y_scr = item->y - fontsizey;
+				int y_scr = item->y - fontsizey + y_level * print->scale*(print->font_used->vsize + 5);
 				SDL_Rect on_screen = { x_scr,y_scr,fontsizex,fontsizey };
 				
 				length_so_far += on_screen.w;
@@ -383,6 +398,10 @@ bool Render::Loop(float dt)
 					printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
 					ret = false;
 				}
+			}
+			else if (print->text[i] == 32)
+			{
+				length_so_far += print->font_used->hsize*print->scale;
 			}
 			
 		}
@@ -497,7 +516,7 @@ void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int d
 	}
 
 }
-
+/*
 void Render::BlitMapTile(SDL_Texture * tex, int x_tile, int y_tile,SDL_Rect on_img, int depth, float parallax_factor_x, float parallax_factor_y)
 {
 	BlitTile* it = new BlitTile();
@@ -517,37 +536,8 @@ void Render::BlitMapTile(SDL_Texture * tex, int x_tile, int y_tile,SDL_Rect on_i
 
 	tile_queue.push_back(it);
 
-	//order the elements// GOTTA PRAY IT IS ON THE RIGHT ORDER :(
-/*
-	bool swapped = true;
-	while (swapped)
-	{
-		swapped = false;
-		int i = 0;
-		int size = tile_queue.size() - 1;
-		for (i = 0; i < size; ++i)
-		{
-			if (tile_queue[i]->depth < tile_queue[i + 1]->depth)
-			{
-				swapped = true;
-				//swap em;
-
-				//save him into the temp
-				BlitTile* temp = new BlitTile();
-				*temp = *tile_queue[i];
-
-				//swap em
-				*tile_queue[i] = *tile_queue[i + 1];
-
-				//normalize everything
-				*tile_queue[i + 1] = *temp;
-				delete temp;
-
-			}
-		}
-	}*/
 }
-
+*/
 void Render::BlitMapBackground(SDL_Texture * tex, int depth, bool repeat_y, float parallax_factor_x, float parallax_factor_y)
 {
 	BlitBackground* it = new BlitBackground();
@@ -611,6 +601,7 @@ void Render::BlitUI(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int
 
 	//order the elements
 
+	/*
 	bool swapped = true;
 	while (swapped)
 	{
@@ -637,7 +628,7 @@ void Render::BlitUI(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int
 
 			}
 		}
-	}
+	}*/
 
 
 }

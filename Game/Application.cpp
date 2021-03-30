@@ -11,6 +11,7 @@
 #include "Particles.h"
 #include "Gui.h"
 #include "Text.h"
+#include "ProgressTracker.h"
 
 #include <Windows.h>
 
@@ -39,6 +40,7 @@ bool Application::Init()
 	par = new Particles();
 	gui = new UserInterface();
 	txt = new Text();
+	trk = new ProgressTracker();
 
 	parts.push_back(con);
 	parts.push_back(inp);
@@ -47,11 +49,12 @@ bool Application::Init()
 	parts.push_back(cam);
 	parts.push_back(gui);
 	parts.push_back(scn);
-	parts.push_back(aud);
 	parts.push_back(par);
+	parts.push_back(aud);
 	parts.push_back(ren);
 	parts.push_back(tex);
 	parts.push_back(txt);
+	parts.push_back(trk);
 
 	LoadConfig("config.xml");
 	
@@ -89,7 +92,7 @@ bool Application::Loop()
 bool Application::CleanUp() 
 {
 	bool ret = true;
-	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
+	for (std::list<Part*>::reverse_iterator it = parts.rbegin(); it != parts.rend(); it++)
 	{
 		if (!(*it)->CleanUp())
 		{

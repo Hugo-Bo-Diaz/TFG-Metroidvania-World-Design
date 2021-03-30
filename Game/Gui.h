@@ -8,6 +8,13 @@
 #include "SDL/include/SDL.h"
 #include "Physics.h"
 
+enum TextBoxColor
+{
+	RED,
+	BLUE,
+	WHITE
+};
+
 enum playerresource;
 
 class UserInterface : public Part
@@ -18,17 +25,22 @@ public:
 	bool Init();
 	bool Loop(float dt);
 	bool CleanUp();
+	void Clearelements();
 
 	std::vector<UIelement*> elements;
+	std::vector<UIelement*> to_delete;
 
 	void LoadUIScene(const char* scene) {};
 
 	void RemoveElement(UIelement* to_delete);
 
+	UIelement* AddMainMenu();
+
 	UIelement* Add_Image(float x, float y, float w, float h, float depth, const char* texture);
 	UIelement* Add_GameUI(physobj* player);
 	UIelement* Add_ResourceBar(float x, float y, playerresource res);
 	UIelement* AddSpellDisplay(float x, float y);
+	UIelement* AddTextBox(const char* author, const char* text, TextBoxColor color, int tiles_x, int tiles_y, int x, int y, float size = 1, float speed = 1);
 
 
 	//TEXT WORKS WITH A REFERENCE TO A STRUCT THAT CAN GIVE AN SDL_TEXTURE

@@ -65,6 +65,8 @@
 			<texture path="Assets/UI/books.png" name="spell_books" />
 			<texture path="Assets/UI/healthandmana.png" name="healthbars" />
 			<texture path="Assets/UI/spell_location.png" name="spell_display_base" />
+			<texture path="Assets/UI/textboxes.png" name="text_boxes" />
+			<texture path="Assets/Sprites/particles.png" name="particles" />
 		</textures>
 	</Textures>
 </config>

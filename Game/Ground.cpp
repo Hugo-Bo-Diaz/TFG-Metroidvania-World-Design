@@ -4,6 +4,8 @@
 #include "Input.h"
 #include "Physics.h"
 #include "Render.h"
+#include "Camera.h"
+#include "Particles.h"
 
 #include "Rock.h"
 #include "Shockwave.h"
@@ -20,7 +22,7 @@ void Ground::Loop(float dt)
 	//if (App->inp->GetButton(X) == BUTTON_DOWN && ! is_rock_on_cooldown)
 	if (App->inp->GetInput(BUTTON_2) == KEY_DOWN && !is_rock_on_cooldown)
 	{
-			((Rock*)App->phy->AddObject(player->collider->x+player->collider->w/2, player->collider->y+player->collider->h / 2, 32, 32, ROCK))->Fire(player->is_right,45,12,1);
+			((Rock*)App->phy->AddObject(player->collider->x+player->collider->w/2, player->collider->y+player->collider->h / 2, 32, 32, ROCK))->Fire(player->is_right,45,15,1);
 			is_rock_on_cooldown = true;
 			rock_timer.Reset();
 			rock_timer.Start();
@@ -43,9 +45,6 @@ void Ground::Loop(float dt)
 
 	if (groundpounding)
 	{
-		//add graphic
-		App->ren->Blit(App->tex->Get_Texture("spells"), player->collider->x, player->collider->y + player->collider->h, &groundpound, -2);
-
 		// move player accordingly
 		if (!is_on_gp_lag)
 		{
@@ -68,6 +67,11 @@ void Ground::Loop(float dt)
 				groundpound_end_timer.Reset();
 				groundpound_end_timer.Start();
 				current_yspeed = 0;
+
+				App->cam->CameraShake(35, 0.7);//ADD PARTICLES
+				App->par->AddParticleEmitter(&App->par->groundcontact, hitbox.x, hitbox.y + hitbox.h, 200);
+				App->par->AddParticleEmitter(&App->par->groundcontact, hitbox.x+hitbox.w/2, hitbox.y + hitbox.h, 200);
+				App->par->AddParticleEmitter(&App->par->groundcontact, hitbox.x+hitbox.w, hitbox.y + hitbox.h, 200);
 			}
 		}
 	}
@@ -90,12 +94,36 @@ void Ground::Loop(float dt)
 		is_eq_on_cooldown = true;
 		earthquake_timer.Reset();
 		earthquake_timer.Start();
+
+		App->cam->CameraShake(15, 2);//ADD PARTICLES
+		App->par->AddParticleEmitter(&App->par->groundcontact, player->collider->x, player->collider->y + player->collider->h, 200);
+		App->par->AddParticleEmitter(&App->par->groundcontact, player->collider->x + player->collider->w, player->collider->y + player->collider->h, 200);
 	}
 
 	if (is_eq_on_cooldown && earthquake_timer.Read() > cooldown_earthquake)
 	{
 		is_eq_on_cooldown = false;
 	}
+}
+
+void Ground::Render()
+{
+	if (groundpounding)
+	{
+		//add graphic
+		App->ren->Blit(App->tex->Get_Texture("spells"), player->collider->x, player->collider->y + player->collider->h, &groundpound, -2);
+	}
+}
+
+void Ground::Switched_in()
+{
+}
+
+void Ground::Switched_out()
+{
+	groundpounding = false;
+	is_on_gp_lag = false;
+	player->UnlockMovement();
 }
 
 void Ground::UnlockMovementEvent()

@@ -11,6 +11,10 @@ public:
 	void Init();
 
 	void Loop(float dt);
+	void Render();
+
+	void Switched_in();
+	void Switched_out();
 
 	void UnlockMovementEvent();
 

@@ -21,6 +21,7 @@ class Audio;
 class Particles;
 class UserInterface;
 class Text;
+class ProgressTracker;
 
 
 #endif // !PARTSDEF__H

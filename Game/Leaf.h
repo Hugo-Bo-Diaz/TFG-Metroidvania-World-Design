@@ -4,16 +4,18 @@
 #include "Physics.h"
 #include "Animation.h"
 
+class ParticleEmitter;
+
 class Leaf : public physobj
 {
 public:
 
 	Leaf();
-	~Leaf();
 
 	void Fire(bool left_dir, float angle);
 
 	bool Loop(float dt);
+	bool Render();
 
 	float speed = 15;
 	int direction;
@@ -24,6 +26,8 @@ public:
 
 	Animation leaf_left;
 	Animation leaf_right;
+
+	ParticleEmitter* p;
 };
 
 #endif // !PLAYER__REP__H

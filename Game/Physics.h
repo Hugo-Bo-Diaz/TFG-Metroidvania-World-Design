@@ -11,13 +11,16 @@
 
 #include "SDL/include/SDL.h"
 
-#define MAX_WALLS 30
+#define MAX_WALLS 500
 
 struct SDL_Texture;
 
 enum object_type
 {
+	//PLAYER
 	PLAYER,
+
+	//PROJECTILES
 	FIRE_BALL,
 	WIND_SLASH,
 	ICE_SHARD,
@@ -26,7 +29,13 @@ enum object_type
 	LEAF,
 	THORNS,
 	ROCK,
-	SHOCKWAVE
+	SHOCKWAVE,
+
+	//SPELLS UNLOCK
+	FIRE_SPELL_PICKUP,
+
+	//MAX
+	MAX_OBJECT_TYPE
 };
 
 enum texture_type
@@ -46,6 +55,7 @@ public:
 	object_type type;
 
 	virtual bool Loop(float dt) { return true; };
+	virtual bool Render() { return true; };
 
 	physobj()
 	{
@@ -53,7 +63,7 @@ public:
 		nextpos = new SDL_Rect({ 0,0,0,0 });
 	}
 	//visuals
-	~physobj()
+	virtual ~physobj()
 	{
 		if (collider != nullptr)
 		{
@@ -74,15 +84,7 @@ struct collision
 	physobj* object;
 };
 
-class Portal
-{
-public:
-	SDL_Rect area;
-	int id_destination;
-	bool horizontal;
 
-	void GoToDestination(int diff);
-};
 
 class Physics : public Part
 {
@@ -96,25 +98,27 @@ public:
 	bool Clearphysics();
 	void DeleteObject(physobj*);
 	void GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*>& colliders_near);
-	
-	void GetCollisions(physobj* obj,std::vector<collision*>&collisions);
+
+	void GetCollisions(SDL_Rect* rect,std::vector<collision*>&collisions);
+	//lets go void
 
 	int AddWall(SDL_Rect rect);
 	void DeleteWall(int id);
 
-	void AddPortal(SDL_Rect area, int destination, bool horizontal = true);
-	void DeletePortals();
+	bool is_paused = false;
+	void PauseObjects() { is_paused = true; };
+	void UnPauseObjects() { is_paused = false; };
 
 	physobj* AddObject(int x, int y, int w_col, int h_col, object_type type);
 
+	SDL_Rect* walls[MAX_WALLS];
+
 private:
 
-	SDL_Rect* walls [MAX_WALLS];
 	std::list<physobj*> objects;
 
 	std::list<physobj*>to_delete;
 
-	std::list<Portal*> portals;
 
 };
 

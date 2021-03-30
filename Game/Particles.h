@@ -33,10 +33,27 @@ public:
 
 	std::list<ParticleEmitter*> to_delete;
 
-	SDL_Rect r1;
-	SDL_Rect r2;
-	particle_preset fire;
+	SDL_Rect r1exp;
+	SDL_Rect r2shield;
+	SDL_Rect r3lava;
+	SDL_Rect r4ice;
+	SDL_Rect r5slash;
+	SDL_Rect r6buff;
+	SDL_Rect r7buff;
+	SDL_Rect r8ground;
+	SDL_Rect r9ground;
+	SDL_Rect r10grass;
+	SDL_Rect r11grass;
+	SDL_Rect r12shield;
 
+	particle_preset explosion;
+	particle_preset fireshield;
+	particle_preset lava;
+	particle_preset ice;
+	particle_preset windslash;
+	particle_preset windbuff;
+	particle_preset groundcontact;
+	particle_preset grass;
 
 };
 

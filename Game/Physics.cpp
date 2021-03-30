@@ -15,6 +15,8 @@
 #include "Rock.h"
 #include "Shockwave.h"
 
+#include "FireSpellPickup.h"
+
 Physics::Physics()
 {
 	name = "Physics";
@@ -35,16 +37,28 @@ bool Physics::Init()
 bool Physics::Loop(float dt)
 {
 	bool ret = true;
+
+
+	if (!is_paused)
+	{
+		for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
+		{
+			if (!(*it)->Loop(dt))
+			{
+				ret = false;
+			}
+		}
+	}
 	
 	for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
-		if (!(*it)->Loop(dt))
+		if (!(*it)->Render())
 		{
 			ret = false;
 		}
 	}
-
-if (false)
+//if (App->debug)
+	if(false)
 	{
 		for (int i = 0; i < MAX_WALLS; ++i)
 		{
@@ -88,13 +102,13 @@ void Physics::GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*
 	}
 }
 
-void Physics::GetCollisions(physobj * obj, std::vector<collision*>& collisions)
+void Physics::GetCollisions(SDL_Rect* obj, std::vector<collision*>& collisions)
 {
 	//std::vector<collision*>* ret;
 
 	for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
-		if (SDL_HasIntersection((*it)->collider,obj->collider))
+		if (SDL_HasIntersection((*it)->collider,obj))
 		{
 			collision* col = new collision();
 
@@ -141,6 +155,9 @@ physobj* Physics::AddObject(int x, int y, int w_col, int h_col, object_type type
 		break; }
 	case SHOCKWAVE: {
 		r = new Shockwave();
+		break; }
+	case FIRE_SPELL_PICKUP: {
+		r = new FireSpellPickup();
 		break; }
 	default:
 		r = new physobj();
@@ -205,25 +222,6 @@ void Physics::DeleteWall(int id)
 	
 }
 
-void Physics::AddPortal(SDL_Rect area, int destination, bool horizontal)
-{
-	Portal* p = new Portal();
-
-	p->area = area;
-	p->id_destination = destination;
-	p->horizontal = horizontal;
-
-	portals.push_back(p);
-}
-
-void Physics::DeletePortals()
-{
-	for (std::list<Portal*>::iterator it = portals.begin(); it != portals.end(); it++)
-	{
-		delete *it;
-	}
-	portals.clear();
-}
 
 bool Physics::CleanUp()
 {
@@ -260,11 +258,13 @@ bool Physics::Clearphysics()
 		{
 			((FireBall*)(*it))->~FireBall();
 		}
+		if ((*it)->type == FIRE_SPELL_PICKUP)
+		{
+			((FireSpellPickup*)(*it))->~FireSpellPickup();
+		}
 		delete(*it);
 	}
 	objects.clear();
-
-	DeletePortals();
 
 	return ret;
 }

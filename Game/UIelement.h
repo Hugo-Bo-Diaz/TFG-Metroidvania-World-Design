@@ -47,7 +47,7 @@ public:
 
 
 	UIelement() {};
-	~UIelement();
+	virtual ~UIelement();
 };
 
 #endif // !UI__ELEMENT

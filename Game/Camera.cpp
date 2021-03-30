@@ -6,6 +6,7 @@
 #include <time.h>
 #include "Console.h"
 #include "Input.h"
+#include "SceneController.h"
 
 #include <string>
 
@@ -29,10 +30,25 @@ bool Camera::Loop(float dt)//camera can't drop further than 704-height
 	{
 		position_x = (target->collider->x + target->collider->w / 2) - width / 2;
 		position_y = (target->collider->y + target->collider->h / 2) - height / 2;
-		if (position_y > 576 - height)
+
+		if (position_y > App->scn->room_h * 48 - height)
 		{
-			position_y = 576 - height;
+			position_y = App->scn->room_h * 48 - height;
 		}
+		else if (position_y < 0)
+		{
+			position_y = 0;
+		}
+		
+		if (position_x > App->scn->room_w * 48 - width)
+		{
+			position_x = App->scn->room_w * 48 - width;
+		}
+		else if (position_x < 0)
+		{
+			position_x = 0;
+		}
+
 		if (is_shaking)
 		{
 			position_x += rand() % amount + 1;

@@ -13,6 +13,7 @@ public:
 	float speed;
 
 	void Loop();
+	void Render();
 
 	Cloud* parent;
 	

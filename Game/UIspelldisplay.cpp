@@ -34,19 +34,21 @@ void UIspelldisplay::Loop()
 void UIspelldisplay::Render()
 {
 	UIelement::Render();
+	if (current_spell != NONE_UNLOCKED)
+	{
+		//render borders;
+		App->ren->BlitUI(App->tex->Get_Texture("spell_display_base"), x, y, &left_border, 50);
+		App->ren->BlitUI(App->tex->Get_Texture("spell_display_base"), x + 160, y, &right_border, 50);//(32+8+31+8)*2
 
-	//render borders;
-	App->ren->BlitUI(App->tex->Get_Texture("spell_display_base"), x, y, &left_border, 50);
-	App->ren->BlitUI(App->tex->Get_Texture("spell_display_base"), x+160, y, &right_border, 50);//(32+8+31+8)*2
+		App->ren->BlitUI(App->tex->Get_Texture("spell_display_base"), x, y, &left_cover, 40);
+		App->ren->BlitUI(App->tex->Get_Texture("spell_display_base"), x + 160, y, &right_cover, 40);//(32+8+31+8)*2
 
-	App->ren->BlitUI(App->tex->Get_Texture("spell_display_base"), x, y, &left_cover, 40);
-	App->ren->BlitUI(App->tex->Get_Texture("spell_display_base"), x + 160, y, &right_cover, 40);//(32+8+31+8)*2
-
-	App->ren->BlitUI(App->tex->Get_Texture("spell_display_base"), x+78, y, &square, 40);
+		App->ren->BlitUI(App->tex->Get_Texture("spell_display_base"), x + 78, y, &square, 40);
 
 
-	//render book;
-	App->ren->BlitUI(App->tex->Get_Texture("spell_books"),x+84,y+8, &books[current_spell],45);//(32+8)*2
+		//render book;
 
+		App->ren->BlitUI(App->tex->Get_Texture("spell_books"), x + 84, y + 8, &books[current_spell], 45);//(32+8)*2
+	}
 
 }

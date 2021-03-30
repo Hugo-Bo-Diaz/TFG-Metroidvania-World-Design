@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "Console.h"
 #include "Render.h"
+#include "Particles.h"
 
 WindSlash::WindSlash()
 {
@@ -10,6 +11,8 @@ WindSlash::WindSlash()
 	windslash.AddFrame({ 48,222,48,48 });
 	windslash.AddFrame({ 96,222,48,48 });
 	windslash.AddFrame({ 144,222,48,48 });
+
+	p = App->par->AddParticleEmitter(&App->par->windslash,collider->x,collider->h);
 }
 
 bool WindSlash::Loop(float dt)
@@ -18,8 +21,10 @@ bool WindSlash::Loop(float dt)
 
 	collider->x += direction * speed;
 	nextpos->x += direction * speed;
-	App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, windslash.GetCurrentFrame(), -2);
 	windslash.NextFrame();
+
+	p->position_x = collider->x;
+	p->position_y = collider->y;
 
 	std::vector<SDL_Rect*> colliders;
 	App->phy->GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
@@ -30,10 +35,18 @@ bool WindSlash::Loop(float dt)
 		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
 		{
 			App->phy->DeleteObject(this);
+			App->par->to_delete.push_back(p);
+			App->par->AddParticleEmitter(&App->par->windslash, collider->x, collider->y, 500);
 		}
 	}
 
 	return ret;
+}
+
+bool WindSlash::Render()
+{
+	App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, windslash.GetCurrentFrame(), -2);
+	return true;
 }
 
 void WindSlash::Fire(bool left_dir)
@@ -42,9 +55,4 @@ void WindSlash::Fire(bool left_dir)
 		direction = 1;
 	else
 		direction = -1;
-}
-
-WindSlash::~WindSlash()
-{
-
 }

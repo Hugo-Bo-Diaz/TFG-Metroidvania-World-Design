@@ -9,6 +9,8 @@
 #define ROOMS_MAX_X 10
 #define ROOMS_MAX_Y 10
 
+class Portal;
+
 enum layer_type
 {
 	BACKGROUND,
@@ -17,22 +19,6 @@ enum layer_type
 	UI
 };
 
-struct layer
-{
-	layer_type type;
-	uint* data;
-	int width;
-	int height;
-	float parallax_x;
-	float parallax_y;
-	int depth;
-	int size;
-
-	~layer()
-	{
-		delete data;
-	}
-};
 
 struct tileset
 {
@@ -45,6 +31,26 @@ struct tileset
 	int total_tiles;
 
 	SDL_Texture* texture;
+};
+
+
+struct layer
+{
+	layer_type type;
+	uint* data;
+	int width;
+	int height;
+	float parallax_x;
+	float parallax_y;
+	int depth;
+	int size;
+
+	tileset* tileset_of_layer;
+
+	~layer()
+	{
+		delete data;
+	}
 };
 
 struct background_texture
@@ -62,7 +68,22 @@ struct room
 {
 	int id;
 	std::string path;
+};
 
+struct SpawnPoint
+{
+	int x;
+	int y;
+	int id;
+};
+
+class Portal
+{
+public:
+	SDL_Rect area;
+	int id_destination_room;
+	int id_destination_point;
+	bool horizontal;
 };
 
 class SceneController : public Part
@@ -80,22 +101,36 @@ public:
 	void LoadMapArray(const char* document);
 
 	bool LoadMap(const char* filename);
+	void CleanMap();
+	void ChangeMap(const char* filename);
 
 	bool LoadBackground(pugi::xml_node&);
 	bool LoadWalls(pugi::xml_node&);
 	bool LoadObjects(pugi::xml_node&);
 	bool LoadTiles(pugi::xml_node&);
+	bool LoadPortals(pugi::xml_node&);
+	bool LoadSpawnPoints(pugi::xml_node&);
 
 	tileset* GetTilesetFromId(int id);
-	SDL_Rect GetImageRectFromId(int id);
+	SDL_Rect GetImageRectFromId(tileset* t, int id);
 	SDL_Texture* GetTextureFromId(int id);
+
+	int RoundToNearestTileset(int id);
 
 	void RenderTiles();
 	void RenderBackground();
 
 	uint song_try;
 
-	void CleanMap();
+	int room_w;
+	int room_h;
+
+	void UsePortal(Portal*p, int offset);
+	std::vector<SpawnPoint*>spawnpoints;
+	void AddPortal(SDL_Rect area, int destination_r, int destination_p, bool horizontal = true);
+	void AddPortal(Portal* p);
+	void DeletePortals();
+
 
 private:
 
@@ -108,6 +143,9 @@ private:
 	std::vector<background_texture*> active_backgrounds;
 
 	std::vector<room*> rooms;
+
+	std::list<Portal*> portals;
+
 
 };
 

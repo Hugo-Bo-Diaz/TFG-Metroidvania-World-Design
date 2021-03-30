@@ -27,6 +27,7 @@ enum spell_type
 	WATER,
 	GRASS,
 	GROUND,
+	NONE_UNLOCKED
 };
 
 class Player : public physobj
@@ -36,6 +37,7 @@ public:
 	~Player();
 	state current_state = IDLE;
 	bool Loop(float dt);
+	bool Render();
 	
 	int x = 0;
 	int y = 0;
@@ -83,7 +85,7 @@ public:
 
 	SDL_Point trail[30];
 
-	spell_type current_spell=FIRE;
+	spell_type current_spell = NONE_UNLOCKED;
 	std::vector<Spell*> spells;
 	int unlocked_spells;
 	std::vector<bool> unlocked;

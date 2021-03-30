@@ -126,12 +126,14 @@
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Fire.cpp" />
+    <ClCompile Include="FireSpellPickup.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="IceBlock.cpp" />
     <ClCompile Include="IceShard.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="LavaSpell.cpp" />
     <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
@@ -154,7 +156,9 @@
     <ClCompile Include="UIhealthbar.cpp" />
     <ClCompile Include="UIimage.cpp" />
     <ClCompile Include="UIingameUI.cpp" />
+    <ClCompile Include="UImainmenu.cpp" />
     <ClCompile Include="UIspelldisplay.cpp" />
+    <ClCompile Include="UItextbox.cpp" />
     <ClCompile Include="Water.cpp" />
     <ClCompile Include="Wind.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -168,9 +172,11 @@
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Fire.h" />
+    <ClInclude Include="FireSpellPickup.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Gui.h" />
+    <ClInclude Include="LavaSpell.h" />
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="ParticleEmitter.h" />
@@ -200,7 +206,9 @@
     <ClInclude Include="UIhealthbar.h" />
     <ClInclude Include="UIimage.h" />
     <ClInclude Include="UIingameUI.h" />
+    <ClInclude Include="UImainmenu.h" />
     <ClInclude Include="UIspelldisplay.h" />
+    <ClInclude Include="UItextbox.h" />
     <ClInclude Include="Water.h" />
     <ClInclude Include="Wind.h" />
     <ClInclude Include="Window.h" />

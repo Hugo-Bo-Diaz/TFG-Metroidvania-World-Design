@@ -3,6 +3,8 @@
 #include "Input.h"
 #include "Console.h"
 #include "Render.h"
+#include "Particles.h"
+#include "Camera.h"
 
 Rock::Rock()
 {
@@ -21,7 +23,6 @@ bool Rock::Loop(float dt)
 
 	y_speed += gravity;
 
-	App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, rock_sprite.GetCurrentFrame(), -2);
 
 	std::vector<SDL_Rect*> colliders;
 	App->phy->GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
@@ -32,10 +33,19 @@ bool Rock::Loop(float dt)
 		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
 		{
 			App->phy->DeleteObject(this);
+			App->par->AddParticleEmitter(&App->par->groundcontact, collider->x + collider->w/2, collider->y + collider->h/2, 100);
+			App->cam->CameraShake(15, 60);
 		}
 	}
 
 	return ret;
+}
+
+bool Rock::Render()
+{
+	App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, rock_sprite.GetCurrentFrame(), -2);
+
+	return true;
 }
 
 void Rock::Fire(bool left_dir, float angle, float speed, float _gravity)
@@ -51,9 +61,4 @@ void Rock::Fire(bool left_dir, float angle, float speed, float _gravity)
 	}
 	
 	gravity = _gravity;
-}
-
-Rock::~Rock()
-{
-
 }

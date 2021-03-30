@@ -7,7 +7,7 @@
 #include "IceShard.h"
 #include "IceBlock.h"
 #include "Cloud.h"
-
+#include "Camera.h"
 void Water::Init()
 {
 
@@ -21,6 +21,7 @@ void Water::Loop(float dt)
 	{
 		IceShard* iceshard = (IceShard*)App->phy->AddObject(player->collider->x, player->collider->y+player->collider->h/2-12, 48, 24, ICE_SHARD);
 		iceshard->Fire(player->is_right);
+		App->cam->CameraShake(10, 100);
 	}
 
 	//Iceblock------------------------------------------------------------------------------------------------------------------
@@ -56,7 +57,7 @@ void Water::Loop(float dt)
 		float joystickx, joysticky;
 		App->inp->GetJoystick(true, joystickx, joysticky);
 
-
+		App->cam->CameraShake(10, 200);
 
 		if (joystickx < 0.15 && joystickx>-0.15)
 		{

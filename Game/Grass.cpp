@@ -6,13 +6,15 @@
 #include "Leaf.h"
 #include "Thorns.h"
 #include "Render.h"
-
+#include "Camera.h"
 #include "Math.h"
-
+#include "Particles.h"
 void Grass::Init()
 {
 	thorns_timer.Pause();
 	thorns_timer.Reset();
+	p = App->par->AddParticleEmitter(&App->par->grass, 0, 0);
+	p->active = false;
 }
 
 void Grass::Loop(float dt)
@@ -20,9 +22,12 @@ void Grass::Loop(float dt)
 	
 	//leafshot--------------------------------------------------------------------------------------------------------------------------
 	//if (App->inp->GetButton(X) == BUTTON_RELEASE)
+	p->position_x = player->collider->x + player->collider->w / 2;
+	p->position_y = player->collider->y + player->collider->h / 2;
+
+
 	if (App->inp->GetInput(BUTTON_2) == KEY_RELEASE)
 	{
-
 		if (charge > 25)
 		{
 			/*Leaf* leaf = (Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF);
@@ -31,12 +36,15 @@ void Grass::Loop(float dt)
 			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF))->Fire(player->is_right, 0);
 			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF))->Fire(player->is_right, -15);
 
+			App->cam->CameraShake(20, 100);
 			//printf("big hadoken \n");
 		}
 		else
 		{
 			Leaf* leaf = (Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF);
 			leaf->Fire(player->is_right, 0);
+
+			App->cam->CameraShake(10, 50);
 			//printf("smol hadoken \n");
 		}
 		charge = 0;
@@ -45,6 +53,14 @@ void Grass::Loop(float dt)
 	if (App->inp->GetInput(BUTTON_2) == KEY_REPEAT)
 	{
 		charge += 2;
+	}
+	if (charge > 25)
+	{
+		p->active = true;
+	}
+	else
+	{
+		p->active = false;
 	}
 	
 	//grasshook------------------------------------------------------------------------------------------------------------------
@@ -109,25 +125,7 @@ void Grass::Loop(float dt)
 		}
 	}
 	
-	if(hooked || hook_out)
-	{
-		App->ren->Blit(App->tex->Get_Texture("spells"), hook_position_x- hook.w / 2, hook_position_y- hook.h / 2, &hook, -2, 0);
-		debug.x = hook_position_x - 5;
-		debug.y = hook_position_y - 5;
-		App->ren->DrawRect(&debug,0,0,0,255,true);
 
-		draw_angle = atan2(hook_position_y - (player->y+(player->collider->h/2)), hook_position_x - (player->x+(player->collider->w/2)));
-		printf("%f\n", draw_angle * 180 / 3.1428);
-		float distance_to_hook = DistanceBetweenTwoPoints(hook_position_x, hook_position_y, player->x + player->collider->w / 2, player->y + player->collider->h / 2);
-		int vine_portions = 1 + (distance_to_hook / 32);
-		for (int i = 0; i < vine_portions; ++i)
-		{
-			App->ren->Blit(App->tex->Get_Texture("spells"), 
-				player->x + player->collider->w/2 + cos(draw_angle)*i * 32 - vine.w/2,
-				player->y + player->collider->h/2 + sin(draw_angle)*i * 32 - vine.h/2,
-				&vine, -1, draw_angle * 180 / 3.1428);
-		}
-	}
 
 	if (hooked)
 	{
@@ -157,6 +155,45 @@ void Grass::Loop(float dt)
 	{
 		is_thorns_on_cooldown = false;
 	}
+}
+
+void Grass::Render()
+{
+	if (hooked || hook_out)
+	{
+		App->ren->Blit(App->tex->Get_Texture("spells"), hook_position_x - hook.w / 2, hook_position_y - hook.h / 2, &hook, -2, 0);
+		debug.x = hook_position_x - 5;
+		debug.y = hook_position_y - 5;
+		App->ren->DrawRect(&debug, 0, 0, 0, 255, true);
+
+		draw_angle = atan2(hook_position_y - (player->y + (player->collider->h / 2)), hook_position_x - (player->x + (player->collider->w / 2)));
+		printf("%f\n", draw_angle * 180 / 3.1428);
+		float distance_to_hook = DistanceBetweenTwoPoints(hook_position_x, hook_position_y, player->x + player->collider->w / 2, player->y + player->collider->h / 2);
+		int vine_portions = 1 + (distance_to_hook / 32);
+		for (int i = 0; i < vine_portions; ++i)
+		{
+			App->ren->Blit(App->tex->Get_Texture("spells"),
+				player->x + player->collider->w / 2 + cos(draw_angle)*i * 32 - vine.w / 2,
+				player->y + player->collider->h / 2 + sin(draw_angle)*i * 32 - vine.h / 2,
+				&vine, -1, draw_angle * 180 / 3.1428);
+		}
+	}
+}
+
+void Grass::Switched_in()
+{
+}
+
+void Grass::Switched_out()
+{
+	player->UnlockMovement();
+	hook_out = false;
+	hooked = false;
+
+	hook_position_x = player->x + player->collider->w / 2;
+	hook_position_y = player->y + player->collider->h / 2;
+
+	charge = 0;
 }
 
 void Grass::UnlockMovementEvent()

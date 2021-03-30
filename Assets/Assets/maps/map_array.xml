@@ -1,9 +1,6 @@
 <completemap>
-	<room id = "1" path = "testing_grounds.tmx">
-		<spaces>
-			<space x = "0" y = "1"/>
-			<space x = "1" y = "1"/>
-			<space x = "2" y = "1"/>
-		</spaces>
-	</room>
+	<room id = "0" path = "Assets/maps/map0_entrance.tmx"/>
+	<room id = "1" path = "Assets/maps/map1_fire_pit.tmx"/>
+	<room id = "2" path = "Assets/maps/map2_fire_entrance.tmx"/>
+	<room id = "3" path = "Assets/maps/map3_fire_spell_location.tmx"/>
 </completemap>

@@ -9,11 +9,11 @@ class Rock : public physobj
 public:
 
 	Rock();
-	~Rock();
 
 	void Fire(bool left_dir, float angle, float speed, float gravity);
 
 	bool Loop(float dt);
+	bool Render();
 
 	float x_speed = 0;
 	float y_speed = 0;

@@ -6,6 +6,7 @@
 #include <queue>
 
 struct TextPrint;
+struct layer;
 
 struct BlitItem
 {
@@ -29,7 +30,7 @@ struct BlitItem
 			return false;
 	}
 };
-
+/*
 struct BlitTile
 {
 	int x_tile;
@@ -52,7 +53,7 @@ struct BlitTile
 			return false;
 	}
 };
-
+*/
 struct BlitBackground
 {
 	SDL_Texture*tex;
@@ -107,7 +108,10 @@ public:
 	bool CleanUp();
 
 	void Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1);
-	void BlitMapTile(SDL_Texture* tex, int x_tile, int y_tile,SDL_Rect on_img, int depth, float parallax_factor_x = 1, float parallax_factor_y = 1);
+	
+	/*void BlitMapTile(SDL_Texture* tex, int x_tile, int y_tile,SDL_Rect on_img, int depth, float parallax_factor_x = 1, float parallax_factor_y = 1);
+	void BlitMapLayer(layer* layer);*/
+
 	void BlitMapBackground(SDL_Texture* tex, int depth, bool repeat_y, float parallax_factor_x = 1, float parallax_factor_y = 1);
 	void BlitUI(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
 	void BlitText(TextPrint* text,int x, int y);
@@ -128,7 +132,7 @@ private:
 	std::queue<TextBlit*> text_queue;
 	std::queue<BlitRect*> quad_queue;
 	std::queue<Trail*> trail_queue;
-	std::vector<BlitTile*> tile_queue;
+	//std::vector<BlitTile*> tile_queue;
 	std::vector<BlitBackground*> background_queue;
 	
 

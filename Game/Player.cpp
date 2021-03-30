@@ -4,6 +4,10 @@
 #include "Console.h"
 #include "Camera.h"
 #include "SceneController.h"
+#include "ProgressTracker.h"
+
+#include "Gui.h"
+#include "UItextbox.h"
 
 #include "Fire.h"
 #include "Wind.h"
@@ -13,7 +17,7 @@
 
 Player::Player()
 {
-	speed_y = -10;
+	speed_y = 0;
 	acceleration_y = 0.5;
 
 	idle_right.AddFrame({0,0,64,64});
@@ -96,15 +100,28 @@ Player::Player()
 
 	unlocked_spells = 5;
 
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	
+	/*unlocked.push_back(true);
 	unlocked.push_back(true);
 	unlocked.push_back(true);
 	unlocked.push_back(true);
 	unlocked.push_back(true);
-	unlocked.push_back(true);
+	*/
+
+
 }
 
 bool Player::Loop(float dt)
 {
+	/*if(unlocked[FIRE]==false)
+	{
+		unlock_spell(FIRE);
+	}*/
 
 	bool ret = true;
 
@@ -112,6 +129,14 @@ bool Player::Loop(float dt)
 
 	x = collider->x;
 	y = collider->y;
+
+	/*if (App->inp->GetInput(BUTTON_4)==BUTTON_DOWN)
+	{
+		UItextbox* box = (UItextbox*)App->gui->AddTextBox("authorlol", "this is a test", RED, 15, 4, 272, 420, 2, 0.2);
+
+		box->AddPanelToTextBox("i used to roll the dice");
+		box->AddPanelToTextBox("feel my in my enemy");
+	}*/
 
 	/*
 	STEPS:
@@ -301,7 +326,7 @@ bool Player::Loop(float dt)
 
 	if (jump)
 	{
-		speed_y = -12;
+		speed_y = -13;
 		grounded = false;
 		acceleration_y = 0.5;
 	}
@@ -329,8 +354,10 @@ bool Player::Loop(float dt)
 
 	//the habilities are handled here
 
-	spells[current_spell]->Loop(dt);
-
+	if (current_spell != NONE_UNLOCKED)
+	{
+		spells[current_spell]->Loop(dt);
+	}
 	if (unlocked_spells > 1)
 	{
 		if (App->inp->GetInput(L_SHOULDER) == KEY_DOWN)
@@ -342,55 +369,14 @@ bool Player::Loop(float dt)
 			cycle_spell(1);
 		}
 	}
+	
+	if (App->inp->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+	{
+		unlock_spell(FIRE);
+	}
 
 	//RENDER
-	switch (current_state)
-	{
-	case IDLE:
-	{
-		if (is_right)
-		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_right.GetCurrentFrame(), 0);
-			idle_right.NextFrame();
-		}
-		else
-		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_left.GetCurrentFrame(), 0);
-			idle_left.NextFrame();
-		}
-	}
-	break;
-	case WALKING_LEFT:
-	{
-		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, walking_left.GetCurrentFrame(), 0);
-		walking_left.NextFrame();
-	}
-	break;
-	case WALKING_RIGHT:
-	{
-		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, walking_right.GetCurrentFrame(), 0);
-		walking_right.NextFrame();
-	}
-	break;
-	case AIRBORNE_LEFT:
-	{
-		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, air_left.GetCurrentFrame(), 0);
-		air_left.NextFrame();
-	}
-	break;
-	case AIRBORNE_RIGHT:
-	{
-		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, air_right.GetCurrentFrame(), 0);
-		air_right.NextFrame();
-	}
-	break;
-	default:
-	{
-		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_right.GetCurrentFrame(), 0);
-		idle_right.NextFrame();
-	}
-		break;
-	}
+
 	
 	//trail
 	for (int i = 29; i > 0; --i)
@@ -437,36 +423,53 @@ void Player::UnlockMovement()
 
 void Player::unlock_spell(spell_type to_unlock)
 {
-	
+	unlocked[(int)to_unlock] = true;
+	current_spell = to_unlock;
+
+	App->trk->unlocked[to_unlock] = true;
+
+	unlocked_spells = 0;
+	for (int i = 0; i < 5; ++i)
+	{
+		if (unlocked[i] == true)
+			unlocked_spells++;
+	}
 }
 
 void Player::cycle_spell(int direction)
 {
-	int iterator = current_spell;
-	bool exit = false;
-	while (!exit)
+	if (current_spell != NONE_UNLOCKED)
 	{
-		iterator += direction;
+		spells[current_spell]->Switched_out();
 
-		if (iterator>=5)
+		int iterator = current_spell;
+		bool exit = false;
+		while (!exit)
 		{
-			iterator = 0;
-		}
-		if (iterator <= -1)
-		{
-			iterator = 4;
-		}
+			iterator += direction;
 
-		if (unlocked[iterator])
-		{
-			current_spell = (spell_type)iterator;
-			exit = true;
+			if (iterator >= 5)
+			{
+				iterator = 0;
+			}
+			if (iterator <= -1)
+			{
+				iterator = 4;
+			}
+
+			if (unlocked[iterator])
+			{
+				current_spell = (spell_type)iterator;
+				spells[current_spell]->Switched_in();
+				exit = true;
+			}
 		}
 	}
 }
 
 int Player::get_next_spell(int direction)
 {
+
 	int iterator = current_spell;
 	bool exit = false;
 	while (!exit)
@@ -489,6 +492,63 @@ int Player::get_next_spell(int direction)
 	}
 	return iterator;
 }
+
+bool Player::Render()
+{
+	switch (current_state)
+	{
+	case IDLE:
+	{
+		if (is_right)
+		{
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_right.GetCurrentFrame(), 0);
+			idle_right.NextFrame();
+		}
+		else
+		{
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_left.GetCurrentFrame(), 0);
+			idle_left.NextFrame();
+		}
+	}
+	break;
+	case WALKING_LEFT:
+	{
+		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, walking_left.GetCurrentFrame(), 0);
+		walking_left.NextFrame();
+	}
+	break;
+	case WALKING_RIGHT:
+	{
+		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, walking_right.GetCurrentFrame(), 0);
+		walking_right.NextFrame();
+	}
+	break;
+	case AIRBORNE_LEFT:
+	{
+		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, air_left.GetCurrentFrame(), 0);
+		air_left.NextFrame();
+	}
+	break;
+	case AIRBORNE_RIGHT:
+	{
+		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, air_right.GetCurrentFrame(), 0);
+		air_right.NextFrame();
+	}
+	break;
+	default:
+	{
+		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_right.GetCurrentFrame(), 0);
+		idle_right.NextFrame();
+	}
+	break;
+	}
+	
+	if(current_spell != NONE_UNLOCKED)
+		spells[current_spell]->Render();
+
+	return true;
+}
+
 
 Player::~Player()
 {

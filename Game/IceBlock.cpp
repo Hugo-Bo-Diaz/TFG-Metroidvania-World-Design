@@ -23,16 +23,21 @@ bool IceBlock::Loop(float dt)
 		App->phy->DeleteWall(wall_id);
 		App->phy->DeleteObject(this);
 	}
-	else
-	{
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, &spr_on_img, -2);
-	}
+
 
 
 	return ret;
 }
 
-IceBlock::~IceBlock()
-{
-	App->phy->DeleteWall(wall_id);
+bool IceBlock::Render()
+{		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, &spr_on_img, -2);
+
+	return true;
 }
+
+//IceBlock::~IceBlock()
+//{
+//	//App->phy->DeleteWall(wall_id);
+//
+//	physobj::~physobj();
+//}

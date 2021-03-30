@@ -63,6 +63,9 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 	Load_Texture("Assets/UI/books.png", "spell_books", textures_node);
 	Load_Texture("Assets/UI/healthandmana.png", "healthbars", textures_node);
 	Load_Texture("Assets/UI/spell_location.png", "spell_display_base", textures_node);
+	Load_Texture("Assets/UI/textboxes.png", "text_boxes", textures_node);
+	Load_Texture("Assets/Sprites/particles.png", "particles", textures_node);
+
 
 	return ret;
 

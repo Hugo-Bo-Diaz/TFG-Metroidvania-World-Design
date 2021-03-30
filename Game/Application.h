@@ -24,6 +24,7 @@ public:
 	Particles* par;
 	UserInterface* gui;
 	Text* txt;
+	ProgressTracker* trk;
 
 	Application() {};
 
@@ -41,7 +42,7 @@ public:
 	void ShowConsole();
 	bool IsConsoleVisible();
 
-	bool debug = false;
+	bool debug = true;
 
 private:
 

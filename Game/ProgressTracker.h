@@ -21,15 +21,18 @@ public:
 	void LoadGame(const char* file);
 
 	void SetPlayer(Player* p);
+	int spawn_point = 0;
+	void AddPlayer();
+	void RespawnPlayer();
 
+	bool start_new_game = false;
+	void StartNewGame();
 	//variables that track events in the game
 
-	bool is_water_enabled;
-	bool is_fire_enabled;
-	bool is_ground_enabled;
-	bool is_wind_enabled;
-	bool is_grass_enabled;
+	std::vector<bool> unlocked;
 	
+	Player* pl;
+
 };
 
 #endif // !CAMERA__H

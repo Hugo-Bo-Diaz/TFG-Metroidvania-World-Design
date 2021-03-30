@@ -9,11 +9,11 @@ class FireBall : public physobj
 public:
 
 	FireBall();
-	~FireBall();
 
 	void Fire(bool left_dir, bool is_big);
 
 	bool Loop(float dt);
+	bool Render();
 
 	float speed = 15;
 	int direction;

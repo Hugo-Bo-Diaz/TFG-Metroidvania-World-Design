@@ -5,12 +5,19 @@
 #include "Animation.h"
 #include "Timer.h"
 
+class ParticleEmitter;
+class LavaSpell;
+
 class Fire : public Spell
 {
 public:
 	void Init();
 
 	void Loop(float dt);
+	void Render();
+
+	void Switched_in();
+	void Switched_out();
 
 	void UnlockMovementEvent();
 
@@ -19,18 +26,24 @@ public:
 	//fireball
 	int charge = 0;
 
-	//fireslash
+	//firevolcano
 	float width;
-	float cooldown;
-	bool firebreath_is_active =false;
+	bool firevolcano_is_active =false;
+	std::vector<LavaSpell*> lavalist;
+	std::vector<LavaSpell*> to_delete_lavalist;
+	void DeleteLava(LavaSpell*);
+	Timer lavaspawner;
+	float timebetweenlava = 100;
+	ParticleEmitter* volcano_particles;
 
 	//fireshield
 	bool is_fireshield_on_cooldown = false;
 	bool is_fireshield_up = false;
 	float shield_activation_time = 300;
 	float shield_max_time = 5000;
-	float cooldown_shield = 10000;
+	float cooldown_shield = 5750;
 	Timer fireshield_timer;
+	ParticleEmitter*to_follow;
 
 	//sprites
 	SDL_Rect fireball_big;

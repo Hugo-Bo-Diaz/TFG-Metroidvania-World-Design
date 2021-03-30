@@ -8,7 +8,7 @@
 #include "Application.h"
 #include "Render.h"
 
-#define MAX_PARTICLES 1000
+#define MAX_PARTICLES 2000
 
 
 
@@ -33,6 +33,9 @@ public:
 
 	std::pair<float, float> minmax_speed_x = std::make_pair(0.0f, 0.0f);
 	std::pair<float, float> minmax_speed_y = std::make_pair(0.0f, 0.0f);
+
+	std::pair<float, float> minmax_acc_x = std::make_pair(0.0f, 0.0f);
+	std::pair<float, float> minmax_acc_y = std::make_pair(0.0f, 0.0f);
 
 	std::pair<float, float> minmax_x_offset = std::make_pair(-50.0f, 50.0f);
 	std::pair<float, float> minmax_y_offset = std::make_pair(-50.0f, 50.0f);
@@ -64,6 +67,9 @@ struct particle
 	float speed_x;
 	float speed_y;
 
+	float acc_x;
+	float acc_y;
+
 	particle() {
 		life.Start();
 		life.Reset();
@@ -72,9 +78,17 @@ struct particle
 	bool Update(float dt)
 	{
 		bool ret = true;
+
+		speed_x += acc_x;
+		speed_y += acc_y;
+
 		target_on_screen.x += speed_x;
 		target_on_screen.y += speed_y;
 		current_scale += scale_speed;
+		if(current_scale<=0)
+		{
+			current_scale = 0;
+		}
 		angle += angle_speed;
 
 		//App->ren->DrawRect(&target_on_screen, 255, 0, 0, 255, true);
@@ -94,7 +108,7 @@ public:
 	Timer life_emitter;
 	float total_lifespan;
 	Timer particles_spawn;
-	particle_preset preset_for_emitter;
+	particle_preset* preset_for_emitter;
 	bool active = true;
 	bool alive = true;
 	float position_x;

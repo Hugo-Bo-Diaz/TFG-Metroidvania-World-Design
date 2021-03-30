@@ -5,12 +5,18 @@
 #include "Animation.h"
 #include "Timer.h"
 
+class ParticleEmitter;
+
 class Grass : public Spell
 {
 public:
 	void Init();
 
 	void Loop(float dt);
+	void Render();
+
+	void Switched_in();
+	void Switched_out();
 
 	void UnlockMovementEvent();
 
@@ -48,6 +54,7 @@ public:
 	SDL_Rect leaf = { 0,0,64,32 };
 	SDL_Rect vine = {160,32,32,32};
 	SDL_Rect hook = {192,32,32,32};
+	ParticleEmitter*p;
 };
 
 #endif

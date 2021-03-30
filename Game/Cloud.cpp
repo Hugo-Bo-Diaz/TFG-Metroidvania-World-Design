@@ -9,7 +9,7 @@ Cloud::Cloud()
 {
 	SDL_Rect wall = { collider->x,collider->y,collider->w,collider->h };
 
-	blitrect = {96,64,64,32};
+	blitrect = {96,96,64,32};
 }
 
 bool Cloud::Loop(float dt)
@@ -56,11 +56,16 @@ bool Cloud::Loop(float dt)
 	return ret;
 }
 
+bool Cloud::Render()
+{
+	for (int i = 0; i < rain_vector.size(); ++i)
+	{
+		rain_vector[i]->Render();
+	}
+	return true;
+}
+
 void Cloud::DeleteRainDrop(Rain * drop)
 {
 	rain_to_delete.push_back(drop);
-}
-
-Cloud::~Cloud()
-{
 }

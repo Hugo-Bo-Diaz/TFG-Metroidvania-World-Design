@@ -4,16 +4,18 @@
 #include "Physics.h"
 #include "Animation.h"
 
+class ParticleEmitter;
+
 class Shockwave : public physobj
 {
 public:
 
 	Shockwave();
-	~Shockwave();
 
 	void Fire(bool left_dir, float speed);
 
 	bool Loop(float dt);
+	bool Render();
 
 	float x_speed = 0;
 
@@ -21,6 +23,8 @@ public:
 	Animation shockwave_right;
 
 	SDL_Point floor_check;
+
+	ParticleEmitter* p;
 
 };
 

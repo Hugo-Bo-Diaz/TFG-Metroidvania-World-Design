@@ -11,9 +11,9 @@ class Cloud : public physobj
 public:
 
 	Cloud();
-	~Cloud();
 
 	bool Loop(float dt);
+	bool Render();
 
 	Timer timer;
 	float life_expectancy = 5000;
