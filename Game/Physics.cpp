@@ -17,6 +17,16 @@
 
 #include "FireSpellPickup.h"
 
+#include "MaxHealthPickup.h"
+#include "MaxManaPickup.h"
+
+#include "GroundedElemental.h"
+#include "FlyingElemental.h"
+#include "CoalJumper.h"
+
+#include "HazardLava.h"
+#include "HazardLavaWaterfall.h"
+
 Physics::Physics()
 {
 	name = "Physics";
@@ -159,6 +169,27 @@ physobj* Physics::AddObject(int x, int y, int w_col, int h_col, object_type type
 	case FIRE_SPELL_PICKUP: {
 		r = new FireSpellPickup();
 		break; }
+	case MAX_HEALTH_PICKUP: {
+		r = new MaxHealthPickup();
+		break; }
+	case MAX_MANA_PICKUP: {
+		r = new MaxManaPickup();
+		break; }
+	case GROUNDED_ELEMENTAL: {
+		r = new GroundedElemental();
+		break; }
+	case FLYING_ELEMENTAL: {
+		r = new FlyingElemental(y);
+		break; }
+	case COAL_JUMPER: {
+		r = new CoalJumper();
+		break; }
+	case LAVA_HAZARDS: {
+		r = new HazardLava();
+		break; }
+	case LAVA_HAZARD_WATERFALL: {
+		r = new HazardLavaWaterfall();
+		break; }
 	default:
 		r = new physobj();
 		break;
@@ -261,6 +292,10 @@ bool Physics::Clearphysics()
 		if ((*it)->type == FIRE_SPELL_PICKUP)
 		{
 			((FireSpellPickup*)(*it))->~FireSpellPickup();
+		}
+		if ((*it)->type == COAL_JUMPER)
+		{
+			((CoalJumper*)(*it))->~CoalJumper();
 		}
 		delete(*it);
 	}

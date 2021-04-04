@@ -131,6 +131,9 @@ public:
 	void AddPortal(Portal* p);
 	void DeletePortals();
 
+	int spawnpoint_x;
+	int spawnpoint_y;
+
 
 private:
 

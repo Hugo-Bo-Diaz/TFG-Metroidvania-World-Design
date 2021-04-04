@@ -89,6 +89,10 @@ bool Render::Loop(float dt)
 	bool ret = true;
 	SDL_RenderClear(renderer);
 
+
+	App->cam->screenarea.x = App->cam->position_x;
+	App->cam->screenarea.y = App->cam->position_y;
+
 	for (int i = 0; i < background_queue.size(); ++i)
 	{
 		BlitBackground* item = background_queue[i];
@@ -220,6 +224,34 @@ bool Render::Loop(float dt)
 	tile_queue.clear();
 	*/
 
+	bool swapped = true;
+	while (swapped)
+	{
+		swapped = false;
+		int i = 0;
+		int size = blit_queue.size() - 1;
+		for (i = 0; i < size; ++i)
+		{
+			if (blit_queue[i]->depth < blit_queue[i + 1]->depth)
+			{
+				swapped = true;
+				//swap em;
+
+				//save him into the temp
+				BlitItem* temp = new BlitItem();
+				*temp = *blit_queue[i];
+
+				//swap em
+				*blit_queue[i] = *blit_queue[i + 1];
+
+				//normalize everything
+				*blit_queue[i + 1] = *temp;
+				delete temp;
+
+			}
+		}
+	}
+
 	for (int i = 0; i < blit_queue.size(); ++i)
 	{
 		BlitItem* item = blit_queue[i];
@@ -229,8 +261,10 @@ bool Render::Loop(float dt)
 			uint scale = App->win->GetScale();
 
 			SDL_Rect rect;
-			rect.x = item->x * scale + App->cam->GetCameraXoffset() * item->parallax_factor_x;
-			rect.y = item->y * scale + App->cam->GetCameraYoffset() * item ->parallax_factor_y;
+
+
+			rect.x = (float)item->x * scale + App->cam->GetCameraXoffset() * item->parallax_factor_x;
+			rect.y = (float)item->y * scale + App->cam->GetCameraYoffset() * item ->parallax_factor_y;
 
 			if (item->on_img != NULL)
 			{
@@ -350,47 +384,99 @@ bool Render::Loop(float dt)
 				length_so_far = 0;
 			}
 
+			int fontsizex = print->font_used->hsize;
+			int fontsizey = print->font_used->vsize;
 
-			//characters A to Z (65 - 90)
-			if ((print->text[i] >= 65 && print->text[i] <= 90))
+			SDL_Rect on_img;
+
+			//characters 0 to 9
+			if (print->text[i] >= 48 && print->text[i] <= 57)
 			{
-				int fontsizex = print->font_used->hsize;
-				int fontsizey = print->font_used->vsize;
-				int x_on = ((print->text[i] - 65) % print->font_used->char_per_row) * fontsizex;
-				int y_on = ((print->text[i] - 65) / print->font_used->char_per_row) * fontsizey;
-				SDL_Rect on_img = { x_on, y_on, fontsizex, fontsizey };
 
-				fontsizey *= print->scale*1.3;
-				fontsizex *= print->scale*1.3;
+				int x_on = print->font_used->hsize*(print->text[i] - 48);
+				int y_on = print->font_used->hsize * 3;
 
-				int x_scr = item->x + length_so_far;
-				int y_scr = item->y- fontsizey + y_level * print->scale*(print->font_used->vsize + 5);//10 = SPACING
-				SDL_Rect on_screen = { x_scr,y_scr,fontsizex,fontsizey};
-
-				length_so_far += on_screen.w;
-
-				if (SDL_RenderCopyEx(renderer, item->to_print->font_used->font_texture, &on_img, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)
-				{
-					printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
-					ret = false;
-				}
-			}
-			//characters a to z (97 - 122)
-			else if (print->text[i] >= 97 && print->text[i] <= 122)
-			{
-				int fontsizex = print->font_used->hsize;
-				int fontsizey = print->font_used->vsize;
-				int x_on = ((print->text[i] - 97) % print->font_used->char_per_row) *fontsizex;
-				int y_on = ((print->text[i] - 97) / print->font_used->char_per_row) * fontsizey;
-				SDL_Rect on_img = { x_on, y_on, fontsizex, fontsizey };
+				 on_img = { x_on, y_on, fontsizex, fontsizey };
 
 				fontsizey *= print->scale;
 				fontsizex *= print->scale;
 
+
+			}
+
+			//character ,
+			if (print->text[i] == 44)
+			{
+				int x_on = 0;
+				int y_on = print->font_used->hsize * 4;
+
+				 on_img = { x_on, y_on, fontsizex, fontsizey };
+
+				fontsizey *= print->scale;
+				fontsizex *= print->scale;
+
+			}
+
+			//character !
+			if (print->text[i] == 33)
+			{
+				int x_on = print->font_used->hsize * 1;
+				int y_on = print->font_used->hsize * 4;
+
+				 on_img = { x_on, y_on, fontsizex, fontsizey };
+
+				 fontsizey *= print->scale;
+				 fontsizex *= print->scale;
+			}
+
+			//character /
+			if (print->text[i] == 47)
+			{
+				int x_on = print->font_used->hsize * 2;
+				int y_on = print->font_used->hsize * 4;
+
+				 on_img = { x_on, y_on, fontsizex, fontsizey };
+
+				 fontsizey *= print->scale;
+				 fontsizex *= print->scale;
+
+			}
+
+
+			//characters A to Z (65 - 90)
+			if ((print->text[i] >= 65 && print->text[i] <= 90))
+			{
+				int x_on = ((print->text[i] - 65) % print->font_used->char_per_row) * fontsizex;
+				int y_on = ((print->text[i] - 65) / print->font_used->char_per_row) * fontsizey;
+				 on_img = { x_on, y_on, fontsizex, fontsizey };
+
+				fontsizey *= print->scale*1.3;
+				fontsizex *= print->scale*1.3;
+
+			}
+
+			//characters a to z (97 - 122)
+			else if (print->text[i] >= 97 && print->text[i] <= 122)
+			{
+				int x_on = ((print->text[i] - 97) % print->font_used->char_per_row) *fontsizex;
+				int y_on = ((print->text[i] - 97) / print->font_used->char_per_row) * fontsizey;
+				 on_img = { x_on, y_on, fontsizex, fontsizey };
+
+				fontsizey *= print->scale;
+				fontsizex *= print->scale;
+
+			}
+						
+			if (print->text[i] == 32)
+			{
+				length_so_far += print->font_used->hsize*print->scale;
+			}
+			else
+			{
 				int x_scr = item->x + length_so_far;
 				int y_scr = item->y - fontsizey + y_level * print->scale*(print->font_used->vsize + 5);
 				SDL_Rect on_screen = { x_scr,y_scr,fontsizex,fontsizey };
-				
+
 				length_so_far += on_screen.w;
 
 				if (SDL_RenderCopyEx(renderer, item->to_print->font_used->font_texture, &on_img, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)
@@ -399,10 +485,8 @@ bool Render::Loop(float dt)
 					ret = false;
 				}
 			}
-			else if (print->text[i] == 32)
-			{
-				length_so_far += print->font_used->hsize*print->scale;
-			}
+			
+
 			
 		}
 		delete item;
@@ -487,33 +571,7 @@ void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int d
 	
 	//order the elements
 	
-	bool swapped = true;
-	while (swapped)
-	{
-		swapped = false;
-		int i=0;
-		int size = blit_queue.size() - 1;
-		for (i = 0; i < size ; ++i)
-		{
-			if (blit_queue[i]->depth < blit_queue[i+1]->depth)
-			{
-				swapped = true;
-				//swap em;
 
-				//save him into the temp
-				BlitItem* temp = new BlitItem();
-				*temp = *blit_queue[i];
-
-				//swap em
-				*blit_queue[i] = *blit_queue[i+1];
-
-				//normalize everything
-				*blit_queue[i + 1] = *temp;
-				delete temp;
-				
-			}
-		}
-	}
 
 }
 /*

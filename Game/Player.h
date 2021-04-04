@@ -38,12 +38,19 @@ public:
 	state current_state = IDLE;
 	bool Loop(float dt);
 	bool Render();
-	
+
+	float min_invin_interval = 0;
+	float max_invin_interval=200;
+	float current_draw_interval = max_invin_interval;
+	Timer invin_draw_timer;
+	bool ShouldDraw();
+	bool is_drawing = true;
+
 	int x = 0;
 	int y = 0;
 
 	float speed_x = 0;
-	float speed_y = -100;
+	float speed_y = -10;
 	
 	int spd=0;
 
@@ -57,6 +64,12 @@ public:
 	bool movement_is_locked = false;
 	void UnlockMovement();
 	Timer movement_lock;
+
+	Timer invincibility;
+	bool is_invincible = false;
+	float time_invincible=1000;
+	void StartInvincibility();
+	float GetInvincibilityPercent();
 
 	//STATS
 	float max_speed = 6.0;
@@ -98,8 +111,15 @@ public:
 
 	float max_health = 4;
 	float max_mana = 3;
+	
 	float health = 4;
 	float mana = 3;
+
+	void AddHealth(int amount, int knockbackdirection = -1);
+	void AddMana(float amount);
+
+	void AddMaxHealth();
+	void AddMaxMana();
 };
 
 #endif // !PLAYER__H

@@ -36,6 +36,16 @@ public:
 	float total_shaking_time;
 	int amount;
 
+	Timer screencover;
+	bool is_covered = false;
+	void CoverScreen(float amount_in_ms,float falloff_in_ms, int r, int g, int b);
+	float total_cover_time;
+	float falloff;
+	int r, g, b;
+	SDL_Rect screenarea;
+	int GetCoveragePercent();
+	int alpha=0;
+
 	physobj* target = nullptr;
 };
 

@@ -36,6 +36,18 @@
     <Filter Include="Objects\spells">
       <UniqueIdentifier>{9e3f640d-4087-4a1d-aada-d8f5fc9f6f9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Pickups">
+      <UniqueIdentifier>{2a8cf21d-ba05-47c1-b56e-93ce5bab35ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Pickups\books">
+      <UniqueIdentifier>{f176c340-c29d-4e20-ad61-ecda42123176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Hazards">
+      <UniqueIdentifier>{489855d1-d746-447e-820a-064259ec8ede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Enemies">
+      <UniqueIdentifier>{0a9f277c-77af-43f1-bbab-4ceeebbb69f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -162,7 +174,28 @@
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="FireSpellPickup.cpp">
-      <Filter>Objects</Filter>
+      <Filter>Objects\Pickups\books</Filter>
+    </ClCompile>
+    <ClCompile Include="MaxHealthPickup.cpp">
+      <Filter>Objects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="HazardLava.cpp">
+      <Filter>Objects\Hazards</Filter>
+    </ClCompile>
+    <ClCompile Include="MaxManaPickup.cpp">
+      <Filter>Objects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundedElemental.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingElemental.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CoalJumper.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="HazardLavaWaterfall.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -296,7 +329,26 @@
       <Filter>Objects\spells</Filter>
     </ClInclude>
     <ClInclude Include="FireSpellPickup.h">
-      <Filter>Objects</Filter>
+      <Filter>Objects\Pickups\books</Filter>
     </ClInclude>
+    <ClInclude Include="MaxHealthPickup.h">
+      <Filter>Objects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="HazardLava.h">
+      <Filter>Objects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="MaxManaPickup.h">
+      <Filter>Objects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundedElemental.h">
+      <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingElemental.h">
+      <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CoalJumper.h">
+      <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="HazardLavaWaterfall.h" />
   </ItemGroup>
 </Project>

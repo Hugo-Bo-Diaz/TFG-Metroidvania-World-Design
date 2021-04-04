@@ -46,7 +46,7 @@
   <image source="Backgrounds/fire_far.png" width="1024" height="576"/>
   <properties>
    <property name="depth" type="int" value="20"/>
-   <property name="parallax_x" type="float" value="0.8"/>
+   <property name="parallax_x" type="float" value="0.2"/>
    <property name="parallax_y" type="float" value="0.8"/>
    <property name="repeat_y" type="bool" value="false"/>
   </properties>
@@ -55,8 +55,8 @@
   <image source="Backgrounds/fire_front.png" width="1024" height="576"/>
   <properties>
    <property name="depth" type="int" value="10"/>
-   <property name="parallax_x" type="float" value="0.2"/>
-   <property name="parallax_y" type="float" value="0.2"/>
+   <property name="parallax_x" type="float" value="0.3"/>
+   <property name="parallax_y" type="float" value="0.9"/>
    <property name="repeat_y" type="bool" value="false"/>
   </properties>
  </imagelayer>

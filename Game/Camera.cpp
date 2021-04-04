@@ -7,6 +7,7 @@
 #include "Console.h"
 #include "Input.h"
 #include "SceneController.h"
+#include "Render.h"
 
 #include <string>
 
@@ -15,17 +16,22 @@ Camera::Camera()
 	name = "Camera";
 	shaking.Pause();
 	shaking.Reset();
+
 }
 
 bool Camera::Init()
 {
 	width = 1024;//App->win->width;
 	height = 576;//App->win->height;
+
+	screenarea = { 0,0,width,height };
+
 	return true;
 }
 
-bool Camera::Loop(float dt)//camera can't drop further than 704-height
+bool Camera::Loop(float dt)//camera can't go offbounds
 {
+
 	if (target != nullptr)
 	{
 		position_x = (target->collider->x + target->collider->w / 2) - width / 2;
@@ -62,19 +68,44 @@ bool Camera::Loop(float dt)//camera can't drop further than 704-height
 			//App->con->Console_log((char*)s.c_str());
 		}
 	}
-
-	if (App->inp->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
-	{
-		CameraShake(10, 300);
-	}
 	
 	if(is_shaking)
 	{
 		if (shaking.Read() > total_shaking_time)
 		{
 			is_shaking = false;
+			alpha = 0;
 		}
 	}
+
+	if (is_covered)
+	{
+		if(screencover.Read()>total_cover_time)
+		{
+			is_covered = false;
+		}
+		alpha = 255;
+
+		if (screencover.Read() <= falloff)
+		{
+			//alpha = 255;
+			alpha = (screencover.Read() / falloff) * 255;
+			printf(" %d in", alpha);
+		}
+		else if (screencover.Read() > total_cover_time - falloff)
+		{
+			alpha = ((total_cover_time-screencover.Read()) / falloff) * 255;
+			//alpha = 255;
+			printf(" %d out", alpha);
+		}
+		else
+		{
+			alpha = 255;
+		}
+
+		App->ren->DrawRect(&screenarea,r,g,b,alpha,true);
+	}
+	else { alpha = 0; }
 
 	return true;
 }
@@ -112,4 +143,29 @@ void Camera::CameraShake(int _amount, float _time)
 	amount = _amount;
 	srand(time(NULL));
 
+}
+
+void Camera::CoverScreen(float amount_in_ms, float falloff_in_ms, int _r, int _g, int _b)
+{
+	total_cover_time = amount_in_ms;
+	falloff = falloff_in_ms;
+	r = _r;
+	g = _g;
+	b = _b;
+	is_covered = true;
+
+	screencover.Start();
+}
+
+int Camera::GetCoveragePercent()
+{
+
+	if (is_covered)
+	{
+		return (alpha / 255) * 100;
+	}
+	else
+	{
+		return 0;
+	}
 }

@@ -252,7 +252,7 @@ bool Player::Loop(float dt)
 		stop = false;
 	}
 
-	if (left)//if recieved msg for left then do this
+	if (left && (!is_invincible || GetInvincibilityPercent() > 50))//if recieved msg for left then do this
 	{
 		//		speed_x = -max_speed;
 		if (speed_x > 0)
@@ -280,7 +280,7 @@ bool Player::Loop(float dt)
 
 	}
 
-	if (right)//if recieved msg for right then do this
+	if (right &&( !is_invincible || GetInvincibilityPercent()>50))//if recieved msg for right then do this
 	{
 		//speed_x = max_speed;
 		
@@ -309,7 +309,7 @@ bool Player::Loop(float dt)
 	}
 
 
-	if (stop)
+	if (stop && (!is_invincible || GetInvincibilityPercent()>50))
 	{
 		if (speed_x > 0)
 		{
@@ -397,6 +397,11 @@ bool Player::Loop(float dt)
 		UnlockMovement();
 	}
 
+	if (is_invincible &&GetInvincibilityPercent() >= 100)
+	{
+		is_invincible = false;
+
+	}
 	return ret;
 }
 
@@ -419,6 +424,17 @@ void Player::UnlockMovement()
 	movement_lock.Reset();
 
 	spells[current_spell]->UnlockMovementEvent();
+}
+
+void Player::StartInvincibility()
+{
+	invincibility.Reset();
+	is_invincible = true;
+}
+
+float Player::GetInvincibilityPercent()
+{
+	return (invincibility.Read() / time_invincible)*100;
 }
 
 void Player::unlock_spell(spell_type to_unlock)
@@ -493,60 +509,112 @@ int Player::get_next_spell(int direction)
 	return iterator;
 }
 
+void Player::AddHealth(int amount, int knockbackdirection)
+{
+	if(!is_invincible || amount > 0)
+		health += amount;
+
+	App->trk->player_hp = health;
+
+	if (!is_invincible && amount < 0 && knockbackdirection !=0)
+	{
+		speed_y = -12;
+		speed_x = 6* knockbackdirection;
+		StartInvincibility();
+		invin_draw_timer.Reset();
+	}
+}
+
+void Player::AddMana(float amount)
+{
+	mana += amount;
+	App->trk->player_mana = mana;
+}
+
+void Player::AddMaxHealth()
+{
+	App->trk->charges_hp += 1;
+}
+
+void Player::AddMaxMana()
+{
+	App->trk->charges_mana += 1;
+}
+
 bool Player::Render()
 {
-	switch (current_state)
+	if (ShouldDraw())
 	{
-	case IDLE:
-	{
-		if (is_right)
+		switch (current_state)
+		{
+		case IDLE:
+		{
+			if (is_right)
+			{
+				App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_right.GetCurrentFrame(), 0);
+				idle_right.NextFrame();
+			}
+			else
+			{
+				App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_left.GetCurrentFrame(), 0);
+				idle_left.NextFrame();
+			}
+		}
+		break;
+		case WALKING_LEFT:
+		{
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, walking_left.GetCurrentFrame(), 0);
+			walking_left.NextFrame();
+		}
+		break;
+		case WALKING_RIGHT:
+		{
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, walking_right.GetCurrentFrame(), 0);
+			walking_right.NextFrame();
+		}
+		break;
+		case AIRBORNE_LEFT:
+		{
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, air_left.GetCurrentFrame(), 0);
+			air_left.NextFrame();
+		}
+		break;
+		case AIRBORNE_RIGHT:
+		{
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, air_right.GetCurrentFrame(), 0);
+			air_right.NextFrame();
+		}
+		break;
+		default:
 		{
 			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_right.GetCurrentFrame(), 0);
 			idle_right.NextFrame();
 		}
-		else
-		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_left.GetCurrentFrame(), 0);
-			idle_left.NextFrame();
+		break;
 		}
-	}
-	break;
-	case WALKING_LEFT:
-	{
-		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, walking_left.GetCurrentFrame(), 0);
-		walking_left.NextFrame();
-	}
-	break;
-	case WALKING_RIGHT:
-	{
-		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, walking_right.GetCurrentFrame(), 0);
-		walking_right.NextFrame();
-	}
-	break;
-	case AIRBORNE_LEFT:
-	{
-		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, air_left.GetCurrentFrame(), 0);
-		air_left.NextFrame();
-	}
-	break;
-	case AIRBORNE_RIGHT:
-	{
-		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, air_right.GetCurrentFrame(), 0);
-		air_right.NextFrame();
-	}
-	break;
-	default:
-	{
-		App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_right.GetCurrentFrame(), 0);
-		idle_right.NextFrame();
-	}
-	break;
-	}
-	
-	if(current_spell != NONE_UNLOCKED)
-		spells[current_spell]->Render();
 
+		if (current_spell != NONE_UNLOCKED)
+			spells[current_spell]->Render();
+
+
+	}
 	return true;
+}
+
+bool Player::ShouldDraw()
+{
+	if(!is_invincible)
+		return true;
+
+	if(invin_draw_timer.Read()>current_draw_interval)
+	{
+		//base + (total-base)*percent/100
+		current_draw_interval = min_invin_interval + (max_invin_interval - min_invin_interval)*((100-GetInvincibilityPercent()) / 100);
+		invin_draw_timer.Reset();
+		is_drawing = !is_drawing;
+	}
+
+	return is_drawing;
 }
 
 

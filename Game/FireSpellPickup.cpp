@@ -39,7 +39,7 @@ bool FireSpellPickup::Loop(float dt)
 			{
 				((Player*)((*it)->object))->unlock_spell(FIRE);
 				App->phy->DeleteObject(this);
-				App->gui->AddTextBox("","congratulations you unlocked fire",TextBoxColor::RED, 15, 4, 272, 420, 2, 0.2);
+				App->gui->AddTextBox("","congratulations you unlocked fire!",TextBoxColor::RED, 15, 4, 272, 420, 2, 0.2);
 				//App->par->to_delete.push_back(p);
 				App->par->AddParticleEmitter(&App->par->fireshield, collider->x, collider->y,1500);
 			}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="22" height="48" tilewidth="48" tileheight="48" infinite="0" nextlayerid="20" nextobjectid="99">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="22" height="48" tilewidth="48" tileheight="48" infinite="0" nextlayerid="20" nextobjectid="106">
  <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="128" columns="16">
   <image source="tilesets/tileset01.png" width="768" height="384"/>
  </tileset>
@@ -254,12 +254,12 @@
    <tile/>
    <tile/>
    <tile gid="197"/>
-   <tile gid="199"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="197"/>
+   <tile gid="198"/>
+   <tile gid="198"/>
+   <tile gid="198"/>
+   <tile gid="198"/>
+   <tile gid="198"/>
+   <tile gid="198"/>
    <tile gid="198"/>
    <tile gid="198"/>
    <tile gid="212"/>
@@ -276,11 +276,11 @@
    <tile/>
    <tile/>
    <tile gid="208"/>
-   <tile gid="210"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="184"/>
+   <tile gid="220"/>
+   <tile gid="221"/>
+   <tile gid="179"/>
+   <tile gid="179"/>
    <tile gid="176"/>
    <tile gid="130"/>
    <tile gid="130"/>
@@ -299,10 +299,10 @@
    <tile gid="198"/>
    <tile gid="196"/>
    <tile gid="221"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="212"/>
+   <tile gid="179"/>
+   <tile gid="179"/>
+   <tile gid="179"/>
    <tile gid="176"/>
    <tile gid="176"/>
    <tile gid="130"/>
@@ -320,11 +320,11 @@
    <tile gid="176"/>
    <tile gid="176"/>
    <tile gid="220"/>
-   <tile gid="213"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="212"/>
+   <tile gid="212"/>
+   <tile gid="179"/>
+   <tile gid="179"/>
+   <tile gid="179"/>
    <tile gid="176"/>
    <tile gid="176"/>
    <tile gid="130"/>
@@ -342,10 +342,10 @@
    <tile gid="179"/>
    <tile gid="179"/>
    <tile gid="206"/>
-   <tile gid="224"/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="223"/>
+   <tile gid="223"/>
+   <tile gid="223"/>
+   <tile gid="207"/>
    <tile gid="197"/>
    <tile gid="196"/>
    <tile gid="176"/>
@@ -367,7 +367,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="222"/>
    <tile gid="208"/>
    <tile gid="130"/>
    <tile gid="130"/>
@@ -1362,7 +1362,7 @@
    <tile gid="177"/>
    <tile/>
    <tile/>
-   <tile/>
+   <tile gid="178"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1384,7 +1384,7 @@
    <tile/>
    <tile gid="177"/>
    <tile/>
-   <tile/>
+   <tile gid="178"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1406,9 +1406,9 @@
    <tile/>
    <tile gid="180"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="189"/>
+   <tile gid="190"/>
+   <tile gid="190"/>
    <tile/>
    <tile gid="175"/>
    <tile/>
@@ -2152,6 +2152,16 @@
     <property name="id" type="int" value="1"/>
    </properties>
   </object>
+  <object id="99" x="1008" y="288" width="48" height="48">
+   <properties>
+    <property name="id" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="105" x="0" y="1536" width="48" height="48">
+   <properties>
+    <property name="id" type="int" value="3"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="14" name="objects"/>
  <objectgroup color="#0000ff" id="13" name="walls">
@@ -2166,7 +2176,7 @@
   <object id="51" x="144" y="240" width="48" height="48"/>
   <object id="52" x="864" y="48" width="48" height="48"/>
   <object id="53" x="336" y="576" width="192" height="48"/>
-  <object id="54" x="624" y="480" width="96" height="96"/>
+  <object id="54" x="624" y="480" width="192" height="96"/>
   <object id="55" x="672" y="576" width="48" height="48"/>
   <object id="56" x="0" y="672" width="144" height="864"/>
   <object id="57" x="144" y="672" width="96" height="192"/>
@@ -2205,6 +2215,7 @@
   <object id="91" x="576" y="1728" width="96" height="48"/>
   <object id="93" x="672" y="1584" width="96" height="240"/>
   <object id="94" x="576" y="1296" width="96" height="48"/>
+  <object id="101" x="816" y="480" width="96" height="48"/>
  </objectgroup>
  <objectgroup color="#00ff00" id="15" name="doors">
   <object id="19" x="384" y="-96" width="384" height="48">
@@ -2219,6 +2230,20 @@
     <property name="horizontal" type="bool" value="false"/>
     <property name="id_point" type="int" value="0"/>
     <property name="id_room" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="100" x="1104" y="288" width="48" height="192">
+   <properties>
+    <property name="horizontal" type="bool" value="false"/>
+    <property name="id_point" type="int" value="0"/>
+    <property name="id_room" type="int" value="4"/>
+   </properties>
+  </object>
+  <object id="104" x="-96" y="1536" width="48" height="192">
+   <properties>
+    <property name="horizontal" type="bool" value="false"/>
+    <property name="id_point" type="int" value="0"/>
+    <property name="id_room" type="int" value="5"/>
    </properties>
   </object>
  </objectgroup>

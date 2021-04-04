@@ -46,6 +46,8 @@ public:
 	SDL_Rect r11grass;
 	SDL_Rect r12shield;
 
+	SDL_Rect r13magic;
+
 	particle_preset explosion;
 	particle_preset fireshield;
 	particle_preset lava;
@@ -54,6 +56,8 @@ public:
 	particle_preset windbuff;
 	particle_preset groundcontact;
 	particle_preset grass;
+	particle_preset magic;
+
 
 };
 

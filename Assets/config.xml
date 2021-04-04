@@ -67,6 +67,11 @@
 			<texture path="Assets/UI/spell_location.png" name="spell_display_base" />
 			<texture path="Assets/UI/textboxes.png" name="text_boxes" />
 			<texture path="Assets/Sprites/particles.png" name="particles" />
+			<texture path="Assets/Sprites/items.png" name="items" />
+			<texture path="Assets/Sprites/hazards.png" name="hazards" />
+			<texture path="Assets/Sprites/enemies/groundelemental.png" name="groundelemental" />
+			<texture path="Assets/Sprites/enemies/flyingelemental.png" name="flyingelemental" />
+			<texture path="Assets/Sprites/enemies/coaljumper.png" name="coaljumper" />
 		</textures>
 	</Textures>
 </config>

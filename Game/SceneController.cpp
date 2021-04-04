@@ -11,6 +11,11 @@
 #include "ProgressTracker.h"
 
 #include "Player.h"
+#include "MaxHealthPickup.h"
+#include "MaxManaPickup.h"
+#include "GroundedElemental.h"
+#include "FlyingElemental.h"
+//#include "HazardLava.h"
 
 #include "Gui.h"
 #include "Text.h"
@@ -290,21 +295,130 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 	//	int newpos;
 		object_type t = MAX_OBJECT_TYPE;
 		int x = object_iterator.attribute("x").as_int();
-		int y = object_iterator.attribute("y").as_int()-48;//tile height
+		int y = object_iterator.attribute("y").as_int()-48;//tile height inside tiled
 		int w = 0;
 		int h = 0;
 		std::string type = object_iterator.attribute("type").as_string();
 		if(type== "SpellUnlockFire")
 		{
-
 			w = 52;
 			h = 64;
-
 			t = FIRE_SPELL_PICKUP;
 		}
+		else if (type == "HealthChargePickup")
+		{
+			t = MAX_HEALTH_PICKUP;
+			w = 48;
+			h = 48;
+		}
+		else if (type == "ManaChargePickup")
+		{
+			t = MAX_MANA_PICKUP;
+			w = 48;
+			h = 48;
+		}
+		else if (type == "HazardLava")
+		{
+			t = LAVA_HAZARDS;
+			w = object_iterator.attribute("width").as_int();
+			h = object_iterator.attribute("height").as_int();
+		}
+		else if (type == "HazardLavaWaterfall")
+		{
+			t = LAVA_HAZARD_WATERFALL;
+			w = object_iterator.attribute("width").as_int();
+			h = object_iterator.attribute("height").as_int();
+			y += 48;
+		}
+		else if (type == "EnemyGroundedElemental")
+		{
+			t = GROUNDED_ELEMENTAL;
+			w = 48;
+			h = 48;
+		}
+		else if (type == "EnemyFlyingElemental")
+		{
+			t = FLYING_ELEMENTAL;
+			w = 56;
+			h = 56;
+		}
+		else if (type == "EnemyCoalJumper")
+		{
+			t = COAL_JUMPER;
+			w = 64;
+			h = 64;
+		}
+		physobj*ret = nullptr;
 
 		if(t != MAX_OBJECT_TYPE)
-			App->phy->AddObject(x, y, w, h, t);
+			ret = App->phy->AddObject(x, y, w, h, t);
+
+		if (ret != nullptr)
+		{
+			if (t == MAX_HEALTH_PICKUP)
+			{
+
+				pugi::xml_node properties_node = object_iterator.child("properties");
+				pugi::xml_node iterator;
+
+				for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
+				{
+					std::string temp = iterator.attribute("name").as_string();
+					if (temp == "id")
+					{
+						((MaxHealthPickup*)ret)->pickup_id = iterator.attribute("value").as_int();
+					}
+				}
+			}
+			else if (t == MAX_MANA_PICKUP)
+			{
+
+				pugi::xml_node properties_node = object_iterator.child("properties");
+				pugi::xml_node iterator;
+
+				for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
+				{
+					std::string temp = iterator.attribute("name").as_string();
+					if (temp == "id")
+					{
+						((MaxManaPickup*)ret)->pickup_id = iterator.attribute("value").as_int();
+					}
+				}
+			}
+			else if (t == GROUNDED_ELEMENTAL)
+			{
+
+				pugi::xml_node properties_node = object_iterator.child("properties");
+				pugi::xml_node iterator;
+
+				for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
+				{
+					std::string temp = iterator.attribute("name").as_string();
+					if (temp == "color")
+					{
+						((GroundedElemental*)ret)->SetAnimations((GroundedElementalColor)iterator.attribute("value").as_int());
+					}
+				}
+			}
+
+			else if (t == FLYING_ELEMENTAL)
+			{
+
+				pugi::xml_node properties_node = object_iterator.child("properties");
+				pugi::xml_node iterator;
+
+				for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
+				{
+					std::string temp = iterator.attribute("name").as_string();
+					if (temp == "color")
+					{
+						((FlyingElemental*)ret)->SetAnimations((FlyingElementalColor)iterator.attribute("value").as_int());
+					}
+				}
+			}
+
+
+		}
 
 	}
 
@@ -570,22 +684,26 @@ void SceneController::UsePortal(Portal * p, int offset)
 	int newplayer_x = 0;
 	int newplayer_y = 0;
 
+	spawnpoint_x = 0;
+	spawnpoint_y = 0;
+
 	for (std::vector<SpawnPoint*>::iterator it = spawnpoints.begin(); it != spawnpoints.end(); it++)
 	{
 		if ((*it)->id == point_id)
 		{
-			newplayer_x = (*it)->x;
-			newplayer_y = (*it)->y;
+			spawnpoint_x = (*it)->x;
+			spawnpoint_y = (*it)->y;
 		}
 	}
-
+	newplayer_x = spawnpoint_x;
+	newplayer_y = spawnpoint_y;
 	if (horizontal)
 	{
-		newplayer_x += offset;
+		newplayer_x = spawnpoint_x + offset;
 	}
 	else
 	{
-		newplayer_y += offset;
+		newplayer_y = spawnpoint_y + offset;
 	}
 
 	Player* pl = (Player*)App->phy->AddObject(newplayer_x, newplayer_y, 64, 64, PLAYER);

@@ -6,6 +6,8 @@
 
 #include "SDL/include/SDL.h"
 
+#define MAX_EXPANSIONS 32
+
 class Player;
 
 class ProgressTracker : public Part
@@ -31,7 +33,25 @@ public:
 
 	std::vector<bool> unlocked;
 	
+	float player_hp = 4;
+	float max_player_hp = 4;
+
+	int charges_hp;
+	int charges_per_hp = 4;
+
+	float player_mana = 3;
+	float max_player_mana = 3;
+
+	int charges_mana;
+	int charges_per_mana = 4;
+
 	Player* pl;
+
+	bool itemspickedup[MAX_EXPANSIONS];
+	void AddPickupToList(int id);
+	bool HasBeenFound(int id);
+
+	bool respawn_player = false;
 
 };
 

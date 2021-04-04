@@ -3,4 +3,6 @@
 	<room id = "1" path = "Assets/maps/map1_fire_pit.tmx"/>
 	<room id = "2" path = "Assets/maps/map2_fire_entrance.tmx"/>
 	<room id = "3" path = "Assets/maps/map3_fire_spell_location.tmx"/>
+	<room id = "4" path = "Assets/maps/map4_first_health_pickup.tmx"/>
+	<room id = "5" path = "Assets/maps/map5_first_mana_pickup.tmx"/>
 </completemap>

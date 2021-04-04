@@ -65,6 +65,11 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 	Load_Texture("Assets/UI/spell_location.png", "spell_display_base", textures_node);
 	Load_Texture("Assets/UI/textboxes.png", "text_boxes", textures_node);
 	Load_Texture("Assets/Sprites/particles.png", "particles", textures_node);
+	Load_Texture("Assets/Sprites/items.png", "items", textures_node);
+	Load_Texture("Assets/Sprites/hazards.png", "hazards", textures_node);
+	Load_Texture("Assets/Sprites/enemies/groundelemental.png","groundelemental", textures_node);
+	Load_Texture("Assets/Sprites/enemies/flyingelemental.png", "flyingelemental", textures_node);
+	Load_Texture("Assets/Sprites/enemies/coaljumper.png", "coaljumper", textures_node);
 
 
 	return ret;
