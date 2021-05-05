@@ -103,7 +103,7 @@ bool Render::Loop(float dt)
 
 			SDL_QueryTexture(item->tex,NULL,NULL,&back_w,&back_h);
 
-			uint scale = App->win->GetScale();
+			float scale = App->win->GetScale();
 
 			//calculate camera tile
 
@@ -144,11 +144,11 @@ bool Render::Loop(float dt)
 				{
 					SDL_Rect rect;//DUAL LOOP THIS
 
-					int pos_x = ((cam_tile_x - 1 + i) * back_w);
-					int pos_y = ((cam_tile_y - 1 + j) * back_h);
+					int pos_x = ((cam_tile_x - 1 + i) * back_w)*scale;
+					int pos_y = ((cam_tile_y - 1 + j) * back_h)*scale;
 
-					rect.x = pos_x + App->cam->GetCameraXoffset() *item->parallax_x;
-					rect.y = pos_y + App->cam->GetCameraYoffset() *item->parallax_y;
+					rect.x = pos_x + App->cam->GetCameraXoffset()*scale *item->parallax_x;
+					rect.y = pos_y + App->cam->GetCameraYoffset()*scale *item->parallax_y;
 					
 					if (!item->repeat_y)
 					{
@@ -258,7 +258,7 @@ bool Render::Loop(float dt)
 		//if (App->tex->Valid_Texture(item->tex))//validation method???
 		{
 
-			uint scale = App->win->GetScale();
+			float scale = App->win->GetScale();
 
 			SDL_Rect rect;
 
@@ -302,7 +302,7 @@ bool Render::Loop(float dt)
 		{
 			if ((*it)->particles[i] != nullptr)
 			{
-				uint scale = App->win->GetScale();
+				float scale = App->win->GetScale();
 
 				SDL_Rect rect;
 				rect.x = (*it)->particles[i]->target_on_screen.x * scale +App->cam->GetCameraXoffset();
@@ -315,9 +315,9 @@ bool Render::Loop(float dt)
 				rect.x -= rect.w / 2;
 				rect.y -= rect.h / 2;
 
-				/*rect.w *= scale;
+				rect.w *= scale;
 				rect.h *= scale;
-				*/
+				
 				if (SDL_RenderCopyEx(renderer, (*it)->particles[i]->texture, (*it)->particles[i]->area_in_texture, &rect, (*it)->particles[i]->angle, NULL, SDL_FLIP_NONE) != 0)
 				{
 					printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
@@ -326,14 +326,40 @@ bool Render::Loop(float dt)
 			}
 		}
 	}
+	swapped = true;
+	while (swapped)
+	{
+		swapped = false;
+		int i = 0;
+		int size = ui_blit_queue.size() - 1;
+		for (i = 0; i < size; ++i)
+		{
+			if (ui_blit_queue[i]->depth < ui_blit_queue[i + 1]->depth)
+			{
+				swapped = true;
+				//swap em;
 
+				//save him into the temp
+				BlitItem* temp = new BlitItem();
+				*temp = *ui_blit_queue[i];
+
+				//swap em
+				*ui_blit_queue[i] = *ui_blit_queue[i + 1];
+
+				//normalize everything
+				*ui_blit_queue[i + 1] = *temp;
+				delete temp;
+
+			}
+		}
+	}
 	for (int i = 0; i < ui_blit_queue.size(); ++i)
 	{
 		BlitItem* item = ui_blit_queue[i];
 		//if (App->tex->Valid_Texture(item->tex))//validation method???
 		{
 
-			uint scale = App->win->GetScale();
+			float scale = App->win->GetScale();
 
 			SDL_Rect rect;
 			rect.x = item->x * scale;
@@ -368,24 +394,175 @@ bool Render::Loop(float dt)
 	while (!text_queue.empty())
 	{
 		TextBlit* item = text_queue.front();
-		uint scale = App->win->GetScale();
+		float scale = App->win->GetScale();
 		
 		TextPrint* print = item->to_print;
+
+
 
 		int y_level = 0;
 		int length_so_far=0;
 
-		for (int i = 0; i < print->current_letter; i++)//-97
+		int iterator = 0;
+
+		for (int j = 0; j < print->words.size(); ++j)
 		{
-			//CHECK FOR NEXT LINE
-			if (length_so_far > print->max_width)
+			//check line
+			int fontsizex = print->font_used->hsize;
+			int fontsizey = print->font_used->vsize;
+
+			int length_of_current_word = print->words[j].size()*fontsizex*print->scale*scale;
+
+			if ((length_of_current_word + length_so_far) > print->max_width)
 			{
+				//printf("%d %s ", length_of_current_word + length_so_far - print->max_width, print->words[j].c_str());
+
 				y_level += 1;
 				length_so_far = 0;
 			}
+			else if (j != 0)
+			{
+				length_so_far += fontsizex*scale;
+			}
 
-			int fontsizex = print->font_used->hsize;
-			int fontsizey = print->font_used->vsize;
+			for (int i = 0;i< print->words[j].size(); ++i)
+			{
+				fontsizex = print->font_used->hsize;
+				fontsizey = print->font_used->vsize;
+
+				SDL_Rect on_img;
+
+				//characters 0 to 9
+				if (print->words[j][i] >= 48 && print->words[j][i] <= 57)
+				{
+
+					int x_on = print->font_used->hsize*(print->words[j][i] - 48);
+					int y_on = print->font_used->hsize * 3;
+
+					on_img = { x_on, y_on, fontsizex, fontsizey };
+
+					fontsizey *= print->scale;
+					fontsizex *= print->scale;
+
+
+				}
+
+				//character ,
+				if (print->words[j][i] == 44)
+				{
+					int x_on = 0;
+					int y_on = print->font_used->hsize * 4;
+
+					on_img = { x_on, y_on, fontsizex, fontsizey };
+
+					fontsizey *= print->scale;
+					fontsizex *= print->scale;
+
+				}
+
+				//character !
+				if (print->words[j][i] == 33)
+				{
+					int x_on = print->font_used->hsize * 1;
+					int y_on = print->font_used->hsize * 4;
+
+					on_img = { x_on, y_on, fontsizex, fontsizey };
+
+					fontsizey *= print->scale;
+					fontsizex *= print->scale;
+				}
+
+				//character /
+				if (print->words[j][i] == 47)
+				{
+					int x_on = print->font_used->hsize * 2;
+					int y_on = print->font_used->hsize * 4;
+
+					on_img = { x_on, y_on, fontsizex, fontsizey };
+
+					fontsizey *= print->scale;
+					fontsizex *= print->scale;
+
+				}
+
+
+				//characters A to Z (65 - 90)
+				if ((print->words[j][i] >= 65 && print->words[j][i] <= 90))
+				{
+					int x_on = ((print->words[j][i] - 65) % print->font_used->char_per_row) * fontsizex;
+					int y_on = ((print->words[j][i] - 65) / print->font_used->char_per_row) * fontsizey;
+					on_img = { x_on, y_on, fontsizex, fontsizey };
+
+					fontsizey *= print->scale*1.3;
+					fontsizex *= print->scale*1.3;
+
+				}
+
+				//characters a to z (97 - 122)
+				else if (print->words[j][i] >= 97 && print->words[j][i] <= 122)
+				{
+					int x_on = ((print->words[j][i] - 97) % print->font_used->char_per_row) *fontsizex;
+					int y_on = ((print->words[j][i] - 97) / print->font_used->char_per_row) * fontsizey;
+					on_img = { x_on, y_on, fontsizex, fontsizey };
+
+					fontsizey *= print->scale;
+					fontsizex *= print->scale;
+
+				}
+
+				if (print->words[j][i] == 32)
+				{
+					length_so_far += print->font_used->hsize*print->scale * scale;
+				}
+				else
+				{
+					int x_scr = item->x*scale + length_so_far;
+					int y_scr = item->y*scale - fontsizey + scale * y_level * print->scale*(print->font_used->vsize + 5);
+
+					//x_scr *= scale;
+					//y_scr *= scale;
+					fontsizex *= scale;
+					fontsizey *= scale;
+
+					SDL_Rect on_screen = { x_scr,y_scr,fontsizex,fontsizey };
+
+					length_so_far += on_screen.w;
+
+					if (iterator < print->current_letter)
+					{
+						if (SDL_RenderCopyEx(renderer, item->to_print->font_used->font_texture, &on_img, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)
+						{
+							printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+							ret = false;
+						}
+					}
+					iterator++;
+
+				}
+
+
+			}
+
+
+		}
+		/*
+		for (int i = 0; i < print->text.size(); i++)//-97
+		{
+			//CHECK FOR NEXT LINE
+
+			int length_of_current_word=0;
+			for (int j = 0; j < print->text.size(); ++j)
+			{
+				length_of_current_word += fontsizex*scale;
+				if (print->text[j] == 32)
+				{
+					//printf("%d %c ",length_of_current_word,print->text[print->current_letter]);
+					break;
+				}
+			}
+			//if (length_so_far/scale > print->max_width)
+
+
 
 			SDL_Rect on_img;
 
@@ -469,36 +646,50 @@ bool Render::Loop(float dt)
 						
 			if (print->text[i] == 32)
 			{
-				length_so_far += print->font_used->hsize*print->scale;
+				length_so_far += print->font_used->hsize*print->scale * scale;
 			}
 			else
 			{
-				int x_scr = item->x + length_so_far;
-				int y_scr = item->y - fontsizey + y_level * print->scale*(print->font_used->vsize + 5);
+				int x_scr = item->x*scale + length_so_far;
+				int y_scr = item->y*scale - fontsizey +scale* y_level * print->scale*(print->font_used->vsize + 5);
+				
+				//x_scr *= scale;
+				//y_scr *= scale;
+				fontsizex *= scale;
+				fontsizey *= scale;
+
 				SDL_Rect on_screen = { x_scr,y_scr,fontsizex,fontsizey };
 
 				length_so_far += on_screen.w;
 
-				if (SDL_RenderCopyEx(renderer, item->to_print->font_used->font_texture, &on_img, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)
+				if (i < print->current_letter)
 				{
-					printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
-					ret = false;
+					if (SDL_RenderCopyEx(renderer, item->to_print->font_used->font_texture, &on_img, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)
+					{
+						printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+						ret = false;
+					}
 				}
 			}
 			
 
 			
 		}
-		delete item;
+		*/delete item;
 		text_queue.pop();
 	}
 
 	while (!quad_queue.empty())
 	{
 		BlitRect* item = quad_queue.front();
-		uint scale = App->win->GetScale();
+		float scale = App->win->GetScale();
 
 		SDL_Rect temp = { item->area->x + App->cam->GetCameraXoffset(),item->area->y + App->cam->GetCameraYoffset() ,item->area->w,item->area->h };
+
+		temp.x *= scale;
+		temp.y *= scale;
+		temp.w *= scale;
+		temp.h *= scale;
 
 		SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 		SDL_SetRenderDrawColor(renderer, item->r, item->g, item->b, item->a);
@@ -517,7 +708,7 @@ bool Render::Loop(float dt)
 	while (!trail_queue.empty())
 	{
 		Trail* item = trail_queue.front();
-		uint scale = App->win->GetScale();
+		float scale = App->win->GetScale();
 
 		for (int i = 0; i < item->amount; ++i)
 		{

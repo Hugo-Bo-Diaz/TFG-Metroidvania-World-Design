@@ -10,6 +10,9 @@ class ParticleEmitter;
 class Grass : public Spell
 {
 public:
+
+	~Grass();
+
 	void Init();
 
 	void Loop(float dt);

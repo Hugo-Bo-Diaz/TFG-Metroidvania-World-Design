@@ -60,13 +60,26 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 
 	Load_Texture("Assets/Sprites/Player.png", "player", textures_node);
 	Load_Texture("Assets/Sprites/spells.png", "spells", textures_node);
+
 	Load_Texture("Assets/UI/books.png", "spell_books", textures_node);
 	Load_Texture("Assets/UI/healthandmana.png", "healthbars", textures_node);
 	Load_Texture("Assets/UI/spell_location.png", "spell_display_base", textures_node);
 	Load_Texture("Assets/UI/textboxes.png", "text_boxes", textures_node);
+	Load_Texture("Assets/UI/pause_menu_base.png", "pause_menu_base", textures_node);
+	Load_Texture("Assets/UI/pause_menu_options.png", "pause_menu_options", textures_node);
+	Load_Texture("Assets/UI/settings_menu_base.png", "settings_menu_base", textures_node);
+	Load_Texture("Assets/UI/settings_menu_options.png", "settings_menu_options", textures_node);
+	Load_Texture("Assets/UI/black_square.png", "black_square", textures_node);
+	Load_Texture("Assets/UI/indicator.png", "indicator", textures_node);
+	Load_Texture("Assets/UI/selectmenubackground.png", "selectmenubackground", textures_node);
+	Load_Texture("Assets/UI/selectmenulogbook.png", "selectmenulogbook", textures_node);
+	
+	Load_Texture("Assets/UI/selectmenuoptions.png", "selectmenuoptions", textures_node);
+
 	Load_Texture("Assets/Sprites/particles.png", "particles", textures_node);
 	Load_Texture("Assets/Sprites/items.png", "items", textures_node);
 	Load_Texture("Assets/Sprites/hazards.png", "hazards", textures_node);
+
 	Load_Texture("Assets/Sprites/enemies/groundelemental.png","groundelemental", textures_node);
 	Load_Texture("Assets/Sprites/enemies/flyingelemental.png", "flyingelemental", textures_node);
 	Load_Texture("Assets/Sprites/enemies/coaljumper.png", "coaljumper", textures_node);

@@ -136,7 +136,8 @@ bool Thorns::Loop(float dt)
 		if (life_timer.Read() > lifespan)
 		{
 			App->phy->DeleteObject(this);
-			App->par->to_delete.push_back(p);
+			//App->par->to_delete.push_back(p);
+			App->par->RemoveParticleEmitter(p);
 		}
 
 	}

@@ -9,6 +9,20 @@
 #include "Particles.h"
 #include "LavaSpell.h"
 
+#include "CoalJumper.h"
+#include "GroundedElemental.h"
+#include "FlyingElemental.h"
+
+
+Fire::~Fire()
+{
+	App->par->RemoveParticleEmitter(volcano_particles);
+	App->par->RemoveParticleEmitter(to_follow);
+	//App->par->to_delete.push_back(volcano_particles);
+	//App->par->to_delete.push_back(to_follow);
+
+}
+
 void Fire::Init()
 {
 	firebreath_left.AddFrame({ 224,0,32,64 });
@@ -65,9 +79,10 @@ void Fire::Loop(float dt)
 		player->LockMovement();
 		lavaspawner.Start();
 		volcano_particles->active = true;
+		is_volcano_active = true;
 	}
 
-	if (App->inp->GetInput(BUTTON_3) == KEY_REPEAT && player->grounded)
+	if (App->inp->GetInput(BUTTON_3) == KEY_REPEAT && player->grounded && is_volcano_active)
 	{
 		if (player->is_right)
 		{
@@ -126,6 +141,7 @@ void Fire::Loop(float dt)
 	{
 		player->UnlockMovement();
 		volcano_particles->active = false;
+		is_volcano_active = false;
 	}
 
 
@@ -154,7 +170,42 @@ void Fire::Loop(float dt)
 		is_fireshield_on_cooldown = false;
 	}
 
+	if (is_fireshield_up)
+	{
+		SDL_Rect fireshield = {player->collider->x-16,player->collider->y-16,96,96};
+		std::vector<collision*> collisions;
+		App->phy->GetCollisions(&fireshield, collisions);
 
+		for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+		{
+			if ((*it)->object != player)
+			{
+				int direction = 0;
+				if (player->collider->x < (*it)->object->collider->x)
+				{
+					direction = 1;
+				}
+				else
+				{
+					direction = -1;
+				}
+
+				if ((*it)->type == COAL_JUMPER)
+				{
+					((CoalJumper*)(*it)->object)->RecieveDamage(0.3, direction);
+				}
+				if ((*it)->type == GROUNDED_ELEMENTAL)
+				{
+					((GroundedElemental*)(*it)->object)->RecieveDamage(0.3, direction);
+				}
+				if ((*it)->type == FLYING_ELEMENTAL)
+				{
+					((FlyingElemental*)(*it)->object)->RecieveDamage(0.3, direction);
+				}
+			}
+		}
+	}
+	
 }
 
 void Fire::Render()
@@ -237,7 +288,7 @@ void Fire::UnlockMovementEvent()
 
 void Fire::CleanUp()
 {
-
+	
 }
 
 void Fire::DeleteLava(LavaSpell* to_delete)

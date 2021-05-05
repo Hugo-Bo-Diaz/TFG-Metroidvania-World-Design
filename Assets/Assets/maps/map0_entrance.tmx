@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="48" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="17" nextobjectid="38">
- <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="128" columns="16">
-  <image source="tilesets/tileset01.png" width="768" height="384"/>
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="48" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="18" nextobjectid="41">
+ <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
+  <image source="tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
- <tileset firstgid="129" name="objects" tilewidth="48" tileheight="48" tilecount="64" columns="8">
+ <tileset firstgid="177" name="objects" tilewidth="48" tileheight="48" tilecount="64" columns="8">
   <image source="objects.png" width="384" height="384"/>
  </tileset>
  <imagelayer id="10" name="Image Layer 3">
@@ -1346,10 +1346,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="132"/>
+   <tile gid="133"/>
+   <tile gid="134"/>
+   <tile gid="135"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1394,10 +1394,10 @@
    <tile gid="124"/>
    <tile gid="125"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="148"/>
+   <tile gid="149"/>
+   <tile gid="150"/>
+   <tile gid="151"/>
    <tile gid="124"/>
    <tile gid="125"/>
    <tile/>
@@ -1602,9 +1602,19 @@
   </data>
  </layer>
  <objectgroup id="14" name="objects">
-  <object id="37" type="HazardLavaWaterfall" x="1680" y="96" width="144" height="480">
+  <object id="40" type="TextBoxObject" x="1680" y="480" width="192" height="96">
    <properties>
-    <property name="color" type="int" value="0"/>
+    <property name="lore" type="int" value="0"/>
+    <property name="text" value="how did this happen"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#aa00ff" id="17" name="checkpoints">
+  <object id="38" x="528" y="384" width="240" height="96">
+   <properties>
+    <property name="room_id" type="int" value="0"/>
+    <property name="x" type="int" value="96"/>
+    <property name="y" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>

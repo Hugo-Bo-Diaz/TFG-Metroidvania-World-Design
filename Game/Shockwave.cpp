@@ -36,7 +36,8 @@ bool Shockwave::Loop(float dt)
 		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE || SDL_PointInRect(&floor_check, colliders[i]) == SDL_FALSE)// he goin crash!
 		{
 			App->phy->DeleteObject(this);
-			App->par->to_delete.push_back(p);
+			//App->par->to_delete.push_back(p);
+			App->par->RemoveParticleEmitter(p);
 		}
 	}
 

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<save_state>
+	<health current="4" max="4" />
+	<mana current="3" max="3" />
+	<spells>
+		<spell unlocked="false" />
+		<spell unlocked="false" />
+		<spell unlocked="false" />
+		<spell unlocked="false" />
+		<spell unlocked="false" />
+	</spells>
+	<checkpoint room_id="0" x="624" y="384" />
+	<collectables>
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+		<collectable picked_up="false" />
+	</collectables>
+</save_state>

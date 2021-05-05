@@ -26,14 +26,17 @@ struct TextPrint
 {
 	//PARAMS
 	std::string text;
+	std::vector<std::string>words;
 	SDL_Color color;
 	Font* font_used;
 	int max_width;
-	int scale;
+	float scale;
 
 	//RESULTS
 	uint id;
 	int current_letter;
+
+	void ChangeText(const char* newtext);
 };
 
 
@@ -49,7 +52,7 @@ public:
 	virtual bool CleanUp();
 
 	Font* LoadFont(const char* path, const char* name, int char_per_row);
-	TextPrint* CreateText(const char* text, SDL_Color color, int max_width, const char* font = "",int scale = 1);
+	TextPrint* CreateText(const char* text, SDL_Color color, int max_width, const char* font = "",float scale = 1);
 	Font* GetFont(const char* name);
 	void DeleteText(TextPrint* to_delete);
 	void ChangeText(TextPrint* to_change, const char* new_text);

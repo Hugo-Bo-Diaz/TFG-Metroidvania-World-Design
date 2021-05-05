@@ -8,6 +8,21 @@
 
 #define MAX_EXPANSIONS 32
 
+struct LoreLog
+{
+	std::string title;
+	std::string text;
+	int id;
+
+	bool operator<(const LoreLog& rhs) const
+	{
+		if (id < rhs.id)
+			return true;
+		else
+			return false;
+	}
+};
+
 class Player;
 
 class ProgressTracker : public Part
@@ -21,16 +36,29 @@ public:
 
 	void SaveGame(const char* file);
 	void LoadGame(const char* file);
+	bool CanLoadGame(const char* file);
 
 	void SetPlayer(Player* p);
 	int spawn_point = 0;
 	void AddPlayer();
 	void RespawnPlayer();
 
+	void SetPlayerToLastCheckPoint();
+	int last_checkpoint_x = 0;
+	int last_checkpoint_y = 0;
+	int last_checkpoint_id = 0;
+	void SetCheckPoint(int x, int y, int room_id);
+	bool send_player_to_checkpoint = false;
+
+
 	bool start_new_game = false;
 	void StartNewGame();
-	//variables that track events in the game
+	bool start_load_game = false;
+	void StartLoadGame();
+	bool send_player_to_load = false;
 
+	bool go_to_main_menu = false;
+	//variables that track events in the game
 	std::vector<bool> unlocked;
 	
 	float player_hp = 4;
@@ -45,13 +73,25 @@ public:
 	int charges_mana;
 	int charges_per_mana = 4;
 
-	Player* pl;
+	Player* pl = nullptr;
 
 	bool itemspickedup[MAX_EXPANSIONS];
 	void AddPickupToList(int id);
 	bool HasBeenFound(int id);
 
 	bool respawn_player = false;
+
+	//lore logs handling
+	std::vector<LoreLog*> lore_logs;
+	std::vector<LoreLog*> active_logs;
+	void LoadLogs(const char* logs_file);
+	void UnlockLog(int id);
+	LoreLog* GetLog(int number);
+	void OrderActiveLogs();
+	bool HasLogBeenUnlocked(int id);
+
+	bool LoadConfig(pugi::xml_node&);
+	bool CreateConfig(pugi::xml_node&);
 
 };
 

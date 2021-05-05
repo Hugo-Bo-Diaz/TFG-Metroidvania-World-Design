@@ -5,4 +5,15 @@
 	<room id = "3" path = "Assets/maps/map3_fire_spell_location.tmx"/>
 	<room id = "4" path = "Assets/maps/map4_first_health_pickup.tmx"/>
 	<room id = "5" path = "Assets/maps/map5_first_mana_pickup.tmx"/>
+	<room id = "6" path = "Assets/maps/map6_first_fire_passage.tmx"/>
+	<room id = "7" path = "Assets/maps/map7_item_tease.tmx"/>
+	<room id = "8" path = "Assets/maps/map8_second_vertical.tmx"/>
+	<room id = "9" path = "Assets/maps/map9_second_mana_pickup.tmx"/>
+	<room id = "10" path = "Assets/maps/map10_second_fire_passage.tmx"/>
+	<room id = "11" path = "Assets/maps/map11_second_health_pickup.tmx"/>
+	<room id = "12" path = "Assets/maps/map12_third_vertical.tmx"/>
+	<room id = "13" path = "Assets/maps/map13_third_mana_pickup.tmx"/>
+	<room id = "14" path = "Assets/maps/map14_fourth_vertical.tmx"/>
+	<room id = "15" path = "Assets/maps/map15_shortcut_first_room.tmx"/>
+	<room id = "16" path = "Assets/maps/map16_shortcut_second_room.tmx"/>
 </completemap>

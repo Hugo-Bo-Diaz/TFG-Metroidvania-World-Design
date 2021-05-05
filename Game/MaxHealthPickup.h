@@ -18,6 +18,7 @@ public:
 	int pickup_id;
 
 	ParticleEmitter* p;
-
+	std::string text;
+	int lore_unlock = -1;
 };
 #endif

@@ -20,6 +20,7 @@ public:
 
 	Fire* parent;
 
+	int damage = 1;
 };
 
 #endif

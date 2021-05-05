@@ -79,7 +79,7 @@ Font * Text::LoadFont(const char * path, const char * name, int char_per_row)
 	return ret;
 }
 
-TextPrint * Text::CreateText(const char * text, SDL_Color color, int max_width, const char * font, int scale)
+TextPrint * Text::CreateText(const char * text, SDL_Color color, int max_width, const char * font, float scale)
 {
 	TextPrint* ret = new TextPrint();
 
@@ -87,6 +87,29 @@ TextPrint * Text::CreateText(const char * text, SDL_Color color, int max_width, 
 	ret->font_used = GetFont(font);
 	ret->max_width = max_width;
 	ret->text = text;
+
+	int number_of_words =  std::count(ret->text.begin(), ret->text.end(), ' ') + 1;
+
+	int iterator = 0;
+
+	for (int j = 0; j < number_of_words; ++j)
+	{
+
+		std::string new_string;
+
+		for (; iterator < ret->text.size(); ++iterator)
+		{
+			if (ret->text[iterator] == 32)
+			{
+				iterator++;
+				break;
+			}
+			new_string += ret->text[iterator];
+		}
+
+		ret->words.push_back(new_string);
+
+	}
 
 	ret->current_letter = ret->text.length();
 
@@ -122,5 +145,39 @@ void Text::DeleteText(TextPrint * to_delete)
 
 void Text::ChangeText(TextPrint * to_change, const char * new_text)
 {
+
+}
+
+void TextPrint::ChangeText(const char * newtext)
+{
+	words.clear();
+
+	text = newtext;
+
+	int number_of_words = std::count(text.begin(), text.end(), ' ') + 1;
+
+	int iterator = 0;
+
+	for (int j = 0; j < number_of_words; ++j)
+	{
+
+		std::string new_string;
+
+		for (; iterator < text.size(); ++iterator)
+		{
+			new_string += text[iterator];
+
+			if (text[iterator] == 32)
+			{
+				iterator++;
+				break;
+			}
+		}
+
+		words.push_back(new_string);
+
+	}
+
+	current_letter = text.length();
 
 }

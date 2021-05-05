@@ -7,6 +7,13 @@
 #include "WindSlash.h"
 #include "Particles.h"
 #include "Camera.h"
+
+Wind::~Wind()
+{
+	App->par->RemoveParticleEmitter(p);
+	//App->par->to_delete.push_back(p);
+}
+
 void Wind::Init()
 {
 	p = App->par->AddParticleEmitter(&App->par->windbuff, 0, 0);

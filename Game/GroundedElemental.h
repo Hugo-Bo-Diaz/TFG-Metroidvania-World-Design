@@ -19,11 +19,14 @@ public:
 	bool Loop(float dt);
 	bool Render();
 
-	float speed_x = 1;
+	float patrol_speed = 1;
+	float speed_x = patrol_speed;
 	float speed_y = -10;
 
 	float acceleration_y = 1.0;
 	float health = 2;
+
+	void RecieveDamage(int dmg, int direction);
 
 	float animation_frame_interval=100;
 	Timer animation_timer;
@@ -31,6 +34,7 @@ public:
 	Animation walking_right;
 
 	void SetAnimations(GroundedElementalColor c);
+	bool knocked_up = false;
 
 	GroundedElementalColor c;
 };

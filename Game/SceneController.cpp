@@ -9,12 +9,17 @@
 #include "Audio.h"
 #include "Camera.h"
 #include "ProgressTracker.h"
+#include "Particles.h"
+#include "Window.h"
 
 #include "Player.h"
 #include "MaxHealthPickup.h"
 #include "MaxManaPickup.h"
 #include "GroundedElemental.h"
 #include "FlyingElemental.h"
+
+#include "CheckPoint.h"
+#include "TextBoxObject.h"
 //#include "HazardLava.h"
 
 #include "Gui.h"
@@ -33,7 +38,8 @@ bool SceneController::Init()
 	LoadAssetsMap("Assets/maps/AssetStorage.tmx");
 	LoadMapArray("Assets/maps/map_array.xml");
 	App->gui->AddMainMenu();
-
+	//App->gui->AddSettingsMenu();
+	//App->gui->AddPauseMenu();
 	//LoadMap("Assets/maps/map0.tmx");
 
 	
@@ -241,6 +247,10 @@ bool SceneController::LoadMap(const char* filename)
 			{
 				LoadSpawnPoints(iterator);
 			}
+			if (tmp == "checkpoints")
+			{
+				LoadCheckPoints(iterator);
+			}
 		}
 		if (iterator_name == "layer")
 		{
@@ -295,7 +305,7 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 	//	int newpos;
 		object_type t = MAX_OBJECT_TYPE;
 		int x = object_iterator.attribute("x").as_int();
-		int y = object_iterator.attribute("y").as_int()-48;//tile height inside tiled
+		int y = object_iterator.attribute("y").as_int()- object_iterator.attribute("height").as_int();//tile height inside tiled
 		int w = 0;
 		int h = 0;
 		std::string type = object_iterator.attribute("type").as_string();
@@ -328,7 +338,6 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 			t = LAVA_HAZARD_WATERFALL;
 			w = object_iterator.attribute("width").as_int();
 			h = object_iterator.attribute("height").as_int();
-			y += 48;
 		}
 		else if (type == "EnemyGroundedElemental")
 		{
@@ -348,6 +357,16 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 			w = 64;
 			h = 64;
 		}
+
+		else if (type == "TextBoxObject")
+		{
+			t = TEXTBOXOBJECT;
+			w = object_iterator.attribute("width").as_int();
+			h = object_iterator.attribute("height").as_int();
+			y+=object_iterator.attribute("height").as_int();
+
+		}
+
 		physobj*ret = nullptr;
 
 		if(t != MAX_OBJECT_TYPE)
@@ -368,6 +387,14 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 					{
 						((MaxHealthPickup*)ret)->pickup_id = iterator.attribute("value").as_int();
 					}
+					if (temp == "text")
+					{
+						((MaxHealthPickup*)ret)->text = iterator.attribute("value").as_string("");
+					}
+					if (temp == "lore")
+					{
+						((MaxHealthPickup*)ret)->lore_unlock = iterator.attribute("value").as_int(-1);
+					}
 				}
 			}
 			else if (t == MAX_MANA_PICKUP)
@@ -382,6 +409,14 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 					if (temp == "id")
 					{
 						((MaxManaPickup*)ret)->pickup_id = iterator.attribute("value").as_int();
+					}
+					if (temp == "text")
+					{
+						((MaxManaPickup*)ret)->text = iterator.attribute("value").as_string("");
+					}
+					if (temp == "lore")
+					{
+						((MaxHealthPickup*)ret)->lore_unlock = iterator.attribute("value").as_int(-1);
 					}
 				}
 			}
@@ -413,6 +448,30 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 					if (temp == "color")
 					{
 						((FlyingElemental*)ret)->SetAnimations((FlyingElementalColor)iterator.attribute("value").as_int());
+					}
+				}
+			}
+
+			else if (t == TEXTBOXOBJECT)
+			{
+
+				pugi::xml_node properties_node = object_iterator.child("properties");
+				pugi::xml_node iterator;
+
+				for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
+				{
+					std::string temp = iterator.attribute("name").as_string();
+					if (temp == "text")
+					{
+						((TextBoxObject*)ret)->AddText(iterator.attribute("value").as_string());
+					}
+					if (temp == "author")
+					{
+						((TextBoxObject*)ret)->author = iterator.attribute("value").as_string();
+					}
+					if (temp == "lore")
+					{
+						((TextBoxObject*)ret)->lore_unlock = iterator.attribute("value").as_int(-1);
 					}
 				}
 			}
@@ -559,6 +618,41 @@ bool SceneController::LoadSpawnPoints(pugi::xml_node & objectgroup_node)
 	return true;
 }
 
+bool SceneController::LoadCheckPoints(pugi::xml_node &objectgroup_node)
+{
+	pugi::xml_node object_iterator;
+	for (object_iterator = objectgroup_node.child("object"); object_iterator; object_iterator = object_iterator.next_sibling())
+	{
+		int x = object_iterator.attribute("x").as_int();
+		int y= object_iterator.attribute("y").as_int();
+		int w= object_iterator.attribute("width").as_int();
+		int h= object_iterator.attribute("height").as_int();
+
+		CheckPoint* new_point = (CheckPoint*)App->phy->AddObject(x,y,w,h,CHECKPOINT);
+
+		pugi::xml_node properties_node = object_iterator.child("properties");
+		pugi::xml_node iterator;
+
+		for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
+		{
+			std::string temp = iterator.attribute("name").as_string();
+			if (temp == "x")
+			{
+				new_point->spawn_pos_x = iterator.attribute("value").as_int(0) + x;
+			}
+			if (temp == "y")
+			{
+				new_point->spawn_pos_y = iterator.attribute("value").as_int(0) + y;
+			}
+			if (temp == "room_id")
+			{
+				new_point->room_id = iterator.attribute("value").as_int(0);
+			}
+		}
+	}
+	return true;
+}
+
 tileset* SceneController::GetTilesetFromId(int id)
 {
 	tileset* ret = nullptr;
@@ -621,6 +715,8 @@ void SceneController::RenderTiles()
 {
 	for (std::vector<layer*>::iterator it = layers.begin(); it != layers.end(); it++)
 	{
+		float scale = App->win->GetScale();
+
 		float para_x = (*it)->parallax_x;
 		float para_y = (*it)->parallax_y;
 		int depth = (*it)->depth;
@@ -632,16 +728,16 @@ void SceneController::RenderTiles()
 				int i = _y * (*it)->width + _x;
 				//tileset* t = GetTilesetFromId((*it)->data[i]);
 				tileset* t = (*it)->tileset_of_layer;//(*tilesets.begin());
-				float worldcoords_x = _x * t->tile_width + App->cam->GetCameraXoffset();
-				float worldcoords_y = _y * t->tile_height + App->cam->GetCameraYoffset();
+				float worldcoords_x = scale *_x * t->tile_width + App->cam->GetCameraXoffset();
+				float worldcoords_y = scale *_y * t->tile_height + App->cam->GetCameraYoffset();
 
 				//App->ren->BlitMapTile(t->texture, _x, _y, GetImageRectFromId((*it)->data[i]), depth, para_x, para_y);
 
 				SDL_Rect on_scn;
 				on_scn.x = worldcoords_x;
 				on_scn.y = worldcoords_y;
-				on_scn.w = 48;
-				on_scn.h = 48;
+				on_scn.w = 48*scale;
+				on_scn.h = 48*scale;
 
 				if (SDL_RenderCopyEx(App->ren->renderer, t->texture, &GetImageRectFromId((*it)->tileset_of_layer,(*it)->data[i]), &on_scn, 0, NULL, SDL_FLIP_NONE) != 0)
 				{
@@ -671,8 +767,15 @@ void SceneController::UsePortal(Portal * p, int offset)
 		if ((*it)->id == p->id_destination_room)
 		{
 			map_to_change = (*it)->path;
+			current_room_id = p->id_destination_room;
 		}
 	}
+	
+	int current_spell = App->trk->pl->current_spell;
+	float speed_x = App->trk->pl->speed_x;
+	float speed_y = App->trk->pl->speed_y;
+
+	//App->par->ClearParticles();
 
 	int point_id = p->id_destination_point;
 	App->trk->spawn_point = point_id;
@@ -706,13 +809,111 @@ void SceneController::UsePortal(Portal * p, int offset)
 		newplayer_y = spawnpoint_y + offset;
 	}
 
+	//set player
 	Player* pl = (Player*)App->phy->AddObject(newplayer_x, newplayer_y, 64, 64, PLAYER);
 	App->gui->Add_GameUI((physobj*)pl);
 	App->trk->SetPlayer(pl);
 
+	pl->current_spell = (spell_type)current_spell;
+	pl->speed_y = speed_y;
+	pl->speed_x = speed_x;
+
+
+	//TODO
+}
+
+void SceneController::GoToLastCheckPoint()
+{
+	Player*pl = App->trk->pl;
+
+	App->trk->player_hp = App->trk->max_player_hp;
+	App->trk->player_mana = App->trk->max_player_mana;
+
+	std::string map_to_change;
+
+	if (current_room_id != App->trk->last_checkpoint_id)
+	{
+		int current_spell = pl->current_spell;
+
+		for (std::vector<room*>::iterator it = rooms.begin(); it != rooms.end(); it++)
+		{
+			if ((*it)->id == App->trk->last_checkpoint_id)
+			{
+				map_to_change = (*it)->path;
+				current_room_id = App->trk->last_checkpoint_id;
+			}
+		}
+		ChangeMap(map_to_change.c_str());
+
+		pl = (Player*)App->phy->AddObject(0, 0, 64, 64, PLAYER);
+		App->gui->Add_GameUI((physobj*)pl);
+
+		pl->current_spell = (spell_type)current_spell;
+
+	}
+	pl->speed_x = 0;
+	pl->speed_y = 0;
+	pl->nextpos->x = App->trk->last_checkpoint_x;
+	pl->nextpos->y = App->trk->last_checkpoint_y;
+	App->trk->SetPlayer(pl);
+
+}
+
+void SceneController::GoToLoadedScene()
+{
+	Player*pl = App->trk->pl;
+
+	std::string map_to_change;
+
+	if (current_room_id != App->trk->last_checkpoint_id)
+	{
+		int current_spell = NONE_UNLOCKED;
+
+		for (std::vector<room*>::iterator it = rooms.begin(); it != rooms.end(); it++)
+		{
+			if ((*it)->id == App->trk->last_checkpoint_id)
+			{
+				map_to_change = (*it)->path;
+				current_room_id = App->trk->last_checkpoint_id;
+			}
+		}
+		ChangeMap(map_to_change.c_str());
+
+
+		for (int i = 0; i < 5; ++i)
+		{
+			if (App->trk->unlocked[i] == true)
+			{
+				current_spell = i;
+				break;
+			}
+		}
+
+		pl = (Player*)App->phy->AddObject(0, 0, 64, 64, PLAYER);
+		App->gui->Add_GameUI((physobj*)pl);
+
+		pl->current_spell = (spell_type)current_spell;
+
+	}
+	pl->speed_x = 0;
+	pl->speed_y = 0;
+	pl->nextpos->x = App->trk->last_checkpoint_x;
+	pl->nextpos->y = App->trk->last_checkpoint_y;
+	App->trk->SetPlayer(pl);
+}
+
+void SceneController::GoToMainMenu()
+{
+	CleanMap();
+
+	App->phy->Clearphysics();
+	App->gui->Clearelements();
+
+	App->gui->AddMainMenu();
 
 
 }
+
 
 void SceneController::LoadMapArray(const char * document)
 {
@@ -777,6 +978,7 @@ void SceneController::DeletePortals()
 	}
 	portals.clear();
 }
+
 
 
 void SceneController::CleanMap()

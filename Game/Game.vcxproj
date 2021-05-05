@@ -123,11 +123,13 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CheckPoint.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="CoalJumper.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="FireSpellPickup.cpp" />
+    <ClCompile Include="FirstDialogue.cpp" />
     <ClCompile Include="FlyingElemental.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Ground.cpp" />
@@ -156,6 +158,7 @@
     <ClCompile Include="SceneController.cpp" />
     <ClCompile Include="Shockwave.cpp" />
     <ClCompile Include="Text.cpp" />
+    <ClCompile Include="TextBoxObject.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Thorns.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -164,6 +167,9 @@
     <ClCompile Include="UIimage.cpp" />
     <ClCompile Include="UIingameUI.cpp" />
     <ClCompile Include="UImainmenu.cpp" />
+    <ClCompile Include="UIPauseMenu.cpp" />
+    <ClCompile Include="UISelectMenu.cpp" />
+    <ClCompile Include="UISettingsMenu.cpp" />
     <ClCompile Include="UIspelldisplay.cpp" />
     <ClCompile Include="UItextbox.cpp" />
     <ClCompile Include="Water.cpp" />
@@ -176,11 +182,13 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CheckPoint.h" />
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="CoalJumper.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Fire.h" />
     <ClInclude Include="FireSpellPickup.h" />
+    <ClInclude Include="FirstDialogue.h" />
     <ClInclude Include="FlyingElemental.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Ground.h" />
@@ -213,6 +221,7 @@
     <ClInclude Include="Render.h" />
     <ClInclude Include="SceneController.h" />
     <ClInclude Include="Text.h" />
+    <ClInclude Include="TextBoxObject.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Thorns.h" />
     <ClInclude Include="Timer.h" />
@@ -221,6 +230,9 @@
     <ClInclude Include="UIimage.h" />
     <ClInclude Include="UIingameUI.h" />
     <ClInclude Include="UImainmenu.h" />
+    <ClInclude Include="UIPauseMenu.h" />
+    <ClInclude Include="UISelectMenu.h" />
+    <ClInclude Include="UISettingsMenu.h" />
     <ClInclude Include="UIspelldisplay.h" />
     <ClInclude Include="UItextbox.h" />
     <ClInclude Include="Water.h" />

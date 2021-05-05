@@ -23,7 +23,7 @@ public:
 	//iceblock
 	bool is_iceblock_on_cooldown = false;
 	float cast_time_block = 100;
-	float cooldown_block = 10000;
+	float cooldown_block = 3000;
 	Timer iceblock_timer;
 
 	//cloud

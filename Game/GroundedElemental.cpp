@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Render.h"
 #include "Textures.h"
+#include "Particles.h"
 
 GroundedElemental::GroundedElemental()
 {
@@ -10,6 +11,9 @@ GroundedElemental::GroundedElemental()
 
 GroundedElemental::~GroundedElemental()
 {
+	//ADD PARTICLES
+	App->par->AddParticleEmitter(&App->par->explosion, collider->x, collider->y, 600);
+
 }
 
 bool GroundedElemental::Loop(float dt)
@@ -61,6 +65,12 @@ bool GroundedElemental::Loop(float dt)
 			{
 				speed_y = 0;
 				nextpos->y -= result.h;
+				
+				if (knocked_up)
+				{
+					speed_x = patrol_speed;
+					knocked_up = false;
+				}
 			}
 
 			if (SDL_PointInRect(&p2, colliders[i]) == SDL_TRUE)
@@ -104,6 +114,18 @@ bool GroundedElemental::Render()
 		App->ren->Blit(App->tex->Get_Texture("groundelemental"), collider->x, collider->y, walking_right.GetCurrentFrame(), 0);
 
 	return true;
+}
+
+void GroundedElemental::RecieveDamage(int dmg, int direction)
+{
+	health -= dmg;
+	if (health <= 0)
+	{
+		App->phy->DeleteObject(this);
+	}
+	speed_x = direction * 6;
+	speed_y = -10;
+	knocked_up = true;
 }
 
 void GroundedElemental::SetAnimations(GroundedElementalColor _c)

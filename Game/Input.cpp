@@ -406,7 +406,7 @@ bool Input::CreateConfig(pugi::xml_node& config_node)
 		keyboard_setup->inputs[2] = SDL_SCANCODE_C; set_key.append_child("b3").append_attribute("value") = SDL_SCANCODE_C;
 		keyboard_setup->inputs[3] = SDL_SCANCODE_V; set_key.append_child("b4").append_attribute("value") = SDL_SCANCODE_V;
 
-		keyboard_setup->inputs[4] = SDL_SCANCODE_KP_ENTER; set_key.append_child("start").append_attribute("value") = SDL_SCANCODE_KP_ENTER;
+		keyboard_setup->inputs[4] = SDL_SCANCODE_KP_ENTER; set_key.append_child("start").append_attribute("value") = SDL_SCANCODE_RETURN;
 		keyboard_setup->inputs[5] = SDL_SCANCODE_BACKSPACE; set_key.append_child("select").append_attribute("value") = SDL_SCANCODE_BACKSPACE;
 
 		keyboard_setup->inputs[6] = SDL_SCANCODE_A; set_key.append_child("sh_l").append_attribute("value") = SDL_SCANCODE_A;

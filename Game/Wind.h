@@ -10,6 +10,9 @@ class ParticleEmitter;
 class Wind : public Spell
 {
 public:
+
+	~Wind();
+
 	void Init();
 
 	void Loop(float dt);

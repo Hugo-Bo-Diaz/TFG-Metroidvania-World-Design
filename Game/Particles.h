@@ -30,8 +30,11 @@ public:
 	std::list<ParticleEmitter*>* GetParticleList();
 
 	ParticleEmitter* AddParticleEmitter(particle_preset* particle_preset, float x, float y, float lifespan = -1);
+	void RemoveParticleEmitter(ParticleEmitter* _to_delete);
 
 	std::list<ParticleEmitter*> to_delete;
+	void ClearParticles();
+
 
 	SDL_Rect r1exp;
 	SDL_Rect r2shield;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="48" height="32" tilewidth="48" tileheight="48" infinite="0" nextlayerid="17" nextobjectid="47">
- <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="128" columns="16">
-  <image source="tilesets/tileset01.png" width="768" height="384"/>
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="48" height="32" tilewidth="48" tileheight="48" infinite="0" nextlayerid="17" nextobjectid="51">
+ <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
+  <image source="tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
  <imagelayer id="10" name="Image Layer 3">
   <image source="Backgrounds/ground_back.png" width="1024" height="576"/>
@@ -537,8 +537,8 @@
    <tile gid="17"/>
    <tile gid="117"/>
    <tile/>
+   <tile/>
    <tile gid="102"/>
-   <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -584,7 +584,9 @@
    <tile gid="1"/>
    <tile gid="17"/>
    <tile gid="117"/>
-   <tile gid="118"/>
+   <tile/>
+   <tile/>
+   <tile gid="102"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -609,8 +611,6 @@
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -630,16 +630,16 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
+   <tile gid="101"/>
+   <tile/>
+   <tile/>
+   <tile gid="102"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -678,17 +678,17 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
+   <tile gid="117"/>
+   <tile/>
+   <tile gid="102"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -726,12 +726,12 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
+   <tile gid="117"/>
+   <tile gid="102"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -1153,9 +1153,9 @@
    <tile gid="98"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile gid="101"/>
+   <tile/>
+   <tile gid="118"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -1296,10 +1296,10 @@
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile gid="101"/>
+   <tile/>
+   <tile/>
+   <tile gid="102"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -1898,54 +1898,6 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="105"/>
-   <tile gid="106"/>
-   <tile gid="107"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="106"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
    <tile gid="121"/>
    <tile gid="122"/>
    <tile gid="123"/>
@@ -2044,9 +1996,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="129"/>
+   <tile gid="130"/>
+   <tile gid="131"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2092,9 +2044,57 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="145"/>
+   <tile gid="146"/>
+   <tile gid="147"/>
    <tile/>
    <tile/>
    <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="106"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="161"/>
+   <tile gid="162"/>
+   <tile gid="163"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2269,9 +2269,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
    <tile gid="124"/>
    <tile gid="125"/>
+   <tile gid="136"/>
+   <tile gid="137"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2318,6 +2319,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="152"/>
+   <tile gid="153"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2366,6 +2369,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="154"/>
+   <tile gid="139"/>
+   <tile gid="140"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2412,14 +2418,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="155"/>
+   <tile gid="156"/>
    <tile/>
    <tile/>
    <tile/>
@@ -3133,7 +3133,26 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="14" name="objects"/>
+ <objectgroup id="14" name="objects">
+  <object id="47" type="TextBoxObject" x="624" y="1104" width="240" height="192">
+   <properties>
+    <property name="lore" type="int" value="3"/>
+    <property name="text" value="i wonder if the people of the village are happy"/>
+   </properties>
+  </object>
+  <object id="48" type="TextBoxObject" x="1632" y="384" width="144" height="144">
+   <properties>
+    <property name="lore" type="int" value="1"/>
+    <property name="text" value="this painting looks cool"/>
+   </properties>
+  </object>
+  <object id="50" type="TextBoxObject" x="1008" y="528" width="192" height="96">
+   <properties>
+    <property name="lore" type="int" value="2"/>
+    <property name="text" value="this place was absolutely destroyed"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
   <object id="3" x="-96" y="768" width="1200" height="96"/>
   <object id="5" x="-96" y="1344" width="2496" height="192"/>

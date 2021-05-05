@@ -5,10 +5,20 @@
 #include "Render.h"
 #include "Particles.h"
 
+#include "CoalJumper.h"
+#include "GroundedElemental.h"
+#include "FlyingElemental.h"
+
+
 FireBall::FireBall()
 {
 	fireball_big.AddFrame({0,0,64,64});
 	fireball_small.AddFrame({96,0,32,32});
+}
+
+FireBall::~FireBall()
+{
+	App->par->AddParticleEmitter(&App->par->explosion, collider->x, collider->y, 300);
 }
 
 bool FireBall::Loop(float dt)
@@ -26,10 +36,36 @@ bool FireBall::Loop(float dt)
 		SDL_Rect result;
 		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
 		{
-			App->par->AddParticleEmitter(&App->par->explosion,collider->x,collider->y,300);
 			App->phy->DeleteObject(this);
 		}
 	}
+
+
+	std::vector<collision*> collisions;
+	App->phy->GetCollisions(collider, collisions);
+
+	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	{
+		if ((*it)->object != this)
+		{
+			if ((*it)->type == COAL_JUMPER)
+			{
+				((CoalJumper*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
+			if ((*it)->type == GROUNDED_ELEMENTAL)
+			{
+				((GroundedElemental*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
+			if ((*it)->type == FLYING_ELEMENTAL)
+			{
+				((FlyingElemental*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
+		}
+	}
+
 
 	return ret;
 }
@@ -62,5 +98,7 @@ void FireBall::Fire(bool left_dir, bool _is_big)
 		nextpos->y += 16;
 		nextpos->w = 16;
 		nextpos->h = 16;
+
+		damage += 3;
 	}
 }

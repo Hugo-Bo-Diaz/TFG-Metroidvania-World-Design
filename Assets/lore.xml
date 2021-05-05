@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<lore>
+	<entry id = "0" title = "pile of books" content = "This is the end of our human conflict and the beggining of another more dangerous one" />
+	<entry id = "1" title = "painting 1" content = "these paintings seem familiar, I wonder if I have met these people before" />
+	<entry id = "2" title = "rubble" content = "what did we do wrong to be erased from this painful reality" />
+	<entry id = "3" title = "village" content = "it seems so peaceful even if it is populated by humans" />
+	<entry id = "4" title = "Fire book" content = "I feel more powerful, I hope these abilities that the book has bestowed upon me are good enough to keep moving forward" />
+	<entry id = "5" title = "fire chapter 1" content = "they wanted our books and their power as it is superior to everything else in this damned world" />
+	<entry id = "6" title = "fire chapter 2" content = "they were afraid because understanding our books was not their priority" />
+	<entry id = "7" title = "fire chapter 3" content = "these mines... time passage on these cirumstances was horrible to them..." />
+	<entry id = "8" title = "fire chapter 4" content = "if these walls could speak they would scream for help" />
+	<entry id = "9" title = "fire chapter 5" content = "The master of this area was a brave and hotheaded fighter, he died bravely fighting the outsiders" />
+	<entry id = "10" title = "fire chapter 6" content = "Balance has been broken, and with it the powers that the castle contained have been freed" />
+	<entry id = "11" title = "fire chapter 7" content = "The coal carts used to obey their masters helping with the mining tasks" />
+</lore>

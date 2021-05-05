@@ -27,6 +27,10 @@
 #include "HazardLava.h"
 #include "HazardLavaWaterfall.h"
 
+#include "CheckPoint.h"
+#include "FirstDialogue.h"
+#include "TextBoxObject.h"
+
 Physics::Physics()
 {
 	name = "Physics";
@@ -190,6 +194,15 @@ physobj* Physics::AddObject(int x, int y, int w_col, int h_col, object_type type
 	case LAVA_HAZARD_WATERFALL: {
 		r = new HazardLavaWaterfall();
 		break; }
+	case CHECKPOINT: {
+		r = new CheckPoint();
+		break; }
+	case FIRST_DIALOGUE: {
+		r = new FirstDialogue();
+		break; }
+	case TEXTBOXOBJECT: {
+		r = new TextBoxObject();
+		break; }
 	default:
 		r = new physobj();
 		break;
@@ -296,6 +309,14 @@ bool Physics::Clearphysics()
 		if ((*it)->type == COAL_JUMPER)
 		{
 			((CoalJumper*)(*it))->~CoalJumper();
+		}
+		if ((*it)->type == GROUNDED_ELEMENTAL)
+		{
+			((GroundedElemental*)(*it))->~GroundedElemental();
+		}
+		if ((*it)->type == FLYING_ELEMENTAL)
+		{
+			((FlyingElemental*)(*it))->~FlyingElemental();
 		}
 		delete(*it);
 	}

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "UIhealthbar.h"
 #include "UIspelldisplay.h"
+
 class UIingameui : public UIelement
 {
 public:
@@ -20,7 +21,7 @@ public:
 	UIhealthbar* mana;
 
 	UIspelldisplay* spells;
-
+	
 };
 
 #endif // !UI_INGAME

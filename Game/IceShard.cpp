@@ -31,7 +31,8 @@ bool IceShard::Loop(float dt)
 		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
 		{
 			App->phy->DeleteObject(this);
-			App->par->to_delete.push_back(p);
+			//App->par->to_delete.push_back(p);
+			App->par->RemoveParticleEmitter(p);
 			App->par->AddParticleEmitter(&App->par->ice, collider->x-8, collider->y, 300);
 		}
 	}

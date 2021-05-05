@@ -16,6 +16,13 @@ void UIMainMenu::Loop()
 		App->gui->RemoveElement(this);
 	}
 
+	if (App->inp->GetKey(SDL_SCANCODE_W) == BUTTON_DOWN)
+	{
+		App->trk->start_load_game = true;
+		App->gui->RemoveElement(this);
+		//it is deleted 
+	}
+
 }
 
 void UIMainMenu::Render()

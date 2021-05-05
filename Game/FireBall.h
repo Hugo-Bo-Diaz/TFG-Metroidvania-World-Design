@@ -9,6 +9,7 @@ class FireBall : public physobj
 public:
 
 	FireBall();
+	~FireBall();
 
 	void Fire(bool left_dir, bool is_big);
 
@@ -22,6 +23,8 @@ public:
 
 	Animation fireball_small;
 	Animation fireball_big;
+
+	int damage = 2;
 };
 
 #endif // !PLAYER__REP__H

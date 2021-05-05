@@ -1,11 +1,13 @@
 #include "Gui.h"
 #include "UImainmenu.h"
-
+#include "UIPauseMenu.h"
+#include "UISettingsMenu.h"
 #include "UIimage.h"
 #include "UIhealthbar.h"
 #include "UIingameUI.h"
 #include "UIspelldisplay.h"
 #include "UItextbox.h"
+#include "UISelectMenu.h"
 
 UserInterface::UserInterface()
 {
@@ -56,20 +58,76 @@ void UserInterface::Clearelements()
 {
 	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
 	{
-		delete (*it);
+				delete (*it);
 	}
-
+	to_delete.clear();
 	elements.clear();
 }
 
 void UserInterface::RemoveElement(UIelement * _to_delete)
 {
-	to_delete.push_back(_to_delete);
+	bool is_in_array = false;
+
+	for (std::vector<UIelement*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
+	{
+		if ((*it) == _to_delete)
+			is_in_array = true;
+	}
+
+	if(!is_in_array)
+		to_delete.push_back(_to_delete);
+}
+
+bool UserInterface::ElementExists(UIelement * to_check)
+{
+	bool is_in_array = false;
+
+	for (std::vector<UIelement*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
+	{
+		if ((*it) == to_check)
+			is_in_array = true;
+	}
+	
+	return is_in_array;
 }
 
 UIelement * UserInterface::AddMainMenu()
 {
 	UIMainMenu* ret = new UIMainMenu();
+
+	elements.push_back(ret);
+
+	return ret;
+}
+
+UIelement * UserInterface::AddPauseMenu()
+{
+	UIPauseMenu*ret = new UIPauseMenu();
+
+	ret->x = 320;
+	ret->y = 64;
+	elements.push_back(ret);
+
+	return ret;
+}
+
+UIelement * UserInterface::AddSettingsMenu()
+{
+	UISettingsMenu*ret = new UISettingsMenu();
+
+	ret->x = 320;
+	ret->y = 64;
+	elements.push_back(ret);
+
+	return ret;
+}
+
+UIelement * UserInterface::AddSelectMenu()
+{
+	UISelectMenu* ret = new UISelectMenu();
+
+	ret->x = 106;
+	ret->y = 64;
 
 	elements.push_back(ret);
 

@@ -3,7 +3,7 @@
 #include "Application.h"
 #include "ProgressTracker.h"
 #include "Gui.h"
-
+#include "UItextbox.h"
 
 MaxManaPickup::MaxManaPickup()
 {
@@ -13,7 +13,8 @@ MaxManaPickup::MaxManaPickup()
 
 MaxManaPickup::~MaxManaPickup()
 {
-	App->par->to_delete.push_back(p);
+	//App->par->to_delete.push_back(p);
+	App->par->RemoveParticleEmitter(p);
 	physobj::~physobj();
 }
 
@@ -42,9 +43,18 @@ bool MaxManaPickup::Loop(float dt)
 				App->trk->charges_mana++;
 				App->phy->DeleteObject(this);
 
-				std::string s = std::to_string(App->trk->charges_mana) + "/" + std::to_string(App->trk->charges_per_mana);
+				std::string s = std::to_string(App->trk->charges_mana) + "/" + std::to_string(App->trk->charges_per_mana) + " to increase mana";
 
-				App->gui->AddTextBox("", s.c_str(), TextBoxColor::RED, 3, 2, 272, 420, 2, 0.2);
+				UItextbox* t = (UItextbox*)App->gui->AddTextBox("", s.c_str(), TextBoxColor::GREY, 15, 4, 272, 420, 2, 0.2);
+				if (text != "")
+				{
+					t->AddPanelToTextBox(text.c_str());
+				}
+				if (lore_unlock != -1 && !App->trk->HasLogBeenUnlocked(lore_unlock))
+				{
+					App->trk->UnlockLog(lore_unlock);
+					t->AddPanelToTextBox("New lore entry unlocked");
+				}
 				//App->par->to_delete.push_back(p);
 				App->par->AddParticleEmitter(&App->par->magic, collider->x, collider->y, 1500);
 			}

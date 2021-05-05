@@ -1,5 +1,8 @@
 #include "UIingameUI.h"
 #include "Gui.h"
+#include "Application.h"
+#include "Input.h"
+#include "SceneController.h"
 
 UIingameui::UIingameui(Player * _player)
 {
@@ -18,6 +21,20 @@ UIingameui::UIingameui(Player * _player)
 void UIingameui::Loop()
 {
 	UIelement::Loop();
+
+	if (App->inp->GetInput(START) == BUTTON_DOWN && !App->scn->is_pause_menu_up && !App->scn->is_select_menu_up)
+	{
+		App->gui->AddPauseMenu();
+		App->scn->is_pause_menu_up = true;
+	}
+
+
+	if (App->inp->GetInput(SELECT) == BUTTON_DOWN && !App->scn->is_select_menu_up && !App->scn->is_pause_menu_up)
+	{
+		App->gui->AddSelectMenu();
+		App->scn->is_pause_menu_up = true;
+	}
+
 }
 
 void UIingameui::Render()

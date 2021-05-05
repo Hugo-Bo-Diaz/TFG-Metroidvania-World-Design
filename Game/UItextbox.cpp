@@ -19,6 +19,8 @@ UItextbox::UItextbox(const char * _author,const char* first_text, TextBoxColor c
 	right.y += plus_rect_y;
 	up_right.y += plus_rect_y;
 	up.y += plus_rect_y;
+	center.y += plus_rect_y;
+
 
 	tile_width = tiles_x;
 	tile_height = tiles_y;
@@ -52,7 +54,7 @@ void UItextbox::AddPanelToTextBox(const char * text)
 	texts.push_back(t.c_str());
 
 	SDL_Color Black = {1,1,1,1};
-	TextPrint* text_print = App->txt->CreateText(text, Black, (tile_width - 2) * 32, "", text_size);
+	TextPrint* text_print = App->txt->CreateText(text, Black, (tile_width - 3) * 32, "", text_size);
 
 	text_print->current_letter = 0;
 

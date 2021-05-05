@@ -48,6 +48,9 @@
     <Filter Include="Objects\Enemies">
       <UniqueIdentifier>{0a9f277c-77af-43f1-bbab-4ceeebbb69f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Other">
+      <UniqueIdentifier>{23b37e01-51fb-4aba-9ae0-0612f5df2ba6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -106,9 +109,6 @@
     </ClCompile>
     <ClCompile Include="Particles.cpp">
       <Filter>Parts</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEmitter.cpp">
-      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Gui.cpp">
       <Filter>Parts</Filter>
@@ -195,7 +195,26 @@
       <Filter>Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="HazardLavaWaterfall.cpp">
-      <Filter>Core</Filter>
+      <Filter>Objects\Hazards</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="UIPauseMenu.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UISettingsMenu.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstDialogue.cpp">
+      <Filter>Objects\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckPoint.cpp">
+      <Filter>Objects\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBoxObject.cpp">
+      <Filter>Objects\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="UISelectMenu.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -349,6 +368,26 @@
     <ClInclude Include="CoalJumper.h">
       <Filter>Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="HazardLavaWaterfall.h" />
+    <ClInclude Include="HazardLavaWaterfall.h">
+      <Filter>Objects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="UIPauseMenu.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UISettingsMenu.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckPoint.h">
+      <Filter>Objects\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstDialogue.h">
+      <Filter>Objects\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBoxObject.h">
+      <Filter>Objects\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="UISelectMenu.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

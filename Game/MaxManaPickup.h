@@ -19,5 +19,7 @@ public:
 
 	ParticleEmitter* p;
 
+	std::string text;
+	int lore_unlock = -1;
 };
 #endif

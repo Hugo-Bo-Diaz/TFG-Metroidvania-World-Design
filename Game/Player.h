@@ -98,7 +98,7 @@ public:
 
 	SDL_Point trail[30];
 
-	spell_type current_spell = NONE_UNLOCKED;
+	spell_type current_spell = FIRE;//=FIRE;
 	std::vector<Spell*> spells;
 	int unlocked_spells;
 	std::vector<bool> unlocked;

@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Render.h"
 #include "Textures.h"
+#include "Particles.h"
 
 #include <cmath>
 
@@ -33,6 +34,11 @@ CoalJumper::CoalJumper()
 	animations[COALJUMPER_LANDING].AddFrame({ 192,0,64,64 });//4
 	animations[COALJUMPER_LANDING].AddFrame({ 64,0,64,64 });//2
 
+}
+
+CoalJumper::~CoalJumper()
+{
+	App->par->AddParticleEmitter(&App->par->fireshield, collider->x, collider->y, 600);
 }
 
 bool CoalJumper::Loop(float dt)
@@ -149,8 +155,6 @@ bool CoalJumper::Loop(float dt)
 			animation_timer.Reset();
 		}
 
-
-
 		last_state = COALJUMPER_JUMPING;
 	}
 		break;
@@ -185,6 +189,12 @@ bool CoalJumper::Loop(float dt)
 		break;
 	}
 
+	std::vector<collision*> collisions;
+	App->phy->GetCollisions(collider, collisions);
+
+
+
+
 	return true;
 }
 
@@ -193,4 +203,18 @@ bool CoalJumper::Render()
 	App->ren->Blit(App->tex->Get_Texture("coaljumper"), collider->x, collider->y, animations[state].GetCurrentFrame(), -1);
 
 	return true;
+}
+
+void CoalJumper::RecieveDamage(int dmg, int direction)
+{
+	health -= dmg;
+	if (health <= 0)
+	{
+		App->phy->DeleteObject(this);
+	}
+
+	speed_x = direction * 6;
+	speed_y = -10;
+	state = COALJUMPER_JUMPING;
+
 }

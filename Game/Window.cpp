@@ -119,10 +119,38 @@ bool Window::Init()
 	return ret;
 
 }
+bool Window::Loop(float dt)
+{
+	int window_x, window_y;
+	SDL_GetWindowSize(window, &width, &height);
+
+	scale = height / base_window_height;
+	
+	//SDL_SetWindowSize(window, height * 16 / 9, height);
+	//SDL_SetWindowSize(window, 1280, 720);
+	return true;
+}
 
 void Window::SetWindowTitle(const char* title)
 {
 	SDL_SetWindowTitle(window, title);
+}
+
+void Window::ToggleFullScreen()
+{
+	if(fullscreen)
+	{
+		SDL_SetWindowFullscreen(window,0);
+		fullscreen = false;
+		scale = 1;
+	}
+	else
+	{
+		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		fullscreen = true;
+		scale = 2;
+
+	}
 }
 
 bool Window::CleanUp()

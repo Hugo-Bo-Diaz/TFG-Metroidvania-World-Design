@@ -11,6 +11,9 @@ class LavaSpell;
 class Fire : public Spell
 {
 public:
+
+	~Fire();
+
 	void Init();
 
 	void Loop(float dt);
@@ -35,6 +38,7 @@ public:
 	Timer lavaspawner;
 	float timebetweenlava = 100;
 	ParticleEmitter* volcano_particles;
+	bool is_volcano_active = false;
 
 	//fireshield
 	bool is_fireshield_on_cooldown = false;

@@ -30,6 +30,8 @@ public:
 	FlyingElementalState last_state = FE_PATROL;
 	float health = 1;
 	
+	void RecieveDamage(int dmg, int direction);
+	
 	float x;
 	float y;
 
@@ -50,7 +52,7 @@ public:
 	float bounce_strength = 5;
 	float patrol_speed=2;
 
-	SDL_Rect aggro = {0,0,384,384};
+	SDL_Rect aggro = {0,0,300,384};
 
 	//starting
 
@@ -59,9 +61,9 @@ public:
 	float speed_starting = 2;
 
 	//charge
-	float charge_speed_x = 7;
+	float charge_speed_x = 5;
 	float charge_speed_y = 15;
-	float charge_accel_y = -0.5;
+	float charge_accel_y = -0.25;
 	bool charged = false;
 
 	//float charging_down_time = 5000;

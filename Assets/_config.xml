@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<config>
+	<Console />
+	<Input>
+		<controllers>
+			<set>
+				<b1 value="29" />
+				<b2 value="27" />
+				<b3 value="6" />
+				<b4 value="25" />
+				<start value="40" />
+				<select value="42" />
+				<sh_r value="4" />
+				<sh_r value="22" />
+				<dpad_l value="18" />
+				<dpad_r value="19" />
+				<dpad_d value="14" />
+				<dpad_u value="13" />
+				<keyboard value="true" />
+				<left value="80" />
+				<right value="79" />
+				<down value="81" />
+				<up value="82" />
+			</set>
+			<set>
+				<b1 value="0" />
+				<b2 value="1" />
+				<b3 value="3" />
+				<b4 value="2" />
+				<start value="6" />
+				<select value="4" />
+				<sh_r value="10" />
+				<sh_l value="9" />
+				<dpad_l value="13" />
+				<dpad_r value="14" />
+				<dpad_d value="12" />
+				<dpad_u value="11" />
+				<keyboard value="false" />
+			</set>
+		</controllers>
+	</Input>
+	<Window>
+		<dimensions width="1024" height="576" scale="1" />
+		<fullscreen value="false" />
+		<borderless value="false" />
+		<resizable value="false" />
+		<fullscreen_window value="false" />
+		<window_title value="DEFAULT_CAPTION" />
+	</Window>
+	<Physics />
+	<Camera />
+	<SceneController />
+	<Audio>
+		<volume general="100" music="100" sfx="100" />
+	</Audio>
+	<Particles />
+	<Render>
+		<bkg_color r="0" g="0" b="0" a="0" />
+		<vsync on="true" />
+	</Render>
+	<Textures>
+		<textures>
+			<texture path="Assets/Sprites/Player.png" name="player" />
+			<texture path="Assets/Sprites/spells.png" name="spells" />
+
+			<texture path="Assets/UI/books.png" name="spell_books" />
+			<texture path="Assets/UI/healthandmana.png" name="healthbars" />
+			<texture path="Assets/UI/spell_location.png" name="spell_display_base" />
+			<texture path="Assets/UI/textboxes.png" name="text_boxes" />
+			<texture path="Assets/UI/pause_menu_base.png" name="pause_menu_base" />
+			<texture path="Assets/UI/pause_menu_options.png" name="pause_menu_options" />
+			<texture path="Assets/UI/settings_menu_base.png" name="settings_menu_base" />
+			<texture path="Assets/UI/settings_menu_options.png" name="settings_menu_options" />
+			<texture path="Assets/UI/black_square.png" name="black_square" />
+			<texture path="Assets/UI/indicator.png" name="indicator" />
+			<texture path="Assets/UI/selectmenubackground.png" name="selectmenubackground" />
+			<texture path="Assets/UI/selectmenulogbook.png" name="selectmenulogbook" />
+
+			
+			<texture path="Assets/Sprites/particles.png" name="particles" />
+			<texture path="Assets/Sprites/items.png" name="items" />
+			<texture path="Assets/Sprites/hazards.png" name="hazards" />
+
+			<texture path="Assets/Sprites/enemies/groundelemental.png" name="groundelemental" />
+			<texture path="Assets/Sprites/enemies/flyingelemental.png" name="flyingelemental" />
+			<texture path="Assets/Sprites/enemies/coaljumper.png" name="coaljumper" />
+		</textures>
+	</Textures>
+</config>

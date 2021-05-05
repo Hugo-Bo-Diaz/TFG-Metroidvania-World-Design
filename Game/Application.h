@@ -42,7 +42,7 @@ public:
 	void ShowConsole();
 	bool IsConsoleVisible();
 
-	bool debug = true;
+	bool debug = false;
 
 private:
 

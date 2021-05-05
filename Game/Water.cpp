@@ -42,6 +42,7 @@ void Water::Loop(float dt)
 		player->LockMovement(cast_time_block);
 		iceblock_timer.Reset();
 		iceblock_timer.Start();
+		is_iceblock_on_cooldown = true;
 	}
 
 	if (is_iceblock_on_cooldown && iceblock_timer.Read()>cooldown_block)

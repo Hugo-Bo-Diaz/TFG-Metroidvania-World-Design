@@ -1,5 +1,6 @@
 #include "FlyingElemental.h"
-
+#include "Particles.h"
+#include "Application.h"
 
 
 FlyingElemental::FlyingElemental()
@@ -14,10 +15,9 @@ FlyingElemental::FlyingElemental(float _initial_y)
 
 FlyingElemental::~FlyingElemental()
 {
+	App->par->AddParticleEmitter(&App->par->explosion, collider->x, collider->y, 300);
 }
-#include "Application.h"
-#include "Render.h"
-#include "Textures.h"
+
 
 
 bool FlyingElemental::Loop(float dt)
@@ -35,48 +35,7 @@ bool FlyingElemental::Loop(float dt)
 	std::vector<SDL_Rect*> colliders;
 	App->phy->GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
 
-	bool change_direction = false;
-	/*
-	for (int i = 0; i < colliders.size(); ++i)
-	{
-		SDL_Point p1;//left(should not collide)
-		SDL_Point p2;//down(should collide)
-		if (speed_x < 0)//left
-		{
-			p1.x = collider->x - abs(speed_x);
-			p1.y = collider->y + collider->h / 2;
 
-			p2.x = collider->x - abs(speed_x);
-			p2.y = collider->y + collider->h + 10;
-
-		}
-		else if (speed_x > 0)
-		{
-			p1.x = collider->x + collider->w + abs(speed_x);
-			p1.y = collider->y + collider->h / 2;
-
-			p2.x = collider->x + collider->w + abs(speed_x);
-			p2.y = collider->y + collider->h + 10;
-		}
-
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE && collider->y < colliders[i]->y)// he goin crash!
-		{
-			speed_y = 0;
-			nextpos->y -= result.h;
-		}
-
-		if (SDL_PointInRect(&p1, colliders[i]) == SDL_TRUE)
-		{
-			change_direction = true;
-		}
-
-	}
-	if (change_direction)
-	{
-		speed_x = -speed_x;
-	}
-	*/
 	switch (state)
 	{
 	case FE_PATROL:
@@ -110,7 +69,7 @@ bool FlyingElemental::Loop(float dt)
 			}
 		}
 
-		App->ren->DrawRect(&aggro, 0, 255, 0, 50,true);
+		//App->ren->DrawRect(&aggro, 0, 255, 0, 50,true);
 
 		current_distance += speed_x;
 
@@ -171,7 +130,7 @@ bool FlyingElemental::Loop(float dt)
 			SDL_Rect result;
 			if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE && collider->y < colliders[i]->y)// he goin crash!
 			{
-				speed_y = 0;
+				//speed_y = 0;
 				nextpos->y -= result.h;
 			}
 		}
@@ -233,6 +192,15 @@ bool FlyingElemental::Render()
 	}
 
 	return true;
+}
+
+void FlyingElemental::RecieveDamage(int dmg, int direction)
+{
+	health -= dmg;
+	if (health <= 0)
+	{
+		App->phy->DeleteObject(this);
+	}
 }
 
 void FlyingElemental::SetAnimations(FlyingElementalColor _c)

@@ -110,6 +110,7 @@ public:
 	bool LoadTiles(pugi::xml_node&);
 	bool LoadPortals(pugi::xml_node&);
 	bool LoadSpawnPoints(pugi::xml_node&);
+	bool LoadCheckPoints(pugi::xml_node&);
 
 	tileset* GetTilesetFromId(int id);
 	SDL_Rect GetImageRectFromId(tileset* t, int id);
@@ -130,10 +131,18 @@ public:
 	void AddPortal(SDL_Rect area, int destination_r, int destination_p, bool horizontal = true);
 	void AddPortal(Portal* p);
 	void DeletePortals();
+	void GoToLastCheckPoint();
+	void GoToLoadedScene();
+	void GoToMainMenu();
 
 	int spawnpoint_x;
 	int spawnpoint_y;
 
+	int current_room_id = 0;
+
+	bool is_pause_menu_up = false;
+	
+	bool is_select_menu_up = false;
 
 private:
 
@@ -148,7 +157,6 @@ private:
 	std::vector<room*> rooms;
 
 	std::list<Portal*> portals;
-
 
 };
 

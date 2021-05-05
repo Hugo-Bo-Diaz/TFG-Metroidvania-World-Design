@@ -18,11 +18,13 @@ class CoalJumper : public physobj
 {
 public:
 	CoalJumper();
+	~CoalJumper();
 
 	bool Loop(float dt);
 	bool Render();
 
-	float health;
+	float health=5;
+	void RecieveDamage(int dmg, int direction);
 
 	//Idle
 	float time_between_frames = 200;
@@ -49,7 +51,7 @@ public:
 
 	//other
 	int jumps_to_side = 0;
-	int max_jumps_to_side = 3;
+	int max_jumps_to_side = 1;
 	CoalJumperState state = COALJUMPER_IDLE;
 	CoalJumperState last_state = COALJUMPER_IDLE;
 	Animation animations[MAX_COAL_JUMPER_STATES];

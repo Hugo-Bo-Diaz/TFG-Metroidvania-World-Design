@@ -9,6 +9,13 @@
 #include "Camera.h"
 #include "Math.h"
 #include "Particles.h"
+
+Grass::~Grass()
+{
+	App->par->RemoveParticleEmitter(p);
+	//App->par->to_delete.push_back(p);
+}
+
 void Grass::Init()
 {
 	thorns_timer.Pause();
@@ -88,6 +95,14 @@ void Grass::Loop(float dt)
 	}
 	if (hook_out)
 	{
+		if (DistanceBetweenTwoPoints(player->x, player->y, hook_position_x, hook_position_y) >=1000)
+		{
+			hook_out = false;
+
+			hook_position_x = player->x + player->collider->w / 2;
+			hook_position_y = player->y + player->collider->h / 2;
+		}
+
 	
 		hook_position_x += cos(current_angle)*speed_hook;
 		hook_position_y += sin(current_angle)*speed_hook;
@@ -136,6 +151,27 @@ void Grass::Loop(float dt)
 			player->nextpos->x += cos(current_angle)*speed_player;
 			player->nextpos->y += sin(current_angle)*speed_player;
 		}
+		
+		bool stay_hooked = false;
+
+		std::vector<SDL_Rect*> colliders;
+		App->phy->GetNearbyWalls(hook_position_x, hook_position_y, 100, colliders);
+		for (int i = 0; i < colliders.size(); ++i)
+		{
+			SDL_Point p = { hook_position_x,hook_position_y };
+			if (SDL_PointInRect(&p, colliders[i]) == SDL_TRUE)
+			{
+				stay_hooked = true;
+			}
+		}
+
+		if (!stay_hooked)
+		{
+			player->UnlockMovement();
+			hook_out = false;
+			hooked = false;
+		}
+
 	}
 	
 

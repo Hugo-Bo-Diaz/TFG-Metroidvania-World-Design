@@ -11,7 +11,7 @@
 enum TextBoxColor
 {
 	RED,
-	BLUE,
+	GREY,
 	WHITE
 };
 
@@ -33,8 +33,12 @@ public:
 	void LoadUIScene(const char* scene) {};
 
 	void RemoveElement(UIelement* to_delete);
+	bool ElementExists(UIelement* to_check);
 
 	UIelement* AddMainMenu();
+	UIelement* AddPauseMenu();
+	UIelement* AddSettingsMenu();
+	UIelement* AddSelectMenu();
 
 	UIelement* Add_Image(float x, float y, float w, float h, float depth, const char* texture);
 	UIelement* Add_GameUI(physobj* player);

@@ -31,7 +31,9 @@ bool Camera::Init()
 
 bool Camera::Loop(float dt)//camera can't go offbounds
 {
-
+	screenarea.w = App->win->width;
+	screenarea.h = App->win->height;
+	
 	if (target != nullptr)
 	{
 		position_x = (target->collider->x + target->collider->w / 2) - width / 2;
@@ -54,7 +56,8 @@ bool Camera::Loop(float dt)//camera can't go offbounds
 		{
 			position_x = 0;
 		}
-
+		position_x *= App->win->GetScale();
+		position_y *= App->win->GetScale();
 		if (is_shaking)
 		{
 			position_x += rand() % amount + 1;

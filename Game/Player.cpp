@@ -6,6 +6,8 @@
 #include "SceneController.h"
 #include "ProgressTracker.h"
 
+#include "Window.h"
+
 #include "Gui.h"
 #include "UItextbox.h"
 
@@ -100,11 +102,11 @@ Player::Player()
 
 	unlocked_spells = 5;
 
-	unlocked.push_back(false);
-	unlocked.push_back(false);
-	unlocked.push_back(false);
-	unlocked.push_back(false);
-	unlocked.push_back(false);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
 	
 	/*unlocked.push_back(true);
 	unlocked.push_back(true);
@@ -145,6 +147,20 @@ bool Player::Loop(float dt)
 	STEP 3: correct next frame position
 	STEP 4: profit
 	*/
+
+	//if (App->inp->GetInput(BUTTON_4) == BUTTON_DOWN)
+	//{
+	//	//AddHealth(-4);
+	//	//App->win->ToggleFullScreen();
+	//	App->trk->LoadGame("save_file.xml");
+	//}
+	//if (App->inp->GetInput(BUTTON_3) == BUTTON_DOWN)
+	//{
+	//	//AddHealth(-4);
+	//	//App->win->ToggleFullScreen();
+	//	App->trk->SaveGame("save_file.xml");
+	//}
+
 	//STEP 1
 	collider->x = nextpos->x;
 	collider->y = nextpos->y;
@@ -388,7 +404,7 @@ bool Player::Loop(float dt)
 	trail[0].x = collider->x+collider->w/2;
 	trail[0].y = collider->y+collider->h/2;
 
-	App->ren->DrawTrail(trail, 30);
+	//App->ren->DrawTrail(trail, 30);
 
 
 	//handling lock movement
@@ -402,6 +418,28 @@ bool Player::Loop(float dt)
 		is_invincible = false;
 
 	}
+
+	std::vector<collision*> collisions;
+	App->phy->GetCollisions(collider, collisions);
+
+	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	{
+		if ((*it)->object != this)
+		{
+			if ((*it)->type == COAL_JUMPER || (*it)->type == GROUNDED_ELEMENTAL || (*it)->type == FLYING_ELEMENTAL)
+			{
+				if ((*it)->object->collider->x < collider->x)
+				{
+					AddHealth(-1, 1);
+				}
+				else
+				{
+					AddHealth(-1, -1);
+				}
+			}
+		}
+	}
+
 	return ret;
 }
 
@@ -511,9 +549,11 @@ int Player::get_next_spell(int direction)
 
 void Player::AddHealth(int amount, int knockbackdirection)
 {
-	if(!is_invincible || amount > 0)
-		health += amount;
-
+	if (!App->debug)
+	{
+		if (!is_invincible || amount > 0)
+			health += amount;
+	}
 	App->trk->player_hp = health;
 
 	if (!is_invincible && amount < 0 && knockbackdirection !=0)
@@ -522,6 +562,7 @@ void Player::AddHealth(int amount, int knockbackdirection)
 		speed_x = 6* knockbackdirection;
 		StartInvincibility();
 		invin_draw_timer.Reset();
+		App->cam->CameraShake(20,100);
 	}
 }
 
@@ -623,4 +664,12 @@ Player::~Player()
 	App->con->DelVar_track(pos_x);
 	App->con->DelVar_track(pos_y);
 	App->con->DelVar_track(xspeed);
+	delete spells[FIRE];
+	delete spells[WIND];
+	delete spells[WATER];
+	delete spells[GROUND];
+	delete spells[GRASS];
+	App->cam->target = nullptr;
+	App->trk->pl = nullptr;
+
 }

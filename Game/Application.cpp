@@ -17,6 +17,9 @@
 
 bool Application::Init() 
 {
+#ifdef _DEBUG
+	debug = true;
+#endif _DEBUG
 
 	if (debug)
 	{
@@ -46,9 +49,9 @@ bool Application::Init()
 	parts.push_back(inp);
 	parts.push_back(win);
 	parts.push_back(phy);
-	parts.push_back(cam);
 	parts.push_back(gui);
 	parts.push_back(scn);
+	parts.push_back(cam);
 	parts.push_back(par);
 	parts.push_back(aud);
 	parts.push_back(ren);
