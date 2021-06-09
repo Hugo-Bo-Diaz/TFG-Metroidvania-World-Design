@@ -17,6 +17,7 @@ bool FirstDialogue::Loop(float dt)
 	if (!App->gui->ElementExists(t))
 	{
 		App->phy->DeleteObject(this);
+		App->gui->canopenmenu = true;
 	}
 
 	return true;

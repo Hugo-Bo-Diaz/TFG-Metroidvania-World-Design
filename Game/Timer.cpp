@@ -13,7 +13,7 @@ void Timer::Start()
 	time_paused = 0;
 }
 
-int Timer::Read()
+float Timer::Read()
 {
 	if (!paused)
 		return SDL_GetTicks() - started_at - time_paused;

@@ -1,16 +1,23 @@
 <?xml version="1.0"?>
 <save_state>
-	<health current="4" max="4" />
+	<health current="2" max="4" />
 	<mana current="3" max="3" />
 	<spells>
-		<spell unlocked="false" />
+		<spell unlocked="true" />
 		<spell unlocked="false" />
 		<spell unlocked="false" />
 		<spell unlocked="false" />
 		<spell unlocked="false" />
 	</spells>
-	<checkpoint room_id="0" x="624" y="384" />
+	<checkpoint room_id="12" x="480" y="672" />
 	<collectables>
+		<collectable picked_up="true" />
+		<collectable picked_up="true" />
+		<collectable picked_up="false" />
+		<collectable picked_up="true" />
+		<collectable picked_up="false" />
+		<collectable picked_up="true" />
+		<collectable picked_up="true" />
 		<collectable picked_up="false" />
 		<collectable picked_up="false" />
 		<collectable picked_up="false" />
@@ -36,12 +43,14 @@
 		<collectable picked_up="false" />
 		<collectable picked_up="false" />
 		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
+		<entry unlocked="0" />
+		<entry unlocked="1" />
+		<entry unlocked="3" />
+		<entry unlocked="5" />
+		<entry unlocked="6" />
+		<entry unlocked="8" />
+		<entry unlocked="10" />
+		<entry unlocked="11" />
 	</collectables>
+	<lore />
 </save_state>

@@ -4,7 +4,7 @@
 #include "UIelement.h"
 #include <list>
 
-#define MAX_LORE_CAPACITY_MENU 5
+#define MAX_LORE_CAPACITY_MENU 10
 
 struct TextPrint;
 

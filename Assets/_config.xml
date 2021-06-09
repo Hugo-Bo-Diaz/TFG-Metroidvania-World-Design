@@ -10,7 +10,7 @@
 				<b4 value="25" />
 				<start value="40" />
 				<select value="42" />
-				<sh_r value="4" />
+				<sh_l value="4" />
 				<sh_r value="22" />
 				<dpad_l value="18" />
 				<dpad_r value="19" />
@@ -48,12 +48,13 @@
 		<window_title value="DEFAULT_CAPTION" />
 	</Window>
 	<Physics />
-	<Camera />
+	<UserInterface />
 	<SceneController />
+	<Camera />
+	<Particles />
 	<Audio>
 		<volume general="100" music="100" sfx="100" />
 	</Audio>
-	<Particles />
 	<Render>
 		<bkg_color r="0" g="0" b="0" a="0" />
 		<vsync on="true" />
@@ -62,7 +63,6 @@
 		<textures>
 			<texture path="Assets/Sprites/Player.png" name="player" />
 			<texture path="Assets/Sprites/spells.png" name="spells" />
-
 			<texture path="Assets/UI/books.png" name="spell_books" />
 			<texture path="Assets/UI/healthandmana.png" name="healthbars" />
 			<texture path="Assets/UI/spell_location.png" name="spell_display_base" />
@@ -75,15 +75,17 @@
 			<texture path="Assets/UI/indicator.png" name="indicator" />
 			<texture path="Assets/UI/selectmenubackground.png" name="selectmenubackground" />
 			<texture path="Assets/UI/selectmenulogbook.png" name="selectmenulogbook" />
-
-			
+			<texture path="Assets/UI/selectmenuoptions.png" name="selectmenuoptions" />
 			<texture path="Assets/Sprites/particles.png" name="particles" />
 			<texture path="Assets/Sprites/items.png" name="items" />
 			<texture path="Assets/Sprites/hazards.png" name="hazards" />
-
 			<texture path="Assets/Sprites/enemies/groundelemental.png" name="groundelemental" />
 			<texture path="Assets/Sprites/enemies/flyingelemental.png" name="flyingelemental" />
 			<texture path="Assets/Sprites/enemies/coaljumper.png" name="coaljumper" />
 		</textures>
 	</Textures>
+	<text />
+	<ProgressTracker>
+		<lore_file path="lore.xml" />
+	</ProgressTracker>
 </config>

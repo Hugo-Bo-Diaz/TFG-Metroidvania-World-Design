@@ -19,6 +19,8 @@
 
 Player::Player()
 {
+
+
 	speed_y = 0;
 	acceleration_y = 0.5;
 
@@ -100,20 +102,20 @@ Player::Player()
 	ground_spell->player = this;
 	spells.push_back(ground_spell);
 
-	unlocked_spells = 5;
-
+	unlocked_spells = 0;
+	/*
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	*/
 	unlocked.push_back(true);
 	unlocked.push_back(true);
 	unlocked.push_back(true);
 	unlocked.push_back(true);
 	unlocked.push_back(true);
 	
-	/*unlocked.push_back(true);
-	unlocked.push_back(true);
-	unlocked.push_back(true);
-	unlocked.push_back(true);
-	unlocked.push_back(true);
-	*/
 
 
 }
@@ -168,6 +170,8 @@ bool Player::Loop(float dt)
 	//STEP 2
 	speed_x += acceleration_x;
 	speed_y += acceleration_y;
+	if (speed_y > speed_y_cap)
+		speed_y = speed_y_cap;
 	//if (abs(speed_y) > 5)
 	//{grounded = false;}
 
@@ -592,43 +596,43 @@ bool Player::Render()
 		{
 			if (is_right)
 			{
-				App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_right.GetCurrentFrame(), 0);
+				App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, idle_right.GetCurrentFrame(), 0);
 				idle_right.NextFrame();
 			}
 			else
 			{
-				App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_left.GetCurrentFrame(), 0);
+				App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, idle_left.GetCurrentFrame(), 0);
 				idle_left.NextFrame();
 			}
 		}
 		break;
 		case WALKING_LEFT:
 		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, walking_left.GetCurrentFrame(), 0);
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, walking_left.GetCurrentFrame(), 0);
 			walking_left.NextFrame();
 		}
 		break;
 		case WALKING_RIGHT:
 		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, walking_right.GetCurrentFrame(), 0);
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, walking_right.GetCurrentFrame(), 0);
 			walking_right.NextFrame();
 		}
 		break;
 		case AIRBORNE_LEFT:
 		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, air_left.GetCurrentFrame(), 0);
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, air_left.GetCurrentFrame(), 0);
 			air_left.NextFrame();
 		}
 		break;
 		case AIRBORNE_RIGHT:
 		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, air_right.GetCurrentFrame(), 0);
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, air_right.GetCurrentFrame(), 0);
 			air_right.NextFrame();
 		}
 		break;
 		default:
 		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x, collider->y, idle_right.GetCurrentFrame(), 0);
+			App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, idle_right.GetCurrentFrame(), 0);
 			idle_right.NextFrame();
 		}
 		break;

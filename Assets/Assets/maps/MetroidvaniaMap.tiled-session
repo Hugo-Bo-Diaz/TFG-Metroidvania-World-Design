@@ -1,0 +1,810 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map22_item_location.tmx",
+    "automapping.whileDrawing": false,
+    "expandedProjectPaths": [
+        "FirePit",
+        ".",
+        "Castle",
+        "tilesets"
+    ],
+    "exportAsImage.useCurrentScale": false,
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "AssetStorage.tmx": {
+            "scale": 0.861304012345679,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 615.9265397536393,
+                "y": 126.55229563269876
+            }
+        },
+        "AssetStorage.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "AssetStorage.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "AssetStorage.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Desktop/build 22-4/Assets/maps/map12_third_vertical.tmx": {
+            "scale": 0.3855251736111111,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1346.2155924570784,
+                "y": 1512.222910216718
+            }
+        },
+        "C:/Users/hugob/Desktop/build 22-4/Assets/maps/map12_third_vertical.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Desktop/build 22-4/Assets/maps/map12_third_vertical.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Desktop/build 22-4/Assets/maps/map12_third_vertical.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Desktop/build 22-4/Assets/maps/map4_first_health_pickup.tmx": {
+            "scale": 0.46345486111111106,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 1577.284135605919,
+                "y": 382.9930698632703
+            }
+        },
+        "C:/Users/hugob/Desktop/build 22-4/Assets/maps/map4_first_health_pickup.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Desktop/build 22-4/Assets/maps/map4_first_health_pickup.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Desktop/build 22-4/Assets/maps/map4_first_health_pickup.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Documents/GitHub/Game-dev-platformer/platformer/Game/maps/map0.tmx": {
+            "scale": 0.39373897707231037,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1382.895856662934,
+                "y": -144.76595744680856
+            }
+        },
+        "C:/Users/hugob/Documents/GitHub/Game-dev-platformer/platformer/Game/maps/map0.tmx#tileset_1": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Documents/GitHub/Game-dev-platformer/platformer/Game/maps/map1.tmx": {
+            "scale": 0.18287499999999998,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1402.5974025974028,
+                "y": 213.26042378673947
+            }
+        },
+        "C:/Users/hugob/Documents/GitHub/Game-dev-platformer/platformer/Game/maps/map1.tmx#tileset_1": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Documents/GitHub/Game-dev-platformer/platformer/Game/maps/map2.tmx": {
+            "scale": 0.18287499999999998,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1402.5974025974028,
+                "y": 213.26042378673947
+            }
+        },
+        "C:/Users/hugob/Documents/GitHub/Game-dev-platformer/platformer/Game/maps/map2.tmx#tileset": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Documents/GitHub/Game-dev-platformer/platformer/Game/maps/map3.tmx": {
+            "scale": 0.18061728395061727,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1386.9104579630896,
+                "y": 210.38961038961043
+            }
+        },
+        "C:/Users/hugob/Documents/GitHub/Game-dev-platformer/platformer/Game/maps/map3.tmx#tileset_1": {
+            "scaleInDock": 1
+        },
+        "C:/Users/hugob/Documents/GitHub/Summer 2020 game/Assets/Assets/maps/testing_grounds.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 641,
+                "y": 503
+            }
+        },
+        "C:/Users/hugob/Documents/tiled/level1.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 359,
+                "y": 359
+            }
+        },
+        "C:/Users/hugob/Documents/tiled/sin nombre.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 71,
+                "y": 749
+            }
+        },
+        "Castle/map00_entrance.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1237.878787878788,
+                "y": 227.27272727272725
+            }
+        },
+        "Castle/map00_entrance.tmx#objects": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Castle/map00_entrance.tmx#tileset01": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Castle/map01_fire_pit.tmx": {
+            "scale": 0.41376953125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1154.0240736370074,
+                "y": 1102.062780269058
+            }
+        },
+        "Castle/map19_first_spike_elevator.tmx": {
+            "scale": 0.408203125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 529.1483253588517,
+                "y": 769.2248803827752
+            }
+        },
+        "Castle/map19_first_spike_elevator.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "Castle/map19_first_spike_elevator.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "Castle/map20_corridor.tmx": {
+            "scale": 0.3451171875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 767.8551216751556,
+                "y": 385.3763440860215
+            }
+        },
+        "Castle/map20_corridor.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "Castle/map20_corridor.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "Castle/map22_item_location.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 724,
+                "y": 620
+            }
+        },
+        "Castle/map22_item_location.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "Castle/map22_item_location.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "FirePit/map02_fire_entrance.tmx": {
+            "scale": 0.27213541666666663,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1714.22009569378,
+                "y": 1675.636363636364
+            }
+        },
+        "FirePit/map03_fire_spell_location.tmx": {
+            "scale": 0.3451171875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 770.7526881720431,
+                "y": 385.3763440860215
+            }
+        },
+        "FirePit/map03_fire_spell_location.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "FirePit/map03_fire_spell_location.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "FirePit/map03_fire_spell_location.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "FirePit/map06_first_fire_passage.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1084.848484848485,
+                "y": 403.030303030303
+            }
+        },
+        "FirePit/map06_first_fire_passage.tmx#objects": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "FirePit/map06_first_fire_passage.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "FirePit/map06_first_fire_passage.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "FirePit/map07_item_tease.tmx": {
+            "scale": 0.230078125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1156.1290322580646,
+                "y": 386.82512733446526
+            }
+        },
+        "FirePit/map07_item_tease.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "FirePit/map07_item_tease.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "FirePit/map07_item_tease.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "FirePit/map08_second_vertical.tmx": {
+            "scale": 0.2041015625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 529.1483253588517,
+                "y": 1538.4497607655503
+            }
+        },
+        "FirePit/map08_second_vertical.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "FirePit/map08_second_vertical.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "FirePit/map08_second_vertical.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map0.tmx": {
+            "scale": 2,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 686.5,
+                "y": 425
+            }
+        },
+        "map0.tmx#objects": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "map0.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map0_entrance.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 960,
+                "y": 233.33333333333331
+            }
+        },
+        "map0_entrance.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map0_entrance.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map0_entrance.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map1.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 1000,
+                "y": 490
+            }
+        },
+        "map1.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map10_second_fire_passage.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1253.3333333333333,
+                "y": 261.3333333333333
+            }
+        },
+        "map10_second_fire_passage.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map10_second_fire_passage.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map10_second_fire_passage.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map11_second_health_pickup.tmx": {
+            "scale": 1,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 703,
+                "y": 385
+            }
+        },
+        "map11_second_health_pickup.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map11_second_health_pickup.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map11_second_health_pickup.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map12_third_vertical.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 815.1515151515152,
+                "y": 421.21212121212113
+            }
+        },
+        "map12_third_vertical.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map12_third_vertical.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map12_third_vertical.tmx#tileset02": {
+            "scaleInDock": 0.75
+        },
+        "map13_third_mana_pickup.tmx": {
+            "scale": 0.5349934895833333,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 768.2336477030727,
+                "y": 385.05141466382725
+            }
+        },
+        "map13_third_mana_pickup.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map13_third_mana_pickup.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map13_third_mana_pickup.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map14_fourth_vertical.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 524,
+                "y": 1176
+            }
+        },
+        "map14_fourth_vertical.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map14_fourth_vertical.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map14_fourth_vertical.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map15_shortcut_first_room.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 985.3333333333333,
+                "y": 416.66666666666663
+            }
+        },
+        "map15_shortcut_first_room.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map15_shortcut_first_room.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map15_shortcut_first_room.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map16_shortcut_second_room.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 953.3333333333333,
+                "y": 486
+            }
+        },
+        "map16_shortcut_second_room.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map16_shortcut_second_room.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map16_shortcut_second_room.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map17_fire_exit.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 424,
+                "y": 624
+            }
+        },
+        "map17_fire_exit.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map17_fire_exit.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map18_first_spike_corridor.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 656,
+                "y": 382
+            }
+        },
+        "map18_first_spike_corridor.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map18_first_spike_corridor.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map19_first_spike_elevator.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 408.66666666666663,
+                "y": 1128
+            }
+        },
+        "map19_first_spike_elevator.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map19_first_spike_elevator.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map1_fire_pit.tmx": {
+            "scale": 1,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 444,
+                "y": 1177
+            }
+        },
+        "map1_fire_pit.tmx#tileset01": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "map2.tmx": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 598,
+                "y": 417
+            }
+        },
+        "map2.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map2.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map20_corridor.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 701,
+                "y": 264
+            }
+        },
+        "map20_corridor.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map20_corridor.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map21_first_ground_blocks.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 1304,
+                "y": 390
+            }
+        },
+        "map21_first_ground_blocks.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map21_first_ground_blocks.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map22_item_location.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 692,
+                "y": 668
+            }
+        },
+        "map22_item_location.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map22_item_location.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map2_fire_entrance.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 654.6666666666665,
+                "y": 1469.3333333333335
+            }
+        },
+        "map2_fire_entrance.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map2_fire_entrance.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map3_fire_spell_location.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 816,
+                "y": 438
+            }
+        },
+        "map3_fire_spell_location.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map3_fire_spell_location.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map3_fire_spell_location.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map4_first_health_pickup.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1220.6666666666665,
+                "y": 612.6666666666666
+            }
+        },
+        "map4_first_health_pickup.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map4_first_health_pickup.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map4_first_health_pickup.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map5_first_mana_pickup.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 529,
+                "y": 771
+            }
+        },
+        "map5_first_mana_pickup.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map5_first_mana_pickup.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map5_first_mana_pickup.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map6_first_fire_passage.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 1836,
+                "y": 154.66666666666663
+            }
+        },
+        "map6_first_fire_passage.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map6_first_fire_passage.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map6_first_fire_passage.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map6_first_passage.tmx": {
+            "scale": 0.32491319444444444,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1154.1544215869624,
+                "y": 386.2570130911033
+            }
+        },
+        "map6_first_passage.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map6_first_passage.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map6_first_passage.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map7_item_tease - copia.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 749.9999999999999,
+                "y": 422.72727272727275
+            }
+        },
+        "map7_item_tease - copia.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map7_item_tease - copia.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map7_item_tease - copia.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map7_item_tease.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 1096,
+                "y": 260
+            }
+        },
+        "map7_item_tease.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map7_item_tease.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map7_item_tease.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map8_second_vertical.tmx": {
+            "scale": 1,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 637,
+                "y": 2636
+            }
+        },
+        "map8_second_vertical.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map8_second_vertical.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map8_second_vertical.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map9_second_mana_pickup.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 768,
+                "y": 385
+            }
+        },
+        "map9_second_mana_pickup.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map9_second_mana_pickup.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map9_second_mana_pickup.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "testing_grounds.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 863.3333333333333,
+                "y": 288.66666666666663
+            }
+        },
+        "testing_grounds.tmx#spells": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "testing_grounds.tmx#tileset01": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tileset01.tsx": {
+            "scaleInDock": 1
+        },
+        "tilesets/objects.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/tileset01.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/tileset02.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesetstorage.tmx": {
+            "scale": 0.8305431547619047,
+            "selectedLayer": -1,
+            "viewCenter": {
+                "x": 624.2902575587908,
+                "y": 216.72564389697652
+            }
+        },
+        "tilesetstorage.tmx#tileset01": {
+            "scaleInDock": 1
+        }
+    },
+    "map.fixedSize": true,
+    "map.height": 15,
+    "map.lastUsedFormat": "tmx",
+    "map.orientation": 1,
+    "map.tileHeight": 48,
+    "map.tileWidth": 48,
+    "map.width": 27,
+    "openFiles": [
+        "AssetStorage.tmx",
+        "map17_fire_exit.tmx",
+        "map18_first_spike_corridor.tmx",
+        "map19_first_spike_elevator.tmx",
+        "map20_corridor.tmx",
+        "map21_first_ground_blocks.tmx",
+        "map22_item_location.tmx"
+    ],
+    "project": "MetroidvaniaMap.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "AssetStorage.tmx",
+        "map17_fire_exit.tmx",
+        "map18_first_spike_corridor.tmx",
+        "map19_first_spike_elevator.tmx",
+        "map20_corridor.tmx",
+        "map21_first_ground_blocks.tmx",
+        "map22_item_location.tmx",
+        "map0_entrance.tmx",
+        "map14_fourth_vertical.tmx",
+        "map12_third_vertical.tmx",
+        "map13_third_mana_pickup.tmx",
+        "map8_second_vertical.tmx"
+    ],
+    "resizeMap.removeObjects": false,
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFilter": "All Files (*)",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 48,
+        "width": 48
+    },
+    "tileset.transparentColor": "#ff00ff",
+    "tileset.type": 0,
+    "tileset.useTransparentColor": false
+}

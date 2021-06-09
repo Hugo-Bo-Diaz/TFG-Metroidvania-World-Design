@@ -51,6 +51,9 @@ public:
 
 	SDL_Rect r13magic;
 
+	SDL_Rect r14firegedeath;
+	SDL_Rect r15firegedeath;
+
 	particle_preset explosion;
 	particle_preset fireshield;
 	particle_preset lava;
@@ -58,9 +61,10 @@ public:
 	particle_preset windslash;
 	particle_preset windbuff;
 	particle_preset groundcontact;
+	particle_preset rockblockexplosion;
 	particle_preset grass;
 	particle_preset magic;
-
+	particle_preset fire_ge_death;
 
 };
 

@@ -26,6 +26,8 @@
 
 #include "HazardLava.h"
 #include "HazardLavaWaterfall.h"
+#include "HazardSpikes.h"
+#include "HazardsRockBlock.h"
 
 #include "CheckPoint.h"
 #include "FirstDialogue.h"
@@ -71,8 +73,8 @@ bool Physics::Loop(float dt)
 			ret = false;
 		}
 	}
-//if (App->debug)
-	if(false)
+if (App->debug)
+//	if(false)
 	{
 		for (int i = 0; i < MAX_WALLS; ++i)
 		{
@@ -193,6 +195,12 @@ physobj* Physics::AddObject(int x, int y, int w_col, int h_col, object_type type
 		break; }
 	case LAVA_HAZARD_WATERFALL: {
 		r = new HazardLavaWaterfall();
+		break; }
+	case HAZARDS_SPIKES: {
+		r = new HazardSpikes();
+		break; }
+	case HAZARDS_ROCK_BLOCK: {
+		r = new HazardRockBlock();
 		break; }
 	case CHECKPOINT: {
 		r = new CheckPoint();

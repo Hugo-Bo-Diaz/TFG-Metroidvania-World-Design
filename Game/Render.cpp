@@ -413,7 +413,7 @@ bool Render::Loop(float dt)
 
 			int length_of_current_word = print->words[j].size()*fontsizex*print->scale*scale;
 
-			if ((length_of_current_word + length_so_far) > print->max_width)
+			if ((length_of_current_word + length_so_far) > print->max_width*scale)
 			{
 				//printf("%d %s ", length_of_current_word + length_so_far - print->max_width, print->words[j].c_str());
 
@@ -431,7 +431,7 @@ bool Render::Loop(float dt)
 				fontsizey = print->font_used->vsize;
 
 				SDL_Rect on_img;
-
+				
 				//characters 0 to 9
 				if (print->words[j][i] >= 48 && print->words[j][i] <= 57)
 				{

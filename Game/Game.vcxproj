@@ -124,6 +124,9 @@
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CheckPoint.cpp" />
+    <ClCompile Include="HazardSpikes.cpp" />
+    <ClCompile Include="HazardsRockBlock.cpp" />
+    <ClCompile Include="UICheckpointIndicator.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="CoalJumper.cpp" />
     <ClCompile Include="Console.cpp" />
@@ -183,6 +186,9 @@
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CheckPoint.h" />
+    <ClInclude Include="HazardSpikes.h" />
+    <ClInclude Include="HazardsRockBlock.h" />
+    <ClInclude Include="UICheckpointIndicator.h" />
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="CoalJumper.h" />
     <ClInclude Include="Console.h" />

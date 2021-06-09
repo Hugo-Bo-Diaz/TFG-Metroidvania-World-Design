@@ -35,6 +35,44 @@ bool FlyingElemental::Loop(float dt)
 	std::vector<SDL_Rect*> colliders;
 	App->phy->GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
 
+	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
+	for (int i = 0; i < colliders.size(); ++i)
+	{
+		SDL_Rect result;
+		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)
+		{
+			if (result.h < result.w)
+			{
+
+				if (collider->y < colliders[i]->y)// he goin crash!
+				{
+					//speed_y = 0;
+					nextpos->y -= result.h;
+				}
+
+				if (collider->y > colliders[i]->y)// he goin crash!
+				{
+					//speed_y = 0;
+					nextpos->y += result.h;
+					speed_y = 0;
+				}
+			}
+			else
+			{
+				if (collider->x > colliders[i]->x)
+				{
+					nextpos->x += result.w;
+				}
+
+				if (collider->x < colliders[i]->x)
+				{
+					nextpos->x -= result.w;
+				}
+			}
+		}
+
+	}
+
 
 	switch (state)
 	{
@@ -118,6 +156,8 @@ bool FlyingElemental::Loop(float dt)
 			charged = false;
 			speed_y = charge_speed_y;
 
+			charge_timer.Reset();
+
 			if (speed_x > 0)
 				speed_x = -charge_speed_x;
 			else
@@ -125,18 +165,15 @@ bool FlyingElemental::Loop(float dt)
 		}
 		acceleration_y = charge_accel_y;
 
-		for (int i = 0; i < colliders.size(); ++i)
-		{
-			SDL_Rect result;
-			if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE && collider->y < colliders[i]->y)// he goin crash!
-			{
-				//speed_y = 0;
-				nextpos->y -= result.h;
-			}
-		}
 		if (speed_y < 0)
 		{
 			charged = true;
+		}
+
+		if (charge_timer.Read() > 5000)
+		{
+			speed_x = -speed_x;
+			charge_timer.Reset();
 		}
 
 		if(collider->y<initial_y && charged)
@@ -201,6 +238,10 @@ void FlyingElemental::RecieveDamage(int dmg, int direction)
 	{
 		App->phy->DeleteObject(this);
 	}
+
+	speed_x = -direction * speed_x;
+	speed_y = -10;
+
 }
 
 void FlyingElemental::SetAnimations(FlyingElementalColor _c)

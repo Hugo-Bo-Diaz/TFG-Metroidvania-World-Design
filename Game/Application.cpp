@@ -77,6 +77,10 @@ bool Application::Init()
 
 bool Application::Loop() 
 {
+	dt = update_timer.Read();
+
+	update_timer.Reset();
+
 	bool ret = true;
 	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
 	{
@@ -88,7 +92,23 @@ bool Application::Loop()
 			}
 		}
 	}
+	
+	float ms_of_frame = (1 / fps_cap) * 1000;
 
+	if (fps_cap != 0)
+	{
+		float time_left_of_the_frame = ms_of_frame - update_timer.Read();
+		//printf("%f  %f \n", framecapminuslastframesms, update_timer.Read());
+		if (time_left_of_the_frame > 0)
+		{
+			SDL_Delay(time_left_of_the_frame);
+		}
+	}
+
+	float base_ms_on_frame = (1000 / 60);
+	dt =1/( base_ms_on_frame/ms_of_frame);
+
+	//printf("%f \n", update_timer.Read());
 
 	return ret;
 };

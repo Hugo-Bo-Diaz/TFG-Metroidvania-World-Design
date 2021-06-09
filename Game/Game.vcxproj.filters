@@ -216,6 +216,15 @@
     <ClCompile Include="UISelectMenu.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="UICheckpointIndicator.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="HazardSpikes.cpp">
+      <Filter>Objects\Hazards</Filter>
+    </ClCompile>
+    <ClCompile Include="HazardsRockBlock.cpp">
+      <Filter>Objects\Hazards</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -388,6 +397,15 @@
     </ClInclude>
     <ClInclude Include="UISelectMenu.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UICheckpointIndicator.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="HazardSpikes.h">
+      <Filter>Objects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="HazardsRockBlock.h">
+      <Filter>Objects\Hazards</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

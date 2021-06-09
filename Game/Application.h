@@ -7,6 +7,7 @@
 
 #include "pugiXML\src\pugixml.hpp"
 
+#define BASEFPS 60
 
 class Application
 {
@@ -47,7 +48,8 @@ public:
 private:
 
 	float dt;
-
+	float fps_cap = 60;
+	float last_frame_ms;
 
 };
 extern Application* App;

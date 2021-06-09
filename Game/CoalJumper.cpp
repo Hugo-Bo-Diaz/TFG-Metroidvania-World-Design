@@ -3,8 +3,10 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Particles.h"
+#include "Camera.h"
 
 #include <cmath>
+#include <time.h>
 
 CoalJumper::CoalJumper()
 {
@@ -34,6 +36,8 @@ CoalJumper::CoalJumper()
 	animations[COALJUMPER_LANDING].AddFrame({ 192,0,64,64 });//4
 	animations[COALJUMPER_LANDING].AddFrame({ 64,0,64,64 });//2
 
+	//srand(time(NULL));
+	idle_time += rand() % max_variation + 1;
 }
 
 CoalJumper::~CoalJumper()
@@ -43,6 +47,14 @@ CoalJumper::~CoalJumper()
 
 bool CoalJumper::Loop(float dt)
 {
+	if (!App->cam->isOnScreen(*collider) && !idle_timer.paused)
+	{
+		idle_timer.Pause();
+	}
+	else if (idle_timer.paused)
+	{
+		idle_timer.Resume();
+	}
 
 	collider->x = nextpos->x;
 	collider->y = nextpos->y;
@@ -54,7 +66,7 @@ bool CoalJumper::Loop(float dt)
 
 	nextpos->x += speed_x * direction;
 	nextpos->y += speed_y;
-
+	
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		SDL_Rect result;
@@ -191,9 +203,6 @@ bool CoalJumper::Loop(float dt)
 
 	std::vector<collision*> collisions;
 	App->phy->GetCollisions(collider, collisions);
-
-
-
 
 	return true;
 }

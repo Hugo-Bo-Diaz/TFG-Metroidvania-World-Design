@@ -21,6 +21,7 @@
 #include "CheckPoint.h"
 #include "TextBoxObject.h"
 //#include "HazardLava.h"
+#include "HazardsRockBlock.h"
 
 #include "Gui.h"
 #include "Text.h"
@@ -339,6 +340,18 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 			w = object_iterator.attribute("width").as_int();
 			h = object_iterator.attribute("height").as_int();
 		}
+		else if (type == "HazardSpikes")
+		{
+			t = HAZARDS_SPIKES;
+			w = object_iterator.attribute("width").as_int();
+			h = object_iterator.attribute("height").as_int();
+		}
+		else if (type == "HazardRockBlock")
+		{
+			t = HAZARDS_ROCK_BLOCK;
+			w = object_iterator.attribute("width").as_int();
+			h = object_iterator.attribute("height").as_int();
+		}
 		else if (type == "EnemyGroundedElemental")
 		{
 			t = GROUNDED_ELEMENTAL;
@@ -475,7 +488,11 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 					}
 				}
 			}
+			else if (t == HAZARDS_ROCK_BLOCK)
+			{
 
+				((HazardRockBlock*)ret)->Init();
+			}
 
 		}
 
@@ -817,6 +834,8 @@ void SceneController::UsePortal(Portal * p, int offset)
 	pl->current_spell = (spell_type)current_spell;
 	pl->speed_y = speed_y;
 	pl->speed_x = speed_x;
+	pl->collider->w -= pl->separation * 2;
+	pl->nextpos->w -= pl->separation * 2;
 
 
 	//TODO
@@ -855,6 +874,9 @@ void SceneController::GoToLastCheckPoint()
 	pl->speed_y = 0;
 	pl->nextpos->x = App->trk->last_checkpoint_x;
 	pl->nextpos->y = App->trk->last_checkpoint_y;
+
+	pl->collider->w -= pl->separation * 2;
+	pl->nextpos->w -= pl->separation * 2;
 	App->trk->SetPlayer(pl);
 
 }

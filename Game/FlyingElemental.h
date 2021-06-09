@@ -65,7 +65,7 @@ public:
 	float charge_speed_y = 15;
 	float charge_accel_y = -0.25;
 	bool charged = false;
-
+	
 	//float charging_down_time = 5000;
 
 	Timer charge_timer;

@@ -16,4 +16,12 @@
 	<room id = "14" path = "Assets/maps/map14_fourth_vertical.tmx"/>
 	<room id = "15" path = "Assets/maps/map15_shortcut_first_room.tmx"/>
 	<room id = "16" path = "Assets/maps/map16_shortcut_second_room.tmx"/>
+	
+	<room id = "17" path = "Assets/maps/map17_fire_exit.tmx"/>
+	<room id = "18" path = "Assets/maps/map18_first_spike_corridor.tmx"/>
+	<room id = "19" path = "Assets/maps/map19_first_spike_elevator.tmx"/>
+	<room id = "20" path = "Assets/maps/map20_corridor.tmx"/>
+	<room id = "21" path = "Assets/maps/map21_first_ground_blocks.tmx"/>
+	<room id = "22" path = "Assets/maps/map22_item_location.tmx"/>
+
 </completemap>

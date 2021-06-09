@@ -479,7 +479,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="259"/>
+   <tile gid="256"/>
    <tile gid="257"/>
    <tile gid="257"/>
    <tile gid="257"/>
@@ -526,8 +526,8 @@
    <tile gid="224"/>
    <tile gid="224"/>
    <tile gid="246"/>
-   <tile/>
-   <tile gid="259"/>
+   <tile gid="246"/>
+   <tile gid="244"/>
    <tile gid="257"/>
    <tile gid="257"/>
    <tile gid="224"/>
@@ -573,9 +573,9 @@
    <tile gid="257"/>
    <tile gid="257"/>
    <tile gid="257"/>
-   <tile gid="261"/>
-   <tile/>
-   <tile gid="270"/>
+   <tile gid="257"/>
+   <tile gid="257"/>
+   <tile gid="257"/>
    <tile gid="268"/>
    <tile gid="233"/>
    <tile gid="224"/>
@@ -621,9 +621,9 @@
    <tile gid="260"/>
    <tile gid="260"/>
    <tile gid="254"/>
+   <tile gid="271"/>
+   <tile gid="271"/>
    <tile gid="272"/>
-   <tile/>
-   <tile/>
    <tile/>
    <tile gid="256"/>
    <tile gid="224"/>
@@ -1602,12 +1602,12 @@
  </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
   <object id="26" x="2064" y="576" width="240" height="192"/>
-  <object id="43" x="720" y="480" width="384" height="48"/>
+  <object id="43" x="720" y="480" width="432" height="48"/>
   <object id="50" x="144" y="0" width="912" height="96"/>
   <object id="54" x="0" y="528" width="240" height="240"/>
   <object id="96" x="0" y="0" width="144" height="192"/>
-  <object id="103" x="1200" y="432" width="336" height="96"/>
-  <object id="118" x="1200" y="528" width="288" height="48"/>
+  <object id="103" x="1152" y="432" width="384" height="96"/>
+  <object id="118" x="768" y="528" width="720" height="48"/>
   <object id="119" x="432" y="720" width="816" height="48"/>
   <object id="120" x="2112" y="96" width="192" height="288"/>
   <object id="121" x="1968" y="96" width="144" height="144"/>
@@ -1615,7 +1615,6 @@
   <object id="136" x="240" y="480" width="96" height="288"/>
   <object id="137" x="336" y="528" width="96" height="240"/>
   <object id="138" x="144" y="96" width="240" height="48"/>
-  <object id="141" x="768" y="528" width="288" height="48"/>
   <object id="144" x="1152" y="384" width="384" height="48"/>
   <object id="145" x="1632" y="528" width="336" height="48"/>
   <object id="149" x="1248" y="576" width="240" height="192"/>

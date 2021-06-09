@@ -105,6 +105,22 @@ bool Particles::Init()
 	groundcontact.minmax_frequency = std::make_pair(10, 25);
 	groundcontact.texture_name = "particles";
 
+	r8ground = { 0,24,12,12 };
+	r9ground = { 12,24,12,12 };
+	rockblockexplosion.area_in_texture.push_back(&r8ground);
+	rockblockexplosion.area_in_texture.push_back(&r9ground);
+	rockblockexplosion.name = "ground";
+	rockblockexplosion.minmax_speed_y = std::make_pair(-6, -4);
+	rockblockexplosion.minmax_speed_x = std::make_pair(-3, 3);
+	rockblockexplosion.minmax_lifespan = std::make_pair(75, 150);
+	rockblockexplosion.minmax_angle_speed = std::make_pair(5, 15);
+	rockblockexplosion.minmax_angle = std::make_pair(0, 360);
+	rockblockexplosion.minmax_x_offset = std::make_pair(-25, 25);
+	rockblockexplosion.minmax_y_offset = std::make_pair(-25, 25);
+	rockblockexplosion.minmax_acc_y = std::make_pair(1, 2);
+	rockblockexplosion.minmax_frequency = std::make_pair(10, 25);
+	rockblockexplosion.texture_name = "particles";
+
 	r10grass = { 24,24,12,12 };
 	r11grass = { 36,24,12,12 };
 	grass.area_in_texture.push_back(&r10grass);
@@ -134,6 +150,27 @@ bool Particles::Init()
 	magic.minmax_lifespan = std::make_pair(300, 400);
 	magic.minmax_frequency = std::make_pair(20, 40);
 	magic.texture_name = "particles";
+
+
+
+	r14firegedeath = { 24,36,12,12 };
+	r15firegedeath = { 36,36,12,12 };
+
+	fire_ge_death.area_in_texture.push_back(&r14firegedeath);
+	fire_ge_death.area_in_texture.push_back(&r15firegedeath);
+	fire_ge_death.name = "fire grounded death";
+	fire_ge_death.minmax_x_offset = std::make_pair(0, 48);
+	fire_ge_death.minmax_y_offset = std::make_pair(0, 48);
+	fire_ge_death.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	fire_ge_death.minmax_speed_y = std::make_pair(-2, -3);
+	fire_ge_death.minmax_scale = std::make_pair(1, 1.5);
+	fire_ge_death.minmax_angle = std::make_pair(0, 360);
+	fire_ge_death.minmax_lifespan = std::make_pair(200, 500);
+	fire_ge_death.minmax_frequency = std::make_pair(10, 20);
+	fire_ge_death.minmax_acc_y = std::make_pair(0.1, 0.3);
+	fire_ge_death.texture_name = "particles";
+
+
 
 	return true;
 }

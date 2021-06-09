@@ -410,9 +410,13 @@ void ProgressTracker::StartNewGame()
 	App->scn->LoadMap("Assets/maps/map0_entrance.tmx");
 
 	App->phy->AddObject(0, 0, 10, 10, FIRST_DIALOGUE);
+	App->gui->canopenmenu = false;
 
 	pl = (Player*)App->phy->AddObject(576, 300, 64, 64, PLAYER);
 	App->gui->Add_GameUI((physobj*)pl);
+
+	pl->collider->w -= pl->separation * 2;
+	pl->nextpos->w -= pl->separation * 2;
 
 	//App->phy->AddObject(1000, 300, 52, 64, FIRE_SPELL_PICKUP);
 

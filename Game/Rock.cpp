@@ -23,6 +23,24 @@ bool Rock::Loop(float dt)
 
 	y_speed += gravity;
 
+	std::vector<collision*> collisions;
+	App->phy->GetCollisions(collider, collisions);
+
+	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	{
+		if ((*it)->object != this)
+		{
+			if ((*it)->type == HAZARDS_ROCK_BLOCK)
+			{
+				//delete this object :^)
+				App->phy->DeleteObject(this);
+				App->phy->DeleteObject((*it)->object);
+				App->par->AddParticleEmitter(&App->par->rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
+			}
+
+		}
+	}
+
 
 	std::vector<SDL_Rect*> colliders;
 	App->phy->GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);

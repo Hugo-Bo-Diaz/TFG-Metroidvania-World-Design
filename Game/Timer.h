@@ -6,7 +6,7 @@ class Timer
 public:
 	Timer();
 	void Start();
-	int Read();
+	float Read();
 	float Read_Sec();
 
 	void Pause();

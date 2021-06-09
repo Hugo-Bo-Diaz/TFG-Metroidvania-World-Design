@@ -65,11 +65,18 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 	Load_Texture("Assets/UI/healthandmana.png", "healthbars", textures_node);
 	Load_Texture("Assets/UI/spell_location.png", "spell_display_base", textures_node);
 	Load_Texture("Assets/UI/textboxes.png", "text_boxes", textures_node);
+
+	Load_Texture("Assets/UI/mainmenu.png", "mainmenu", textures_node);
+	Load_Texture("Assets/UI/mainmenuselected.png", "mainmenuselected", textures_node);
+
 	Load_Texture("Assets/UI/pause_menu_base.png", "pause_menu_base", textures_node);
 	Load_Texture("Assets/UI/pause_menu_options.png", "pause_menu_options", textures_node);
 	Load_Texture("Assets/UI/settings_menu_base.png", "settings_menu_base", textures_node);
 	Load_Texture("Assets/UI/settings_menu_options.png", "settings_menu_options", textures_node);
+
 	Load_Texture("Assets/UI/black_square.png", "black_square", textures_node);
+	Load_Texture("Assets/UI/black_square_alpha.png", "black_square_alpha", textures_node);
+
 	Load_Texture("Assets/UI/indicator.png", "indicator", textures_node);
 	Load_Texture("Assets/UI/selectmenubackground.png", "selectmenubackground", textures_node);
 	Load_Texture("Assets/UI/selectmenulogbook.png", "selectmenulogbook", textures_node);
@@ -86,8 +93,6 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 
 
 	return ret;
-
-
 }
 
 bool Textures::Init()

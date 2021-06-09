@@ -8,8 +8,8 @@
 				<b2 value="27" />
 				<b3 value="6" />
 				<b4 value="25" />
-				<start value="40" />
-				<select value="42" />
+				<start value="41" />
+				<select value="43" />
 				<sh_l value="4" />
 				<sh_r value="22" />
 				<dpad_l value="18" />
@@ -57,7 +57,7 @@
 	</Audio>
 	<Render>
 		<bkg_color r="0" g="0" b="0" a="0" />
-		<vsync on="true" />
+		<vsync on="false" />
 	</Render>
 	<Textures>
 		<textures>
@@ -67,11 +67,14 @@
 			<texture path="Assets/UI/healthandmana.png" name="healthbars" />
 			<texture path="Assets/UI/spell_location.png" name="spell_display_base" />
 			<texture path="Assets/UI/textboxes.png" name="text_boxes" />
+			<texture path="Assets/UI/mainmenu.png" name="mainmenu" />
+			<texture path="Assets/UI/mainmenuselected.png" name="mainmenuselected" />
 			<texture path="Assets/UI/pause_menu_base.png" name="pause_menu_base" />
 			<texture path="Assets/UI/pause_menu_options.png" name="pause_menu_options" />
 			<texture path="Assets/UI/settings_menu_base.png" name="settings_menu_base" />
 			<texture path="Assets/UI/settings_menu_options.png" name="settings_menu_options" />
 			<texture path="Assets/UI/black_square.png" name="black_square" />
+			<texture path="Assets/UI/black_square_alpha.png" name="black_square_alpha" />
 			<texture path="Assets/UI/indicator.png" name="indicator" />
 			<texture path="Assets/UI/selectmenubackground.png" name="selectmenubackground" />
 			<texture path="Assets/UI/selectmenulogbook.png" name="selectmenulogbook" />

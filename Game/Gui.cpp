@@ -8,6 +8,7 @@
 #include "UIspelldisplay.h"
 #include "UItextbox.h"
 #include "UISelectMenu.h"
+#include "UICheckpointIndicator.h"
 
 UserInterface::UserInterface()
 {
@@ -179,6 +180,15 @@ UIelement * UserInterface::AddSpellDisplay(float x, float y)
 UIelement * UserInterface::AddTextBox(const char * author, const char * text, TextBoxColor color, int tiles_x, int tiles_y, int x, int y, float size, float speed)
 {
 	UItextbox* ret = new UItextbox(author, text, color,tiles_x,tiles_y, x,y,size,speed);
+
+	elements.push_back(ret);
+
+	return ret;
+}
+
+UIelement * UserInterface::AddCheckpointIndicator()
+{
+	UIcheckpointIndicator* ret = new UIcheckpointIndicator();
 
 	elements.push_back(ret);
 

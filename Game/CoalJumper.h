@@ -29,8 +29,9 @@ public:
 	//Idle
 	float time_between_frames = 200;
 	Timer animation_timer;
-	float idle_time = 4000;
+	float idle_time = 1000;
 	Timer idle_timer;
+	int max_variation = 2000;
 
 	//Crouching
 	float time_crouching = 2000;

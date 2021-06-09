@@ -99,6 +99,11 @@ void FireBall::Fire(bool left_dir, bool _is_big)
 		nextpos->w = 16;
 		nextpos->h = 16;
 
-		damage += 3;
 	}
+	else
+	{
+	damage += 3;
+
+	}
+
 }

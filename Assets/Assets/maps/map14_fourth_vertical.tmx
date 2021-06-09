@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="22" height="48" tilewidth="48" tileheight="48" infinite="0" nextlayerid="20" nextobjectid="125">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="22" height="48" tilewidth="48" tileheight="48" infinite="0" nextlayerid="20" nextobjectid="126">
  <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
   <image source="tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
@@ -929,7 +929,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="226"/>
+   <tile gid="246"/>
    <tile gid="227"/>
    <tile gid="227"/>
    <tile gid="202"/>
@@ -1580,6 +1580,8 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="210"/>
+   <tile gid="211"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1602,10 +1604,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="199"/>
+   <tile gid="199"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1715,9 +1715,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1731,9 +1731,9 @@
    <tile/>
    <tile/>
    <tile gid="226"/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="210"/>
+   <tile gid="199"/>
+   <tile gid="211"/>
    <tile gid="228"/>
    <tile/>
    <tile/>
@@ -1861,12 +1861,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="211"/>
    <tile/>
    <tile/>
    <tile/>
@@ -1889,8 +1889,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="199"/>
+   <tile gid="211"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2015,16 +2015,16 @@
    <tile/>
    <tile gid="223"/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
+   <tile gid="199"/>
    <tile/>
    <tile/>
    <tile/>
@@ -2201,6 +2201,7 @@
   <object id="121" x="0" y="0" width="288" height="48"/>
   <object id="122" x="672" y="0" width="96" height="48"/>
   <object id="123" x="768" y="0" width="144" height="96"/>
+  <object id="125" x="192" y="1968" width="48" height="48"/>
  </objectgroup>
  <objectgroup color="#00ff00" id="15" name="doors">
   <object id="100" x="288" y="-96" width="384" height="48">

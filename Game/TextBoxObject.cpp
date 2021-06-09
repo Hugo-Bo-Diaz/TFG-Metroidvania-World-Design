@@ -22,7 +22,7 @@ bool TextBoxObject::Loop(float dt)
 			if ((*it)->type == PLAYER)
 			{
 				iscontactingplayer = true;
-				if (App->inp->GetInput(BUTTON_1) == BUTTON_DOWN && strings.size()>0)
+				if (App->inp->GetInput(BUTTON_2) == BUTTON_DOWN && strings.size()>0)
 				{
 					textbox = (UItextbox*)App->gui->AddTextBox(author.c_str(), strings[0].c_str(), c, 15, 4, 272, 420, 2, 0.2);
 					int max_text = strings.size();

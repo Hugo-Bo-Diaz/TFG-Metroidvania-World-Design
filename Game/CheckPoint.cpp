@@ -1,7 +1,7 @@
 #include "CheckPoint.h"
 #include "Application.h"
 #include "ProgressTracker.h"
-
+#include "Gui.h"
 
 CheckPoint::CheckPoint()
 {
@@ -23,6 +23,14 @@ bool CheckPoint::Loop(float dt)
 		{
 			if ((*it)->type == PLAYER)
 			{
+				if (App->trk->last_checkpoint_id != room_id || 
+					App->trk->last_checkpoint_x != spawn_pos_x || 
+					App->trk->last_checkpoint_y != spawn_pos_y)
+				{
+					//show checkpoint indicator
+					App->gui->AddCheckpointIndicator();
+				}
+
 				App->trk->SetCheckPoint(spawn_pos_x,spawn_pos_y,room_id);
 			}
 		}

@@ -12,7 +12,7 @@ GroundedElemental::GroundedElemental()
 GroundedElemental::~GroundedElemental()
 {
 	//ADD PARTICLES
-	App->par->AddParticleEmitter(&App->par->explosion, collider->x, collider->y, 600);
+	App->par->AddParticleEmitter(&App->par->fire_ge_death, collider->x, collider->y, 200);
 
 }
 
@@ -84,7 +84,7 @@ bool GroundedElemental::Loop(float dt)
 			}
 		
 	}
-	if (change_direction||!floor_below)
+	if ((change_direction||!floor_below ) && (!knocked_up || change_direction))
 	{
 		speed_x = -speed_x;
 	}

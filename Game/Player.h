@@ -45,12 +45,15 @@ public:
 	Timer invin_draw_timer;
 	bool ShouldDraw();
 	bool is_drawing = true;
+	int separation = 5;
 
 	int x = 0;
 	int y = 0;
 
 	float speed_x = 0;
 	float speed_y = -10;
+
+	float speed_y_cap = 30;
 	
 	int spd=0;
 

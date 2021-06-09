@@ -35,6 +35,8 @@ public:
 	void RemoveElement(UIelement* to_delete);
 	bool ElementExists(UIelement* to_check);
 
+	bool canopenmenu = true;
+
 	UIelement* AddMainMenu();
 	UIelement* AddPauseMenu();
 	UIelement* AddSettingsMenu();
@@ -45,6 +47,7 @@ public:
 	UIelement* Add_ResourceBar(float x, float y, playerresource res);
 	UIelement* AddSpellDisplay(float x, float y);
 	UIelement* AddTextBox(const char* author, const char* text, TextBoxColor color, int tiles_x, int tiles_y, int x, int y, float size = 1, float speed = 1);
+	UIelement* AddCheckpointIndicator();
 
 
 	//TEXT WORKS WITH A REFERENCE TO A STRUCT THAT CAN GIVE AN SDL_TEXTURE
