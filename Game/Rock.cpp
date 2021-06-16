@@ -5,10 +5,23 @@
 #include "Render.h"
 #include "Particles.h"
 #include "Camera.h"
+#include "Audio.h"
+
+#include "CoalJumper.h"
+#include "GroundedElemental.h"
+#include "FlyingElemental.h"
+#include "ArmorTrap.h"
+#include "ShieldMonster.h"
+#include "ClingingCreature.h"
 
 Rock::Rock()
 {
 	rock_sprite.AddFrame({ 96,160,32,32 });
+}
+
+Rock::~Rock()
+{
+	App->par->AddParticleEmitter(&App->par->rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
 }
 
 bool Rock::Loop(float dt)
@@ -35,7 +48,37 @@ bool Rock::Loop(float dt)
 				//delete this object :^)
 				App->phy->DeleteObject(this);
 				App->phy->DeleteObject((*it)->object);
-				App->par->AddParticleEmitter(&App->par->rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
+			}
+
+			if ((*it)->type == COAL_JUMPER)
+			{
+				((CoalJumper*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
+			if ((*it)->type == GROUNDED_ELEMENTAL)
+			{
+				((GroundedElemental*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
+			if ((*it)->type == FLYING_ELEMENTAL)
+			{
+				((FlyingElemental*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
+			if ((*it)->type == ARMOR_TRAP)
+			{
+				((ArmorTrap*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
+			if ((*it)->type == SHIELD_MONSTER)
+			{
+				((ShieldMonster*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
+			if ((*it)->type == CLING_CREATURE)
+			{
+				((ClingCreature*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
 			}
 
 		}
@@ -50,6 +93,7 @@ bool Rock::Loop(float dt)
 		SDL_Rect result;
 		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
 		{
+			App->aud->PlaySFX(SFX_GROUND_HIT);
 			App->phy->DeleteObject(this);
 			App->par->AddParticleEmitter(&App->par->groundcontact, collider->x + collider->w/2, collider->y + collider->h/2, 100);
 			App->cam->CameraShake(15, 60);
@@ -73,9 +117,12 @@ void Rock::Fire(bool left_dir, float angle, float speed, float _gravity)
 	x_speed = speed * cos(angle*(3.1428 / 180));
 	y_speed = -speed * sin(angle*(3.1428 / 180));
 	
+	direction = 1;
+
 	if (!left_dir)
 	{
 		x_speed = -x_speed;
+		direction = -1;
 	}
 	
 	gravity = _gravity;

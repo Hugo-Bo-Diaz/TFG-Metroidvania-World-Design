@@ -50,6 +50,8 @@ void UISettingsMenu::Loop()
 			cooldown_timer.Reset();
 			App->aud->sfx_volume -= 5*factor;
 
+			App->aud->PlaySFX(SFX_MENU_CHANGE);
+
 			if (App->aud->sfx_volume > 100)
 				App->aud->sfx_volume = 100;
 
@@ -75,6 +77,8 @@ void UISettingsMenu::Loop()
 			cooldown_timer.Reset();
 			App->aud->music_volume -= 5 * factor;
 
+			App->aud->PlaySFX(SFX_MENU_CHANGE);
+
 			if (App->aud->music_volume > 100)
 				App->aud->music_volume = 100;
 
@@ -88,6 +92,8 @@ void UISettingsMenu::Loop()
 		if (App->inp->GetInput(BUTTON_1) == BUTTON_DOWN)
 		{
 			App->win->ToggleFullScreen();
+			App->aud->PlaySFX(SFX_MENU_SELECT);
+
 		}
 	}
 		break;
@@ -107,6 +113,8 @@ void UISettingsMenu::Loop()
 			default:
 				break;
 			}
+			App->aud->PlaySFX(SFX_MENU_SELECT);
+
 		}
 	}
 		break;
@@ -138,6 +146,8 @@ void UISettingsMenu::Loop()
 		CycleOption(amount_of_movement);
 		prev_joy_y.clear();
 		stop_inputs = true;
+
+		App->aud->PlaySFX(SFX_MENU_CHANGE);
 	}
 
 

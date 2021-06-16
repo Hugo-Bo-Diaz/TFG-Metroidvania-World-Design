@@ -7,6 +7,7 @@
 #include "ProgressTracker.h"
 
 #include "Window.h"
+#include "Audio.h"
 
 #include "Gui.h"
 #include "UItextbox.h"
@@ -102,20 +103,21 @@ Player::Player()
 	ground_spell->player = this;
 	spells.push_back(ground_spell);
 
-	unlocked_spells = 0;
-	/*
-	unlocked.push_back(false);
-	unlocked.push_back(false);
-	unlocked.push_back(false);
-	unlocked.push_back(false);
-	unlocked.push_back(false);
-	*/
-	unlocked.push_back(true);
-	unlocked.push_back(true);
-	unlocked.push_back(true);
-	unlocked.push_back(true);
-	unlocked.push_back(true);
+	unlocked_spells =0;
 	
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+	unlocked.push_back(false);
+
+	/*
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	*/
 
 
 }
@@ -349,6 +351,8 @@ bool Player::Loop(float dt)
 		speed_y = -13;
 		grounded = false;
 		acceleration_y = 0.5;
+
+		App->aud->PlaySFX(SFX_JUMP);
 	}
 
 	if (speed_y>1||(App->inp->GetInput(BUTTON_1) == BUTTON_RELEASE && grounded == false))
@@ -361,9 +365,9 @@ bool Player::Loop(float dt)
 		acceleration_y = 1.0;
 	}
 
-	//if ((App->inp->GetButton(B) == BUTTON_RELEASE))
+	//if ((App->inp->GetInput(BUTTON_4) == BUTTON_RELEASE))
 	//{
-	//	LockMovement(1000);
+	//	AddHealth(1);
 	//}
 
 	//if ((App->inp->GetButton(Y) == BUTTON_RELEASE))
@@ -430,7 +434,12 @@ bool Player::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == COAL_JUMPER || (*it)->type == GROUNDED_ELEMENTAL || (*it)->type == FLYING_ELEMENTAL)
+			if ((*it)->type == COAL_JUMPER ||
+				(*it)->type == GROUNDED_ELEMENTAL ||
+				(*it)->type == FLYING_ELEMENTAL ||
+				(*it)->type == ARMOR_TRAP ||
+				(*it)->type == SHIELD_MONSTER||
+				(*it)->type == CLING_CREATURE)
 			{
 				if ((*it)->object->collider->x < collider->x)
 				{
@@ -442,6 +451,18 @@ bool Player::Loop(float dt)
 				}
 			}
 		}
+	}
+
+	//handle mana
+	if (mana < max_mana && time_since_mana_use.Read() > time_to_start_regen)
+	{
+		mana += base_mana_regen + ( mana / max_mana )*scaling_mana_regen;
+	}
+
+	if (mana > max_mana)
+	{
+		mana = max_mana;
+		printf("over limit");
 	}
 
 	return ret;
@@ -551,17 +572,42 @@ int Player::get_next_spell(int direction)
 	return iterator;
 }
 
+bool Player::manaCost(float _mana)
+{
+	if (mana > _mana)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void Player::AddHealth(int amount, int knockbackdirection)
 {
 	if (!App->debug)
 	{
 		if (!is_invincible || amount > 0)
+		{
 			health += amount;
+			if (health > max_health)
+			{
+				health = max_health;
+			}
+		}
 	}
 	App->trk->player_hp = health;
 
+
+	if (amount < 0 && !is_invincible)
+	{
+		App->aud->PlaySFX(SFX_PLAYER_HIT);
+	}
+
 	if (!is_invincible && amount < 0 && knockbackdirection !=0)
 	{
+
 		speed_y = -12;
 		speed_x = 6* knockbackdirection;
 		StartInvincibility();
@@ -574,6 +620,13 @@ void Player::AddMana(float amount)
 {
 	mana += amount;
 	App->trk->player_mana = mana;
+	time_since_mana_use.Reset();
+	if(mana<0)
+	{
+		mana = 0;
+	}
+	printf("%f\n", mana);
+
 }
 
 void Player::AddMaxHealth()

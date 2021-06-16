@@ -11,6 +11,7 @@ class Shockwave : public physobj
 public:
 
 	Shockwave();
+	~Shockwave();
 
 	void Fire(bool left_dir, float speed);
 
@@ -26,6 +27,8 @@ public:
 
 	ParticleEmitter* p;
 
+	int damage = 2;
+	int direction;
 };
 
 #endif // !PLAYER__REP__H

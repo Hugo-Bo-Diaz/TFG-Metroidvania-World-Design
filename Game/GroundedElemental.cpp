@@ -3,6 +3,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Particles.h"
+#include "Audio.h"
 
 GroundedElemental::GroundedElemental()
 {
@@ -12,7 +13,17 @@ GroundedElemental::GroundedElemental()
 GroundedElemental::~GroundedElemental()
 {
 	//ADD PARTICLES
-	App->par->AddParticleEmitter(&App->par->fire_ge_death, collider->x, collider->y, 200);
+	switch (c)
+	{
+	case RED_GROUNDELEMENTAL:
+		App->par->AddParticleEmitter(&App->par->fire_ge_death, collider->x, collider->y, 200);
+		break;
+	case BROWN_GROUNDEDELEMENTAL:
+		App->par->AddParticleEmitter(&App->par->stone_death, collider->x, collider->y, 200);
+		break;
+	default:
+		break;
+	}
 
 }
 
@@ -118,6 +129,7 @@ bool GroundedElemental::Render()
 
 void GroundedElemental::RecieveDamage(int dmg, int direction)
 {
+	App->aud->PlaySFX(SFX_ENEMY_HIT);
 	health -= dmg;
 	if (health <= 0)
 	{

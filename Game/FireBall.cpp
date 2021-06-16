@@ -4,11 +4,14 @@
 #include "Console.h"
 #include "Render.h"
 #include "Particles.h"
+#include "Audio.h"
 
 #include "CoalJumper.h"
 #include "GroundedElemental.h"
 #include "FlyingElemental.h"
-
+#include "ArmorTrap.h"
+#include "ShieldMonster.h"
+#include "ClingingCreature.h"
 
 FireBall::FireBall()
 {
@@ -37,6 +40,7 @@ bool FireBall::Loop(float dt)
 		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
 		{
 			App->phy->DeleteObject(this);
+			App->aud->PlaySFX(SFX_GROUND_HIT);
 		}
 	}
 
@@ -63,8 +67,25 @@ bool FireBall::Loop(float dt)
 				((FlyingElemental*)(*it)->object)->RecieveDamage(damage, direction);
 				App->phy->DeleteObject(this);
 			}
+			if ((*it)->type == ARMOR_TRAP)
+			{
+				((ArmorTrap*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
+			if ((*it)->type == SHIELD_MONSTER)
+			{
+				((ShieldMonster*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
+			if ((*it)->type == CLING_CREATURE)
+			{
+				((ClingCreature*)(*it)->object)->RecieveDamage(damage, direction);
+				App->phy->DeleteObject(this);
+			}
 		}
 	}
+
+	App->phy->ClearCollisionArray(collisions);
 
 
 	return ret;
@@ -103,7 +124,7 @@ void FireBall::Fire(bool left_dir, bool _is_big)
 	else
 	{
 	damage += 3;
-
+	speed += 10;
 	}
 
 }

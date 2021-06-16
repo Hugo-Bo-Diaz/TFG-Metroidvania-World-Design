@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="22" height="48" tilewidth="48" tileheight="48" infinite="0" nextlayerid="21" nextobjectid="114">
+ <properties>
+  <property name="music" type="int" value="3"/>
+ </properties>
  <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
   <image source="tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
@@ -683,11 +686,11 @@
    <tile gid="178"/>
    <tile gid="178"/>
    <tile gid="178"/>
-   <tile gid="232"/>
-   <tile gid="268"/>
-   <tile gid="269"/>
-   <tile gid="254"/>
-   <tile gid="272"/>
+   <tile gid="257"/>
+   <tile gid="257"/>
+   <tile gid="257"/>
+   <tile gid="257"/>
+   <tile gid="258"/>
    <tile/>
    <tile/>
    <tile/>
@@ -705,11 +708,11 @@
    <tile gid="268"/>
    <tile gid="268"/>
    <tile gid="268"/>
-   <tile gid="269"/>
-   <tile gid="271"/>
-   <tile gid="271"/>
-   <tile gid="272"/>
-   <tile/>
+   <tile gid="268"/>
+   <tile gid="268"/>
+   <tile gid="268"/>
+   <tile gid="268"/>
+   <tile gid="258"/>
    <tile/>
    <tile/>
    <tile/>
@@ -727,11 +730,11 @@
    <tile gid="188"/>
    <tile gid="188"/>
    <tile gid="254"/>
+   <tile gid="271"/>
+   <tile gid="271"/>
+   <tile gid="271"/>
    <tile gid="272"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile gid="245"/>
+   <tile gid="256"/>
    <tile gid="246"/>
    <tile gid="246"/>
    <tile gid="247"/>
@@ -2206,8 +2209,8 @@
   <object id="71" x="144" y="1248" width="48" height="96"/>
   <object id="72" x="144" y="1344" width="96" height="48"/>
   <object id="73" x="144" y="1392" width="240" height="48"/>
-  <object id="74" x="144" y="1440" width="144" height="48"/>
-  <object id="75" x="144" y="1488" width="48" height="48"/>
+  <object id="74" x="144" y="1440" width="240" height="48"/>
+  <object id="75" x="144" y="1488" width="240" height="48"/>
   <object id="76" x="528" y="1248" width="48" height="96"/>
   <object id="77" x="672" y="1296" width="96" height="96"/>
   <object id="78" x="768" y="1344" width="144" height="240"/>

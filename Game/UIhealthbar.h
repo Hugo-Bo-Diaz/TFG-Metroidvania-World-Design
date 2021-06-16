@@ -31,6 +31,8 @@ public:
 	SDL_Rect end;
 	SDL_Rect bar;
 
+	SDL_Rect last_bar;
+
 	void Loop();
 	void Render();
 

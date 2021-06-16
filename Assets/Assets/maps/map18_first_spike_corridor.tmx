@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="18" nextobjectid="43">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="18" nextobjectid="44">
  <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
   <image source="tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
@@ -1085,6 +1085,7 @@
  </objectgroup>
  <objectgroup id="14" name="objects">
   <object id="42" type="HazardSpikes" gid="201" x="1200" y="624" width="192" height="48"/>
+  <object id="43" type="EnemyArmorTrap" gid="196" x="864" y="384" width="48" height="48"/>
  </objectgroup>
  <objectgroup color="#aa00ff" id="17" name="checkpoints"/>
  <objectgroup color="#ff5500" id="16" name="spawnpoints">

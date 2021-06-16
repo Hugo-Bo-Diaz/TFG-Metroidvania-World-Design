@@ -11,6 +11,7 @@
 #include "SceneController.h"
 #include "UISettingsMenu.h"
 
+#include "Audio.h"
 UIPauseMenu::UIPauseMenu()
 {
 	resume_rect = {0,0,362,72};
@@ -35,6 +36,7 @@ void UIPauseMenu::Loop()
 			App->phy->UnPauseObjects();
 			App->scn->is_pause_menu_up = false;
 			App->gui->RemoveElement(this);
+			App->aud->PlaySFX(SFX_MENU_SELECT);
 			break;
 		case PAUSE_SETTINGS:
 			settings = (UISettingsMenu*)App->gui->AddSettingsMenu();
@@ -43,6 +45,7 @@ void UIPauseMenu::Loop()
 			settings->x += 76;
 			settings->y += 92;
 			is_settings_up = true;
+			App->aud->PlaySFX(SFX_MENU_SELECT);
 			break;
 		case PAUSE_EXIT:
 			App->phy->UnPauseObjects();
@@ -51,6 +54,7 @@ void UIPauseMenu::Loop()
 			App->gui->RemoveElement(this);
 			App->trk->SaveGame("save_file.xml");
 			App->cam->CoverScreen(1000, 300, 0, 0, 0);
+			App->aud->PlaySFX(SFX_MENU_SELECT);
 			break;
 		default:
 			break;
@@ -86,6 +90,7 @@ void UIPauseMenu::Loop()
 		CycleOption(amount_of_movement);
 		prev_joy_y.clear();
 		stop_inputs = true;
+		App->aud->PlaySFX(SFX_MENU_CHANGE);
 	}
 
 

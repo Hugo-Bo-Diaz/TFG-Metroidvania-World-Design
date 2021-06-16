@@ -7,12 +7,15 @@
 #include "Render.h"
 #include "Camera.h"
 #include "Particles.h"
+#include "Audio.h"
 #include "LavaSpell.h"
 
 #include "CoalJumper.h"
 #include "GroundedElemental.h"
 #include "FlyingElemental.h"
-
+#include "ArmorTrap.h"
+#include "ShieldMonster.h"
+#include "ClingingCreature.h"
 
 Fire::~Fire()
 {
@@ -21,6 +24,7 @@ Fire::~Fire()
 	//App->par->to_delete.push_back(volcano_particles);
 	//App->par->to_delete.push_back(to_follow);
 
+	
 }
 
 void Fire::Init()
@@ -51,19 +55,24 @@ void Fire::Loop(float dt)
 	if (App->inp->GetInput(BUTTON_2) == KEY_RELEASE)
 	{
 
-		if (charge > 100)
+		if (charge > 70 && player->manaCost(manacost_big))
 		{
 			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, FIRE_BALL);
 			fireball->Fire(player->is_right, true);
 			App->cam->CameraShake(20, 120);
+			App->aud->PlaySFX(SFX_FIREBALL_SMALL);
+			player->AddMana(-manacost_big);
+
 			//printf("big fireball \n");
 		}
-		else
+		else if (player->manaCost(manacost_small))
 		{
 			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, FIRE_BALL);
 			fireball->Fire(player->is_right, false);
 			//printf("small fireball \n");
 			App->cam->CameraShake(10, 120);
+			App->aud->PlaySFX(SFX_FIREBALL_BIG);
+			player->AddMana(-manacost_small);
 
 		}
 		charge = 0;
@@ -74,15 +83,17 @@ void Fire::Loop(float dt)
 		charge += 2;
 	}
 	//Fireslash/breath------------------------------------------------------------------------------------------------------------------
-	if (App->inp->GetInput(BUTTON_3) == KEY_DOWN && player->grounded)
+	if (App->inp->GetInput(BUTTON_3) == KEY_DOWN && player->grounded && !App->phy->is_paused)
 	{
 		player->LockMovement();
 		lavaspawner.Start();
 		volcano_particles->active = true;
 		is_volcano_active = true;
+		audiochannel_volcano = App->aud->PlaySFX(SFX_FIRE_WATERFALL, -1);
+		
 	}
 
-	if (App->inp->GetInput(BUTTON_3) == KEY_REPEAT && player->grounded && is_volcano_active)
+	if (App->inp->GetInput(BUTTON_3) == KEY_REPEAT && player->grounded && is_volcano_active && player->manaCost(manacost_volc))
 	{
 		if (player->is_right)
 		{
@@ -112,6 +123,8 @@ void Fire::Loop(float dt)
 			r->life.Start();
 			lavaspawner.Reset();
 			lavalist.push_back(r);
+
+			player->AddMana(-0.2);
 		}
 		/*
 			App->ren->Blit(App->tex->Get_Texture("spells"),
@@ -142,13 +155,11 @@ void Fire::Loop(float dt)
 		player->UnlockMovement();
 		volcano_particles->active = false;
 		is_volcano_active = false;
+		App->aud->StopChannel(audiochannel_volcano);
 	}
 
-
-
-
 	//Fireshield--------------------------------------------------------------------------------------------------------------------
-	if (App->inp->GetInput(BUTTON_4) == KEY_DOWN && !is_fireshield_on_cooldown)
+	if (App->inp->GetInput(BUTTON_4) == KEY_DOWN && !is_fireshield_on_cooldown && player->manaCost(manacost_shield) && !App->phy->is_paused)
 	{
 		//player->LockMovement(shield_activation_time);
 		is_fireshield_on_cooldown = true;
@@ -157,12 +168,17 @@ void Fire::Loop(float dt)
 		to_follow->active = true;
 		is_fireshield_up = true;
 
+		player->AddMana(-manacost_shield);
+
+
+		audiochannel_shield = App->aud->PlaySFX(SFX_FIRESHIELD,8);
 	}
 
 	if (fireshield_timer.Read() > shield_max_time)
 	{
 		to_follow->active = false;
 		is_fireshield_up = false;
+		//App->aud->StopChannel(audiochannel_shield);
 	}
 
 	if (fireshield_timer.Read() > cooldown_shield)
@@ -202,6 +218,18 @@ void Fire::Loop(float dt)
 				{
 					((FlyingElemental*)(*it)->object)->RecieveDamage(0.3, direction);
 				}
+				if ((*it)->type == ARMOR_TRAP)
+				{
+					((ArmorTrap*)(*it)->object)->RecieveDamage(0.3, direction);
+				}
+				if ((*it)->type == SHIELD_MONSTER)
+				{
+					((ShieldMonster*)(*it)->object)->RecieveDamage(0.3, direction);
+				}
+				if ((*it)->type == CLING_CREATURE)
+				{
+					((ClingCreature*)(*it)->object)->RecieveDamage(0.3, direction);
+				}
 			}
 		}
 	}
@@ -212,38 +240,41 @@ void Fire::Render()
 {
 	if (App->inp->GetInput(BUTTON_2) == KEY_REPEAT)
 	{
-		if (charge > 100)
+		if (!App->phy->is_paused)
 		{
-			if (player->is_right)
+			if (charge > 100)
 			{
-				App->ren->Blit(App->tex->Get_Texture("spells"),
-					player->collider->x + player->collider->w - 5,
-					player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
-					&fireball_big, -2);
+				if (player->is_right)
+				{
+					App->ren->Blit(App->tex->Get_Texture("spells"),
+						player->collider->x + player->collider->w - 5,
+						player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
+						&fireball_big, -2);
+				}
+				else
+				{
+					App->ren->Blit(App->tex->Get_Texture("spells"),
+						player->collider->x - fireball_big.w + 5,
+						player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
+						&fireball_big, -2);
+				}
 			}
 			else
 			{
-				App->ren->Blit(App->tex->Get_Texture("spells"),
-					player->collider->x - fireball_big.w + 5,
-					player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
-					&fireball_big, -2);
-			}
-		}
-		else
-		{
-			if (player->is_right)
-			{
-				App->ren->Blit(App->tex->Get_Texture("spells"),
-					player->collider->x + player->collider->w - 15,
-					player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
-					&fireball_small, -2);
-			}
-			else
-			{
-				App->ren->Blit(App->tex->Get_Texture("spells"),
-					player->collider->x - fireball_small.w + 15,
-					player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
-					&fireball_small, -2);
+				if (player->is_right)
+				{
+					App->ren->Blit(App->tex->Get_Texture("spells"),
+						player->collider->x + player->collider->w - 15,
+						player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
+						&fireball_small, -2);
+				}
+				else
+				{
+					App->ren->Blit(App->tex->Get_Texture("spells"),
+						player->collider->x - fireball_small.w + 15,
+						player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
+						&fireball_small, -2);
+				}
 			}
 		}
 	}
@@ -278,6 +309,22 @@ void Fire::Switched_out()
 		is_fireshield_up = false;
 	}
 	charge = 0;
+
+	if (is_volcano_active)
+	{
+		player->UnlockMovement();
+		volcano_particles->active = false;
+		is_volcano_active = false;
+		App->aud->StopChannel(audiochannel_volcano);
+
+		for (int i = 0; i < lavalist.size(); ++i)
+		{
+			delete (lavalist[i]);
+			//lavalist.erase(std::find(lavalist.begin(), lavalist.end(), to_delete_lavalist[i]));
+		}
+		lavalist.clear();
+		to_delete_lavalist.clear();
+	}
 }
 
 void Fire::UnlockMovementEvent()

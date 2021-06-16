@@ -90,6 +90,10 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 	Load_Texture("Assets/Sprites/enemies/groundelemental.png","groundelemental", textures_node);
 	Load_Texture("Assets/Sprites/enemies/flyingelemental.png", "flyingelemental", textures_node);
 	Load_Texture("Assets/Sprites/enemies/coaljumper.png", "coaljumper", textures_node);
+	Load_Texture("Assets/Sprites/enemies/armortrap.png", "armortrap", textures_node);
+	Load_Texture("Assets/Sprites/enemies/shield_monster_arm.png", "shield_monster_arm", textures_node);
+	Load_Texture("Assets/Sprites/enemies/shield_monster.png", "shield_monster", textures_node);
+	Load_Texture("Assets/Sprites/enemies/cling_enemy.png", "cling_enemy", textures_node);
 
 
 	return ret;

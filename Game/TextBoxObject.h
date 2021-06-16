@@ -26,6 +26,9 @@ public:
 	bool textboxexists = false;
 
 	int lore_unlock = -1;
+
+	SDL_Rect rectanglekeyboard;
+	SDL_Rect rectanglecontroller;
 };
 
 #endif

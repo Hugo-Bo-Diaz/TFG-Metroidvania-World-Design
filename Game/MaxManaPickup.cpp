@@ -4,6 +4,7 @@
 #include "ProgressTracker.h"
 #include "Gui.h"
 #include "UItextbox.h"
+#include "Player.h"
 
 MaxManaPickup::MaxManaPickup()
 {
@@ -38,7 +39,7 @@ bool MaxManaPickup::Loop(float dt)
 		{
 			if ((*it)->type == PLAYER)
 			{
-
+				((Player*)((*it)->object))->AddHealth(1);
 				App->trk->AddPickupToList(pickup_id);
 				App->trk->charges_mana++;
 				App->phy->DeleteObject(this);

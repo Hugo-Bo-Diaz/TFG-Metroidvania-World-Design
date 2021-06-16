@@ -10,6 +10,8 @@
 #include "UISelectMenu.h"
 #include "UICheckpointIndicator.h"
 
+#include "Input.h"
+
 UserInterface::UserInterface()
 {
 	name = "UserInterface";
@@ -29,6 +31,11 @@ bool UserInterface::Loop(float dt)
 		elements.erase(std::find(elements.begin(), elements.end(), *it));
 	}
 	to_delete.clear();
+
+	if (App->inp->GetInput(BUTTON_1) == BUTTON_DOWN )
+	{
+		printf("lol");
+	}
 
 	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
 	{
@@ -83,7 +90,7 @@ bool UserInterface::ElementExists(UIelement * to_check)
 {
 	bool is_in_array = false;
 
-	for (std::vector<UIelement*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
+	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
 	{
 		if ((*it) == to_check)
 			is_in_array = true;

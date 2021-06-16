@@ -5,6 +5,7 @@
 #include "Gui.h"
 #include "Render.h"
 #include "Textures.h"
+#include "Audio.h"
 #include "UISettingsMenu.h"
 
 UIMainMenu::UIMainMenu()
@@ -14,31 +15,42 @@ UIMainMenu::UIMainMenu()
 void UIMainMenu::Loop()
 {
 
+	if (first_update)
+	{
+		first_update = false;
+		App->aud->PlayMusic(MUSIC_MENU, 500);
+	}
+
 	if (App->inp->GetInput(BUTTON_1) == BUTTON_DOWN && !is_settings_up)
 	{
+
 		switch (current_option)
 		{
 		case MAINMENU_NEWGAME:
 			App->trk->start_new_game = true;
 			App->gui->RemoveElement(this);
+			App->aud->PlaySFX(SFX_MENU_SELECT);
 			break;
 		case MAINMENU_LOADGAME:
 			App->trk->start_load_game = true;
 			App->gui->RemoveElement(this);
+			App->aud->PlaySFX(SFX_MENU_SELECT);
 			break;
 		case MAINMENU_SETTINGS:
-			settings = (UISettingsMenu*)App->gui->AddSettingsMenu();
+			/*settings = (UISettingsMenu*)App->gui->AddSettingsMenu();
 			settings->parent = this;
-			settings->parent_type = SETTINGS_PARENT_PAUSE_MENU;
+			settings->parent_type = SETTINGS_PARENT_MAIN_MENU;
 			settings->x += 76;
 			settings->y += 92;
 			is_settings_up = true;
+			App->aud->PlaySFX(SFX_MENU_SELECT);*/
 			break;
 		case MAINMENU_CREDITS:
 			//design more UI :)
 			break;
 		case MAINMENU_EXIT:
 			//quit the game
+			App->trk->should_exit = true;
 			break;
 		}
 	}
@@ -69,6 +81,7 @@ void UIMainMenu::Loop()
 	if (abs(amount_of_movement)>0.6 && !stop_inputs && !is_settings_up)
 	{
 		CycleOption(amount_of_movement);
+		App->aud->PlaySFX(SFX_MENU_CHANGE);
 		prev_joy_y.clear();
 		stop_inputs = true;
 	}

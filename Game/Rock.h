@@ -9,7 +9,7 @@ class Rock : public physobj
 public:
 
 	Rock();
-
+	~Rock();
 	void Fire(bool left_dir, float angle, float speed, float gravity);
 
 	bool Loop(float dt);
@@ -19,6 +19,8 @@ public:
 	float y_speed = 0;
 	float gravity = 0;
 
+	int damage = 4;
+	int direction;
 	
 	Animation rock_sprite;
 };

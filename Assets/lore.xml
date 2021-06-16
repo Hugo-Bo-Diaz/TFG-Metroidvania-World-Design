@@ -18,5 +18,15 @@
 	<entry id = "12" title = "Cristal Ball" content = "This probably was a way to channel magic power" />
 	<entry id = "13" title = "Battle" content = "The battle between worlds must have been brutal for both sides..." />
 	<entry id = "14" title = "Battle tactics" content = "It seems like the tactics used to win the castle were not relevant as long as they were effective" />
+	<entry id = "15" title = "The castle secrets" content = "This castle looks like it has a lot of passages and hidden routes" />
 
+	<entry id = "16" title = "Ground book" content = "I have to restore balance to the castle by collecting all of the books" />
+
+	<entry id = "17" title = "Stone spikes" content = "These spikes must come from the discontrol of the castle magic. It hurts to see it like this" />
+	<entry id = "18" title = "Ground master" content = "I do not know where he is but I can sense him in a room nearby..." />
+	<entry id = "19" title = "Terrain" content = "The battle terrain can determine the winner before it begins even if in this case does not look right" />
+	<entry id = "20" title = "Empty" content = "Without anyone with enough power here the power of the castle is out of balance" />
+	<entry id = "21" title = "Spirit" content = "This part of the castle was inhabited by powerful and stoic stone mages capable of moving the ground at will" />
+	
+	<entry id = "22" title = "Golems" content = "These were once pacific creatures that were forced to battle for their own existance blinded by anger"/>
 </lore>

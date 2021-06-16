@@ -55,7 +55,7 @@ bool HazardLavaWaterfall::Render()
 	{
 		for (int j = 0; j < tilesy; ++j)
 		{
-			App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x + 48 * i, collider->y + 48 * j, anim.GetCurrentFrame(), -20);
+			App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x + 48 * i, collider->y + 48 * j, anim.GetCurrentFrame(), 50);
 		}
 	}
 	return true;

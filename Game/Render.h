@@ -20,6 +20,8 @@ struct BlitItem
 
 	//rotation point and angle
 	//SDL_Point img_center;
+	int center_x;
+	int center_y;
 	float angle;
 
 	bool operator<(const BlitItem& rhs) const
@@ -107,7 +109,7 @@ public:
 	bool Loop(float dt);
 	bool CleanUp();
 
-	void Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1);
+	void Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1, int center_x = -1,int center_y = -1);
 	
 	/*void BlitMapTile(SDL_Texture* tex, int x_tile, int y_tile,SDL_Rect on_img, int depth, float parallax_factor_x = 1, float parallax_factor_y = 1);
 	void BlitMapLayer(layer* layer);*/

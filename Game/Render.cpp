@@ -279,11 +279,27 @@ bool Render::Loop(float dt)
 			rect.w *= scale;
 			rect.h *= scale;
 
-			if (SDL_RenderCopyEx(renderer, item->tex, item->on_img, &rect, item->angle, NULL, SDL_FLIP_NONE) != 0)
+			SDL_Point* p = NULL;
+
+			if (item->center_x != -1 && item->center_y != -1)
+			{
+				p = new SDL_Point();
+				*p = { item->center_x,item->center_y };
+			}
+			
+			
+
+			if (SDL_RenderCopyEx(renderer, item->tex, item->on_img, &rect, item->angle, p, SDL_FLIP_NONE) != 0)
 			{
 				printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
 				ret = false;
 			}
+
+			if (item->center_x != -1 && item->center_y != -1)
+			{
+				delete p;
+			}
+
 		}
 		//else {
 			//printf("Texture not found! \n");
@@ -464,6 +480,31 @@ bool Render::Loop(float dt)
 				if (print->words[j][i] == 33)
 				{
 					int x_on = print->font_used->hsize * 1;
+					int y_on = print->font_used->hsize * 4;
+
+					on_img = { x_on, y_on, fontsizex, fontsizey };
+
+					fontsizey *= print->scale;
+					fontsizex *= print->scale;
+				}
+
+
+				//character .
+				if (print->words[j][i] == 46)
+				{
+					int x_on = print->font_used->hsize * 3;
+					int y_on = print->font_used->hsize * 4;
+
+					on_img = { x_on, y_on, fontsizex, fontsizey };
+
+					fontsizey *= print->scale;
+					fontsizex *= print->scale;
+				}
+
+				//character '
+				if (print->words[j][i] == 39)
+				{
+					int x_on = print->font_used->hsize * 4;
 					int y_on = print->font_used->hsize * 4;
 
 					on_img = { x_on, y_on, fontsizex, fontsizey };
@@ -744,7 +785,7 @@ bool Render::Loop(float dt)
 	return ret;
 }
 
-void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle, float parallax_factor_x, float parallax_factor_y)
+void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle, float parallax_factor_x, float parallax_factor_y, int center_x,int center_y)
 {
 	BlitItem* it = new BlitItem();
 	it->depth = depth;
@@ -752,6 +793,9 @@ void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int d
 	it->x = x;
 	it->y = y;
 	it->tex = tex;
+
+	it->center_x = center_x;
+	it->center_y = center_y;
 
 	//it->img_center = {center_x,center_y};
 	it->angle = angle;

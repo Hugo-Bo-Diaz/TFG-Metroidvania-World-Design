@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="64" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="18" nextobjectid="88">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="64" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="18" nextobjectid="90">
  <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
   <image source="tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
@@ -422,11 +422,11 @@
    <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -486,11 +486,11 @@
    <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -550,11 +550,11 @@
    <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -614,11 +614,11 @@
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -2117,13 +2117,12 @@
   <object id="55" x="240" y="144" width="384" height="48"/>
   <object id="58" x="240" y="720" width="144" height="48"/>
   <object id="59" x="240" y="624" width="96" height="96"/>
-  <object id="60" x="0" y="480" width="240" height="288"/>
-  <object id="61" x="0" y="96" width="240" height="192"/>
+  <object id="60" x="0" y="96" width="240" height="672"/>
   <object id="62" x="480" y="528" width="144" height="48"/>
   <object id="63" x="1344" y="576" width="144" height="48"/>
  </objectgroup>
  <objectgroup id="14" name="objects">
-  <object id="42" type="TextBoxObject" x="2544" y="432" width="192" height="144">
+  <object id="42" type="TextBoxObject" x="2592" y="432" width="96" height="144">
    <properties>
     <property name="lore" type="int" value="14"/>
     <property name="text" value="How did this get here"/>
@@ -2137,14 +2136,11 @@
   <object id="85" type="HazardRockBlock" gid="186" x="1008" y="480" width="48" height="48"/>
   <object id="86" type="HazardRockBlock" gid="186" x="1056" y="528" width="48" height="48"/>
   <object id="87" type="HazardRockBlock" gid="186" x="1008" y="528" width="48" height="48"/>
+  <object id="88" type="EnemyArmorTrap" gid="196" x="2064" y="432" width="48" height="48"/>
+  <object id="89" type="HazardSpikes" gid="201" x="1680" y="576" width="288" height="48"/>
  </objectgroup>
  <objectgroup color="#aa00ff" id="17" name="checkpoints"/>
  <objectgroup color="#ff5500" id="16" name="spawnpoints">
-  <object id="27" x="0" y="288" width="48" height="48">
-   <properties>
-    <property name="id" type="int" value="0"/>
-   </properties>
-  </object>
   <object id="28" x="3024" y="384" width="48" height="48">
    <properties>
     <property name="id" type="int" value="2"/>
@@ -2167,13 +2163,6 @@
     <property name="horizontal" type="bool" value="false"/>
     <property name="id_point" type="int" value="0"/>
     <property name="id_room" type="int" value="20"/>
-   </properties>
-  </object>
-  <object id="41" x="-96" y="288" width="48" height="192">
-   <properties>
-    <property name="horizontal" type="bool" value="false"/>
-    <property name="id_point" type="int" value="2"/>
-    <property name="id_room" type="int" value="21"/>
    </properties>
   </object>
   <object id="43" x="1248" y="816" width="384" height="48">

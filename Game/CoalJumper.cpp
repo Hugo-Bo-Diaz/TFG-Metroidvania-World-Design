@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "Particles.h"
 #include "Camera.h"
+#include "Audio.h"
 
 #include <cmath>
 #include <time.h>
@@ -216,6 +217,7 @@ bool CoalJumper::Render()
 
 void CoalJumper::RecieveDamage(int dmg, int direction)
 {
+	App->aud->PlaySFX(SFX_ENEMY_HIT);
 	health -= dmg;
 	if (health <= 0)
 	{

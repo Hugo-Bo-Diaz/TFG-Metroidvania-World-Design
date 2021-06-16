@@ -33,6 +33,7 @@ UISelectMenu::~UISelectMenu()
 
 void UISelectMenu::Loop()
 {
+
 	switch (current_option)
 	{
 	case SELECT_MENU_LORE:
@@ -98,13 +99,19 @@ void UISelectMenu::Loop()
 		break;
 	}
 
-	if (App->inp->GetInput(BUTTON_1) == BUTTON_DOWN)
+	if ((App->inp->GetInput(SELECT) == BUTTON_DOWN || App->inp->GetInput(START) == BUTTON_DOWN) && !first_update)
 	{
 
 		App->phy->UnPauseObjects();
 		App->scn->is_pause_menu_up = false;
 		App->gui->RemoveElement(this);
 	}
+
+	if (first_update)
+	{
+		first_update = false;
+	}
+
 }
 
 void UISelectMenu::Render()

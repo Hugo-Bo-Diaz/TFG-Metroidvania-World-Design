@@ -6,6 +6,9 @@
  <tileset firstgid="177" name="tileset02" tilewidth="48" tileheight="48" tilecount="121" columns="11">
   <image source="tilesets/tileset02.png" width="528" height="528"/>
  </tileset>
+ <tileset firstgid="298" name="tileset03" tilewidth="48" tileheight="48" tilecount="272" columns="17">
+  <image source="tilesets/tileset03.png" width="816" height="768"/>
+ </tileset>
  <imagelayer id="10" name="ground3">
   <image source="Backgrounds/ground_back.png" width="1024" height="576"/>
   <properties>

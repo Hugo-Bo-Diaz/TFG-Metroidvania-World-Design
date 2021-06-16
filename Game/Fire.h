@@ -28,6 +28,8 @@ public:
 
 	//fireball
 	int charge = 0;
+	float manacost_small = 0.25;
+	float manacost_big = 0.5;
 
 	//firevolcano
 	float width;
@@ -39,6 +41,8 @@ public:
 	float timebetweenlava = 100;
 	ParticleEmitter* volcano_particles;
 	bool is_volcano_active = false;
+	int audiochannel_volcano = 0;
+	float manacost_volc = 0.2;
 
 	//fireshield
 	bool is_fireshield_on_cooldown = false;
@@ -48,6 +52,8 @@ public:
 	float cooldown_shield = 5750;
 	Timer fireshield_timer;
 	ParticleEmitter*to_follow;
+	int audiochannel_shield = 0;
+	float manacost_shield = 1.0;
 
 	//sprites
 	SDL_Rect fireball_big;
@@ -58,5 +64,6 @@ public:
 
 	Animation fireshield;
 };
+
 
 #endif

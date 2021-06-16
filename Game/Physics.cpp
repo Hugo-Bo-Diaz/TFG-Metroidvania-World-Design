@@ -16,6 +16,7 @@
 #include "Shockwave.h"
 
 #include "FireSpellPickup.h"
+#include "GroundSpellPickup.h"
 
 #include "MaxHealthPickup.h"
 #include "MaxManaPickup.h"
@@ -23,6 +24,9 @@
 #include "GroundedElemental.h"
 #include "FlyingElemental.h"
 #include "CoalJumper.h"
+#include "ArmorTrap.h"
+#include "ShieldMonster.h"
+#include "ClingingCreature.h"
 
 #include "HazardLava.h"
 #include "HazardLavaWaterfall.h"
@@ -32,6 +36,7 @@
 #include "CheckPoint.h"
 #include "FirstDialogue.h"
 #include "TextBoxObject.h"
+#include "DemoEndObject.h"
 
 Physics::Physics()
 {
@@ -136,6 +141,16 @@ void Physics::GetCollisions(SDL_Rect* obj, std::vector<collision*>& collisions)
 	}
 }
 
+void Physics::ClearCollisionArray(std::vector<collision*>& collisions)
+{
+
+	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	{
+		delete *it;
+	}
+	collisions.clear();
+}
+
 physobj* Physics::AddObject(int x, int y, int w_col, int h_col, object_type type)
 {
 	physobj* r;
@@ -175,6 +190,9 @@ physobj* Physics::AddObject(int x, int y, int w_col, int h_col, object_type type
 	case FIRE_SPELL_PICKUP: {
 		r = new FireSpellPickup();
 		break; }
+	case GROUND_SPELL_PICKUP: {
+		r = new GroundSpellPickup();
+		break; }
 	case MAX_HEALTH_PICKUP: {
 		r = new MaxHealthPickup();
 		break; }
@@ -189,6 +207,15 @@ physobj* Physics::AddObject(int x, int y, int w_col, int h_col, object_type type
 		break; }
 	case COAL_JUMPER: {
 		r = new CoalJumper();
+		break; }
+	case ARMOR_TRAP: {
+		r = new ArmorTrap();
+		break; }
+	case SHIELD_MONSTER: {
+		r = new ShieldMonster();
+		break; }
+	case CLING_CREATURE: {
+		r = new ClingCreature();
 		break; }
 	case LAVA_HAZARDS: {
 		r = new HazardLava();
@@ -210,6 +237,9 @@ physobj* Physics::AddObject(int x, int y, int w_col, int h_col, object_type type
 		break; }
 	case TEXTBOXOBJECT: {
 		r = new TextBoxObject();
+		break; }
+	case ENDDEMOOBJECT: {
+		r = new EndDemoObject();
 		break; }
 	default:
 		r = new physobj();

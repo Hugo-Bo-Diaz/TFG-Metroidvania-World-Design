@@ -25,9 +25,10 @@ public:
 	float rock_speed_y = -5;
 	float rock_gravity = 0.5;
 	
-	float cooldown_rock = 300;
+	float cooldown_rock = 150;
 	Timer rock_timer;
 	bool is_rock_on_cooldown = false;
+	float manacost_rock = 0.3;
 
 	//ground pound
 	float initial_yspeed = -5;
@@ -38,12 +39,17 @@ public:
 	bool is_on_gp_lag = false;
 	float groundpound_endlag = 200;
 	Timer groundpound_end_timer;
+	float manacost_groundpound = 1.0;
 
 	//earthquake
 	float cooldown_earthquake = 500;
 	bool is_eq_on_cooldown = false;
 	Timer earthquake_timer;
 
+	SDL_Rect groundpoundhitbox;
+	bool hashitsomething;
+
+	float manacost_earthquake = 0.5;
 
 	//sprites
 	SDL_Rect groundpound = { 128,160,64,32 };

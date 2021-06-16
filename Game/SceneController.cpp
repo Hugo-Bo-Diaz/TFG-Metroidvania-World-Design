@@ -11,15 +11,19 @@
 #include "ProgressTracker.h"
 #include "Particles.h"
 #include "Window.h"
+#include "Audio.h"
 
 #include "Player.h"
 #include "MaxHealthPickup.h"
 #include "MaxManaPickup.h"
 #include "GroundedElemental.h"
 #include "FlyingElemental.h"
+#include "ArmorTrap.h"
+#include "ClingingCreature.h"
 
 #include "CheckPoint.h"
 #include "TextBoxObject.h"
+#include "DemoEndObject.h"
 //#include "HazardLava.h"
 #include "HazardsRockBlock.h"
 
@@ -257,10 +261,29 @@ bool SceneController::LoadMap(const char* filename)
 		{
 			LoadTiles(iterator);
 		}
+		if (iterator_name == "properties")
+		{
+			LoadMapProperties(iterator);
+		}
 	}
 
 	return true;
 }
+
+void SceneController::LoadMapProperties(pugi::xml_node & node)
+{
+	pugi::xml_node iterator;
+	pugi::xml_node property_node = node.first_child();
+	for (iterator = property_node; iterator; iterator = iterator.next_sibling())
+	{
+		std::string name = iterator.attribute("name").as_string();
+		if (name == "music")
+		{
+			App->aud->PlayMusic(iterator.attribute("value").as_int(1),500);
+		}
+	}
+}
+
 
 bool SceneController::LoadBackground(pugi::xml_node& imagelayer_node)
 {
@@ -316,6 +339,12 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 			h = 64;
 			t = FIRE_SPELL_PICKUP;
 		}
+		if (type == "SpellUnlockGround")
+		{
+			w = 52;
+			h = 64;
+			t = GROUND_SPELL_PICKUP;
+		}
 		else if (type == "HealthChargePickup")
 		{
 			t = MAX_HEALTH_PICKUP;
@@ -370,7 +399,25 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 			w = 64;
 			h = 64;
 		}
-
+		else if (type == "EnemyArmorTrap" )
+		{
+			t = ARMOR_TRAP;
+			w = 48;
+			h = 72;
+		}
+		else if (type == "EnemyShieldMonster")
+		{
+			t = SHIELD_MONSTER;
+			w = 112;
+			h = 140;
+		}
+		else if (type == "EnemyClingCreature")
+		{
+			t = CLING_CREATURE;
+			w = 48;
+			h = 48;
+			//y += 48;
+		}
 		else if (type == "TextBoxObject")
 		{
 			t = TEXTBOXOBJECT;
@@ -379,7 +426,14 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 			y+=object_iterator.attribute("height").as_int();
 
 		}
+		else if (type == "DemoEndObject")
+		{
+			t = ENDDEMOOBJECT;
+			w = object_iterator.attribute("width").as_int();
+			h = object_iterator.attribute("height").as_int();
+			y += object_iterator.attribute("height").as_int();
 
+		}
 		physobj*ret = nullptr;
 
 		if(t != MAX_OBJECT_TYPE)
@@ -493,7 +547,20 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 
 				((HazardRockBlock*)ret)->Init();
 			}
+			else if (t == CLING_CREATURE)
+			{
+				pugi::xml_node properties_node = object_iterator.child("properties");
+				pugi::xml_node iterator;
 
+				for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
+				{
+					std::string temp = iterator.attribute("name").as_string();
+					if (temp == "direction")
+					{
+						((ClingCreature*)ret)->curr_dir = (ClingCreatureDirection)iterator.attribute("value").as_int(0);
+					}
+				}
+			}
 		}
 
 	}
@@ -850,7 +917,7 @@ void SceneController::GoToLastCheckPoint()
 
 	std::string map_to_change;
 
-	if (current_room_id != App->trk->last_checkpoint_id)
+	//if (current_room_id != App->trk->last_checkpoint_id)
 	{
 		int current_spell = pl->current_spell;
 
@@ -887,7 +954,7 @@ void SceneController::GoToLoadedScene()
 
 	std::string map_to_change;
 
-	if (current_room_id != App->trk->last_checkpoint_id)
+	//if (current_room_id != App->trk->last_checkpoint_id)
 	{
 		int current_spell = NONE_UNLOCKED;
 
@@ -974,7 +1041,6 @@ void SceneController::LoadMapArray(const char * document)
 
 }
 
-
 void SceneController::AddPortal(SDL_Rect area, int destination_r, int destination_i, bool horizontal)
 {
 	Portal* p = new Portal();
@@ -1029,6 +1095,7 @@ void SceneController::ChangeMap(const char * filename)
 	CleanMap();
 	App->phy->Clearphysics();
 	App->gui->Clearelements();
+	App->par->ClearParticles();
 
 	LoadMap(filename);
 }

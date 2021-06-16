@@ -101,7 +101,7 @@ public:
 
 	SDL_Point trail[30];
 
-	spell_type current_spell = FIRE;//=FIRE;
+	spell_type current_spell = NONE_UNLOCKED;//=FIRE;
 	std::vector<Spell*> spells;
 	int unlocked_spells;
 	std::vector<bool> unlocked;
@@ -117,6 +117,12 @@ public:
 	
 	float health = 4;
 	float mana = 3;
+	Timer time_since_mana_use;
+	float time_to_start_regen = 800;
+	float base_mana_regen = 0.005;//always add this
+	float scaling_mana_regen = 0.08;//multiply this by the percent of current mana
+
+	bool manaCost(float mana);
 
 	void AddHealth(int amount, int knockbackdirection = -1);
 	void AddMana(float amount);

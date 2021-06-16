@@ -34,6 +34,8 @@ public:
 	void Loop();
 	void Render();
 
+	bool first_update = true;
+
 	int offset_option_x = 500;
 	int offset_option_y = 232;
 	int interval_y = 68;

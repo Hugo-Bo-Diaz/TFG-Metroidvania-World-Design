@@ -121,11 +121,16 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="ArmorTrap.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CheckPoint.cpp" />
+    <ClCompile Include="ClingingCreature.cpp" />
+    <ClCompile Include="DemoEndObject.cpp" />
+    <ClCompile Include="GroundSpellPickup.cpp" />
     <ClCompile Include="HazardSpikes.cpp" />
     <ClCompile Include="HazardsRockBlock.cpp" />
+    <ClCompile Include="ShieldMonster.cpp" />
     <ClCompile Include="UICheckpointIndicator.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="CoalJumper.cpp" />
@@ -183,11 +188,16 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="ArmorTrap.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CheckPoint.h" />
+    <ClInclude Include="ClingingCreature.h" />
+    <ClInclude Include="DemoEndObject.h" />
+    <ClInclude Include="GroundSpellPickup.h" />
     <ClInclude Include="HazardSpikes.h" />
     <ClInclude Include="HazardsRockBlock.h" />
+    <ClInclude Include="ShieldMonster.h" />
     <ClInclude Include="UICheckpointIndicator.h" />
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="CoalJumper.h" />

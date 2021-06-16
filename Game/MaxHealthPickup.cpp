@@ -4,6 +4,7 @@
 #include "ProgressTracker.h"
 #include "Gui.h"
 #include "UItextbox.h"
+#include "Player.h"
 
 MaxHealthPickup::MaxHealthPickup()
 {
@@ -42,6 +43,7 @@ bool MaxHealthPickup::Loop(float dt)
 				
 				App->trk->AddPickupToList(pickup_id);
 				App->trk->charges_hp++;
+				((Player*)((*it)->object))->AddHealth(1);
 				App->phy->DeleteObject(this);
 
 				std::string s = std::to_string( App->trk->charges_hp) + "/" + std::to_string(App->trk->charges_per_hp)+ " to increase hp";

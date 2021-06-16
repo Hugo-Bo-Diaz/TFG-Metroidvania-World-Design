@@ -2,6 +2,7 @@
 	<room id = "0" path = "Assets/maps/map0_entrance.tmx"/>
 	<room id = "1" path = "Assets/maps/map1_fire_pit.tmx"/>
 	<room id = "2" path = "Assets/maps/map2_fire_entrance.tmx"/>
+	
 	<room id = "3" path = "Assets/maps/map3_fire_spell_location.tmx"/>
 	<room id = "4" path = "Assets/maps/map4_first_health_pickup.tmx"/>
 	<room id = "5" path = "Assets/maps/map5_first_mana_pickup.tmx"/>
@@ -23,5 +24,22 @@
 	<room id = "20" path = "Assets/maps/map20_corridor.tmx"/>
 	<room id = "21" path = "Assets/maps/map21_first_ground_blocks.tmx"/>
 	<room id = "22" path = "Assets/maps/map22_item_location.tmx"/>
+
+	<room id = "23" path = "Assets/maps/map23_rock_entrance.tmx"/>
+	<room id = "24" path = "Assets/maps/map24_rock_first_room.tmx"/>
+	<room id = "25" path = "Assets/maps/map25_first_vertical.tmx"/>
+	<room id = "26" path = "Assets/maps/map26_battle_room.tmx"/>
+	<room id = "27" path = "Assets/maps/map27_first_link.tmx"/>
+	<room id = "28" path = "Assets/maps/map28_second_vertical.tmx"/>
+	<room id = "29" path = "Assets/maps/map29_two_items_room.tmx"/>
+	<room id = "30" path = "Assets/maps/map30_ground_spell_location.tmx"/>
+	<room id = "31" path = "Assets/maps/map31_third_vertical.tmx"/>
+	<room id = "32" path = "Assets/maps/map32_big_rock_room.tmx"/>
+	<room id = "33" path = "Assets/maps/map33_link_top.tmx"/>
+	<room id = "34" path = "Assets/maps/map34_link_bottom.tmx"/>
+	<room id = "35" path = "Assets/maps/map35_lore_room.tmx"/>
+	<room id = "36" path = "Assets/maps/map36_item_tease.tmx"/>
+	<room id = "37" path = "Assets/maps/map37_middle_room.tmx"/>
+
 
 </completemap>

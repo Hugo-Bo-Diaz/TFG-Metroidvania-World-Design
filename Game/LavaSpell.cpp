@@ -7,6 +7,9 @@
 #include "CoalJumper.h"
 #include "GroundedElemental.h"
 #include "FlyingElemental.h"
+#include "ArmorTrap.h"
+#include "ShieldMonster.h"
+#include "ClingingCreature.h"
 
 
 void LavaSpell::Loop()
@@ -46,8 +49,20 @@ void LavaSpell::Loop()
 		{
 			((FlyingElemental*)(*it)->object)->RecieveDamage(damage, direction);
 		}
+		if ((*it)->type == ARMOR_TRAP)
+		{
+			((ArmorTrap*)(*it)->object)->RecieveDamage(damage, direction);
+		}
+		if ((*it)->type == SHIELD_MONSTER)
+		{
+			((ShieldMonster*)(*it)->object)->RecieveDamage(damage, direction);
+		}
+		if ((*it)->type == CLING_CREATURE)
+		{
+			((ClingCreature*)(*it)->object)->RecieveDamage(damage, direction);
+		}
 	}
-	
+	App->phy->ClearCollisionArray(collisions);
 }
 
 void LavaSpell::Render()

@@ -225,6 +225,21 @@
     <ClCompile Include="HazardsRockBlock.cpp">
       <Filter>Objects\Hazards</Filter>
     </ClCompile>
+    <ClCompile Include="ArmorTrap.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ShieldMonster.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ClingingCreature.cpp">
+      <Filter>Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundSpellPickup.cpp">
+      <Filter>Objects\Pickups\books</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoEndObject.cpp">
+      <Filter>Objects\Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -406,6 +421,21 @@
     </ClInclude>
     <ClInclude Include="HazardsRockBlock.h">
       <Filter>Objects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmorTrap.h">
+      <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ShieldMonster.h">
+      <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ClingingCreature.h">
+      <Filter>Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundSpellPickup.h">
+      <Filter>Objects\Pickups\books</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoEndObject.h">
+      <Filter>Objects\Other</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

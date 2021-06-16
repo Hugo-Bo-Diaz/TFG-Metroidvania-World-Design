@@ -100,7 +100,9 @@ public:
 	bool LoadBackgroundImage(pugi::xml_node&);
 	void LoadMapArray(const char* document);
 
+
 	bool LoadMap(const char* filename);
+	void LoadMapProperties(pugi::xml_node&);
 	void CleanMap();
 	void ChangeMap(const char* filename);
 

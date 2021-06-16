@@ -11,6 +11,9 @@ UIhealthbar::UIhealthbar(playerresource resource)
 	end = { size_in_image*2,0,size_in_image,size_in_image };
 	bar = {size_in_image*3, 0, size_in_image, size_in_image };
 
+	last_bar = bar;
+
+
 	if (res == HEALTH)
 	{
 		begin.y+= size_in_image;
@@ -66,5 +69,14 @@ void UIhealthbar::Render()
 	{
 		App->ren->BlitUI(App->tex->Get_Texture("healthbars"), x + offset, y, &bar, 25);
 		offset += size_in_image;
+	}
+	
+	if (res == MANA)//if it is mana it should a last partial section
+	{
+		//bar.w = max length
+		//player.mana- curr res = 
+		float realw = (player->mana - curr_res) * bar.w;
+		last_bar.w = realw;//gives a value from 0 to 1 because of the size of the fragments
+		App->ren->BlitUI(App->tex->Get_Texture("healthbars"), x + offset, y, &last_bar, 25);
 	}
 }

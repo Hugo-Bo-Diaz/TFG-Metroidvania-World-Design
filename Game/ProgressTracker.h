@@ -58,7 +58,10 @@ public:
 	bool send_player_to_load = false;
 
 	bool go_to_main_menu = false;
+	bool should_exit = false;
+
 	//variables that track events in the game
+
 	std::vector<bool> unlocked;
 	
 	float player_hp = 4;

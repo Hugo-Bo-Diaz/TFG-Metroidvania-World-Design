@@ -1,7 +1,7 @@
 #include "FlyingElemental.h"
 #include "Particles.h"
 #include "Application.h"
-
+#include "Audio.h"
 
 FlyingElemental::FlyingElemental()
 {
@@ -233,6 +233,7 @@ bool FlyingElemental::Render()
 
 void FlyingElemental::RecieveDamage(int dmg, int direction)
 {
+	App->aud->PlaySFX(SFX_ENEMY_HIT);
 	health -= dmg;
 	if (health <= 0)
 	{

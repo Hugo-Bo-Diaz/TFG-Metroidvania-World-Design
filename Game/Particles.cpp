@@ -170,7 +170,99 @@ bool Particles::Init()
 	fire_ge_death.minmax_acc_y = std::make_pair(0.1, 0.3);
 	fire_ge_death.texture_name = "particles";
 
+	r16sandfirst = { 48,0,12,12 };
+	r17sandsecond = {48,12,12,12};
 
+	sand_left.area_in_texture.push_back(&r16sandfirst);
+	sand_left.area_in_texture.push_back(&r17sandsecond);
+	sand_left.name = "sand_left";
+	sand_left.minmax_x_offset = std::make_pair(-5, 69);
+	sand_left.minmax_y_offset = std::make_pair(50, 70);
+	sand_left.minmax_speed_y = std::make_pair(-1.5, -2.5);
+	sand_left.minmax_speed_x = std::make_pair(1.5, 3.0);
+	sand_left.minmax_scale_speed = std::make_pair(-0.03, -0.04);
+	sand_left.minmax_scale = std::make_pair(0.75, 1.25);
+	sand_left.minmax_acc_y = std::make_pair(0.04, 0.05);
+	sand_left.minmax_lifespan = std::make_pair(500, 600);
+	sand_left.minmax_frequency = std::make_pair(5, 20);
+	sand_left.texture_name = "particles";
+ 
+
+	sand_right.area_in_texture.push_back(&r16sandfirst);
+	sand_right.area_in_texture.push_back(&r17sandsecond);
+	sand_right.name = "sand_left";
+	sand_right.minmax_x_offset = std::make_pair(-5, 69);
+	sand_right.minmax_y_offset = std::make_pair(50, 70);
+	sand_right.minmax_speed_y = std::make_pair(-1.5, -2.5);
+	sand_right.minmax_speed_x = std::make_pair(-1.5, -3.0);
+	sand_right.minmax_scale_speed = std::make_pair(-0.03, -0.04);
+	sand_right.minmax_scale = std::make_pair(0.75, 1.25);
+	sand_right.minmax_acc_y = std::make_pair(0.04, 0.05);
+	sand_right.minmax_lifespan = std::make_pair(500, 600);
+	sand_right.minmax_frequency = std::make_pair(5, 20);
+	sand_right.texture_name = "particles";
+
+
+	r18metalfirst = { 48,24,12,12 };
+	r19metalsecond = { 48,36,12,12 };
+
+	shield_monster_hit.area_in_texture.push_back(&r16sandfirst);
+	shield_monster_hit.area_in_texture.push_back(&r9ground);
+	shield_monster_hit.area_in_texture.push_back(&r8ground);
+	shield_monster_hit.name = "shield_monster_floor_hit";
+	shield_monster_hit.minmax_x_offset = std::make_pair(-30, 30);
+	shield_monster_hit.minmax_y_offset = std::make_pair(-30, 30);
+	shield_monster_hit.minmax_lifespan = std::make_pair(75, 150);
+	shield_monster_hit.minmax_angle_speed = std::make_pair(5, 15);
+	shield_monster_hit.minmax_angle = std::make_pair(0, 360);
+	shield_monster_hit.minmax_acc_y = std::make_pair(1, 2);
+	shield_monster_hit.minmax_frequency = std::make_pair(10, 15);
+	shield_monster_hit.texture_name = "particles";
+
+	shield_monster_death.area_in_texture.push_back(&r16sandfirst);
+	shield_monster_death.area_in_texture.push_back(&r17sandsecond);
+	shield_monster_death.area_in_texture.push_back(&r9ground);
+	shield_monster_death.area_in_texture.push_back(&r8ground);
+	shield_monster_death.name = "stone_monster_death";
+	shield_monster_death.minmax_x_offset = std::make_pair(0, 112);
+	shield_monster_death.minmax_y_offset = std::make_pair(0, 140);
+	shield_monster_death.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	shield_monster_death.minmax_speed_y = std::make_pair(-2, -3);
+	shield_monster_death.minmax_scale = std::make_pair(1, 1.5);
+	shield_monster_death.minmax_angle = std::make_pair(0, 360);
+	shield_monster_death.minmax_lifespan = std::make_pair(200, 500);
+	shield_monster_death.minmax_frequency = std::make_pair(7, 15);
+	shield_monster_death.minmax_acc_y = std::make_pair(0.1, 0.3);
+	shield_monster_death.texture_name = "particles";
+
+
+	stone_death.area_in_texture.push_back(&r16sandfirst);
+	stone_death.area_in_texture.push_back(&r17sandsecond);
+	stone_death.name = "stone_monster_death";
+	stone_death.minmax_x_offset = std::make_pair(0, 48);
+	stone_death.minmax_y_offset = std::make_pair(0, 48);
+	stone_death.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	stone_death.minmax_speed_y = std::make_pair(-2, -3);
+	stone_death.minmax_scale = std::make_pair(1, 1.5);
+	stone_death.minmax_angle = std::make_pair(0, 360);
+	stone_death.minmax_lifespan = std::make_pair(200, 500);
+	stone_death.minmax_frequency = std::make_pair(7, 15);
+	stone_death.minmax_acc_y = std::make_pair(0.1, 0.3);
+	stone_death.texture_name = "particles";
+
+	metal.area_in_texture.push_back(&r18metalfirst);
+	metal.area_in_texture.push_back(&r19metalsecond);
+	metal.name = "metal";
+	metal.minmax_speed_y = std::make_pair(-6, -4);
+	metal.minmax_speed_x = std::make_pair(-3, 3);
+	metal.minmax_lifespan = std::make_pair(75, 150);
+	metal.minmax_angle_speed = std::make_pair(5, 15);
+	metal.minmax_angle = std::make_pair(0, 360);
+	metal.minmax_x_offset = std::make_pair(-15, 15);
+	metal.minmax_y_offset = std::make_pair(-15, 15);
+	metal.minmax_acc_y = std::make_pair(1, 2);
+	metal.minmax_frequency = std::make_pair(10, 25);
+	metal.texture_name = "particles";
 
 	return true;
 }

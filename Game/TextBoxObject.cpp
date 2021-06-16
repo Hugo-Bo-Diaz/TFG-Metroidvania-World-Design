@@ -6,6 +6,9 @@
 
 TextBoxObject::TextBoxObject()
 {
+	rectanglekeyboard = {0,0,48,48};
+	rectanglecontroller = { 48,0,48,48 };
+
 }
 
 bool TextBoxObject::Loop(float dt)
@@ -61,7 +64,10 @@ bool TextBoxObject::Render()
 {
 	if (player_contact == true)
 	{
-		App->ren->Blit(App->tex->Get_Texture("indicator"), collider->x + collider->w/2 - 24, collider->y - 48, nullptr,-5);
+		if(App->inp->using_controller)
+			App->ren->Blit(App->tex->Get_Texture("indicator"), collider->x + collider->w/2 - 24, collider->y - 48, &rectanglecontroller,-5);
+		else
+			App->ren->Blit(App->tex->Get_Texture("indicator"), collider->x + collider->w / 2 - 24, collider->y - 48, &rectanglekeyboard, -5);
 	}
 
 	return true;

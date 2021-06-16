@@ -7,7 +7,8 @@
 
 enum GroundedElementalColor
 {
-	RED_GROUNDELEMENTAL
+	RED_GROUNDELEMENTAL,
+	BROWN_GROUNDEDELEMENTAL
 };
 
 class GroundedElemental : public physobj

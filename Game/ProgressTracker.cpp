@@ -208,6 +208,11 @@ bool ProgressTracker::Loop(float dt)
 		SetPlayerToLastCheckPoint();
 	}
 
+	if(should_exit)
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -408,6 +413,10 @@ void ProgressTracker::SetCheckPoint(int x, int y, int room_id)
 void ProgressTracker::StartNewGame()
 {
 	App->scn->LoadMap("Assets/maps/map0_entrance.tmx");
+	//App->scn->LoadMap("Assets/maps/map17_fire_exit.tmx");
+	//App->scn->LoadMap("Assets/maps/map26_battle_room.tmx");
+	//App->scn->LoadMap("Assets/maps/map36_item_tease.tmx");
+	//App->scn->LoadMap("Assets/maps/map30_ground_spell_location.tmx");
 
 	App->phy->AddObject(0, 0, 10, 10, FIRST_DIALOGUE);
 	App->gui->canopenmenu = false;

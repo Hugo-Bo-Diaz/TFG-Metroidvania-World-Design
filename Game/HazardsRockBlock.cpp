@@ -34,7 +34,7 @@ bool HazardRockBlock::Loop(float dt)
 {
 	std::vector<collision*> collisions;
 	App->phy->GetCollisions(collider, collisions);
-
+	/*
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
 		if ((*it)->object != this)
@@ -58,6 +58,8 @@ bool HazardRockBlock::Loop(float dt)
 
 		}
 	}
+	*/
+	App->phy->ClearCollisionArray(collisions);
 
 	return true;
 }

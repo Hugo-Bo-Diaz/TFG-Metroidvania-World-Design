@@ -54,6 +54,12 @@ public:
 	SDL_Rect r14firegedeath;
 	SDL_Rect r15firegedeath;
 
+	SDL_Rect r16sandfirst;
+	SDL_Rect r17sandsecond;
+
+	SDL_Rect r18metalfirst;
+	SDL_Rect r19metalsecond;
+
 	particle_preset explosion;
 	particle_preset fireshield;
 	particle_preset lava;
@@ -65,7 +71,12 @@ public:
 	particle_preset grass;
 	particle_preset magic;
 	particle_preset fire_ge_death;
-
+	particle_preset sand_left;
+	particle_preset sand_right;
+	particle_preset shield_monster_hit;
+	particle_preset stone_death;
+	particle_preset shield_monster_death;
+	particle_preset metal;
 };
 
 #endif // !PHYSICS__H

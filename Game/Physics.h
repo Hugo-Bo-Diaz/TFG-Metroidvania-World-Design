@@ -33,6 +33,7 @@ enum object_type
 
 	//SPELLS UNLOCK
 	FIRE_SPELL_PICKUP,
+	GROUND_SPELL_PICKUP,
 
 	//ITEMS
 	MAX_HEALTH_PICKUP,
@@ -42,6 +43,9 @@ enum object_type
 	GROUNDED_ELEMENTAL,
 	FLYING_ELEMENTAL,
 	COAL_JUMPER,
+	ARMOR_TRAP,
+	SHIELD_MONSTER,
+	CLING_CREATURE,
 
 	//HAZARDS
 	LAVA_HAZARDS,
@@ -53,6 +57,7 @@ enum object_type
 	CHECKPOINT,
 	FIRST_DIALOGUE,
 	TEXTBOXOBJECT,
+	ENDDEMOOBJECT,
 
 	//MAX
 	MAX_OBJECT_TYPE
@@ -120,7 +125,7 @@ public:
 	void GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*>& colliders_near);
 
 	void GetCollisions(SDL_Rect* rect,std::vector<collision*>&collisions);
-	//lets go void
+	void ClearCollisionArray(std::vector<collision*>&collisions);
 
 	int AddWall(SDL_Rect rect);
 	void DeleteWall(int id);

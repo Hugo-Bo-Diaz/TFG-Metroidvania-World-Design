@@ -42,6 +42,8 @@ public:
 	void UpdateTexts();
 	void CycleText(float direction);
 
+	bool first_update = true;
+
 };
 
 #endif
