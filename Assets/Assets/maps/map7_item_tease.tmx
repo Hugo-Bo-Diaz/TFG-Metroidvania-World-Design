@@ -1607,7 +1607,7 @@
    <properties>
     <property name="id" type="int" value="2"/>
     <property name="lore" type="int" value="7"/>
-    <property name="text" value="These mines are but a mere shell of their past"/>
+    <property name="text" value="These mines were absolutely destroyed..."/>
    </properties>
   </object>
  </objectgroup>

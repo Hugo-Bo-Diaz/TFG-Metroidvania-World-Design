@@ -9,15 +9,21 @@ UIcheckpointIndicator::UIcheckpointIndicator()
 {
 	text = App->txt->CreateText("CHECKPOINT REACHED", SDL_Color{ 0,0,0,0 }, 1000,"",2);
 	
+	int w = 1024;
+	int h = 576;
+
 	on_screen.x = 0;
-	on_screen.w = App->win->width;
+	//on_screen.w = App->win->width;
+	on_screen.w = w;
 	on_screen.h = 64;
-	on_screen.y = App->win->height / 2 - on_screen.h / 2;
+	//on_screen.y = App->win->height / 2 - on_screen.h / 2;
+	on_screen.y = h / 2 - on_screen.h / 2;
 
 	float textsize = text->font_used->hsize*text->text.size()*text->scale;
 
 	text_x = on_screen.w/2- textsize / 2;
-	text_y = App->win->height / 2 + text->font_used->vsize / 2;
+	//text_y = App->win->height / 2 + text->font_used->vsize / 2;
+	text_y = h / 2 + text->font_used->vsize / 2;
 }
 
 

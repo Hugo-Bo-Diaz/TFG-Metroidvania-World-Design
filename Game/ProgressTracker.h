@@ -24,7 +24,7 @@ struct LoreLog
 };
 
 class Player;
-
+class UISettingsMenu;
 class ProgressTracker : public Part
 {
 public:
@@ -59,6 +59,10 @@ public:
 
 	bool go_to_main_menu = false;
 	bool should_exit = false;
+	int should_add_settings = 0;
+	void AddSettingsMenu(int type);
+	UISettingsMenu* settings;
+	bool is_settings_up = false;
 
 	//variables that track events in the game
 

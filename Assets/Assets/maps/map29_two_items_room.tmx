@@ -4187,7 +4187,7 @@
    <properties>
     <property name="id" type="int" value="8"/>
     <property name="lore" type="int" value="17"/>
-    <property name="text" value="How have this spikes perforated the castle..."/>
+    <property name="text" value="These spikes did are not from this world..."/>
    </properties>
   </object>
   <object id="167" type="ManaChargePickup" gid="610" x="2832" y="384" width="48" height="48">

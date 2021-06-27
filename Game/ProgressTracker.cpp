@@ -3,6 +3,7 @@
 #include "SceneController.h"
 #include "Physics.h"
 #include "Gui.h"
+#include "UISettingsMenu.h"
 #include "Player.h"
 #include "Camera.h"
 
@@ -211,6 +212,32 @@ bool ProgressTracker::Loop(float dt)
 	if(should_exit)
 	{
 		return false;
+	}
+
+	if (should_add_settings!=0)
+	{
+
+		settings = (UISettingsMenu*)App->gui->AddSettingsMenu();
+		//settings->parent = this;
+		settings->x += 76;
+		settings->y += 92;
+		is_settings_up = true;
+
+		switch (should_add_settings)
+		{
+		case 1:
+			//set menu parent
+			settings->parent_type = SETTINGS_PARENT_MAIN_MENU;
+			break;
+		case 2:
+			//set pause parent
+			settings->parent_type = SETTINGS_PARENT_PAUSE_MENU;
+			break;
+		default:
+			break;
+		}
+
+		should_add_settings = 0;
 	}
 
 	return true;
@@ -434,6 +461,14 @@ void ProgressTracker::StartNewGame()
 void ProgressTracker::StartLoadGame()
 {
 	LoadGame("save_file.xml");
+}
+
+void ProgressTracker::AddSettingsMenu(int type)
+{
+	if (type == 0)
+		should_add_settings = 1;
+	else
+		should_add_settings = 2;
 }
 
 void ProgressTracker::AddPickupToList(int id)

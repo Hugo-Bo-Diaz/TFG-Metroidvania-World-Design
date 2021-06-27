@@ -45,6 +45,7 @@ bool FireSpellPickup::Loop(float dt)
 				t->AddPanelToTextBox("remember your past      we need you");
 				//App->par->to_delete.push_back(p);
 				App->par->AddParticleEmitter(&App->par->fireshield, collider->x, collider->y,1500);
+				App->trk->UnlockLog(4);
 			}
 		}
 	}

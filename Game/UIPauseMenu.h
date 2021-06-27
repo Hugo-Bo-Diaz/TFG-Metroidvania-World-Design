@@ -33,7 +33,6 @@ public:
 
 	void CycleOption(float direction);
 
-	bool is_settings_up=false;
 	UISettingsMenu* settings;
 };
 

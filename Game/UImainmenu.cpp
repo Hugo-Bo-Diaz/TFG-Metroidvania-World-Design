@@ -21,7 +21,7 @@ void UIMainMenu::Loop()
 		App->aud->PlayMusic(MUSIC_MENU, 500);
 	}
 
-	if (App->inp->GetInput(BUTTON_1) == BUTTON_DOWN && !is_settings_up)
+	if (App->inp->GetInput(BUTTON_1) == BUTTON_DOWN && !App->trk->is_settings_up)
 	{
 
 		switch (current_option)
@@ -32,21 +32,24 @@ void UIMainMenu::Loop()
 			App->aud->PlaySFX(SFX_MENU_SELECT);
 			break;
 		case MAINMENU_LOADGAME:
-			App->trk->start_load_game = true;
-			App->gui->RemoveElement(this);
-			App->aud->PlaySFX(SFX_MENU_SELECT);
+			if (App->trk->CanLoadGame("save_file.xml"))
+			{
+				App->trk->start_load_game = true;
+				App->gui->RemoveElement(this);
+				App->aud->PlaySFX(SFX_MENU_SELECT);
+			}
+			else
+			{
+				App->aud->PlaySFX(SFX_ENEMY_PING);
+			}
 			break;
 		case MAINMENU_SETTINGS:
-			/*settings = (UISettingsMenu*)App->gui->AddSettingsMenu();
-			settings->parent = this;
-			settings->parent_type = SETTINGS_PARENT_MAIN_MENU;
-			settings->x += 76;
-			settings->y += 92;
-			is_settings_up = true;
-			App->aud->PlaySFX(SFX_MENU_SELECT);*/
+			App->trk->AddSettingsMenu(1);
+			App->aud->PlaySFX(SFX_MENU_SELECT);
 			break;
 		case MAINMENU_CREDITS:
 			//design more UI :)
+			App->aud->PlaySFX(SFX_ENEMY_PING);
 			break;
 		case MAINMENU_EXIT:
 			//quit the game
@@ -78,7 +81,7 @@ void UIMainMenu::Loop()
 	last_joy_y = joyy;
 	printf("\n");
 
-	if (abs(amount_of_movement)>0.6 && !stop_inputs && !is_settings_up)
+	if (abs(amount_of_movement)>0.6 && !stop_inputs && !App->trk->is_settings_up)
 	{
 		CycleOption(amount_of_movement);
 		App->aud->PlaySFX(SFX_MENU_CHANGE);
@@ -101,6 +104,11 @@ void UIMainMenu::Render()
 
 	App->ren->BlitUI(App->tex->Get_Texture("mainmenuselected"), offset_option_x, offset_option_y+current_option*interval_y, NULL, 0);
 
+
+	if (!App->trk->CanLoadGame("save_file.xml"))
+	{
+		App->ren->BlitUI(App->tex->Get_Texture("mainmenudisabled"),516,312,NULL,-2);
+	}
 
 }
 

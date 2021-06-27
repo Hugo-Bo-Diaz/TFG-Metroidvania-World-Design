@@ -228,7 +228,7 @@ uint Audio::PlaySFX(uint sfx_id, int repeat, uint channel)
 	}
 	//Mix_Resume(chan);
 
-	int i = Mix_PlayChannel(-1, sfx_list[sfx_id]->sfx, repeat);
+	int i = Mix_PlayChannel(chan, sfx_list[sfx_id]->sfx, repeat);
 
 	//return chan;
 	return i;

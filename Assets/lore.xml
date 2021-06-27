@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <lore>
 	<entry id = "0" title = "pile of books" content = "This is the end of our human conflict and the beggining of another more dangerous one" />
-	<entry id = "1" title = "painting 1" content = "these paintings seem familiar, I wonder if I have met these people before" />
-	<entry id = "2" title = "rubble" content = "what did we do wrong to be erased from this painful reality" />
-	<entry id = "3" title = "village" content = "it seems so peaceful even if it is populated by humans" />
+	<entry id = "1" title = "painting 1" content = "These paintings seem familiar, I wonder if I have met these people before" />
+	<entry id = "2" title = "rubble" content = "What did we do wrong to be attacked so viciously" />
+	<entry id = "3" title = "village" content = "It seems so peaceful even if it is populated by humans" />
 
-	<entry id = "4" title = "Fire book" content = "I feel more powerful, I hope these abilities that the book has bestowed upon me are good enough to keep moving forward" />
+	<entry id = "4" title = "Fire book" content = "I feel more powerful, I hope these abilities that the book has bestowed upon me are enough to keep moving forward" />
 
-	<entry id = "5" title = "Power source" content = "they wanted our books and their power as it is superior to everything else in this damned world" />
-	<entry id = "6" title = "Fear" content = "they were afraid because understanding our books was not their priority" />
-	<entry id = "7" title = "The mines" content = "these mines... time passage on these cirumstances was horrible to them..." />
-	<entry id = "8" title = "The walls" content = "if these walls could speak they would scream for help" />
+	<entry id = "5" title = "Power source" content = "They wanted our books and their power as it is superior to everything else in this world" />
+	<entry id = "6" title = "Fear" content = "They were afraid because understanding our books was not their priority" />
+	<entry id = "7" title = "The mines" content = "These mines... time passage on these cirumstances was horrible to them..." />
+	<entry id = "8" title = "The walls" content = "Without no one else at charge this castle has been left to rot..." />
 	<entry id = "9" title = "Fight" content = "The master of this area was a brave and hotheaded fighter, he died bravely fighting the outsiders" />
-	<entry id = "10" title = "Balance" content = "Balance has been broken, and with it the powers that the castle contained have been freed" />
+	<entry id = "10" title = "Balance" content = "Balance has been broken, without balance the powers of this castle will destroy the world as we know it" />
 	<entry id = "11" title = "Coal carts" content = "The coal carts used to obey their masters helping with the mining tasks" />
 
 	<entry id = "12" title = "Cristal Ball" content = "This probably was a way to channel magic power" />

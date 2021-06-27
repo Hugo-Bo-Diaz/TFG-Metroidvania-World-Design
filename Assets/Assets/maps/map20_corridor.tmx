@@ -1087,7 +1087,7 @@
   <object id="42" type="TextBoxObject" x="384" y="480" width="336" height="96">
    <properties>
     <property name="lore" type="int" value="13"/>
-    <property name="text" value="These were probably were great warriors"/>
+    <property name="text" value="These were probably great warriors"/>
    </properties>
   </object>
  </objectgroup>

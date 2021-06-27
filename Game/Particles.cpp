@@ -261,8 +261,41 @@ bool Particles::Init()
 	metal.minmax_x_offset = std::make_pair(-15, 15);
 	metal.minmax_y_offset = std::make_pair(-15, 15);
 	metal.minmax_acc_y = std::make_pair(1, 2);
-	metal.minmax_frequency = std::make_pair(10, 25);
+	metal.minmax_frequency = std::make_pair(8, 15);
 	metal.texture_name = "particles";
+
+	metal_and_sand.area_in_texture.push_back(&r16sandfirst);
+	//metal_and_sand.area_in_texture.push_back(&r17sandsecond);
+	metal_and_sand.area_in_texture.push_back(&r18metalfirst);
+	metal_and_sand.name = "metal and sand";
+	metal_and_sand.minmax_speed_y = std::make_pair(-6, -4);
+	metal_and_sand.minmax_speed_x = std::make_pair(-3, 3);
+	metal_and_sand.minmax_lifespan = std::make_pair(75, 150);
+	metal_and_sand.minmax_angle_speed = std::make_pair(5, 15);
+	metal_and_sand.minmax_angle = std::make_pair(0, 360);
+	metal_and_sand.minmax_x_offset = std::make_pair(-15, 15);
+	metal_and_sand.minmax_y_offset = std::make_pair(-15, 15);
+	metal_and_sand.minmax_acc_y = std::make_pair(1, 2);
+	metal_and_sand.minmax_scale = std::make_pair(1.1, 1.3);
+	metal_and_sand.minmax_frequency = std::make_pair(5, 12);
+	metal_and_sand.texture_name = "particles";
+
+
+	smoke.area_in_texture.push_back(&r7buff);
+	smoke.area_in_texture.push_back(&r12shield);
+	smoke.area_in_texture.push_back(&r12shield);
+	smoke.name = "smoke";
+	smoke.minmax_x_offset = std::make_pair(-5, 69);
+	smoke.minmax_y_offset = std::make_pair(0, 70);
+	smoke.minmax_speed_y = std::make_pair(-1.5, -2.5);
+	smoke.minmax_speed_x = std::make_pair(-0.1, 0.1);
+	smoke.minmax_scale_speed = std::make_pair(-0.03, -0.04);
+	smoke.minmax_scale = std::make_pair(1.2, 1.7);
+	smoke.minmax_acc_y = std::make_pair(0.04, 0.05);
+	smoke.minmax_lifespan = std::make_pair(300, 400);
+	smoke.minmax_frequency = std::make_pair(5, 20);
+	smoke.texture_name = "particles";
+
 
 	return true;
 }

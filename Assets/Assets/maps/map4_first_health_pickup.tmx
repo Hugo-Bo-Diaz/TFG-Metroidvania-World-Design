@@ -1580,7 +1580,7 @@
    <properties>
     <property name="id" type="int" value="0"/>
     <property name="lore" type="int" value="5"/>
-    <property name="text" value="our books are our most powerful tool"/>
+    <property name="text" value="the books are our most powerful tool"/>
    </properties>
   </object>
   <object id="106" type="HazardLava" gid="306" x="1344" y="672" width="864" height="48"/>

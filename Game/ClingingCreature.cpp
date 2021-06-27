@@ -222,5 +222,9 @@ void ClingCreature::RecieveDamage(int dmg, int direction)
 	{
 		App->phy->DeleteObject(this);
 	}
+	else
+	{
+		App->par->AddParticleEmitter(&App->par->metal_and_sand, collider->x, collider->y, 200);
+	}
 
 }

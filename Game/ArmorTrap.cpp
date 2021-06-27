@@ -209,6 +209,11 @@ void ArmorTrap::RecieveDamage(int dmg, int direction)
 	{
 		App->phy->DeleteObject(this);
 	}
+	else
+	{
+		App->par->AddParticleEmitter(&App->par->metal, collider->x, collider->y, 300);
+	}
+
 	speed_x = direction * 6;
 	speed_y = -10;
 	knocked_up = true;

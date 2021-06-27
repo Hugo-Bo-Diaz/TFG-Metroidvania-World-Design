@@ -418,9 +418,28 @@ void ShieldMonster::RecieveDamage(int dmg, int direction)
 		{
 			App->phy->DeleteObject(this);
 		}
+		else
+		{
+			float fromdir = ((gdirection*0.25) + 0.75);
+			if (gdirection == 1)
+				fromdir = 0.75;
+			else
+				fromdir = 0.25;
+
+			App->par->AddParticleEmitter(&App->par->stone_death, collider->x+(collider->w*fromdir), collider->y+collider->h/2, 300);
+
+		}
 	}
 	else
 	{
 		App->aud->PlaySFX(SFX_ENEMY_PING);
+
+		float fromdir = ((gdirection*0.25) + 0.75);
+		if (dir == 1)
+			fromdir = 0.75;
+		else
+			fromdir = 0.25;
+
+		App->par->AddParticleEmitter(&App->par->metal, collider->x + (collider->w*fromdir), collider->y + collider->h / 2, 150);
 	}
 }

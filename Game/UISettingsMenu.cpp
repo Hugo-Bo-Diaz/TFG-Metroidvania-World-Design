@@ -9,6 +9,7 @@
 #include "SceneController.h"
 #include "Audio.h"
 #include "Window.h"
+#include "ProgressTracker.h"
 
 UISettingsMenu::UISettingsMenu()
 {
@@ -102,7 +103,8 @@ void UISettingsMenu::Loop()
 		if (App->inp->GetInput(BUTTON_1) == BUTTON_DOWN)
 		{
 			App->gui->RemoveElement(this);
-			switch (parent_type)
+			App->trk->is_settings_up = false;
+			/*switch (parent_type)
 			{
 			case SETTINGS_PARENT_PAUSE_MENU:
 			{
@@ -112,7 +114,7 @@ void UISettingsMenu::Loop()
 				break;
 			default:
 				break;
-			}
+			}*/
 			App->aud->PlaySFX(SFX_MENU_SELECT);
 
 		}

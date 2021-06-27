@@ -2125,7 +2125,7 @@
    <properties>
     <property name="id" type="int" value="7"/>
     <property name="lore" type="int" value="15"/>
-    <property name="text" value="this place seems intentionally confusing"/>
+    <property name="text" value="this caslte seems intentionally confusing"/>
    </properties>
   </object>
   <object id="70" type="EnemyArmorTrap" gid="196" x="576" y="1296" width="48" height="48"/>

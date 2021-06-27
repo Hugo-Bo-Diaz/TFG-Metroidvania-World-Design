@@ -2166,8 +2166,8 @@
  </objectgroup>
  <objectgroup id="14" name="objects">
   <object id="114" type="EnemyGroundedElemental" gid="314" x="432" y="2016" width="48" height="48"/>
-  <object id="116" type="EnemyFlyingElemental" gid="315" x="480" y="1200" width="48" height="48"/>
-  <object id="124" type="EnemyFlyingElemental" gid="315" x="720" y="1536" width="48" height="48"/>
+  <object id="116" type="EnemyFlyingElemental" gid="315" x="624" y="1248" width="48" height="48"/>
+  <object id="124" type="EnemyFlyingElemental" gid="315" x="240" y="1488" width="48" height="48"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
   <object id="3" x="144" y="432" width="48" height="96"/>

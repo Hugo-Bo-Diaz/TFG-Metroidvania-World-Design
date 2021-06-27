@@ -110,9 +110,9 @@ Player::Player()
 	unlocked.push_back(false);
 	unlocked.push_back(false);
 	unlocked.push_back(false);
-
-	/*
-	unlocked.push_back(true);
+	
+	
+	/*unlocked.push_back(true);
 	unlocked.push_back(true);
 	unlocked.push_back(true);
 	unlocked.push_back(true);
@@ -457,13 +457,16 @@ bool Player::Loop(float dt)
 	if (mana < max_mana && time_since_mana_use.Read() > time_to_start_regen)
 	{
 		mana += base_mana_regen + ( mana / max_mana )*scaling_mana_regen;
+		App->trk->player_mana = mana;
 	}
 
 	if (mana > max_mana)
 	{
 		mana = max_mana;
+		App->trk->player_mana = mana;
 		printf("over limit");
 	}
+
 
 	return ret;
 }

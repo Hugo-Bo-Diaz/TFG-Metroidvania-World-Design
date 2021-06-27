@@ -77,6 +77,8 @@ public:
 	particle_preset stone_death;
 	particle_preset shield_monster_death;
 	particle_preset metal;
+	particle_preset metal_and_sand;
+	particle_preset smoke;
 };
 
 #endif // !PHYSICS__H

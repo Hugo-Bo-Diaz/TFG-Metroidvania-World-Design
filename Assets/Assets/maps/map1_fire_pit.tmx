@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="48" height="32" tilewidth="48" tileheight="48" infinite="0" nextlayerid="17" nextobjectid="53">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="48" height="32" tilewidth="48" tileheight="48" infinite="0" nextlayerid="17" nextobjectid="55">
  <properties>
   <property name="music" type="int" value="1"/>
  </properties>
@@ -464,8 +464,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="118"/>
-   <tile gid="17"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -512,8 +512,8 @@
    <tile/>
    <tile/>
    <tile gid="118"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -560,9 +560,9 @@
    <tile/>
    <tile gid="102"/>
    <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
    <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -608,10 +608,10 @@
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
    <tile gid="1"/>
-   <tile gid="17"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="1"/>
@@ -656,8 +656,8 @@
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="17"/>
-   <tile gid="17"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -706,7 +706,7 @@
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="17"/>
+   <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -1420,6 +1420,14 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -1460,6 +1468,14 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -1500,6 +1516,14 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -1540,38 +1564,14 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
   </data>
@@ -3137,12 +3137,6 @@
   </object>
  </objectgroup>
  <objectgroup id="14" name="objects">
-  <object id="47" type="TextBoxObject" x="624" y="1104" width="240" height="192">
-   <properties>
-    <property name="lore" type="int" value="3"/>
-    <property name="text" value="i wonder if the people of the village are happy"/>
-   </properties>
-  </object>
   <object id="48" type="TextBoxObject" x="1632" y="384" width="144" height="144">
    <properties>
     <property name="lore" type="int" value="1"/>
@@ -3169,7 +3163,7 @@
   <object id="16" x="1536" y="624" width="288" height="720"/>
   <object id="17" x="1488" y="912" width="48" height="432"/>
   <object id="22" x="1392" y="576" width="432" height="48"/>
-  <object id="23" x="2160" y="576" width="48" height="96"/>
+  <object id="23" x="2112" y="528" width="96" height="144"/>
   <object id="24" x="816" y="96" width="96" height="672"/>
   <object id="25" x="2208" y="576" width="192" height="768"/>
   <object id="26" x="-96" y="864" width="192" height="288"/>
@@ -3185,7 +3179,7 @@
   <object id="42" x="912" y="240" width="96" height="96"/>
   <object id="43" x="384" y="864" width="144" height="48"/>
   <object id="44" x="432" y="912" width="48" height="48"/>
-  <object id="52" x="2112" y="480" width="48" height="144"/>
+  <object id="52" x="2016" y="384" width="96" height="240"/>
  </objectgroup>
  <objectgroup color="#00ff00" id="15" name="doors">
   <object id="19" x="-96" y="1152" width="48" height="192">

@@ -41,7 +41,7 @@ public:
 	float timebetweenlava = 100;
 	ParticleEmitter* volcano_particles;
 	bool is_volcano_active = false;
-	int audiochannel_volcano = 0;
+	int audiochannel_volcano = 10;
 	float manacost_volc = 0.2;
 
 	//fireshield
@@ -53,7 +53,8 @@ public:
 	Timer fireshield_timer;
 	ParticleEmitter*to_follow;
 	int audiochannel_shield = 0;
-	float manacost_shield = 1.0;
+	float manacost_shield = 0.25;
+	float manacost_shield_over_time = 0.005;
 
 	//sprites
 	SDL_Rect fireball_big;

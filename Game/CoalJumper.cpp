@@ -37,6 +37,9 @@ CoalJumper::CoalJumper()
 	animations[COALJUMPER_LANDING].AddFrame({ 192,0,64,64 });//4
 	animations[COALJUMPER_LANDING].AddFrame({ 64,0,64,64 });//2
 
+	animations[COALJUMPER_HIT].AddFrame({ 0,0,64,64 });//1
+	animations[COALJUMPER_HIT].AddFrame({ 384,0,64,64 });//7
+
 	//srand(time(NULL));
 	idle_time += rand() % max_variation + 1;
 }
@@ -171,6 +174,23 @@ bool CoalJumper::Loop(float dt)
 		last_state = COALJUMPER_JUMPING;
 	}
 		break;
+	case COALJUMPER_HIT:
+	{
+		if (last_state != COALJUMPER_HIT)
+		{
+			speed_y = speed_y_knockback;
+			speed_x = speed_x_knockback;
+		}
+
+		if (animation_timer.Read() > time_between_frames)
+		{
+			animations[COALJUMPER_JUMPING].NextFrame();
+			animation_timer.Reset();
+		}
+
+		last_state = COALJUMPER_HIT;
+	}
+	break;
 	case COALJUMPER_LANDING:
 	{
 		if (last_state != COALJUMPER_LANDING)
@@ -210,12 +230,14 @@ bool CoalJumper::Loop(float dt)
 
 bool CoalJumper::Render()
 {
+
+
 	App->ren->Blit(App->tex->Get_Texture("coaljumper"), collider->x, collider->y, animations[state].GetCurrentFrame(), -1);
 
 	return true;
 }
 
-void CoalJumper::RecieveDamage(int dmg, int direction)
+void CoalJumper::RecieveDamage(int dmg, int _direction)
 {
 	App->aud->PlaySFX(SFX_ENEMY_HIT);
 	health -= dmg;
@@ -223,9 +245,15 @@ void CoalJumper::RecieveDamage(int dmg, int direction)
 	{
 		App->phy->DeleteObject(this);
 	}
+	else
+	{
+		App->par->AddParticleEmitter(&App->par->smoke, collider->x, collider->y, 200);
+	}
 
-	speed_x = direction * 6;
-	speed_y = -10;
-	state = COALJUMPER_JUMPING;
+	//speed_x = direction * 6;
+	direction = _direction;
+	speed_x_knockback = 6;
+	speed_y = -5;
+	state = COALJUMPER_HIT;
 
 }

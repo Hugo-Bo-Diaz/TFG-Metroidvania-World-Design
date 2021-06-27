@@ -11,6 +11,8 @@ enum CoalJumperState {
 	COALJUMPER_JUMPING,
 	COALJUMPER_LANDING,
 
+	COALJUMPER_HIT,
+
 	MAX_COAL_JUMPER_STATES
 };
 
@@ -49,6 +51,10 @@ public:
 	//landing
 	float cooldown = 1000;
 	Timer cooldown_timer;
+
+	//recieved knockback
+	float speed_y_knockback = -10;
+	float speed_x_knockback = 5;
 
 	//other
 	int jumps_to_side = 0;

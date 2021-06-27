@@ -1608,7 +1608,7 @@
   <object id="40" type="TextBoxObject" x="1680" y="480" width="192" height="96">
    <properties>
     <property name="lore" type="int" value="0"/>
-    <property name="text" value="how did this happen"/>
+    <property name="text" value="why would someone burn these books"/>
    </properties>
   </object>
  </objectgroup>

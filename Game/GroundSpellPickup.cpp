@@ -53,6 +53,7 @@ bool GroundSpellPickup::Loop(float dt)
 				//App->par->to_delete.push_back(p);
 				App->par->AddParticleEmitter(&App->par->sand_left, collider->x, collider->y, 1500);
 				App->par->AddParticleEmitter(&App->par->sand_right, collider->x, collider->y, 1500);
+				App->trk->UnlockLog(16);
 			}
 		}
 	}

@@ -68,6 +68,7 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 
 	Load_Texture("Assets/UI/mainmenu.png", "mainmenu", textures_node);
 	Load_Texture("Assets/UI/mainmenuselected.png", "mainmenuselected", textures_node);
+	Load_Texture("Assets/UI/mainmenudisabled.png", "mainmenudisabled", textures_node);
 
 	Load_Texture("Assets/UI/pause_menu_base.png", "pause_menu_base", textures_node);
 	Load_Texture("Assets/UI/pause_menu_options.png", "pause_menu_options", textures_node);

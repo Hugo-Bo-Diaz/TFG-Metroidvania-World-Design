@@ -28,7 +28,7 @@ UIPauseMenu::~UIPauseMenu()
 
 void UIPauseMenu::Loop()
 {
-	if(App->inp->GetInput(BUTTON_1) == BUTTON_DOWN && !is_settings_up)
+	if(App->inp->GetInput(BUTTON_1) == BUTTON_DOWN && !App->trk->is_settings_up)
 	{
 		switch (current_option)
 		{
@@ -39,12 +39,7 @@ void UIPauseMenu::Loop()
 			App->aud->PlaySFX(SFX_MENU_SELECT);
 			break;
 		case PAUSE_SETTINGS:
-			settings = (UISettingsMenu*)App->gui->AddSettingsMenu();
-			settings->parent = this;
-			settings->parent_type = SETTINGS_PARENT_PAUSE_MENU;
-			settings->x += 76;
-			settings->y += 92;
-			is_settings_up = true;
+			App->trk->AddSettingsMenu(2);
 			App->aud->PlaySFX(SFX_MENU_SELECT);
 			break;
 		case PAUSE_EXIT:
@@ -85,7 +80,7 @@ void UIPauseMenu::Loop()
 	last_joy_y = joyy;
 	printf("\n");
 
-	if(abs(amount_of_movement)>0.6 && !stop_inputs && !is_settings_up)
+	if(abs(amount_of_movement)>0.6 && !stop_inputs && !App->trk->is_settings_up)
 	{
 		CycleOption(amount_of_movement);
 		prev_joy_y.clear();

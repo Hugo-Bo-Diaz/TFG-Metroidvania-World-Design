@@ -89,7 +89,7 @@ void Fire::Loop(float dt)
 		lavaspawner.Start();
 		volcano_particles->active = true;
 		is_volcano_active = true;
-		audiochannel_volcano = App->aud->PlaySFX(SFX_FIRE_WATERFALL, -1);
+		App->aud->PlaySFX(SFX_FIRE_WATERFALL, -1,audiochannel_volcano);
 		
 	}
 
@@ -188,6 +188,8 @@ void Fire::Loop(float dt)
 
 	if (is_fireshield_up)
 	{
+		player->AddMana(-manacost_shield_over_time);
+
 		SDL_Rect fireshield = {player->collider->x-16,player->collider->y-16,96,96};
 		std::vector<collision*> collisions;
 		App->phy->GetCollisions(&fireshield, collisions);
