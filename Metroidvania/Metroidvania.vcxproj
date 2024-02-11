@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{3921C803-0AE4-4B14-8D4D-0BA74946E75E}</ProjectGuid>
+    <RootNamespace>Metroidvania</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\Projects\2DGameEngine\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Game\Game.vcxproj">
+      <Project>{62323f6d-e89c-4587-b859-88f7415708ae}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameObjects\CheckPoint.cpp" />
+    <ClCompile Include="GameObjects\CloudSummonerProjectile.cpp" />
+    <ClCompile Include="GameObjects\CloudTrampoline.cpp" />
+    <ClCompile Include="GameObjects\DemoEndObject.cpp" />
+    <ClCompile Include="GameObjects\Enemies\ArmorTrap.cpp" />
+    <ClCompile Include="GameObjects\Enemies\ClingingCreature.cpp" />
+    <ClCompile Include="GameObjects\Enemies\CloudMelee.cpp" />
+    <ClCompile Include="GameObjects\Enemies\CloudSummoner.cpp" />
+    <ClCompile Include="GameObjects\Enemies\CoalJumper.cpp" />
+    <ClCompile Include="GameObjects\Enemies\FlyingAxe.cpp" />
+    <ClCompile Include="GameObjects\Enemies\FlyingElemental.cpp" />
+    <ClCompile Include="GameObjects\Enemies\FlyingShield.cpp" />
+    <ClCompile Include="GameObjects\Enemies\GroundedElemental.cpp" />
+    <ClCompile Include="GameObjects\Enemies\ShieldMonster.cpp" />
+    <ClCompile Include="GameObjects\FirstDialogue.cpp" />
+    <ClCompile Include="GameObjects\Hazards\HazardLava.cpp" />
+    <ClCompile Include="GameObjects\Hazards\HazardLavaWaterfall.cpp" />
+    <ClCompile Include="GameObjects\Hazards\HazardSpikes.cpp" />
+    <ClCompile Include="GameObjects\Hazards\HazardsRockBlock.cpp" />
+    <ClCompile Include="GameObjects\Pickups\FireSpellPickup.cpp" />
+    <ClCompile Include="GameObjects\Pickups\GroundSpellPickup.cpp" />
+    <ClCompile Include="GameObjects\Pickups\MaxHealthPickup.cpp" />
+    <ClCompile Include="GameObjects\Pickups\MaxManaPickup.cpp" />
+    <ClCompile Include="GameObjects\Player.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\Cloud.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\FireBall.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\IceBlock.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\IceShard.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\LavaSpell.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\Leaf.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\Rain.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\Rock.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\Shockwave.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\Thorns.cpp" />
+    <ClCompile Include="GameObjects\SpellProjectiles\WindSlash.cpp" />
+    <ClCompile Include="GameObjects\TextBoxObject.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="SceneProcessing.cpp" />
+    <ClCompile Include="Spells\Fire.cpp" />
+    <ClCompile Include="Spells\Grass.cpp" />
+    <ClCompile Include="Spells\Ground.cpp" />
+    <ClCompile Include="Spells\Water.cpp" />
+    <ClCompile Include="Spells\Wind.cpp" />
+    <ClCompile Include="UIElements\UICheckpointIndicator.cpp" />
+    <ClCompile Include="UIElements\UIhealthbar.cpp" />
+    <ClCompile Include="UIElements\UIimage.cpp" />
+    <ClCompile Include="UIElements\UIingameUI.cpp" />
+    <ClCompile Include="UIElements\UImainmenu.cpp" />
+    <ClCompile Include="UIElements\UIPauseMenu.cpp" />
+    <ClCompile Include="UIElements\UISelectMenu.cpp" />
+    <ClCompile Include="UIElements\UISettingsMenu.cpp" />
+    <ClCompile Include="UIElements\UIspelldisplay.cpp" />
+    <ClCompile Include="UIElements\UItextbox.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameObjects\CheckPoint.h" />
+    <ClInclude Include="GameObjects\CloudSummonerProjectile.h" />
+    <ClInclude Include="GameObjects\CloudTrampoline.h" />
+    <ClInclude Include="GameObjects\DemoEndObject.h" />
+    <ClInclude Include="GameObjects\Enemies\ArmorTrap.h" />
+    <ClInclude Include="GameObjects\Enemies\ClingingCreature.h" />
+    <ClInclude Include="GameObjects\Enemies\CloudMelee.h" />
+    <ClInclude Include="GameObjects\Enemies\CloudSummoner.h" />
+    <ClInclude Include="GameObjects\Enemies\CoalJumper.h" />
+    <ClInclude Include="GameObjects\Enemies\FlyingAxe.h" />
+    <ClInclude Include="GameObjects\Enemies\FlyingElemental.h" />
+    <ClInclude Include="GameObjects\Enemies\FlyingShield.h" />
+    <ClInclude Include="GameObjects\Enemies\GroundedElemental.h" />
+    <ClInclude Include="GameObjects\Enemies\ShieldMonster.h" />
+    <ClInclude Include="GameObjects\EntityIDs.h" />
+    <ClInclude Include="GameObjects\FirstDialogue.h" />
+    <ClInclude Include="GameObjects\Hazards\HazardLava.h" />
+    <ClInclude Include="GameObjects\Hazards\HazardLavaWaterfall.h" />
+    <ClInclude Include="GameObjects\Hazards\HazardSpikes.h" />
+    <ClInclude Include="GameObjects\Hazards\HazardsRockBlock.h" />
+    <ClInclude Include="GameObjects\Pickups\FireSpellPickup.h" />
+    <ClInclude Include="GameObjects\Pickups\GroundSpellPickup.h" />
+    <ClInclude Include="GameObjects\Pickups\MaxHealthPickup.h" />
+    <ClInclude Include="GameObjects\Pickups\MaxManaPickup.h" />
+    <ClInclude Include="GameObjects\Player.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\Cloud.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\FireBall.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\IceBlock.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\IceShard.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\LavaSpell.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\Leaf.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\Rain.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\Rock.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\Shockwave.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\Thorns.h" />
+    <ClInclude Include="GameObjects\SpellProjectiles\WindSlash.h" />
+    <ClInclude Include="GameObjects\TextBoxObject.h" />
+    <ClInclude Include="Portal.h" />
+    <ClInclude Include="SceneProcessing.h" />
+    <ClInclude Include="Spells\Fire.h" />
+    <ClInclude Include="Spells\Grass.h" />
+    <ClInclude Include="Spells\Ground.h" />
+    <ClInclude Include="Spells\Spell.h" />
+    <ClInclude Include="Spells\Water.h" />
+    <ClInclude Include="Spells\Wind.h" />
+    <ClInclude Include="UIElements\UICheckpointIndicator.h" />
+    <ClInclude Include="UIElements\UIhealthbar.h" />
+    <ClInclude Include="UIElements\UIimage.h" />
+    <ClInclude Include="UIElements\UIingameUI.h" />
+    <ClInclude Include="UIElements\UImainmenu.h" />
+    <ClInclude Include="UIElements\UIPauseMenu.h" />
+    <ClInclude Include="UIElements\UISelectMenu.h" />
+    <ClInclude Include="UIElements\UISettingsMenu.h" />
+    <ClInclude Include="UIElements\UIspelldisplay.h" />
+    <ClInclude Include="UIElements\UItextbox.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

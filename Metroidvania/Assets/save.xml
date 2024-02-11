@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<save_state>
+	<ValuesNode />
+	<ChildrenNode>
+		<LoreLogs>
+			<ValuesNode />
+			<ChildrenNode />
+		</LoreLogs>
+		<Stats>
+			<ValuesNode>
+				<CurrentMana>2.625000</CurrentMana>
+			</ValuesNode>
+			<ChildrenNode />
+		</Stats>
+	</ChildrenNode>
+</save_state>

@@ -118,7 +118,7 @@ bool Camera::CleanUp()
 	return true;
 }
 
-void Camera::FollowObject(physobj* new_target)
+void Camera::FollowObject(GameObject* new_target)
 {
 	target = new_target;
 }

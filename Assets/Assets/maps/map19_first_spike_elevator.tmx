@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="22" height="32" tilewidth="48" tileheight="48" infinite="0" nextlayerid="18" nextobjectid="60">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="22" height="32" tilewidth="48" tileheight="48" infinite="0" nextlayerid="18" nextobjectid="61">
  <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
   <image source="tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
@@ -145,8 +145,8 @@
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -167,8 +167,8 @@
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -189,8 +189,8 @@
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -211,8 +211,8 @@
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="1"/>
    <tile gid="1"/>
@@ -469,8 +469,8 @@
    <tile gid="1"/>
    <tile gid="1"/>
    <tile gid="1"/>
-   <tile gid="1"/>
-   <tile gid="1"/>
+   <tile gid="17"/>
+   <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
    <tile gid="17"/>
@@ -1472,14 +1472,14 @@
   <object id="46" x="144" y="384" width="48" height="96"/>
   <object id="47" x="288" y="576" width="144" height="48"/>
   <object id="48" x="144" y="720" width="96" height="96"/>
-  <object id="49" x="144" y="864" width="576" height="96"/>
+  <object id="49" x="144" y="864" width="480" height="96"/>
   <object id="50" x="144" y="960" width="240" height="48"/>
   <object id="51" x="144" y="1008" width="144" height="48"/>
   <object id="52" x="816" y="1152" width="96" height="192"/>
   <object id="53" x="864" y="1008" width="48" height="144"/>
   <object id="54" x="480" y="1200" width="144" height="48"/>
   <object id="58" x="192" y="432" width="48" height="48"/>
-  <object id="59" x="912" y="192" width="96" height="192"/>
+  <object id="60" x="624" y="864" width="96" height="48"/>
  </objectgroup>
  <objectgroup id="14" name="objects">
   <object id="56" type="HazardSpikes" gid="201" x="336" y="1344" width="480" height="48"/>
@@ -1508,7 +1508,7 @@
    <properties>
     <property name="horizontal" type="bool" value="false"/>
     <property name="id_point" type="int" value="0"/>
-    <property name="id_room" type="int" value="1"/>
+    <property name="id_room" type="int" value="39"/>
    </properties>
   </object>
   <object id="41" x="-96" y="1056" width="48" height="192">

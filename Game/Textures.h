@@ -52,7 +52,9 @@ public:
 	Textures();
 	bool Init();
 
-	void Load_Texture(const char* path,const char* name,pugi::xml_node& node = pugi::xml_node::xml_node());
+	void Load_Texture(const char* path,const char* name,pugi::xml_node& node);
+	void Load_Texture_nonode(const char* path,const char* name);
+
 	SDL_Texture* Load_Texture_Scene(const char* path);
 	bool Valid_Texture(const char* texture_name);
 	void Destroy_Texture(const char* texture_name);

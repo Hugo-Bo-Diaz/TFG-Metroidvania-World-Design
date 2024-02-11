@@ -15,6 +15,56 @@
 
 #include <Windows.h>
 
+#include "SDL/include/SDL.h"
+
+Application::Application()
+{
+	SDL_Init(SDL_INIT_VIDEO);
+}
+
+
+void Application::Run() {
+	ApplicationState state = CREATE;
+
+	state = LOOP;
+	Start();
+
+	while (state != EXIT)
+	{
+		switch (state)
+		{
+		case LOOP:
+		{
+			if (!App->Loop())
+			{
+				state = QUIT;
+				printf("EXITING: with errors (loop)\n");
+			}
+		}
+		break;
+		case QUIT:
+		{
+			if (!App->CleanUp())
+			{
+				printf("EXITING: with errors (cleanup)\n");
+			}
+			else
+			{
+				delete App;
+				App = nullptr;
+				printf("EXITING: no errors found");
+			}
+			state = EXIT;
+		}
+		break;
+		default:
+			printf("dafuq\n");
+			break;
+		}
+	}
+}
+
+
 bool Application::Init() 
 {
 #ifdef _DEBUG
@@ -37,7 +87,7 @@ bool Application::Init()
 	tex = new Textures();
 	scn = new SceneController();
 	phy = new Physics();
-	con = new Console();
+	con = new Debug();
 	cam = new Camera();
 	aud = new Audio();
 	par = new Particles();
@@ -72,8 +122,24 @@ bool Application::Init()
 			}
 		}
 	}
+
 	return ret;
 };
+
+bool Application::Start()
+{
+	bool ret = true;
+	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
+	{
+		if (!(*it)->Start())
+		{
+			ret = false;
+		}
+	}
+
+	return ret;
+
+}
 
 bool Application::Loop() 
 {
@@ -122,6 +188,8 @@ bool Application::CleanUp()
 			ret = false;
 		}
 	}
+	SDL_Quit();
+
 	return ret;
 };
 

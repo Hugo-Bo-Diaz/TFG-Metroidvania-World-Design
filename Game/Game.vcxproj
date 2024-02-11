@@ -21,19 +21,20 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{62323F6D-E89C-4587-B859-88F7415708AE}</ProjectGuid>
     <RootNamespace>Game</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -121,140 +122,49 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="ArmorTrap.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CheckPoint.cpp" />
-    <ClCompile Include="ClingingCreature.cpp" />
-    <ClCompile Include="DemoEndObject.cpp" />
-    <ClCompile Include="GroundSpellPickup.cpp" />
-    <ClCompile Include="HazardSpikes.cpp" />
-    <ClCompile Include="HazardsRockBlock.cpp" />
-    <ClCompile Include="ShieldMonster.cpp" />
-    <ClCompile Include="UICheckpointIndicator.cpp" />
-    <ClCompile Include="Cloud.cpp" />
-    <ClCompile Include="CoalJumper.cpp" />
     <ClCompile Include="Console.cpp" />
-    <ClCompile Include="Fire.cpp" />
-    <ClCompile Include="FireSpellPickup.cpp" />
-    <ClCompile Include="FirstDialogue.cpp" />
-    <ClCompile Include="FlyingElemental.cpp" />
-    <ClCompile Include="Grass.cpp" />
-    <ClCompile Include="Ground.cpp" />
-    <ClCompile Include="GroundedElemental.cpp" />
     <ClCompile Include="Gui.cpp" />
-    <ClCompile Include="HazardLava.cpp" />
-    <ClCompile Include="HazardLavaWaterfall.cpp" />
-    <ClCompile Include="IceBlock.cpp" />
-    <ClCompile Include="IceShard.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="LavaSpell.cpp" />
-    <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MaxHealthPickup.cpp" />
-    <ClCompile Include="MaxManaPickup.cpp" />
     <ClCompile Include="ParticleEmitter.cpp" />
     <ClCompile Include="Particles.cpp" />
     <ClCompile Include="Physics.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="ProgressTracker.cpp" />
     <ClCompile Include="pugiXML\src\pugixml.cpp" />
-    <ClCompile Include="Rain.cpp" />
     <ClCompile Include="Render.cpp" />
-    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="SceneController.cpp" />
-    <ClCompile Include="Shockwave.cpp" />
     <ClCompile Include="Text.cpp" />
-    <ClCompile Include="TextBoxObject.cpp" />
     <ClCompile Include="Textures.cpp" />
-    <ClCompile Include="Thorns.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UIelement.cpp" />
-    <ClCompile Include="UIhealthbar.cpp" />
-    <ClCompile Include="UIimage.cpp" />
-    <ClCompile Include="UIingameUI.cpp" />
-    <ClCompile Include="UImainmenu.cpp" />
-    <ClCompile Include="UIPauseMenu.cpp" />
-    <ClCompile Include="UISelectMenu.cpp" />
-    <ClCompile Include="UISettingsMenu.cpp" />
-    <ClCompile Include="UIspelldisplay.cpp" />
-    <ClCompile Include="UItextbox.cpp" />
-    <ClCompile Include="Water.cpp" />
-    <ClCompile Include="Wind.cpp" />
     <ClCompile Include="Window.cpp" />
-    <ClCompile Include="WindSlash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
-    <ClInclude Include="ArmorTrap.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CheckPoint.h" />
-    <ClInclude Include="ClingingCreature.h" />
-    <ClInclude Include="DemoEndObject.h" />
-    <ClInclude Include="GroundSpellPickup.h" />
-    <ClInclude Include="HazardSpikes.h" />
-    <ClInclude Include="HazardsRockBlock.h" />
-    <ClInclude Include="ShieldMonster.h" />
-    <ClInclude Include="UICheckpointIndicator.h" />
-    <ClInclude Include="Cloud.h" />
-    <ClInclude Include="CoalJumper.h" />
     <ClInclude Include="Console.h" />
-    <ClInclude Include="Fire.h" />
-    <ClInclude Include="FireSpellPickup.h" />
-    <ClInclude Include="FirstDialogue.h" />
-    <ClInclude Include="FlyingElemental.h" />
-    <ClInclude Include="Grass.h" />
-    <ClInclude Include="Ground.h" />
-    <ClInclude Include="GroundedElemental.h" />
     <ClInclude Include="Gui.h" />
-    <ClInclude Include="HazardLava.h" />
-    <ClInclude Include="HazardLavaWaterfall.h" />
-    <ClInclude Include="LavaSpell.h" />
-    <ClInclude Include="Leaf.h" />
-    <ClInclude Include="Math.h" />
-    <ClInclude Include="MaxHealthPickup.h" />
-    <ClInclude Include="MaxManaPickup.h" />
+    <ClInclude Include="MathHelp.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="Particles.h" />
     <ClInclude Include="ProgressTracker.h" />
     <ClInclude Include="pugiXML\src\pugiconfig.hpp" />
     <ClInclude Include="pugiXML\src\pugixml.hpp" />
-    <ClInclude Include="Rain.h" />
-    <ClInclude Include="IceBlock.h" />
-    <ClInclude Include="IceShard.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Rock.h" />
-    <ClInclude Include="Shockwave.h" />
-    <ClInclude Include="Spell.h" />
     <ClInclude Include="Part.h" />
     <ClInclude Include="PartsDef.h" />
     <ClInclude Include="Physics.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="FireBall.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="SceneController.h" />
     <ClInclude Include="Text.h" />
-    <ClInclude Include="TextBoxObject.h" />
     <ClInclude Include="Textures.h" />
-    <ClInclude Include="Thorns.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="UIelement.h" />
-    <ClInclude Include="UIhealthbar.h" />
-    <ClInclude Include="UIimage.h" />
-    <ClInclude Include="UIingameUI.h" />
-    <ClInclude Include="UImainmenu.h" />
-    <ClInclude Include="UIPauseMenu.h" />
-    <ClInclude Include="UISelectMenu.h" />
-    <ClInclude Include="UISettingsMenu.h" />
-    <ClInclude Include="UIspelldisplay.h" />
-    <ClInclude Include="UItextbox.h" />
-    <ClInclude Include="Water.h" />
-    <ClInclude Include="Wind.h" />
     <ClInclude Include="Window.h" />
-    <ClInclude Include="WindSlash.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

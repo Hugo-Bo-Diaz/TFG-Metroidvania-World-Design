@@ -1,42 +1,48 @@
 #include "Physics.h"
-#include "Player.h"
+//#include "Player.h"
+//
+//#include "FireBall.h"
+//
+//#include "WindSlash.h"
+//
+//#include "IceShard.h"
+//#include "IceBlock.h"
+//
+//#include "Cloud.h"
+//#include "Leaf.h"
+//#include "Thorns.h"
+//
+//#include "Rock.h"
+//#include "Shockwave.h"
+//
+//#include "FireSpellPickup.h"
+//#include "GroundSpellPickup.h"
+//
+//#include "MaxHealthPickup.h"
+//#include "MaxManaPickup.h"
+//
+//#include "GroundedElemental.h"
+//#include "FlyingElemental.h"
+//#include "CoalJumper.h"
+//#include "ArmorTrap.h"
+//#include "ShieldMonster.h"
+//#include "ClingingCreature.h"
+//#include "FlyingAxe.h"
+//#include "FlyingShield.h"
+//#include "CloudMelee.h"
+//#include "CloudSummoner.h"
+//#include "CloudSummonerProjectile.h"
+//
+//#include "HazardLava.h"
+//#include "HazardLavaWaterfall.h"
+//#include "HazardSpikes.h"
+//#include "HazardsRockBlock.h"
+//#include "CloudTrampoline.h"
 
-#include "FireBall.h"
-
-#include "WindSlash.h"
-
-#include "IceShard.h"
-#include "IceBlock.h"
-
-#include "Cloud.h"
-#include "Leaf.h"
-#include "Thorns.h"
-
-#include "Rock.h"
-#include "Shockwave.h"
-
-#include "FireSpellPickup.h"
-#include "GroundSpellPickup.h"
-
-#include "MaxHealthPickup.h"
-#include "MaxManaPickup.h"
-
-#include "GroundedElemental.h"
-#include "FlyingElemental.h"
-#include "CoalJumper.h"
-#include "ArmorTrap.h"
-#include "ShieldMonster.h"
-#include "ClingingCreature.h"
-
-#include "HazardLava.h"
-#include "HazardLavaWaterfall.h"
-#include "HazardSpikes.h"
-#include "HazardsRockBlock.h"
-
-#include "CheckPoint.h"
-#include "FirstDialogue.h"
-#include "TextBoxObject.h"
-#include "DemoEndObject.h"
+//#include "CheckPoint.h"
+//#include "FirstDialogue.h"
+//#include "TextBoxObject.h"
+//#include "DemoEndObject.h"
 
 Physics::Physics()
 {
@@ -59,10 +65,9 @@ bool Physics::Loop(float dt)
 {
 	bool ret = true;
 
-
 	if (!is_paused)
 	{
-		for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
+		for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 		{
 			if (!(*it)->Loop(dt))
 			{
@@ -71,15 +76,15 @@ bool Physics::Loop(float dt)
 		}
 	}
 	
-	for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
+	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
 		if (!(*it)->Render())
 		{
 			ret = false;
 		}
 	}
-if (App->debug)
-//	if(false)
+//if (App->debug)
+	if(true)
 	{
 		for (int i = 0; i < MAX_WALLS; ++i)
 		{
@@ -87,7 +92,7 @@ if (App->debug)
 				App->ren->DrawRect(walls[i],0,0,255,75,true);
 		}
 	
-		for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
+		for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 		{
 			App->ren->DrawRect((*it)->collider, 0, 255, 0, 75, true);
 			//App->ren->DrawRect((*it)->nextpos, 0, 255, 255, 75, true);
@@ -95,7 +100,7 @@ if (App->debug)
 	}
 
 	//delete the current list
-	for (std::list<physobj*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
+	for (std::list<GameObject*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
 	{
 		
 		delete(*it);
@@ -123,11 +128,24 @@ void Physics::GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*
 	}
 }
 
+std::vector<GameObject*>* Physics::GetAllObjectsOfType(objectId type)
+{
+	std::vector<GameObject*>* ret = new std::vector<GameObject*>();
+	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
+	{
+		if ((*it)->type == type)
+		{
+			ret->push_back(*it);
+		}
+	}
+	return ret;
+}
+
 void Physics::GetCollisions(SDL_Rect* obj, std::vector<collision*>& collisions)
 {
 	//std::vector<collision*>* ret;
 
-	for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
+	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
 		if (SDL_HasIntersection((*it)->collider,obj))
 		{
@@ -151,115 +169,27 @@ void Physics::ClearCollisionArray(std::vector<collision*>& collisions)
 	collisions.clear();
 }
 
-physobj* Physics::AddObject(int x, int y, int w_col, int h_col, object_type type)
+GameObject* Physics::AddObject(int x, int y, int w_col, int h_col,objectId objType, std::map<std::string, float>* properties)
 {
-	physobj* r;
+	GameObject* r = CallBack(objType,properties);
 
-	switch (type)
+	if (r != nullptr)
 	{
-	case PLAYER:{
-		r = new Player();
-		break;}
-	case FIRE_BALL: {
-		r = new FireBall();
-		break; }
-	case WIND_SLASH: {
-		r = new WindSlash();
-		break; }
-	case ICE_SHARD: {
-		r = new IceShard();
-		break; }
-	case ICE_BLOCK: {
-		r = new IceBlock();
-		break; }
-	case CLOUD: {
-		r = new Cloud();
-		break; }
-	case LEAF: {
-		r = new Leaf();
-		break; }
-	case THORNS: {
-		r = new Thorns();
-		break; }
-	case ROCK: {
-		r = new Rock();
-		break; }
-	case SHOCKWAVE: {
-		r = new Shockwave();
-		break; }
-	case FIRE_SPELL_PICKUP: {
-		r = new FireSpellPickup();
-		break; }
-	case GROUND_SPELL_PICKUP: {
-		r = new GroundSpellPickup();
-		break; }
-	case MAX_HEALTH_PICKUP: {
-		r = new MaxHealthPickup();
-		break; }
-	case MAX_MANA_PICKUP: {
-		r = new MaxManaPickup();
-		break; }
-	case GROUNDED_ELEMENTAL: {
-		r = new GroundedElemental();
-		break; }
-	case FLYING_ELEMENTAL: {
-		r = new FlyingElemental(y);
-		break; }
-	case COAL_JUMPER: {
-		r = new CoalJumper();
-		break; }
-	case ARMOR_TRAP: {
-		r = new ArmorTrap();
-		break; }
-	case SHIELD_MONSTER: {
-		r = new ShieldMonster();
-		break; }
-	case CLING_CREATURE: {
-		r = new ClingCreature();
-		break; }
-	case LAVA_HAZARDS: {
-		r = new HazardLava();
-		break; }
-	case LAVA_HAZARD_WATERFALL: {
-		r = new HazardLavaWaterfall();
-		break; }
-	case HAZARDS_SPIKES: {
-		r = new HazardSpikes();
-		break; }
-	case HAZARDS_ROCK_BLOCK: {
-		r = new HazardRockBlock();
-		break; }
-	case CHECKPOINT: {
-		r = new CheckPoint();
-		break; }
-	case FIRST_DIALOGUE: {
-		r = new FirstDialogue();
-		break; }
-	case TEXTBOXOBJECT: {
-		r = new TextBoxObject();
-		break; }
-	case ENDDEMOOBJECT: {
-		r = new EndDemoObject();
-		break; }
-	default:
-		r = new physobj();
-		break;
+		r->collider = new SDL_Rect();
+		r->nextpos = new SDL_Rect();
+
+		r->collider->x = x;
+		r->collider->y = y;
+		r->collider->w = w_col;
+		r->collider->h = h_col;
+		r->nextpos->x = x;
+		r->nextpos->y = y;
+		r->nextpos->w = w_col;
+		r->nextpos->h = h_col;
+		r->type = objType;
+
+		objects.push_back(r);
 	}
-
-	r->collider = new SDL_Rect();
-	r->nextpos = new SDL_Rect();
-
-	r->collider->x = x;
-	r->collider->y = y;
-	r->collider->w = w_col;
-	r->collider->h = h_col;
-	r->nextpos->x = x;
-	r->nextpos->y = y;
-	r->nextpos->w = w_col;
-	r->nextpos->h = h_col;
-	r->type = type;
-
-	objects.push_back(r);
 
 	return r;
 }
@@ -324,46 +254,22 @@ bool Physics::Clearphysics()
 	{
 		if (walls[i] != nullptr)
 		{
-			//delete walls[i];
+			delete walls[i];
 			walls[i] = nullptr;
 		}
 	}
 
-	for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
+	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
-		(*it)->~physobj();
-		if ((*it)->type == PLAYER)
-		{
-			((Player*)(*it))->~Player();
-		}
-		if ((*it)->type == FIRE_BALL)
-		{
-			((FireBall*)(*it))->~FireBall();
-		}
-		if ((*it)->type == FIRE_SPELL_PICKUP)
-		{
-			((FireSpellPickup*)(*it))->~FireSpellPickup();
-		}
-		if ((*it)->type == COAL_JUMPER)
-		{
-			((CoalJumper*)(*it))->~CoalJumper();
-		}
-		if ((*it)->type == GROUNDED_ELEMENTAL)
-		{
-			((GroundedElemental*)(*it))->~GroundedElemental();
-		}
-		if ((*it)->type == FLYING_ELEMENTAL)
-		{
-			((FlyingElemental*)(*it))->~FlyingElemental();
-		}
-		delete(*it);
+		(*it)->Destroy();
+		delete *it;
 	}
 	objects.clear();
 
 	return ret;
 }
 
-void Physics::DeleteObject(physobj* _to_delete)
+void Physics::DeleteObject(GameObject* _to_delete)
 {
 
 	//std::list<physobj*>::iterator obj_to_del;

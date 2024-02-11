@@ -12,9 +12,6 @@
     <Filter Include="Parts">
       <UniqueIdentifier>{b9cd3c46-1c7a-4e3f-8599-b68a30609756}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Objects">
-      <UniqueIdentifier>{22e6fb56-dd82-4003-8f41-d1688e8a067f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{63a075cd-cb39-43c8-b5a7-15e5717649be}</UniqueIdentifier>
     </Filter>
@@ -32,24 +29,6 @@
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{aa50a9e3-3308-4741-a7fd-1f98af730352}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\spells">
-      <UniqueIdentifier>{9e3f640d-4087-4a1d-aada-d8f5fc9f6f9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Pickups">
-      <UniqueIdentifier>{2a8cf21d-ba05-47c1-b56e-93ce5bab35ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Pickups\books">
-      <UniqueIdentifier>{f176c340-c29d-4e20-ad61-ecda42123176}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Hazards">
-      <UniqueIdentifier>{489855d1-d746-447e-820a-064259ec8ede}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Enemies">
-      <UniqueIdentifier>{0a9f277c-77af-43f1-bbab-4ceeebbb69f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Objects\Other">
-      <UniqueIdentifier>{23b37e01-51fb-4aba-9ae0-0612f5df2ba6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +54,6 @@
     <ClCompile Include="Physics.cpp">
       <Filter>Parts</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Console.cpp">
       <Filter>Parts</Filter>
     </ClCompile>
@@ -85,21 +61,6 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp">
       <Filter>Parts</Filter>
-    </ClCompile>
-    <ClCompile Include="Fire.cpp">
-      <Filter>Spells</Filter>
-    </ClCompile>
-    <ClCompile Include="Wind.cpp">
-      <Filter>Spells</Filter>
-    </ClCompile>
-    <ClCompile Include="Water.cpp">
-      <Filter>Spells</Filter>
-    </ClCompile>
-    <ClCompile Include="Grass.cpp">
-      <Filter>Spells</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Spells</Filter>
     </ClCompile>
     <ClCompile Include="pugiXML\src\pugixml.cpp">
       <Filter>Tools\pugiXML</Filter>
@@ -116,130 +77,13 @@
     <ClCompile Include="UIelement.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="UIimage.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="Text.cpp">
       <Filter>Parts</Filter>
-    </ClCompile>
-    <ClCompile Include="UIingameUI.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UIhealthbar.cpp">
-      <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="ProgressTracker.cpp">
       <Filter>Parts</Filter>
     </ClCompile>
-    <ClCompile Include="Cloud.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="FireBall.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="IceBlock.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="IceShard.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="Leaf.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="Rain.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="Rock.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="Shockwave.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="Thorns.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="WindSlash.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="UImainmenu.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UItextbox.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="LavaSpell.cpp">
-      <Filter>Objects\spells</Filter>
-    </ClCompile>
-    <ClCompile Include="UIspelldisplay.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="FireSpellPickup.cpp">
-      <Filter>Objects\Pickups\books</Filter>
-    </ClCompile>
-    <ClCompile Include="MaxHealthPickup.cpp">
-      <Filter>Objects\Pickups</Filter>
-    </ClCompile>
-    <ClCompile Include="HazardLava.cpp">
-      <Filter>Objects\Hazards</Filter>
-    </ClCompile>
-    <ClCompile Include="MaxManaPickup.cpp">
-      <Filter>Objects\Pickups</Filter>
-    </ClCompile>
-    <ClCompile Include="GroundedElemental.cpp">
-      <Filter>Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="FlyingElemental.cpp">
-      <Filter>Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="CoalJumper.cpp">
-      <Filter>Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="HazardLavaWaterfall.cpp">
-      <Filter>Objects\Hazards</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleEmitter.cpp" />
-    <ClCompile Include="UIPauseMenu.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UISettingsMenu.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="FirstDialogue.cpp">
-      <Filter>Objects\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="CheckPoint.cpp">
-      <Filter>Objects\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="TextBoxObject.cpp">
-      <Filter>Objects\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="UISelectMenu.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="UICheckpointIndicator.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="HazardSpikes.cpp">
-      <Filter>Objects\Hazards</Filter>
-    </ClCompile>
-    <ClCompile Include="HazardsRockBlock.cpp">
-      <Filter>Objects\Hazards</Filter>
-    </ClCompile>
-    <ClCompile Include="ArmorTrap.cpp">
-      <Filter>Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="ShieldMonster.cpp">
-      <Filter>Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="ClingingCreature.cpp">
-      <Filter>Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="GroundSpellPickup.cpp">
-      <Filter>Objects\Pickups\books</Filter>
-    </ClCompile>
-    <ClCompile Include="DemoEndObject.cpp">
-      <Filter>Objects\Other</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -262,9 +106,6 @@
       <Filter>Parts</Filter>
     </ClInclude>
     <ClInclude Include="PartsDef.h" />
-    <ClInclude Include="Player.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Console.h">
       <Filter>Parts</Filter>
     </ClInclude>
@@ -275,25 +116,6 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Camera.h">
       <Filter>Parts</Filter>
-    </ClInclude>
-    <ClInclude Include="Spell.h">
-      <Filter>Spells</Filter>
-    </ClInclude>
-    <ClInclude Include="Fire.h">
-      <Filter>Spells</Filter>
-    </ClInclude>
-    <ClInclude Include="Wind.h">
-      <Filter>Spells</Filter>
-    </ClInclude>
-    <ClInclude Include="Water.h">
-      <Filter>Spells</Filter>
-    </ClInclude>
-    <ClInclude Include="Grass.h">
-      <Filter>Spells</Filter>
-    </ClInclude>
-    <ClInclude Include="Math.h" />
-    <ClInclude Include="Ground.h">
-      <Filter>Spells</Filter>
     </ClInclude>
     <ClInclude Include="pugiXML\src\pugiconfig.hpp">
       <Filter>Tools\pugiXML</Filter>
@@ -314,128 +136,12 @@
     <ClInclude Include="UIelement.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="UIimage.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Parts</Filter>
-    </ClInclude>
-    <ClInclude Include="UIingameUI.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIhealthbar.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UIspelldisplay.h">
-      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="ProgressTracker.h">
       <Filter>Parts</Filter>
     </ClInclude>
-    <ClInclude Include="Cloud.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="FireBall.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="IceBlock.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="IceShard.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="Leaf.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="Rain.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="Rock.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="Shockwave.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="Thorns.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="WindSlash.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="UImainmenu.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UItextbox.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="LavaSpell.h">
-      <Filter>Objects\spells</Filter>
-    </ClInclude>
-    <ClInclude Include="FireSpellPickup.h">
-      <Filter>Objects\Pickups\books</Filter>
-    </ClInclude>
-    <ClInclude Include="MaxHealthPickup.h">
-      <Filter>Objects\Pickups</Filter>
-    </ClInclude>
-    <ClInclude Include="HazardLava.h">
-      <Filter>Objects\Hazards</Filter>
-    </ClInclude>
-    <ClInclude Include="MaxManaPickup.h">
-      <Filter>Objects\Pickups</Filter>
-    </ClInclude>
-    <ClInclude Include="GroundedElemental.h">
-      <Filter>Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="FlyingElemental.h">
-      <Filter>Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="CoalJumper.h">
-      <Filter>Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="HazardLavaWaterfall.h">
-      <Filter>Objects\Hazards</Filter>
-    </ClInclude>
-    <ClInclude Include="UIPauseMenu.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UISettingsMenu.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="CheckPoint.h">
-      <Filter>Objects\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="FirstDialogue.h">
-      <Filter>Objects\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="TextBoxObject.h">
-      <Filter>Objects\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="UISelectMenu.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="UICheckpointIndicator.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="HazardSpikes.h">
-      <Filter>Objects\Hazards</Filter>
-    </ClInclude>
-    <ClInclude Include="HazardsRockBlock.h">
-      <Filter>Objects\Hazards</Filter>
-    </ClInclude>
-    <ClInclude Include="ArmorTrap.h">
-      <Filter>Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="ShieldMonster.h">
-      <Filter>Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="ClingingCreature.h">
-      <Filter>Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="GroundSpellPickup.h">
-      <Filter>Objects\Pickups\books</Filter>
-    </ClInclude>
-    <ClInclude Include="DemoEndObject.h">
-      <Filter>Objects\Other</Filter>
-    </ClInclude>
+    <ClInclude Include="MathHelp.h" />
   </ItemGroup>
 </Project>

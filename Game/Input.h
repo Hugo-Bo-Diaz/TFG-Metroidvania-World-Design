@@ -103,7 +103,7 @@ public:
 
 	Keystate GetInput(Gameplay_buttons id);
 
-	void Input::GetJoystick(bool left, float& x, float& y);
+	void GetJoystick(bool left, float& x, float& y);
 
 	float GetTrigger(bool left);
 

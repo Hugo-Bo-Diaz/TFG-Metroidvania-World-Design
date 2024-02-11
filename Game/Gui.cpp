@@ -1,16 +1,7 @@
 #include "Gui.h"
-#include "UImainmenu.h"
-#include "UIPauseMenu.h"
-#include "UISettingsMenu.h"
-#include "UIimage.h"
-#include "UIhealthbar.h"
-#include "UIingameUI.h"
-#include "UIspelldisplay.h"
-#include "UItextbox.h"
-#include "UISelectMenu.h"
-#include "UICheckpointIndicator.h"
 
 #include "Input.h"
+#include "SceneController.h"
 
 UserInterface::UserInterface()
 {
@@ -37,6 +28,7 @@ bool UserInterface::Loop(float dt)
 		printf("lol");
 	}
 
+	//DO IT WITH 
 	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
 	{
 		(*it)->Loop();
@@ -99,105 +91,11 @@ bool UserInterface::ElementExists(UIelement * to_check)
 	return is_in_array;
 }
 
-UIelement * UserInterface::AddMainMenu()
+bool UserInterface::AddElement(UIelement* uiElement)
 {
-	UIMainMenu* ret = new UIMainMenu();
+	if (uiElement == nullptr)
+		return false;
 
-	elements.push_back(ret);
-
-	return ret;
-}
-
-UIelement * UserInterface::AddPauseMenu()
-{
-	UIPauseMenu*ret = new UIPauseMenu();
-
-	ret->x = 320;
-	ret->y = 64;
-	elements.push_back(ret);
-
-	return ret;
-}
-
-UIelement * UserInterface::AddSettingsMenu()
-{
-	UISettingsMenu*ret = new UISettingsMenu();
-
-	ret->x = 320;
-	ret->y = 64;
-	elements.push_back(ret);
-
-	return ret;
-}
-
-UIelement * UserInterface::AddSelectMenu()
-{
-	UISelectMenu* ret = new UISelectMenu();
-
-	ret->x = 106;
-	ret->y = 64;
-
-	elements.push_back(ret);
-
-	return ret;
-}
-
-UIelement * UserInterface::Add_Image(float x, float y, float w, float h, float depth, const char * texture)
-{
-	UIimage* ret = new UIimage(x, y, w, h, depth, texture);
-
-	elements.push_back(ret);
-
-	return ret;
-}
-
-UIelement * UserInterface::Add_GameUI(physobj * player)
-{
-	UIingameui* ret = new UIingameui((Player*)player);
-
-	elements.push_back(ret);
-
-	return ret;
-}
-
-UIelement * UserInterface::Add_ResourceBar(float x, float y, playerresource res)
-{
-	UIhealthbar* ret = new UIhealthbar(res);
-
-	ret->x = x;
-	ret->y = y;
-
-	elements.push_back(ret);
-
-	return ret;
-}
-
-UIelement * UserInterface::AddSpellDisplay(float x, float y)
-{
-	UIspelldisplay* ret = new UIspelldisplay();
-
-	ret->x = x;
-	ret->y = y;
-
-	elements.push_back(ret);
-
-	return ret;
-}
-
-UIelement * UserInterface::AddTextBox(const char * author, const char * text, TextBoxColor color, int tiles_x, int tiles_y, int x, int y, float size, float speed)
-{
-	UItextbox* ret = new UItextbox(author, text, color,tiles_x,tiles_y, x,y,size,speed);
-
-	elements.push_back(ret);
-
-	return ret;
-}
-
-UIelement * UserInterface::AddCheckpointIndicator()
-{
-	UIcheckpointIndicator* ret = new UIcheckpointIndicator();
-
-	elements.push_back(ret);
-
-	return ret;
+	elements.push_back(uiElement);
+	return true;
 }

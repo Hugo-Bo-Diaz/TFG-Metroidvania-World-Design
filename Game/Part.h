@@ -18,6 +18,7 @@ public:
 	virtual bool CreateConfig(pugi::xml_node&) { return true; };
 
 	virtual bool Init() { return true; }
+	virtual bool Start() { return true; }
 	virtual bool Loop(float dt) { return true; };
 	virtual bool CleanUp() { return true; };
 

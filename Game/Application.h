@@ -9,6 +9,16 @@
 
 #define BASEFPS 60
 
+enum ApplicationState
+{
+	CREATE,
+	LOOP,
+	CLEAN,
+	QUIT,
+	EXIT
+};
+
+
 class Application
 {
 public:
@@ -19,7 +29,7 @@ public:
 	Textures* tex;
 	SceneController* scn;
 	Physics* phy;
-	Console* con;
+	Debug* con;
 	Audio* aud;
 	Camera* cam;
 	Particles* par;
@@ -27,9 +37,12 @@ public:
 	Text* txt;
 	ProgressTracker* trk;
 
-	Application() {};
+	void Run();
+
+	Application();
 
 	bool Init();
+	bool Start();
 	bool Loop();
 	bool CleanUp();
 

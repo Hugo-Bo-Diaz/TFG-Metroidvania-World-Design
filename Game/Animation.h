@@ -8,8 +8,8 @@
 
 enum Animation_loop
 {
-	LOOP,
-	STOP,
+	ANIM_LOOP,
+	ANIM_STOP,
 
 };
 

@@ -2,14 +2,15 @@
 #define SCENECONTROLLER__H
 
 #include "PartsDef.h"
-#include<vector>
+#include <vector>
+#include <list>
+#include <functional>
 #include "Text.h"
 #include "SDL/include/SDL.h"
 
 #define ROOMS_MAX_X 10
 #define ROOMS_MAX_Y 10
 
-class Portal;
 
 enum layer_type
 {
@@ -64,41 +65,19 @@ struct background_texture
 	bool repeat_y;
 };
 
-struct room
-{
-	int id;
-	std::string path;
-};
-
-struct SpawnPoint
-{
-	int x;
-	int y;
-	int id;
-};
-
-class Portal
-{
-public:
-	SDL_Rect area;
-	int id_destination_room;
-	int id_destination_point;
-	bool horizontal;
-};
-
 class SceneController : public Part
 {
 public:
 	SceneController();
 
 	bool Init();
+	bool Start();
 	bool Loop(float dt);
 	bool CleanUp();
 
 	bool LoadAssetsMap(const char* map);
 	bool LoadTilesets(pugi::xml_node&);
 	bool LoadBackgroundImage(pugi::xml_node&);
-	void LoadMapArray(const char* document);
 
 
 	bool LoadMap(const char* filename);
@@ -128,23 +107,20 @@ public:
 	int room_w;
 	int room_h;
 
-	void UsePortal(Portal*p, int offset);
-	std::vector<SpawnPoint*>spawnpoints;
-	void AddPortal(SDL_Rect area, int destination_r, int destination_p, bool horizontal = true);
-	void AddPortal(Portal* p);
-	void DeletePortals();
-	void GoToLastCheckPoint();
-	void GoToLoadedScene();
-	void GoToMainMenu();
+	//void UsePortal(Portal*p, int offset);
+	//void AddPortal(SDL_Rect area, int destination_r, int destination_p, bool horizontal = true);
+	//void AddPortal(Portal* p);
+	//void DeletePortals();
+	//void GoToLastCheckPoint();
+	//void GoToLoadedScene();
 
 	int spawnpoint_x;
 	int spawnpoint_y;
 
 	int current_room_id = 0;
 
-	bool is_pause_menu_up = false;
-	
-	bool is_select_menu_up = false;
+	bool AssignGameLoopFunction(std::function<void()> SceneFunction);
+	bool AssignLoadFunction(std::function<void()> SceneFunction);
 
 private:
 
@@ -156,10 +132,9 @@ private:
 	std::vector<layer*> layers;
 	std::vector<background_texture*> active_backgrounds;
 
-	std::vector<room*> rooms;
 
-	std::list<Portal*> portals;
-
+	std::function<void ()> SceneFunction;
+	std::function<void ()> LoadFunction;
 };
 
 #endif // !SCENECONTROLLER__H

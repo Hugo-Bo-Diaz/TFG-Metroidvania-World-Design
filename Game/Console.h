@@ -21,11 +21,11 @@ struct var_track
 	int* pointer_to_var;
 };
 
-class Console : public Part
+class Debug : public Part
 {
 public:
 
-	Console();
+	Debug();
 
 	bool Init();
 	bool Loop(float dt);

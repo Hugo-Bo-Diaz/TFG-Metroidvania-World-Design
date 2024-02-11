@@ -1,17 +1,17 @@
 #include "Console.h"
 #include "Application.h"
 
-Console::Console()
+Debug::Debug()
 {
 	name = "Console";
 }
 
-bool Console::Init()
+bool Debug::Init()
 {
 	return true;
 }
 
-bool Console::Loop(float dt)
+bool Debug::Loop(float dt)
 {
 
 	//system("CLS");
@@ -62,7 +62,7 @@ bool Console::Loop(float dt)
 	return true;
 }
 
-void Console::Console_log(char* log)
+void Debug::Console_log(char* log)
 {
 	console_log* l = new console_log();
 	l->text = log;
@@ -71,7 +71,7 @@ void Console::Console_log(char* log)
 	logs.push_back(l);
 }
 
-var_track* Console::AddVar_track(char* name, int* variable_pointer)
+var_track* Debug::AddVar_track(char* name, int* variable_pointer)
 {
 	var_track* t = new var_track();
 	t->name = name;
@@ -82,7 +82,7 @@ var_track* Console::AddVar_track(char* name, int* variable_pointer)
 	return t;
 }
 
-void Console::DelVar_track(var_track* track)
+void Debug::DelVar_track(var_track* track)
 {
 	std::list<var_track*>::iterator t = std::find(variables_tracked.begin(), variables_tracked.end(), track);
 
@@ -102,7 +102,7 @@ void Console::DelVar_track(var_track* track)
 	}
 }
 
-bool Console::CleanUp()
+bool Debug::CleanUp()
 {
 	active = false;
 	system("CLS");

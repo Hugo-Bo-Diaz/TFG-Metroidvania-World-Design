@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\GameObjects">
+      <UniqueIdentifier>{fa4c092a-72e5-4750-a502-c092b07080ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Spells">
+      <UniqueIdentifier>{61f9de07-e4e5-4072-9787-02eb99ea1492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\GameObjects\Enemies">
+      <UniqueIdentifier>{4cebb1d4-b3cf-4499-b599-77e030230c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\GameObjects\SpellProjectiles">
+      <UniqueIdentifier>{88e76ba2-e493-4b39-941b-9ae4bef52d7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\GameObjects\Hazards">
+      <UniqueIdentifier>{05c2565c-a09c-4d4b-b78b-7fef5432213d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\GameObjects\Pickups">
+      <UniqueIdentifier>{f9ba404e-e172-4446-8321-1ef76894ceff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\UIElements">
+      <UniqueIdentifier>{9dc45f7f-d12d-4c54-bfac-3c481b0e04bb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Spells\Fire.cpp">
+      <Filter>Resource Files\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="Spells\Grass.cpp">
+      <Filter>Resource Files\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="Spells\Ground.cpp">
+      <Filter>Resource Files\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="Spells\Water.cpp">
+      <Filter>Resource Files\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="Spells\Wind.cpp">
+      <Filter>Resource Files\Spells</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\ArmorTrap.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\ClingingCreature.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\CloudMelee.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\CloudSummoner.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\CoalJumper.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\FlyingAxe.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\FlyingElemental.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\FlyingShield.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\GroundedElemental.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemies\ShieldMonster.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\Cloud.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\FireBall.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\IceBlock.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\IceShard.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\LavaSpell.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\Leaf.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\Rock.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\Shockwave.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\Thorns.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\WindSlash.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Hazards\HazardLava.cpp">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Hazards\HazardLavaWaterfall.cpp">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Hazards\HazardSpikes.cpp">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Hazards\HazardsRockBlock.cpp">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Pickups\FireSpellPickup.cpp">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Pickups\GroundSpellPickup.cpp">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Pickups\MaxHealthPickup.cpp">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Pickups\MaxManaPickup.cpp">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\CloudSummonerProjectile.cpp">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\CloudTrampoline.cpp">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\DemoEndObject.cpp">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\CheckPoint.cpp">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\FirstDialogue.cpp">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\TextBoxObject.cpp">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Player.cpp">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\SpellProjectiles\Rain.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElements\UICheckpointIndicator.cpp">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElements\UIhealthbar.cpp">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElements\UIimage.cpp">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElements\UIingameUI.cpp">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElements\UImainmenu.cpp">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElements\UIPauseMenu.cpp">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElements\UISelectMenu.cpp">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElements\UISettingsMenu.cpp">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElements\UIspelldisplay.cpp">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElements\UItextbox.cpp">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneProcessing.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Spells\Fire.h">
+      <Filter>Resource Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="Spells\Grass.h">
+      <Filter>Resource Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="Spells\Ground.h">
+      <Filter>Resource Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="Spells\Spell.h">
+      <Filter>Resource Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="Spells\Water.h">
+      <Filter>Resource Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="Spells\Wind.h">
+      <Filter>Resource Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\ArmorTrap.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\ClingingCreature.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\CloudMelee.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\CloudSummoner.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\CoalJumper.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\FlyingAxe.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\FlyingElemental.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\FlyingShield.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\GroundedElemental.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemies\ShieldMonster.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\Cloud.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\FireBall.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\IceBlock.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\IceShard.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\LavaSpell.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\Leaf.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\Rock.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\Shockwave.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\Thorns.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\WindSlash.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Hazards\HazardLava.h">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Hazards\HazardLavaWaterfall.h">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Hazards\HazardSpikes.h">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Hazards\HazardsRockBlock.h">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Pickups\FireSpellPickup.h">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Pickups\GroundSpellPickup.h">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Pickups\MaxHealthPickup.h">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Pickups\MaxManaPickup.h">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\CloudSummonerProjectile.h">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\CloudTrampoline.h">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\DemoEndObject.h">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\CheckPoint.h">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\FirstDialogue.h">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\TextBoxObject.h">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Player.h">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\EntityIDs.h">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\SpellProjectiles\Rain.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElements\UICheckpointIndicator.h">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElements\UIhealthbar.h">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElements\UIimage.h">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElements\UIingameUI.h">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElements\UImainmenu.h">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElements\UIPauseMenu.h">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElements\UISelectMenu.h">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElements\UISettingsMenu.h">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElements\UIspelldisplay.h">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="UIElements\UItextbox.h">
+      <Filter>Resource Files\UIElements</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneProcessing.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Resource Files\GameObjects</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

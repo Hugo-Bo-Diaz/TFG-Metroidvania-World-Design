@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="48" tileheight="48" infinite="0" nextlayerid="10" nextobjectid="28">
- <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="128" columns="16">
-  <image source="tilesets/tileset01.png" width="768" height="384"/>
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="48" tileheight="48" infinite="0" nextlayerid="10" nextobjectid="32">
+ <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
+  <image source="tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
- <tileset firstgid="129" name="spells" tilewidth="48" tileheight="48" tilecount="25" columns="5">
+ <tileset firstgid="177" name="spells" tilewidth="48" tileheight="48" tilecount="25" columns="5">
   <image source="tilesets/spells.png" width="256" height="272"/>
  </tileset>
  <imagelayer id="7" name="Image Layer 1">
@@ -891,17 +891,16 @@
   </data>
  </layer>
  <objectgroup color="#aa0000" id="4" name="objects" tintcolor="#aa0000">
-  <object id="14" name="player" x="576" y="322" width="64" height="64">
-   <properties>
-    <property name="entity_id" type="int" value="0"/>
-   </properties>
-  </object>
+  <object id="28" type="EnemyFlyingAxe" x="1488" y="336" width="48" height="48"/>
+  <object id="29" type="EnemyFlyingShield" x="1296" y="288" width="48" height="48"/>
+  <object id="30" type="EnemyArmorTrap" x="1392" y="432" width="48" height="48"/>
+  <object id="31" type="EnemyCloudSummoner" x="720" y="288" width="48" height="48"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="3" name="walls" tintcolor="#0000ff">
   <object id="3" name="ceiling" x="0" y="0" width="1728" height="48"/>
   <object id="5" name="Wall_left" x="0" y="48" width="48" height="528"/>
   <object id="7" name="Wall_right" x="1104" y="384" width="96" height="96"/>
-  <object id="8" name="floor_left" x="480" y="384" width="48" height="96"/>
+  <object id="8" name="floor_left" x="480" y="432" width="48" height="48"/>
   <object id="10" name="floor_right" x="528" y="432" width="48" height="48"/>
   <object id="12" name="plat_right" x="1680" y="48" width="48" height="288"/>
   <object id="16" name="spike_left" x="48" y="480" width="1680" height="96"/>

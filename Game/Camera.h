@@ -6,7 +6,7 @@
 
 #include "SDL/include/SDL.h"
 
-class physobj;
+class GameObject;
 
 class Camera : public Part
 {
@@ -20,7 +20,7 @@ public:
 	bool Loop(float dt);
 	bool CleanUp();
 
-	void FollowObject(physobj*target);
+	void FollowObject(GameObject*target);
 
 	float GetCameraXoffset();
 	float GetCameraYoffset();
@@ -46,7 +46,7 @@ public:
 	int GetCoveragePercent();
 	int alpha=0;
 
-	physobj* target = nullptr;
+	GameObject* target = nullptr;
 };
 
 #endif // !CAMERA__H

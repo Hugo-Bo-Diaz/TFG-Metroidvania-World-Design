@@ -10,58 +10,12 @@
 #include <vector>
 
 #include "SDL/include/SDL.h"
+#include <functional>
 
 #define MAX_WALLS 500
 
 struct SDL_Texture;
 
-enum object_type
-{
-	//PLAYER
-	PLAYER,
-
-	//PROJECTILES
-	FIRE_BALL,
-	WIND_SLASH,
-	ICE_SHARD,
-	ICE_BLOCK,
-	CLOUD,
-	LEAF,
-	THORNS,
-	ROCK,
-	SHOCKWAVE,
-
-	//SPELLS UNLOCK
-	FIRE_SPELL_PICKUP,
-	GROUND_SPELL_PICKUP,
-
-	//ITEMS
-	MAX_HEALTH_PICKUP,
-	MAX_MANA_PICKUP,
-
-	//ENEMIES
-	GROUNDED_ELEMENTAL,
-	FLYING_ELEMENTAL,
-	COAL_JUMPER,
-	ARMOR_TRAP,
-	SHIELD_MONSTER,
-	CLING_CREATURE,
-
-	//HAZARDS
-	LAVA_HAZARDS,
-	LAVA_HAZARD_WATERFALL,
-	HAZARDS_SPIKES,
-	HAZARDS_ROCK_BLOCK,
-
-	//OTHER
-	CHECKPOINT,
-	FIRST_DIALOGUE,
-	TEXTBOXOBJECT,
-	ENDDEMOOBJECT,
-
-	//MAX
-	MAX_OBJECT_TYPE
-};
 
 enum texture_type
 {
@@ -69,7 +23,7 @@ enum texture_type
 	NUMBER_OF_TEXTURES
 };
 
-class physobj
+class GameObject
 {
 public:
 	//physics
@@ -77,18 +31,21 @@ public:
 	SDL_Rect* collider;
 	SDL_Rect* nextpos;
 
-	object_type type;
+	objectId type;
 
 	virtual bool Loop(float dt) { return true; };
 	virtual bool Render() { return true; };
 
-	physobj()
+	GameObject()
 	{
 		collider = new SDL_Rect({ 0,0,0,0 });
 		nextpos = new SDL_Rect({ 0,0,0,0 });
 	}
+	~GameObject()
+	{
+	}
 	//visuals
-	virtual ~physobj()
+	virtual void Destroy()
 	{
 		if (collider != nullptr)
 		{
@@ -105,8 +62,8 @@ public:
 
 struct collision
 {
-	object_type type;
-	physobj* object;
+	objectId type;
+	GameObject* object;
 };
 
 
@@ -121,8 +78,9 @@ public:
 	bool Loop(float dt);
 	bool CleanUp();
 	bool Clearphysics();
-	void DeleteObject(physobj*);
+	void DeleteObject(GameObject*);
 	void GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*>& colliders_near);
+	std::vector<GameObject*>* GetAllObjectsOfType(objectId type);
 
 	void GetCollisions(SDL_Rect* rect,std::vector<collision*>&collisions);
 	void ClearCollisionArray(std::vector<collision*>&collisions);
@@ -134,17 +92,17 @@ public:
 	void PauseObjects() { is_paused = true; };
 	void UnPauseObjects() { is_paused = false; };
 
-	physobj* AddObject(int x, int y, int w_col, int h_col, object_type type);
+	GameObject* AddObject(int x, int y, int w_col, int h_col, objectId type, std::map<std::string, float>* properties = nullptr);
+	
+	std::function<GameObject* (objectId, std::map<std::string, float>*)> CallBack;
+	std::function<objectId(const char*)> typeCallBack;
 
 	SDL_Rect* walls[MAX_WALLS];
 
 private:
 
-	std::list<physobj*> objects;
-
-	std::list<physobj*>to_delete;
-
-
+	std::list<GameObject*> objects;
+	std::list<GameObject*>to_delete;
 };
 
 #endif // !PHYSICS__H

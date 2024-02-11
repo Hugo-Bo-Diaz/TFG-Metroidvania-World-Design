@@ -36,7 +36,7 @@ bool Textures::LoadConfig(pugi::xml_node& config_node)
 	int i = 0;
 	for (texture = node_textures.first_child(); texture; texture = texture.next_sibling())// there are more entities with properties
 	{
-		Load_Texture(texture.attribute("path").as_string(), texture.attribute("name").as_string());
+		Load_Texture_nonode(texture.attribute("path").as_string(), texture.attribute("name").as_string());
 	}
 	return ret;
 }
@@ -95,6 +95,11 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 	Load_Texture("Assets/Sprites/enemies/shield_monster_arm.png", "shield_monster_arm", textures_node);
 	Load_Texture("Assets/Sprites/enemies/shield_monster.png", "shield_monster", textures_node);
 	Load_Texture("Assets/Sprites/enemies/cling_enemy.png", "cling_enemy", textures_node);
+	Load_Texture("Assets/Sprites/enemies/floating_axe.png", "floating_axe", textures_node);
+	Load_Texture("Assets/Sprites/enemies/floating_shield.png", "floating_shield", textures_node);
+	Load_Texture("Assets/Sprites/enemies/cloud_melee.png", "cloud_melee", textures_node);
+	Load_Texture("Assets/Sprites/enemies/cloud_summoner.png", "cloud_summoner", textures_node);
+	Load_Texture("Assets/Sprites/enemies/dark_cloud.png", "dark_cloud", textures_node);
 
 
 	return ret;
@@ -122,6 +127,10 @@ bool Textures::Valid_Texture(const char* texture_to_validate)
 	return true;
 }
 
+void Textures::Load_Texture_nonode(const char* path, const char* name)
+{
+	Load_Texture(path, name, pugi::xml_node::xml_node());
+}
 void Textures::Load_Texture(const char*path,const char* name, pugi::xml_node& node)
 {
 	if (!node.empty())

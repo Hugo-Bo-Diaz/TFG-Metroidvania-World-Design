@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<lore>
+	<entry id = "0" title = "pile of books" content = "This is the end of our human conflict and the beggining of another more dangerous one" />
+	<entry id = "1" title = "painting 1" content = "These paintings seem familiar, I wonder if I have met these people before" />
+	<entry id = "2" title = "rubble" content = "What did we do wrong to be attacked so viciously" />
+	<entry id = "3" title = "village" content = "It seems so peaceful even if it is populated by humans" />
+
+	<entry id = "4" title = "Fire book" content = "I feel more powerful, I hope these abilities that the book has bestowed upon me are enough to keep moving forward" />
+
+	<entry id = "5" title = "Power source" content = "They wanted our books and their power as it is superior to everything else in this world" />
+	<entry id = "6" title = "Fear" content = "They were afraid because understanding our books was not their priority" />
+	<entry id = "7" title = "The mines" content = "These mines... time passage on these cirumstances was horrible to them..." />
+	<entry id = "8" title = "The walls" content = "Without no one else at charge this castle has been left to rot..." />
+	<entry id = "9" title = "Fight" content = "The master of this area was a brave and hotheaded fighter, he died bravely fighting the outsiders" />
+	<entry id = "10" title = "Balance" content = "Balance has been broken, without balance the powers of this castle will destroy the world as we know it" />
+	<entry id = "11" title = "Coal carts" content = "The coal carts used to obey their masters helping with the mining tasks" />
+
+	<entry id = "12" title = "Cristal Ball" content = "This probably was a way to channel magic power" />
+	<entry id = "13" title = "Battle" content = "The battle between worlds must have been brutal for both sides..." />
+	<entry id = "14" title = "Battle tactics" content = "It seems like the tactics used to win the castle were not relevant as long as they were effective" />
+	<entry id = "15" title = "The castle secrets" content = "This castle looks like it has a lot of passages and hidden routes" />
+
+	<entry id = "16" title = "Ground book" content = "I have to restore balance to the castle by collecting all of the books" />
+
+	<entry id = "17" title = "Stone spikes" content = "These spikes must come from the discontrol of the castle magic. It hurts to see it like this" />
+	<entry id = "18" title = "Ground master" content = "I do not know where he is but I can sense him in a room nearby..." />
+	<entry id = "19" title = "Terrain" content = "The battle terrain can determine the winner before it begins even if in this case does not look right" />
+	<entry id = "20" title = "Empty" content = "Without anyone with enough power here the power of the castle is out of balance" />
+	<entry id = "21" title = "Spirit" content = "This part of the castle was inhabited by powerful and stoic stone mages capable of moving the ground at will" />
+	
+	<entry id = "22" title = "Golems" content = "These were once pacific creatures that were forced to battle for their own existance blinded by anger"/>
+</lore>
