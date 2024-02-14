@@ -1,7 +1,6 @@
 #include "IceBlock.h"
 #include "Application.h"
 #include "Input.h"
-#include "Console.h"
 #include "Render.h"
 
 IceBlock::IceBlock()

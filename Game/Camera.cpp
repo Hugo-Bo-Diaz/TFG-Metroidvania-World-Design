@@ -4,7 +4,6 @@
 #include "Physics.h"
 #include <stdlib.h>
 #include <time.h>
-#include "Console.h"
 #include "Input.h"
 #include "SceneController.h"
 #include "Render.h"
@@ -63,8 +62,6 @@ bool Camera::Loop(float dt)//camera can't go offbounds
 			position_x += rand() % amount + 1;
 			position_y += rand() % amount + 1;
 
-			//printf("%f %f \n", position_x, position_y);
-
 			std::string s = std::to_string(position_x);
 			s += " ";
 			s += std::to_string(position_y);
@@ -91,15 +88,11 @@ bool Camera::Loop(float dt)//camera can't go offbounds
 
 		if (screencover.Read() <= falloff)
 		{
-			//alpha = 255;
 			alpha = (screencover.Read() / falloff) * 255;
-			printf(" %d in", alpha);
 		}
 		else if (screencover.Read() > total_cover_time - falloff)
 		{
 			alpha = ((total_cover_time-screencover.Read()) / falloff) * 255;
-			//alpha = 255;
-			printf(" %d out", alpha);
 		}
 		else
 		{

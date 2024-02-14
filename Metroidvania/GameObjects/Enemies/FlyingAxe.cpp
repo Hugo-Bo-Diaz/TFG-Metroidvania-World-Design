@@ -130,8 +130,6 @@ bool FlyingAxe::Loop(float dt)
 
 					float angle = atan2(deltaY, -deltaX);
 
-					printf("%f", angle*180/3.14);
-
 					charge_speed_x = cos(angle) * charge_speed;
 					charge_speed_y = sin(angle) * charge_speed;
 				}

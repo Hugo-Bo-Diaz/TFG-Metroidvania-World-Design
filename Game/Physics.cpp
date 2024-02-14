@@ -43,6 +43,7 @@
 //#include "FirstDialogue.h"
 //#include "TextBoxObject.h"
 //#include "DemoEndObject.h"
+#include "Logger.h"
 
 Physics::Physics()
 {
@@ -56,7 +57,7 @@ Physics::Physics()
 bool Physics::Init()
 {
 	bool ret = true;
-	printf("Initiated phyisics\n");
+	Logger::Console_log(LogLevel::LOG_INFO,"Initiated phyisics");
 
 	return ret;
 }

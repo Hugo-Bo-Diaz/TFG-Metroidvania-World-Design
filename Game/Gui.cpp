@@ -23,11 +23,6 @@ bool UserInterface::Loop(float dt)
 	}
 	to_delete.clear();
 
-	if (App->inp->GetInput(BUTTON_1) == BUTTON_DOWN )
-	{
-		printf("lol");
-	}
-
 	//DO IT WITH 
 	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
 	{

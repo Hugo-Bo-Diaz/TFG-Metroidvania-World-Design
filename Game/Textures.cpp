@@ -2,6 +2,7 @@
 
 #include "Textures.h"
 #include "Render.h"
+#include "Logger.h"
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
@@ -19,14 +20,16 @@ bool Textures::LoadConfig(pugi::xml_node& config_node)
 {
 	bool ret = true;
 
-	printf("Init Image library\n");
+	Logger::Console_log(LogLevel::LOG_INFO, "Init Image library");
 	// load support for the PNG image format
 	int flags = IMG_INIT_PNG;
 	int init = IMG_Init(flags);
 
 	if ((init & flags) != flags)
 	{
-		printf("Could not initialize Image lib. IMG_Init: %s \n", IMG_GetError());
+		std::string lStr = "Could not initialize Image lib. IMG_Init: ";
+		lStr += IMG_GetError();
+		Logger::Console_log(LogLevel::LOG_ERROR, lStr.c_str());
 		ret = false;
 	}
 	
@@ -45,14 +48,16 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 {
 	bool ret = true;
 
-	printf("Init Image library\n");
+	Logger::Console_log(LogLevel::LOG_INFO, "Init Image library");
 	// load support for the PNG image format
 	int flags = IMG_INIT_PNG;
 	int init = IMG_Init(flags);
 
 	if ((init & flags) != flags)
 	{
-		printf("Could not initialize Image lib. IMG_Init: %s \n", IMG_GetError());
+		std::string lStr = "Could not initialize Image lib. IMG_Init: ";
+		lStr += IMG_GetError();
+		Logger::Console_log(LogLevel::LOG_ERROR, lStr.c_str());
 		ret = false;
 	}
 
@@ -121,7 +126,7 @@ bool Textures::Valid_Texture(const char* texture_to_validate)
 	}
 	else
 	{
-		printf("texture couldn't be validated\n");
+		printf("texture couldn't be validated");
 		return false;
 	}*/
 	return true;
@@ -145,14 +150,18 @@ void Textures::Load_Texture(const char*path,const char* name, pugi::xml_node& no
 
 	if (surface == NULL)
 	{
-		printf("Could not load surface with path: %s. IMG_Load: %s \n", path, IMG_GetError());
+		std::string lStr = "Could not load surface with path: ";
+		lStr += path;
+		lStr +=" IMG_Init: ";
+		lStr += IMG_GetError();
+		Logger::Console_log(LogLevel::LOG_ERROR, lStr.c_str());
 	}
 	else
 	{
 		texture = SDL_CreateTextureFromSurface(App->ren->renderer,surface);
 		if (texture == NULL)
 		{
-			printf("couldn't make texture from surface \n");
+			Logger::Console_log(LogLevel::LOG_ERROR, "couldn't make texture from surface");
 		}
 		SDL_FreeSurface(surface);
 		
@@ -177,14 +186,18 @@ SDL_Texture * Textures::Load_Texture_Scene(const char * path)
 
 	if (surface == NULL)
 	{
-		printf("Could not load surface with path: %s. IMG_Load: %s \n", path, IMG_GetError());
+		std::string lStr = "Could not load surface with path: ";
+		lStr += path;
+		lStr += " IMG_Init: ";
+		lStr += IMG_GetError();
+		Logger::Console_log(LogLevel::LOG_ERROR, lStr.c_str());
 	}
 	else
 	{
 		texture = SDL_CreateTextureFromSurface(App->ren->renderer, surface);
 		if (texture == NULL)
 		{
-			printf("couldn't make texture from surface \n");
+			Logger::Console_log(LogLevel::LOG_ERROR, "couldn't make texture from surface");
 		}
 		SDL_FreeSurface(surface);
 
@@ -234,7 +247,7 @@ void Textures::Destroy_Texture(const char* texture_to_destroy)
 
 bool Textures::CleanUp()
 {
-	printf("Freeing textures and Image library \n");
+	Logger::Console_log(LogLevel::LOG_ERROR, "Freeing textures and Image library");
 	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
 	{
 		if (Valid_Texture((*it)->name.c_str()))

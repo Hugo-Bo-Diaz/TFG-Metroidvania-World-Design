@@ -208,9 +208,7 @@ void ClingCreature::TurnCorner(bool clockwise)
 
 	angle = newdir * 90;
 
-	curr_dir = (ClingCreatureDirection)newdir;
-	//printf("%d", curr_dir);
-	
+	curr_dir = (ClingCreatureDirection)newdir;	
 }
 
 void ClingCreature::RecieveDamage(int dmg, int direction)

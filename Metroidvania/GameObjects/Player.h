@@ -2,9 +2,7 @@
 #define PLAYER__H
 
 #include "Physics.h"
-#include "Console.h"
 #include "Animation.h"
-
 #include "Spell.h"
 
 enum state

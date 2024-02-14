@@ -6,6 +6,7 @@
 #include "Particles.h"
 #include "Text.h"
 #include "SceneController.h"
+#include "Logger.h"
 
 #include <stdio.h>
 
@@ -27,14 +28,14 @@ bool Render::LoadConfig(pugi::xml_node& config_node)
 	background.b = color_node.attribute("b").as_float(0);
 	background.a = color_node.attribute("a").as_float(0);
 
-	printf("Create SDL rendering context\n");
+	Logger::Console_log(LogLevel::LOG_INFO, "Create SDL rendering context");
 	// load flags
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
 
 	if (config_node.child("vsync").attribute("on").as_bool(true))//if config vsync
 	{
 		flags |= SDL_RENDERER_PRESENTVSYNC;
-		printf("Using vsync\n");
+		Logger::Console_log(LogLevel::LOG_INFO, "Using vsync");
 	}
 
 	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
@@ -60,14 +61,14 @@ bool Render::CreateConfig(pugi::xml_node& config_node)
 	color_node.append_attribute("b") = 0.0;
 	color_node.append_attribute("a") = 0.0;
 
-	printf("Create SDL rendering context\n");
+	Logger::Console_log(LogLevel::LOG_INFO, "Create SDL rendering context");
 	// load flags
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
 
 	//vsync will be on by default
 	config_node.append_child("vsync").append_attribute("on") = true;
 	flags |= SDL_RENDERER_PRESENTVSYNC;
-	printf("Using vsync\n");
+	Logger::Console_log(LogLevel::LOG_INFO, "Using vsync");
 
 	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
 	if (!renderer)
@@ -163,7 +164,9 @@ bool Render::Loop(float dt)
 
 					if (SDL_RenderCopyEx(renderer, item->tex, NULL, &rect, 0, NULL, SDL_FLIP_NONE) != 0)
 					{
-						printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+						std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
+						errstr += SDL_GetError();
+						Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 						ret = false;
 					}
 
@@ -175,7 +178,7 @@ bool Render::Loop(float dt)
 			}
 		}
 		//else {
-		//printf("Texture not found! \n");
+		//Logger::Console_log(LogLevel::LOG_ERROR,"Texture not found!");
 		//}
 		delete item;
 	}
@@ -212,7 +215,7 @@ bool Render::Loop(float dt)
 
 			if (SDL_RenderCopyEx(renderer, item->tex, &on_img, &rect, 0, NULL, SDL_FLIP_NONE) != 0)
 			{
-				printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+				printf("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 				ret = false;
 			}
 		}
@@ -291,7 +294,9 @@ bool Render::Loop(float dt)
 
 			if (SDL_RenderCopyEx(renderer, item->tex, item->on_img, &rect, item->angle, p, SDL_FLIP_NONE) != 0)
 			{
-				printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+				std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
+				errstr += SDL_GetError();
+				Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 				ret = false;
 			}
 
@@ -336,7 +341,9 @@ bool Render::Loop(float dt)
 				
 				if (SDL_RenderCopyEx(renderer, (*it)->particles[i]->texture, (*it)->particles[i]->area_in_texture, &rect, (*it)->particles[i]->angle, NULL, SDL_FLIP_NONE) != 0)
 				{
-					printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+					std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
+					errstr += SDL_GetError();
+					Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 					ret = false;
 				}
 			}
@@ -396,7 +403,9 @@ bool Render::Loop(float dt)
 
 			if (SDL_RenderCopyEx(renderer, item->tex, item->on_img, &rect, item->angle, NULL, SDL_FLIP_NONE) != 0)
 			{
-				printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+				std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
+				errstr += SDL_GetError();
+				Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 				ret = false;
 			}
 		}
@@ -573,7 +582,9 @@ bool Render::Loop(float dt)
 					{
 						if (SDL_RenderCopyEx(renderer, item->to_print->font_used->font_texture, &on_img, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)
 						{
-							printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+							std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
+							errstr += SDL_GetError();
+							Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 							ret = false;
 						}
 					}
@@ -707,7 +718,7 @@ bool Render::Loop(float dt)
 				{
 					if (SDL_RenderCopyEx(renderer, item->to_print->font_used->font_texture, &on_img, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)
 					{
-						printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+						printf("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 						ret = false;
 					}
 				}
@@ -738,7 +749,9 @@ bool Render::Loop(float dt)
 
 		if (result != 0)
 		{
-			printf("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+			std::string errstr = "Cannot draw quad to screen. SDL_RenderFillRect error: ";
+			errstr += SDL_GetError();
+			Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 			ret = false;
 		}
 
@@ -770,7 +783,9 @@ bool Render::Loop(float dt)
 
 		if (result != 0)
 		{
-			printf("Cannot draw trail to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+			std::string errstr = "Cannot draw trail to screen. SDL_RenderFillRect error: ";
+			errstr += SDL_GetError();
+			Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 			ret = false;
 		}
 
@@ -966,7 +981,7 @@ bool Render::CleanUp()
 {
 	bool ret = true;
 
-	printf("Quitting Render\n");
+	Logger::Console_log(LogLevel::LOG_INFO,"Quitting Render");
 	SDL_DestroyRenderer(renderer);
 
 	//SDL_QuitSubSystem(SDL_INIT_VIDEO);

@@ -64,14 +64,11 @@ void Fire::Loop(float dt)
 			App->cam->CameraShake(20, 120);
 			App->aud->PlaySFX(SFX_FIREBALL_SMALL);
 			player->AddMana(-manacost_big);
-
-			//printf("big fireball \n");
 		}
 		else if (player->manaCost(manacost_small))
 		{
 			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, FIRE_BALL_ID);
 			fireball->Fire(player->is_right, false);
-			//printf("small fireball \n");
 			App->cam->CameraShake(10, 120);
 			App->aud->PlaySFX(SFX_FIREBALL_BIG);
 			player->AddMana(-manacost_small);

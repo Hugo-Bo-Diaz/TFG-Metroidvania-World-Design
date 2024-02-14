@@ -5,7 +5,7 @@
 #include "Render.h"
 #include "SceneController.h"
 #include "Physics.h"
-#include "Console.h"
+#include "Logger.h"
 #include "Audio.h"
 #include "Camera.h"
 #include "Particles.h"
@@ -38,7 +38,7 @@ void Application::Run() {
 			if (!App->Loop())
 			{
 				state = QUIT;
-				printf("EXITING: with errors (loop)\n");
+				Logger::Console_log(LogLevel::LOG_ERROR,"EXITING: with errors (loop)");
 			}
 		}
 		break;
@@ -46,13 +46,13 @@ void Application::Run() {
 		{
 			if (!App->CleanUp())
 			{
-				printf("EXITING: with errors (cleanup)\n");
+				Logger::Console_log(LogLevel::LOG_ERROR, "EXITING: with errors (cleanup)");
 			}
 			else
 			{
 				delete App;
 				App = nullptr;
-				printf("EXITING: no errors found");
+				Logger::Console_log(LogLevel::LOG_ERROR,"EXITING: no errors found");
 			}
 			state = EXIT;
 		}
@@ -87,7 +87,6 @@ bool Application::Init()
 	tex = new Textures();
 	scn = new SceneController();
 	phy = new Physics();
-	con = new Debug();
 	cam = new Camera();
 	aud = new Audio();
 	par = new Particles();
@@ -95,7 +94,6 @@ bool Application::Init()
 	txt = new Text();
 	trk = new ProgressTracker();
 
-	parts.push_back(con);
 	parts.push_back(inp);
 	parts.push_back(win);
 	parts.push_back(phy);
@@ -164,7 +162,6 @@ bool Application::Loop()
 	if (fps_cap != 0)
 	{
 		float time_left_of_the_frame = ms_of_frame - update_timer.Read();
-		//printf("%f  %f \n", framecapminuslastframesms, update_timer.Read());
 		if (time_left_of_the_frame > 0)
 		{
 			SDL_Delay(time_left_of_the_frame);
@@ -173,9 +170,6 @@ bool Application::Loop()
 
 	float base_ms_on_frame = (1000 / 60);
 	dt =1/( base_ms_on_frame/ms_of_frame);
-
-	//printf("%f \n", update_timer.Read());
-
 	return ret;
 };
 bool Application::CleanUp() 
@@ -202,15 +196,17 @@ void Application::LoadConfig(const char* filename)
 
 	if (result == NULL)
 	{
-		printf("Could not load map xml file config.xml. pugi error: %s", result.description());
-		printf("creating new configuration file...");
+		std::string errstr = "Could not load map xml file config.xml. pugi error: ";
+		errstr += result.description();
+		Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
+		Logger::Console_log(LogLevel::LOG_WARN,"creating new configuration file...");
 
 		create_file = true;
 		config_node = config_file.append_child("config");
 	}
 	else
 	{
-		printf("found config file, loading...");
+		Logger::Console_log(LogLevel::LOG_INFO,"found config file, loading...");
 		config_node = config_file.child("config");
 	}
 

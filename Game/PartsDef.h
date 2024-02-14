@@ -17,7 +17,6 @@ class Render;
 class Textures;
 class SceneController;
 class Physics;
-class Debug;
 class Camera;
 class Audio;
 class Particles;

@@ -45,7 +45,6 @@ void Grass::Loop(float dt)
 			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF_ID))->Fire(player->is_right, -15);
 
 			App->cam->CameraShake(20, 100);
-			//printf("big hadoken \n");
 		}
 		else
 		{
@@ -53,7 +52,6 @@ void Grass::Loop(float dt)
 			leaf->Fire(player->is_right, 0);
 
 			App->cam->CameraShake(10, 50);
-			//printf("smol hadoken \n");
 		}
 		charge = 0;
 	}
@@ -79,7 +77,6 @@ void Grass::Loop(float dt)
 			float x,y;
 			App->inp->GetJoystick(true,x,y);
 			current_angle = 3.1428 +(atan2(-y,-x));
-			printf("%f\n",current_angle);
 			hook_position_x = player->x + player->collider->w / 2;
 			hook_position_y = player->y + player->collider->h / 2;
 			hook_out = true;
@@ -126,7 +123,6 @@ void Grass::Loop(float dt)
 					intersection_x = inter_x;
 					intersection_y = inter_y;
 					distance_to_intersection = DistanceBetweenTwoPoints(player->x, player->y, inter_x, inter_y);
-					printf("%f\n", distance_to_intersection);
 					}
 				*/
 
@@ -204,7 +200,6 @@ void Grass::Render()
 		App->ren->DrawRect(&debug, 0, 0, 0, 255, true);
 
 		draw_angle = atan2(hook_position_y - (player->y + (player->collider->h / 2)), hook_position_x - (player->x + (player->collider->w / 2)));
-		printf("%f\n", draw_angle * 180 / 3.1428);
 		float distance_to_hook = DistanceBetweenTwoPoints(hook_position_x, hook_position_y, player->x + player->collider->w / 2, player->y + player->collider->h / 2);
 		int vine_portions = 1 + (distance_to_hook / 32);
 		for (int i = 0; i < vine_portions; ++i)

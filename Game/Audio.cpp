@@ -1,6 +1,6 @@
 #include "Audio.h"
 #include "Application.h"
-#include "Console.h"
+#include "Logger.h"
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
@@ -38,14 +38,14 @@ bool Audio::CreateConfig(pugi::xml_node& config_node)
 
 bool Audio::Init()
 {
-	App->con->Console_log("Initializing audio");
+	Logger::Console_log(LogLevel::LOG_INFO,"Initializing audio");
 
 	bool ret = true;
 
 	SDL_Init(0);
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO)<0)
 	{
-		App->con->Console_log("Could not initialize audio");
+		Logger::Console_log(LogLevel::LOG_ERROR,"Could not initialize audio");
 		ret = false;
 	}
 
@@ -54,7 +54,7 @@ bool Audio::Init()
 
 	if ((init & flags) != flags)
 	{
-		App->con->Console_log("could not initialize mixer lib.");
+		Logger::Console_log(LogLevel::LOG_ERROR,"could not initialize mixer lib.");
 		std::string s = Mix_GetError();
 		
 		ret = false;
@@ -62,7 +62,7 @@ bool Audio::Init()
 	
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
-		App->con->Console_log("could not initialize SDL_Mixer");
+		Logger::Console_log(LogLevel::LOG_ERROR,"could not initialize SDL_Mixer");
 		ret = false;
 	}
 
@@ -156,7 +156,7 @@ uint Audio::LoadMusic(const char * file,const char*name, float fade,float volume
 	new_music->music = Mix_LoadMUS(file);
 	if (new_music->music == NULL)
 	{
-		App->con->Console_log("Can't load music");
+		Logger::Console_log(LogLevel::LOG_ERROR,"Can't load music");
 		delete new_music;
 		return -1;
 	}
@@ -178,7 +178,7 @@ uint Audio::LoadSFX(const char * file, const char*name, float volume)
 	new_sfx->sfx = Mix_LoadWAV(file);
 	if (new_sfx->sfx == NULL)
 	{
-		App->con->Console_log("Can't load sfx");
+		Logger::Console_log(LogLevel::LOG_ERROR,"Can't load sfx");
 		delete new_sfx;
 		return -1;
 	}

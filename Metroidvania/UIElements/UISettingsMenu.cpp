@@ -140,7 +140,6 @@ void UISettingsMenu::Loop()
 	for (std::list<float>::iterator it = prev_joy_y.begin(); it != prev_joy_y.end(); it++)
 	{
 		amount_of_movement += *it;
-		//printf("%f, ",*it);
 	}
 	last_joy_y = joyy;
 

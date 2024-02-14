@@ -12,6 +12,7 @@
 #include "Particles.h"
 #include "Window.h"
 #include "Audio.h"
+#include "Logger.h"
 
 //#include "Player.h"
 //#include "MaxHealthPickup.h"
@@ -103,7 +104,9 @@ bool SceneController::LoadAssetsMap(const char * map)
 
 	if (result == NULL)
 	{
-		printf("couldn't find map %s", map);
+		std::string errstr = "couldn't find map ";
+		errstr += map;
+		Logger::Console_log(LogLevel::LOG_ERROR,errstr.c_str());
 		return false;
 	}
 
@@ -203,7 +206,9 @@ bool SceneController::LoadMap(const char* filename)
 
 	if (result == NULL)
 	{
-		printf("couldn't find map %s", filename);
+		std::string errstr = "couldn't find map ";
+		errstr += filename;
+		Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 		return false;
 	}
 
@@ -858,7 +863,9 @@ void SceneController::RenderTiles()
 
 				if (SDL_RenderCopyEx(App->ren->renderer, t->texture, &GetImageRectFromId((*it)->tileset_of_layer,(*it)->data[i]), &on_scn, 0, NULL, SDL_FLIP_NONE) != 0)
 				{
-					printf("Cannot blit to screen. SDL_RenderCopy error: %s\n", SDL_GetError());
+					std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
+					errstr += SDL_GetError();
+					Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 				}
 			}
 		}

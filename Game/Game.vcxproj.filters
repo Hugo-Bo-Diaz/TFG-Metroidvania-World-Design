@@ -54,9 +54,6 @@
     <ClCompile Include="Physics.cpp">
       <Filter>Parts</Filter>
     </ClCompile>
-    <ClCompile Include="Console.cpp">
-      <Filter>Parts</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp">
@@ -84,6 +81,9 @@
       <Filter>Parts</Filter>
     </ClCompile>
     <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="Logger.cpp">
+      <Filter>Parts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -106,9 +106,6 @@
       <Filter>Parts</Filter>
     </ClInclude>
     <ClInclude Include="PartsDef.h" />
-    <ClInclude Include="Console.h">
-      <Filter>Parts</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Physics.h">
       <Filter>Parts</Filter>
@@ -143,5 +140,8 @@
       <Filter>Parts</Filter>
     </ClInclude>
     <ClInclude Include="MathHelp.h" />
+    <ClInclude Include="Logger.h">
+      <Filter>Parts</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

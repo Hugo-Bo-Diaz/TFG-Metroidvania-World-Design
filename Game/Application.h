@@ -29,7 +29,6 @@ public:
 	Textures* tex;
 	SceneController* scn;
 	Physics* phy;
-	Debug* con;
 	Audio* aud;
 	Camera* cam;
 	Particles* par;

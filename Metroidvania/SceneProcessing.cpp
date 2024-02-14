@@ -12,6 +12,7 @@
 #include "Gui.h"
 #include "Portal.h"
 #include "ProgressTracker.h"
+#include "Logger.h"
 
 #include "GameObjects/EntityIDs.h"
 
@@ -168,7 +169,9 @@ void MetroidVaniaSceneProcessor::LoadMapArray(const char* document)
 
 	if (result == NULL)
 	{
-		printf("couldn't find map %s", document);
+		std::string strerr = "couldn't find map ";
+		strerr += document;
+		Logger::Console_log(LogLevel::LOG_ERROR ,strerr.c_str());
 		return;
 	}
 

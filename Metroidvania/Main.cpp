@@ -53,6 +53,7 @@
 #include "GameObjects/DemoEndObject.h"
 
 #include "SceneProcessing.h"
+#include "Logger.h"
 
 GameObject* CallB(objectId obj, std::map<std::string, float>* properties);
 objectId TypeCallB(const char*);
@@ -64,7 +65,7 @@ int main(int argc, char* args[])
 
 	if (!App->Init())
 	{
-		printf("EXITING: with errors (init)\n");
+		Logger::Console_log(LogLevel::LOG_WARN,"EXITING: with errors (init)");
 		return 1;
 	}
 

@@ -2,6 +2,7 @@
 #include "Textures.h"
 #include "Application.h"
 #include "Render.h"
+#include "Logger.h"
 /*
 #include "SDL\include\SDL.h"
 #include "SDL_ttf\include\SDL_ttf.h"
@@ -17,7 +18,7 @@ bool Text::LoadConfig(pugi::xml_node & config_node)
 {
 	/*if (TTF_Init() == -1)
 	{
-		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+		printf("SDL_ttf could not initialize! SDL_ttf Error: %s", TTF_GetError());
 	}
 	else
 	{
@@ -57,14 +58,18 @@ Font * Text::LoadFont(const char * path, const char * name, int char_per_row)
 
 	if (surface == NULL)
 	{
-		printf("Could not load surface with path: %s. IMG_Load: %s \n", path, IMG_GetError());
+		std::string lStr = "Could not load surface with path:";
+		lStr += path;
+		lStr += " IMG_Load: ";
+		lStr += IMG_GetError();
+		Logger::Console_log(LogLevel::LOG_ERROR, lStr.c_str());
 	}
 	else
 	{
 		texture = SDL_CreateTextureFromSurface(App->ren->renderer, surface);
 		if (texture == NULL)
 		{
-			printf("couldn't make texture from surface \n");
+			Logger::Console_log(LogLevel::LOG_ERROR, "couldn't make texture from surface");
 		}
 		SDL_FreeSurface(surface);
 	}

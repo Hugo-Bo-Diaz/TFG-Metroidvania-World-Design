@@ -1,4 +1,5 @@
 #include "Input.h"
+#include "Logger.h"
 
 Input::Input()
 {
@@ -20,19 +21,23 @@ bool Input::Init()
 	left_trigger = new trigger();
 	right_trigger = new trigger();
 
-	printf("Init SDL input event system\n");
+	Logger::Console_log(LogLevel::LOG_INFO,"Init SDL input event system");
 	SDL_Init(0);
 
 	if (SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
-		printf("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
+		std::string errstr = "SDL_EVENTS could not initialize! SDL_Error: ";
+		errstr += SDL_GetError();
+		Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 		ret = false;
 	}
 	SDL_StopTextInput();
 
 	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0)
 	{
-		printf("Game controller could not initiate %s\n", SDL_GetError());
+		std::string errstr = "Game controller could not initiate: ";
+		errstr += SDL_GetError();
+		Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 		ret = false;
 	}
 
@@ -202,7 +207,6 @@ bool Input::Loop(float dt)
 			}
 		}
 
-		//printf("%f %f\n", left_joystick->x_axis, leftxpast);
 		
 	}
 	while (SDL_PollEvent(&event) != 0)
@@ -463,7 +467,6 @@ bool Input::CleanUp()
 {
 	bool ret = true;
 	delete[] keyboard;
-	printf("Quitting Input\n");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
 	if (controller_active)

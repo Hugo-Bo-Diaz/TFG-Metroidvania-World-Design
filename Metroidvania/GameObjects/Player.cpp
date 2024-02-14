@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Application.h"
 #include "Input.h"
-#include "Console.h"
+#include "Logger.h"
 #include "Camera.h"
 #include "SceneController.h"
 #include "ProgressTracker.h"
@@ -469,7 +469,6 @@ bool Player::Loop(float dt)
 	{
 		mana = max_mana;
 		App->trk->BaseSaveSection->GetChild("Stats")->SetValue("CurrentMana", mana);
-		printf("over limit");
 	}
 
 
@@ -631,8 +630,6 @@ void Player::AddMana(float amount)
 	{
 		mana = 0;
 	}
-	printf("%f\n", mana);
-
 }
 
 void Player::AddMaxHealth()

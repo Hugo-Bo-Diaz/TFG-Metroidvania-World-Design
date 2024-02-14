@@ -302,7 +302,6 @@ bool Particles::Init()
 
 bool Particles::Loop(float dt)
 {
-	//printf("%d", particles.size());
 	for (std::list<ParticleEmitter*>::iterator it = particles.begin(); it != particles.end(); it++)
 	{
 		if (!(*it)->Loop(dt))

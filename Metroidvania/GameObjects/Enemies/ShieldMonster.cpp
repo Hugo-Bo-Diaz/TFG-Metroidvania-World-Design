@@ -232,8 +232,6 @@ bool ShieldMonster::Loop(float dt)
 				arm_angle = 0;
 
 			shield.h = (1+ sin((M_PI / 180)* arm_angle))*max_shield_height;
-			printf("%d ", shield.h);
-
 		}
 		
 		if (attackTimer.Read() > attacktime+50 && hashitground == false)

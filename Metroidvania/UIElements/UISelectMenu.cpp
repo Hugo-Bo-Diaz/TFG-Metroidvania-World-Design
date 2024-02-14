@@ -57,10 +57,8 @@ void UISelectMenu::Loop()
 		for (std::list<float>::iterator it = prev_joy_y.begin(); it != prev_joy_y.end(); it++)
 		{
 			amount_of_movement += *it;
-			//printf("%f, ",*it);
 		}
 		last_joy_y = joyy;
-		printf("\n");
 
 		if (abs(amount_of_movement) > 0.6 && !stop_inputs && App->trk->BaseSaveSection->GetChild("Logs")->GetSectionValues().size() > 1)
 		{
