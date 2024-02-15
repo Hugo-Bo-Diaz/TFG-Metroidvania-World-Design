@@ -12,7 +12,7 @@ FireSpellPickup::FireSpellPickup()
 {
 	firespellbook = { 0,0,52,64 };
 
-	p = App->par->AddParticleEmitter(&App->par->fireshield, collider->x, collider->y);
+	p = App->par->AddParticleEmitter(&fireshield, collider->x, collider->y);
 	if (App->trk->BaseSaveSection->GetChild("SpellsUnlock") == nullptr)
 	{
 		App->trk->BaseSaveSection->AddNewChild("SpellsUnlock");
@@ -21,6 +21,23 @@ FireSpellPickup::FireSpellPickup()
 	{
 		App->trk->BaseSaveSection->AddNewChild("LoreLogs");
 	}
+
+	r2shield = { 12,0,12,12 };
+	r12shield = { 24,0,12,12 };
+	fireshield.area_in_texture.push_back(&r2shield);
+	fireshield.area_in_texture.push_back(&r2shield);
+	fireshield.area_in_texture.push_back(&r12shield);
+	fireshield.name = "fireshield";
+	fireshield.minmax_x_offset = std::make_pair(-5, 69);
+	fireshield.minmax_y_offset = std::make_pair(0, 70);
+	fireshield.minmax_speed_y = std::make_pair(-1.5, -2.5);
+	fireshield.minmax_speed_x = std::make_pair(-0.1, 0.1);
+	fireshield.minmax_scale_speed = std::make_pair(-0.03, -0.04);
+	fireshield.minmax_scale = std::make_pair(1, 1.5);
+	fireshield.minmax_acc_y = std::make_pair(0.04, 0.05);
+	fireshield.minmax_lifespan = std::make_pair(300, 400);
+	fireshield.minmax_frequency = std::make_pair(5, 20);
+	fireshield.texture_name = "particles";
 }
 
 FireSpellPickup::~FireSpellPickup()
@@ -55,7 +72,7 @@ bool FireSpellPickup::Loop(float dt)
 				textbox->AddPanelToTextBox("remember your past      we need you");
 				App->gui->AddElement(textbox);
 				//App->par->to_delete.push_back(p);
-				App->par->AddParticleEmitter(&App->par->fireshield, collider->x, collider->y,1500);
+				App->par->AddParticleEmitter(&fireshield, collider->x, collider->y,1500);
 				App->trk->BaseSaveSection->GetChild("LoreLogs")->SetValue("4",1.0f);
 			}
 		}

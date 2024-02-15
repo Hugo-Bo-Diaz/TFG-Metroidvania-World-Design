@@ -10,10 +10,41 @@
 #include "../../UIelementFunctions.h"
 GroundSpellPickup::GroundSpellPickup()
 {
+	r16sandfirst = { 48,0,12,12 };
+	r17sandsecond = { 48,12,12,12 };
+
+	sand_left.area_in_texture.push_back(&r16sandfirst);
+	sand_left.area_in_texture.push_back(&r17sandsecond);
+	sand_left.name = "sand_left";
+	sand_left.minmax_x_offset = std::make_pair(-5, 69);
+	sand_left.minmax_y_offset = std::make_pair(50, 70);
+	sand_left.minmax_speed_y = std::make_pair(-1.5, -2.5);
+	sand_left.minmax_speed_x = std::make_pair(1.5, 3.0);
+	sand_left.minmax_scale_speed = std::make_pair(-0.03, -0.04);
+	sand_left.minmax_scale = std::make_pair(0.75, 1.25);
+	sand_left.minmax_acc_y = std::make_pair(0.04, 0.05);
+	sand_left.minmax_lifespan = std::make_pair(500, 600);
+	sand_left.minmax_frequency = std::make_pair(5, 20);
+	sand_left.texture_name = "particles";
+
+	sand_right.area_in_texture.push_back(&r16sandfirst);
+	sand_right.area_in_texture.push_back(&r17sandsecond);
+	sand_right.name = "sand_left";
+	sand_right.minmax_x_offset = std::make_pair(-5, 69);
+	sand_right.minmax_y_offset = std::make_pair(50, 70);
+	sand_right.minmax_speed_y = std::make_pair(-1.5, -2.5);
+	sand_right.minmax_speed_x = std::make_pair(-1.5, -3.0);
+	sand_right.minmax_scale_speed = std::make_pair(-0.03, -0.04);
+	sand_right.minmax_scale = std::make_pair(0.75, 1.25);
+	sand_right.minmax_acc_y = std::make_pair(0.04, 0.05);
+	sand_right.minmax_lifespan = std::make_pair(500, 600);
+	sand_right.minmax_frequency = std::make_pair(5, 20);
+	sand_right.texture_name = "particles";
+
 	groundspellbook = { 216,0,52,64 };
 
-	p = App->par->AddParticleEmitter(&App->par->sand_left, collider->x, collider->y);
-	q = App->par->AddParticleEmitter(&App->par->sand_right, collider->x, collider->y);
+	p = App->par->AddParticleEmitter(&sand_left, collider->x, collider->y);
+	q = App->par->AddParticleEmitter(&sand_right, collider->x, collider->y);
 
 	if (App->trk->BaseSaveSection->GetChild("SpellsUnlock") == nullptr)
 	{
@@ -62,8 +93,8 @@ bool GroundSpellPickup::Loop(float dt)
 				textbox->AddPanelToTextBox("this castle is still alive, just broken");
 				App->gui->AddElement(textbox);
 				//App->par->to_delete.push_back(p);
-				App->par->AddParticleEmitter(&App->par->sand_left, collider->x, collider->y, 1500);
-				App->par->AddParticleEmitter(&App->par->sand_right, collider->x, collider->y, 1500);
+				App->par->AddParticleEmitter(&sand_left, collider->x, collider->y, 1500);
+				App->par->AddParticleEmitter(&sand_right, collider->x, collider->y, 1500);
 				App->trk->BaseSaveSection->GetChild("LoreLogs")->SetValue("16", 1.0f);
 
 			}

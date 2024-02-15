@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Animation.h"
+#include "ParticleEmitter.h"
 
 class ParticleEmitter;
 
@@ -28,6 +29,9 @@ public:
 	Animation leaf_right;
 
 	ParticleEmitter* p;
+	particle_preset grass;
+	SDL_Rect r10grass;
+	SDL_Rect r11grass;
 };
 
 #endif // !PLAYER__REP__H

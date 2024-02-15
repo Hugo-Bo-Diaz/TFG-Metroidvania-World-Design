@@ -3,13 +3,16 @@
 
 #include "Physics.h"
 #include "Animation.h"
+#include "ParticleEmitter.h"
 
 class FireBall : public GameObject
 {
 public:
 
 	FireBall();
-	~FireBall();
+
+	void Destroy();
+
 
 	void Fire(bool left_dir, bool is_big);
 
@@ -23,6 +26,9 @@ public:
 
 	Animation fireball_small;
 	Animation fireball_big;
+
+	SDL_Rect r1exp;
+	particle_preset explosion;
 
 	int damage = 2;
 };

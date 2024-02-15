@@ -20,11 +20,24 @@ FireBall::FireBall()
 {
 	fireball_big.AddFrame({0,0,64,64});
 	fireball_small.AddFrame({96,0,32,32});
+
+	r1exp = { 0,0,12,12 };
+	explosion.area_in_texture.push_back(&r1exp);
+	explosion.name = "explosion";
+	explosion.minmax_x_offset = std::make_pair(-20, 20);
+	explosion.minmax_y_offset = std::make_pair(-20, 20);
+	explosion.minmax_speed_y = std::make_pair(-2, -3);
+	explosion.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	explosion.minmax_scale_speed = std::make_pair(0.01, 0.02);
+	explosion.minmax_lifespan = std::make_pair(200, 500);
+	explosion.minmax_frequency = std::make_pair(10, 50);
+	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
+	explosion.texture_name = "particles";
 }
 
-FireBall::~FireBall()
+void FireBall::Destroy()
 {
-	App->par->AddParticleEmitter(&App->par->explosion, collider->x, collider->y, 300);
+	App->par->AddParticleEmitter(&explosion, collider->x, collider->y, 300);
 }
 
 bool FireBall::Loop(float dt)

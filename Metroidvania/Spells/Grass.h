@@ -4,6 +4,7 @@
 #include "Spell.h"
 #include "Animation.h"
 #include "Timer.h"
+#include "ParticleEmitter.h"
 
 class ParticleEmitter;
 
@@ -58,6 +59,10 @@ public:
 	SDL_Rect vine = {160,32,32,32};
 	SDL_Rect hook = {192,32,32,32};
 	ParticleEmitter*p;
+
+	particle_preset grass;
+	SDL_Rect r10grass;
+	SDL_Rect r11grass;
 };
 
 #endif

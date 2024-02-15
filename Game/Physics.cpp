@@ -103,7 +103,7 @@ bool Physics::Loop(float dt)
 	//delete the current list
 	for (std::list<GameObject*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
 	{
-		
+		(*it)->Destroy();
 		delete(*it);
 		objects.erase(std::find(objects.begin(), objects.end(), *it));
 		

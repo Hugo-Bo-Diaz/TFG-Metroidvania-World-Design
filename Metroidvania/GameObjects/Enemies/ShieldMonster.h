@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Enemy.h"
+#include "ParticleEmitter.h"
 
 class Player;
 
@@ -69,6 +70,17 @@ public:
 	SDL_Rect arm_right;
 	float arm_angle = 0;
 	int gdirection = 0;
+
+	particle_preset shield_monster_hit;
+	particle_preset shield_monster_death;
+	particle_preset stone_death;
+	particle_preset metal;
+	SDL_Rect r8ground;
+	SDL_Rect r9ground;
+	SDL_Rect r16sandfirst;
+	SDL_Rect r17sandsecond;
+	SDL_Rect r18metalfirst;
+	SDL_Rect r19metalsecond;
 
 	Timer animation_timer;
 

@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Enemy.h"
+#include "ParticleEmitter.h"
 
 enum CloudSummonerState
 {
@@ -38,6 +39,9 @@ public:
 	Animation facing_right;
 	Animation facing_front;
 	Animation book;
+
+	SDL_Rect r1exp;
+	particle_preset explosion;
 
 	//patrol
 	float patrol_speed = 2.5;

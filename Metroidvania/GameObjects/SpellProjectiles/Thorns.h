@@ -2,6 +2,7 @@
 #define THORNS__H
 
 #include "Physics.h"
+#include "ParticleEmitter.h"
 
 class ParticleEmitter;
 
@@ -40,6 +41,9 @@ public:
 	SDL_Rect last_thorn_segment = { 128,0,8,32 };
 	
 	ParticleEmitter* p;
+	particle_preset grass;
+	SDL_Rect r10grass;
+	SDL_Rect r11grass;
 };
 
 #endif // !PLAYER__REP__H

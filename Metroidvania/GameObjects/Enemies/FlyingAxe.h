@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Enemy.h"
+#include "ParticleEmitter.h"
 
 enum FlyingAxeState
 {
@@ -37,6 +38,10 @@ public:
 	//graphics
 	Animation rotate_left;
 	Animation rotate_right;
+
+	particle_preset metal;
+	SDL_Rect r18metalfirst;
+	SDL_Rect r19metalsecond;
 
 	SDL_Rect facing_left;
 	SDL_Rect facing_right;

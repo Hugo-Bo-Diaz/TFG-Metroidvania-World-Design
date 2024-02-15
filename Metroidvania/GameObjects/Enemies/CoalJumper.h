@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Enemy.h"
+#include "ParticleEmitter.h"
 
 enum CoalJumperState {
 	COALJUMPER_IDLE,
@@ -62,6 +63,13 @@ public:
 	CoalJumperState state = COALJUMPER_IDLE;
 	CoalJumperState last_state = COALJUMPER_IDLE;
 	Animation animations[MAX_COAL_JUMPER_STATES];
+
+	particle_preset fireshield;
+	particle_preset smoke;
+	SDL_Rect r2shield;
+	SDL_Rect r7buff;
+	SDL_Rect r12shield;
+
 };
 
 #endif

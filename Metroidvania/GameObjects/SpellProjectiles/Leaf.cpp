@@ -6,9 +6,24 @@
 
 Leaf::Leaf()
 {
+	r10grass = { 24,24,12,12 };
+	r11grass = { 36,24,12,12 };
+	grass.area_in_texture.push_back(&r10grass);
+	grass.area_in_texture.push_back(&r11grass);
+	grass.name = "grass";
+	grass.minmax_x_offset = std::make_pair(-20, 20);
+	grass.minmax_y_offset = std::make_pair(-20, 20);
+	grass.minmax_angle_speed = std::make_pair(5, 15);
+	grass.minmax_angle = std::make_pair(0, 360);
+	grass.minmax_scale_speed = std::make_pair(0.03, 0.04);
+	grass.minmax_scale = std::make_pair(1, 1.2);
+	grass.minmax_lifespan = std::make_pair(100, 200);
+	grass.minmax_frequency = std::make_pair(5, 20);
+	grass.texture_name = "particles";
+
 	leaf_right.AddFrame({ 96,64,64,32 });
 	leaf_left.AddFrame({ 96,32,64,32 });//48 16
-	p = App->par->AddParticleEmitter(&App->par->grass, collider->x, collider->y);
+	p = App->par->AddParticleEmitter(&grass, collider->x, collider->y);
 }
 
 bool Leaf::Loop(float dt)
@@ -36,7 +51,7 @@ bool Leaf::Loop(float dt)
 			App->phy->DeleteObject(this);
 			//App->par->to_delete.push_back(p);
 			App->par->RemoveParticleEmitter(p);
-			App->par->AddParticleEmitter(&App->par->grass, collider->x + collider->w / 2, collider->y + collider->h / 2, 200);
+			App->par->AddParticleEmitter(&grass, collider->x + collider->w / 2, collider->y + collider->h / 2, 200);
 		}
 	}
 

@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Enemy.h"
+#include "ParticleEmitter.h"
 
 enum CloudMeleeState
 {
@@ -39,6 +40,9 @@ public:
 	Animation facing_left;
 	Animation facing_right;
 	Animation facing_front;
+
+	SDL_Rect r1exp;
+	particle_preset explosion;
 
 	//patrol
 	float patrol_width = 48 * 3;

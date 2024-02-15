@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Animation.h"
+#include "ParticleEmitter.h"
 
 #include "Enemy.h"
 
@@ -40,6 +41,12 @@ public:
 	Animation left;
 	Animation right;
 	SDL_Rect idle;
+	particle_preset fire_ge_death;
+	particle_preset metal;
+	SDL_Rect r14firegedeath;
+	SDL_Rect r15firegedeath;
+	SDL_Rect r18metalfirst;
+	SDL_Rect r19metalsecond;
 
 	Timer animation_timer;
 

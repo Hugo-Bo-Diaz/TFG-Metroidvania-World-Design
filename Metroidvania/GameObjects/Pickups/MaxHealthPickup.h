@@ -2,6 +2,7 @@
 #define MAX__HEALTH__PICKUP
 
 #include "Physics.h"
+#include "ParticleEmitter.h"
 
 class ParticleEmitter;
 
@@ -20,5 +21,8 @@ public:
 	ParticleEmitter* p;
 	std::string text;
 	int lore_unlock = -1;
+
+	particle_preset magic;
+	SDL_Rect r13magic;
 };
 #endif

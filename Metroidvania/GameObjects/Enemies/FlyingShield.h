@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Enemy.h"
+#include "ParticleEmitter.h"
 
 class FlyingShield : public Enemy
 {
@@ -27,6 +28,9 @@ public:
 	//graphics
 	Animation flying_left;
 	Animation flying_right;
+
+	SDL_Rect r1exp;
+	particle_preset explosion;
 
 	//patrol
 	float patrol_width = 48 * 5;

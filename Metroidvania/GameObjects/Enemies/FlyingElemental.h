@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Enemy.h"
+#include "ParticleEmitter.h"
 
 enum FlyingElementalColor
 {
@@ -40,6 +41,9 @@ public:
 	//graphics
 	Animation flying_left;
 	Animation flying_right;
+
+	SDL_Rect r1exp;
+	particle_preset explosion;
 
 	void SetAnimations(FlyingElementalColor c);
 	FlyingElementalColor c;

@@ -20,12 +20,43 @@ Shockwave::Shockwave()
 	shockwave_left.AddFrame({0,160,32,32});
 	shockwave_right.AddFrame({32,160,32,32});
 
-	p = App->par->AddParticleEmitter(&App->par->groundcontact, collider->x, collider->y + collider->h);
+	r8ground = { 0,24,12,12 };
+	r9ground = { 12,24,12,12 };
+	rockblockexplosion.area_in_texture.push_back(&r8ground);
+	rockblockexplosion.area_in_texture.push_back(&r9ground);
+	rockblockexplosion.name = "ground";
+	rockblockexplosion.minmax_speed_y = std::make_pair(-6, -4);
+	rockblockexplosion.minmax_speed_x = std::make_pair(-3, 3);
+	rockblockexplosion.minmax_lifespan = std::make_pair(75, 150);
+	rockblockexplosion.minmax_angle_speed = std::make_pair(5, 15);
+	rockblockexplosion.minmax_angle = std::make_pair(0, 360);
+	rockblockexplosion.minmax_x_offset = std::make_pair(-25, 25);
+	rockblockexplosion.minmax_y_offset = std::make_pair(-25, 25);
+	rockblockexplosion.minmax_acc_y = std::make_pair(1, 2);
+	rockblockexplosion.minmax_frequency = std::make_pair(10, 25);
+	rockblockexplosion.texture_name = "particles";
+
+
+	groundcontact.area_in_texture.push_back(&r8ground);
+	groundcontact.area_in_texture.push_back(&r9ground);
+	groundcontact.name = "ground";
+	groundcontact.minmax_speed_y = std::make_pair(-6, -4);
+	groundcontact.minmax_speed_x = std::make_pair(-3, 3);
+	groundcontact.minmax_lifespan = std::make_pair(75, 150);
+	groundcontact.minmax_angle_speed = std::make_pair(5, 15);
+	groundcontact.minmax_angle = std::make_pair(0, 360);
+	groundcontact.minmax_x_offset = std::make_pair(-15, 15);
+	groundcontact.minmax_y_offset = std::make_pair(-15, 15);
+	groundcontact.minmax_acc_y = std::make_pair(1, 2);
+	groundcontact.minmax_frequency = std::make_pair(10, 25);
+	groundcontact.texture_name = "particles";
+
+	p = App->par->AddParticleEmitter(&groundcontact, collider->x, collider->y + collider->h);
 }
 
 Shockwave::~Shockwave()
 {
-	App->par->AddParticleEmitter(&App->par->rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
+	App->par->AddParticleEmitter(&rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
 	App->par->RemoveParticleEmitter(p);
 }
 

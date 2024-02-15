@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Animation.h"
+#include "ParticleEmitter.h"
 
 class CloudSummonerProjectile : public GameObject
 {
@@ -22,6 +23,9 @@ public:
 	Animation projectile;
 
 	int damage = 2;
+
+	particle_preset magic;
+	SDL_Rect r13magic;
 };
 
 #endif // !PLAYER__REP__H

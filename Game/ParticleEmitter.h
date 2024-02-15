@@ -42,12 +42,53 @@ public:
 
 	std::pair<float, float> minmax_frequency = std::make_pair(100.0f, 200.0f);
 
+
+	particle_preset(const particle_preset& old_obj)
+	{
+		minmax_angle = old_obj.minmax_angle;
+		minmax_angle_speed = old_obj.minmax_angle_speed;
+
+		minmax_scale = old_obj.minmax_scale;
+		minmax_scale_speed = old_obj.minmax_scale_speed;
+
+		minmax_lifespan = old_obj.minmax_lifespan;
+		minmax_frequency = old_obj.minmax_frequency;
+
+		minmax_speed_x = old_obj.minmax_speed_x;
+		minmax_speed_y = old_obj.minmax_speed_y;
+
+		minmax_x_offset = old_obj.minmax_x_offset;
+		minmax_y_offset = old_obj.minmax_y_offset;
+
+		minmax_acc_x = old_obj.minmax_acc_x;
+		minmax_acc_y = old_obj.minmax_acc_y;
+		
+		name = old_obj.name;
+		texture_name = old_obj.texture_name;
+
+
+		for(int i = 0; i<old_obj.area_in_texture.size();++i)
+		{
+			SDL_Rect* lRect = new SDL_Rect();
+			lRect->x = old_obj.area_in_texture[i]->x;
+			lRect->y = old_obj.area_in_texture[i]->y;
+			lRect->w = old_obj.area_in_texture[i]->w;
+			lRect->h = old_obj.area_in_texture[i]->h;
+			area_in_texture.push_back(lRect);
+		}
+
+
+	}
+	particle_preset(){
+
+	}
+
 	~particle_preset()
 	{
 		for (std::vector<SDL_Rect*>::iterator it = area_in_texture.begin(); it != area_in_texture.end(); ++it)
 		{
-			//if (*it != nullptr)
-				//delete *it;
+			if (*it != nullptr)
+				delete *it;
 		}
 	}
 };

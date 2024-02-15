@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Animation.h"
+#include "ParticleEmitter.h"
 
 class ParticleEmitter;
 
@@ -23,6 +24,9 @@ public:
 	Animation windslash;
 
 	ParticleEmitter* p;
+	particle_preset windslash_part;
+	SDL_Rect r5slash;
+
 };
 
 #endif // !PLAYER__REP__H

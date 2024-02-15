@@ -4,6 +4,7 @@
 #include "Spell.h"
 #include "Animation.h"
 #include "Timer.h"
+#include "ParticleEmitter.h"
 
 class ParticleEmitter;
 class LavaSpell;
@@ -51,7 +52,16 @@ public:
 	float shield_max_time = 5000;
 	float cooldown_shield = 5750;
 	Timer fireshield_timer;
+	
 	ParticleEmitter*to_follow;
+	particle_preset fireshield_part;
+	SDL_Rect r2shield;
+	SDL_Rect r12shield;
+
+	particle_preset lava;
+	SDL_Rect r3lava;
+
+
 	int audiochannel_shield = 0;
 	float manacost_shield = 0.25;
 	float manacost_shield_over_time = 0.005;

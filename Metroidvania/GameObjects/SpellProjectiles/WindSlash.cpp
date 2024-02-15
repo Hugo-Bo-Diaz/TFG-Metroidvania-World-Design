@@ -11,7 +11,21 @@ WindSlash::WindSlash()
 	windslash.AddFrame({ 96,222,48,48 });
 	windslash.AddFrame({ 144,222,48,48 });
 
-	p = App->par->AddParticleEmitter(&App->par->windslash,collider->x,collider->h);
+
+	r5slash = { 0,12,12,12 };
+	windslash_part.area_in_texture.push_back(&r5slash);
+	windslash_part.name = "windslash";
+	windslash_part.minmax_speed_y = std::make_pair(-0.1, 0.1);
+	windslash_part.minmax_speed_x = std::make_pair(-0.1, 0.1);
+	windslash_part.minmax_lifespan = std::make_pair(75, 150);
+	windslash_part.minmax_angle_speed = std::make_pair(5, 15);
+	windslash_part.minmax_angle = std::make_pair(0, 360);
+	windslash_part.minmax_x_offset = std::make_pair(0, 48);
+	windslash_part.minmax_y_offset = std::make_pair(0, 48);
+	windslash_part.minmax_frequency = std::make_pair(5, 20);
+	windslash_part.texture_name = "particles";
+
+	p = App->par->AddParticleEmitter(&windslash_part,collider->x,collider->h);
 }
 
 bool WindSlash::Loop(float dt)
@@ -36,7 +50,7 @@ bool WindSlash::Loop(float dt)
 			App->phy->DeleteObject(this);
 			//App->par->to_delete.push_back(p);
 			App->par->RemoveParticleEmitter(p);
-			App->par->AddParticleEmitter(&App->par->windslash, collider->x, collider->y, 500);
+			App->par->AddParticleEmitter(&windslash_part, collider->x, collider->y, 500);
 		}
 	}
 

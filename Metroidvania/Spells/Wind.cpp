@@ -17,7 +17,20 @@ Wind::~Wind()
 
 void Wind::Init()
 {
-	p = App->par->AddParticleEmitter(&App->par->windbuff, 0, 0);
+	r6buff = { 12,12,12,12 };
+	r7buff = { 24,12,12,12 };
+	windbuff.area_in_texture.push_back(&r6buff);
+	windbuff.area_in_texture.push_back(&r7buff);
+	windbuff.name = "windbuff";
+	windbuff.minmax_speed_y = std::make_pair(-1, 1);
+	windbuff.minmax_speed_x = std::make_pair(-1, 1);
+	windbuff.minmax_lifespan = std::make_pair(75, 150);
+	windbuff.minmax_x_offset = std::make_pair(0, 48);
+	windbuff.minmax_y_offset = std::make_pair(40, 48);
+	windbuff.minmax_frequency = std::make_pair(5, 10);
+	windbuff.texture_name = "particles";
+
+	p = App->par->AddParticleEmitter(&windbuff, 0, 0);
 	p->active = false;
 }
 
@@ -42,7 +55,7 @@ void Wind::Loop(float dt)
 	{
 		player->speed_y = -jump_force;
 		jump_available = false;
-		App->par->AddParticleEmitter(&App->par->windbuff, player->collider->x, player->collider->y, 400);
+		App->par->AddParticleEmitter(&windbuff, player->collider->x, player->collider->y, 400);
 	}
 
 	if (!jump_available && player->grounded)

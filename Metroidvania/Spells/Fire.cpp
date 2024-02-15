@@ -38,10 +38,10 @@ void Fire::Init()
 	fireball_big = { 0,0,64,64 };
 	fireball_small = { 96,0,32,32 };
 
-	to_follow = App->par->AddParticleEmitter(&App->par->fireshield,0,0);
+	to_follow = App->par->AddParticleEmitter(&fireshield_part,0,0);
 	to_follow->active = false;
 
-	volcano_particles = App->par->AddParticleEmitter(&App->par->lava, 0, 0);
+	volcano_particles = App->par->AddParticleEmitter(&lava, 0, 0);
 	volcano_particles->active = false;
 
 	fireshield_timer.Pause();
@@ -49,6 +49,37 @@ void Fire::Init()
 
 	lavaspawner.Pause();
 	lavaspawner.Reset();
+
+
+	r2shield = { 12,0,12,12 };
+	r12shield = { 24,0,12,12 };
+	fireshield_part.area_in_texture.push_back(&r2shield);
+	fireshield_part.area_in_texture.push_back(&r2shield);
+	fireshield_part.area_in_texture.push_back(&r12shield);
+	fireshield_part.name = "fireshield";
+	fireshield_part.minmax_x_offset = std::make_pair(-5, 69);
+	fireshield_part.minmax_y_offset = std::make_pair(0, 70);
+	fireshield_part.minmax_speed_y = std::make_pair(-1.5, -2.5);
+	fireshield_part.minmax_speed_x = std::make_pair(-0.1, 0.1);
+	fireshield_part.minmax_scale_speed = std::make_pair(-0.03, -0.04);
+	fireshield_part.minmax_scale = std::make_pair(1, 1.5);
+	fireshield_part.minmax_acc_y = std::make_pair(0.04, 0.05);
+	fireshield_part.minmax_lifespan = std::make_pair(300, 400);
+	fireshield_part.minmax_frequency = std::make_pair(5, 20);
+	fireshield_part.texture_name = "particles";
+
+	r3lava = { 36,0,12,12 };
+	lava.area_in_texture.push_back(&r3lava);
+	lava.name = "lava";
+	lava.minmax_speed_y = std::make_pair(-3, -4);
+	lava.minmax_speed_x = std::make_pair(-2, 2);
+	lava.minmax_lifespan = std::make_pair(200, 300);
+	lava.minmax_x_offset = std::make_pair(0, 64);
+	lava.minmax_y_offset = std::make_pair(60, 64);
+	lava.minmax_acc_y = std::make_pair(0.4, 0.5);
+	lava.minmax_frequency = std::make_pair(5, 20);
+	lava.texture_name = "particles";
+
 }
 
 void Fire::Loop(float dt)

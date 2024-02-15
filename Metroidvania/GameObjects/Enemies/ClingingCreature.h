@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Enemy.h"
+#include "ParticleEmitter.h"
 
 enum ClingCreatureDirection {
 	CLINGCREATURE_RIGHT,
@@ -25,6 +26,12 @@ public:
 
 	Animation animation;
 	float angle;
+	particle_preset stone_death;
+	particle_preset metal_and_sand;
+	SDL_Rect r7buff;
+	SDL_Rect r16sandfirst;
+	SDL_Rect r17sandsecond;
+	SDL_Rect r18metalfirst;
 
 	float speed_param = 1;
 

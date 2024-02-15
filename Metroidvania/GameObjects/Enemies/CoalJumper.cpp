@@ -40,13 +40,48 @@ CoalJumper::CoalJumper()
 	animations[COALJUMPER_HIT].AddFrame({ 0,0,64,64 });//1
 	animations[COALJUMPER_HIT].AddFrame({ 384,0,64,64 });//7
 
+
+	r2shield = { 12,0,12,12 };
+	r12shield = { 24,0,12,12 };
+	r7buff = { 24,12,12,12 };
+
+	fireshield.area_in_texture.push_back(&r2shield);
+	fireshield.area_in_texture.push_back(&r2shield);
+	fireshield.area_in_texture.push_back(&r12shield);
+	fireshield.name = "fireshield";
+	fireshield.minmax_x_offset = std::make_pair(-5, 69);
+	fireshield.minmax_y_offset = std::make_pair(0, 70);
+	fireshield.minmax_speed_y = std::make_pair(-1.5, -2.5);
+	fireshield.minmax_speed_x = std::make_pair(-0.1, 0.1);
+	fireshield.minmax_scale_speed = std::make_pair(-0.03, -0.04);
+	fireshield.minmax_scale = std::make_pair(1, 1.5);
+	fireshield.minmax_acc_y = std::make_pair(0.04, 0.05);
+	fireshield.minmax_lifespan = std::make_pair(300, 400);
+	fireshield.minmax_frequency = std::make_pair(5, 20);
+	fireshield.texture_name = "particles";
+
+	smoke.area_in_texture.push_back(&r7buff);
+	smoke.area_in_texture.push_back(&r12shield);
+	smoke.area_in_texture.push_back(&r12shield);
+	smoke.name = "smoke";
+	smoke.minmax_x_offset = std::make_pair(-5, 69);
+	smoke.minmax_y_offset = std::make_pair(0, 70);
+	smoke.minmax_speed_y = std::make_pair(-1.5, -2.5);
+	smoke.minmax_speed_x = std::make_pair(-0.1, 0.1);
+	smoke.minmax_scale_speed = std::make_pair(-0.03, -0.04);
+	smoke.minmax_scale = std::make_pair(1.2, 1.7);
+	smoke.minmax_acc_y = std::make_pair(0.04, 0.05);
+	smoke.minmax_lifespan = std::make_pair(300, 400);
+	smoke.minmax_frequency = std::make_pair(5, 20);
+	smoke.texture_name = "particles";
+
 	//srand(time(NULL));
 	idle_time += rand() % max_variation + 1;
 }
 
 CoalJumper::~CoalJumper()
 {
-	App->par->AddParticleEmitter(&App->par->fireshield, collider->x, collider->y, 600);
+	App->par->AddParticleEmitter(&fireshield, collider->x, collider->y, 600);
 }
 
 bool CoalJumper::Loop(float dt)
@@ -98,7 +133,6 @@ bool CoalJumper::Loop(float dt)
 						if (speed_y > acceleration_y)
 						{
 							state = COALJUMPER_LANDING;
-							printf("landing\n");
 						}
 						nextpos->y -= result.h;
 						speed_y = 0;
@@ -131,7 +165,6 @@ bool CoalJumper::Loop(float dt)
 		if (idle_timer.Read() > idle_time)
 		{
 			state = COALJUMPER_CROUCHING;
-			printf("crouching\n");
 		}
 
 		last_state = COALJUMPER_IDLE;
@@ -145,13 +178,11 @@ bool CoalJumper::Loop(float dt)
 		}
 
 		float frame = (crouching.Read()/time_crouching)*3;
-		printf("frame: %f\n", frame);
 		animations[COALJUMPER_CROUCHING].current_frame = frame;
 
 		if (crouching.Read() >= time_crouching)
 		{
 			state = COALJUMPER_JUMPING;
-			printf("jumping\n");
 		}
 
 		last_state = COALJUMPER_CROUCHING;
@@ -212,7 +243,6 @@ bool CoalJumper::Loop(float dt)
 		if (cooldown_timer.Read() > cooldown)
 		{
 			state = COALJUMPER_IDLE;
-			printf("idling\n");
 		}
 
 		last_state = COALJUMPER_LANDING;
@@ -247,7 +277,7 @@ void CoalJumper::RecieveDamage(int dmg, int _direction)
 	}
 	else
 	{
-		App->par->AddParticleEmitter(&App->par->smoke, collider->x, collider->y, 200);
+		App->par->AddParticleEmitter(&smoke, collider->x, collider->y, 200);
 	}
 
 	//speed_x = direction * 6;

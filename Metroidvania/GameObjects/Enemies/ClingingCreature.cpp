@@ -4,6 +4,41 @@
 
 ClingCreature::ClingCreature()
 {
+	r7buff = { 24,12,12,12 };
+	r16sandfirst = { 48,0,12,12 };
+	r17sandsecond = { 48,12,12,12 };
+	r18metalfirst = { 48,24,12,12 };
+
+	stone_death.area_in_texture.push_back(&r16sandfirst);
+	stone_death.area_in_texture.push_back(&r17sandsecond);
+	stone_death.name = "stone_monster_death";
+	stone_death.minmax_x_offset = std::make_pair(0, 48);
+	stone_death.minmax_y_offset = std::make_pair(0, 48);
+	stone_death.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	stone_death.minmax_speed_y = std::make_pair(-2, -3);
+	stone_death.minmax_scale = std::make_pair(1, 1.5);
+	stone_death.minmax_angle = std::make_pair(0, 360);
+	stone_death.minmax_lifespan = std::make_pair(200, 500);
+	stone_death.minmax_frequency = std::make_pair(7, 15);
+	stone_death.minmax_acc_y = std::make_pair(0.1, 0.3);
+	stone_death.texture_name = "particles";
+
+	metal_and_sand.area_in_texture.push_back(&r16sandfirst);
+	//metal_and_sand.area_in_texture.push_back(&r17sandsecond);
+	metal_and_sand.area_in_texture.push_back(&r18metalfirst);
+	metal_and_sand.name = "metal and sand";
+	metal_and_sand.minmax_speed_y = std::make_pair(-6, -4);
+	metal_and_sand.minmax_speed_x = std::make_pair(-3, 3);
+	metal_and_sand.minmax_lifespan = std::make_pair(75, 150);
+	metal_and_sand.minmax_angle_speed = std::make_pair(5, 15);
+	metal_and_sand.minmax_angle = std::make_pair(0, 360);
+	metal_and_sand.minmax_x_offset = std::make_pair(-15, 15);
+	metal_and_sand.minmax_y_offset = std::make_pair(-15, 15);
+	metal_and_sand.minmax_acc_y = std::make_pair(1, 2);
+	metal_and_sand.minmax_scale = std::make_pair(1.1, 1.3);
+	metal_and_sand.minmax_frequency = std::make_pair(5, 12);
+	metal_and_sand.texture_name = "particles";
+
 	animation.AddFrame({ 0,0,48,48});
 	animation.AddFrame({ 48,0,48,48 });
 	animation.AddFrame({ 96,0,48,48 });
@@ -13,7 +48,7 @@ ClingCreature::ClingCreature()
 
 ClingCreature::~ClingCreature()
 {
-	App->par->AddParticleEmitter(&App->par->stone_death, collider->x, collider->y, 200);
+	App->par->AddParticleEmitter(&stone_death, collider->x, collider->y, 200);
 }
 
 bool ClingCreature::Loop(float dt)
@@ -222,7 +257,7 @@ void ClingCreature::RecieveDamage(int dmg, int direction)
 	}
 	else
 	{
-		App->par->AddParticleEmitter(&App->par->metal_and_sand, collider->x, collider->y, 200);
+		App->par->AddParticleEmitter(&metal_and_sand, collider->x, collider->y, 200);
 	}
 
 }

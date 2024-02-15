@@ -26,3 +26,53 @@ ERRO - 14-02-2024 07:12:44 - 30104 - Freeing textures and Image library
 INFO - 14-02-2024 07:12:44 - 30104 - Quitting Render
 INFO - 14-02-2024 07:12:44 - 30104 - Quitting Window
 ERRO - 14-02-2024 07:12:44 - 30104 - EXITING: no errors found
+INFO - 14-02-2024 07:20:37 - 40744 - found config file, loading...
+INFO - 14-02-2024 07:20:37 - 40744 - Init SDL window & surface
+INFO - 14-02-2024 07:20:37 - 40744 - Create SDL rendering context
+INFO - 14-02-2024 07:20:37 - 40744 - Init Image library
+INFO - 14-02-2024 07:20:37 - 40744 - Init SDL input event system
+INFO - 14-02-2024 07:20:37 - 40744 - Initiated phyisics
+INFO - 14-02-2024 07:20:37 - 40744 - Initializing audio
+ERRO - 14-02-2024 07:20:53 - 40744 - EXITING: with errors (loop)
+ERRO - 14-02-2024 07:20:53 - 40744 - Freeing textures and Image library
+INFO - 14-02-2024 07:20:53 - 40744 - Quitting Render
+INFO - 14-02-2024 07:20:53 - 40744 - Quitting Window
+ERRO - 14-02-2024 07:20:54 - 40744 - EXITING: no errors found
+INFO - 14-02-2024 07:21:14 - 33220 - found config file, loading...
+INFO - 14-02-2024 07:21:14 - 33220 - Init SDL window & surface
+INFO - 14-02-2024 07:21:14 - 33220 - Create SDL rendering context
+INFO - 14-02-2024 07:21:15 - 33220 - Init Image library
+INFO - 14-02-2024 07:21:15 - 33220 - Init SDL input event system
+INFO - 14-02-2024 07:21:15 - 33220 - Initiated phyisics
+INFO - 14-02-2024 07:21:15 - 33220 - Initializing audio
+ERRO - 14-02-2024 07:22:22 - 33220 - EXITING: with errors (loop)
+ERRO - 14-02-2024 07:22:22 - 33220 - Freeing textures and Image library
+INFO - 14-02-2024 07:22:22 - 33220 - Quitting Render
+INFO - 14-02-2024 07:22:22 - 33220 - Quitting Window
+ERRO - 14-02-2024 07:22:22 - 33220 - EXITING: no errors found
+INFO - 14-02-2024 07:24:25 - 46716 - found config file, loading...
+INFO - 14-02-2024 07:24:25 - 46716 - Init SDL window & surface
+INFO - 14-02-2024 07:24:25 - 46716 - Create SDL rendering context
+INFO - 14-02-2024 07:24:25 - 46716 - Init Image library
+INFO - 14-02-2024 07:24:25 - 46716 - Init SDL input event system
+INFO - 14-02-2024 07:24:25 - 46716 - Initiated phyisics
+INFO - 14-02-2024 07:24:25 - 46716 - Initializing audio
+INFO - 14-02-2024 07:26:04 - 45620 - found config file, loading...
+INFO - 14-02-2024 07:26:04 - 45620 - Init SDL window & surface
+INFO - 14-02-2024 07:26:05 - 45620 - Create SDL rendering context
+INFO - 14-02-2024 07:26:05 - 45620 - Init Image library
+INFO - 14-02-2024 07:26:05 - 45620 - Init SDL input event system
+INFO - 14-02-2024 07:26:05 - 45620 - Initiated phyisics
+INFO - 14-02-2024 07:26:05 - 45620 - Initializing audio
+INFO - 14-02-2024 07:32:10 - 39948 - found config file, loading...
+INFO - 14-02-2024 07:32:10 - 39948 - Init SDL window & surface
+INFO - 14-02-2024 07:32:10 - 39948 - Create SDL rendering context
+INFO - 14-02-2024 07:32:10 - 39948 - Init Image library
+INFO - 14-02-2024 07:32:11 - 39948 - Init SDL input event system
+INFO - 14-02-2024 07:32:11 - 39948 - Initiated phyisics
+INFO - 14-02-2024 07:32:11 - 39948 - Initializing audio
+ERRO - 14-02-2024 07:32:29 - 39948 - EXITING: with errors (loop)
+ERRO - 14-02-2024 07:32:29 - 39948 - Freeing textures and Image library
+INFO - 14-02-2024 07:32:29 - 39948 - Quitting Render
+INFO - 14-02-2024 07:32:29 - 39948 - Quitting Window
+ERRO - 14-02-2024 07:32:29 - 39948 - EXITING: no errors found

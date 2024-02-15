@@ -10,7 +10,21 @@
 MaxHealthPickup::MaxHealthPickup()
 {
 	maxhealthplus = {0,0,48,48};
-	p = App->par->AddParticleEmitter(&App->par->magic, 0, 0);
+
+	r13magic = { 0,36,12,12 };
+	magic.area_in_texture.push_back(&r13magic);
+	magic.name = "magic";
+	magic.minmax_x_offset = std::make_pair(-5, 53);
+	magic.minmax_y_offset = std::make_pair(24, 55);
+	magic.minmax_speed_y = std::make_pair(-0.3, -0.5);
+	magic.minmax_scale = std::make_pair(0.5, 1);
+	magic.minmax_angle_speed = std::make_pair(5, 15);
+	magic.minmax_angle = std::make_pair(0, 360);
+	magic.minmax_lifespan = std::make_pair(300, 400);
+	magic.minmax_frequency = std::make_pair(20, 40);
+	magic.texture_name = "particles";
+
+	p = App->par->AddParticleEmitter(&magic, 0, 0);
 	if (App->trk->BaseSaveSection->GetChild("pickups") == nullptr)
 	{
 		App->trk->BaseSaveSection->AddNewChild("pickups");
@@ -79,7 +93,7 @@ bool MaxHealthPickup::Loop(float dt)
 					textbox->AddPanelToTextBox("New lore entry unlocked");
 				}
 				//App->par->to_delete.push_back(p);
-				App->par->AddParticleEmitter(&App->par->magic, collider->x, collider->y, 1500);
+				App->par->AddParticleEmitter(&magic, collider->x, collider->y, 1500);
 			}
 		}
 	}

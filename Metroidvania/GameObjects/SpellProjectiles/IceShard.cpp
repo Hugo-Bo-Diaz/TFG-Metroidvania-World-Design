@@ -8,7 +8,18 @@ IceShard::IceShard()
 	ice_shard_right.AddFrame({ 162,134,48,24 });
 	ice_shard_left.AddFrame({ 102,134,48,24 });
 
-	p = App->par->AddParticleEmitter(&App->par->ice, collider->x, collider->y);
+	r4ice = { 36,12,12,12 };
+	ice.area_in_texture.push_back(&r4ice);
+	ice.name = "ice";
+	ice.minmax_speed_y = std::make_pair(-0.2, 0.2);
+	ice.minmax_speed_x = std::make_pair(-0.4, 0.4);
+	ice.minmax_lifespan = std::make_pair(75, 150);
+	ice.minmax_x_offset = std::make_pair(22, 42);
+	ice.minmax_y_offset = std::make_pair(4, 20);
+	ice.minmax_frequency = std::make_pair(5, 20);
+	ice.texture_name = "particles";
+
+	p = App->par->AddParticleEmitter(&ice, collider->x, collider->y);
 }
 
 bool IceShard::Loop(float dt)
@@ -32,7 +43,7 @@ bool IceShard::Loop(float dt)
 			App->phy->DeleteObject(this);
 			//App->par->to_delete.push_back(p);
 			App->par->RemoveParticleEmitter(p);
-			App->par->AddParticleEmitter(&App->par->ice, collider->x-8, collider->y, 300);
+			App->par->AddParticleEmitter(&ice, collider->x-8, collider->y, 300);
 		}
 	}
 

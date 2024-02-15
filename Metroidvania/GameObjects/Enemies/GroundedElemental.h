@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Enemy.h"
+#include "ParticleEmitter.h"
 
 enum GroundedElementalColor
 {
@@ -33,6 +34,12 @@ public:
 	Timer animation_timer;
 	Animation walking_left;
 	Animation walking_right;
+	particle_preset fire_ge_death;
+	particle_preset stone_death;
+	SDL_Rect r14firegedeath;
+	SDL_Rect r15firegedeath;
+	SDL_Rect r16sandfirst;
+	SDL_Rect r17sandsecond;
 
 	void SetAnimations(GroundedElementalColor c);
 	bool knocked_up = false;

@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Animation.h"
+#include "ParticleEmitter.h"
 
 class ParticleEmitter;
 
@@ -18,6 +19,9 @@ public:
 
 	SDL_Rect firespellbook;
 
+	particle_preset fireshield;
+	SDL_Rect r2shield;
+	SDL_Rect r12shield;
 	ParticleEmitter* p;
 };
 #endif

@@ -2,6 +2,7 @@
 #define MAX__MANA__PICKUP
 
 #include "Physics.h"
+#include "ParticleEmitter.h"
 
 class ParticleEmitter;
 
@@ -21,5 +22,8 @@ public:
 
 	std::string text;
 	int lore_unlock = -1;
+
+	particle_preset magic;
+	SDL_Rect r13magic;
 };
 #endif

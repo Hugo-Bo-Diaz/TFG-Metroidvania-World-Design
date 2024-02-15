@@ -4,6 +4,7 @@
 #include "Spell.h"
 #include "Animation.h"
 #include "Timer.h"
+#include "ParticleEmitter.h"
 
 class ParticleEmitter;
 
@@ -39,6 +40,9 @@ public:
 	Timer mobility_timer;
 
 	ParticleEmitter* p;
+	particle_preset windbuff;
+	SDL_Rect r6buff;
+	SDL_Rect r7buff;
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include "Spell.h"
 #include "Animation.h"
 #include "Timer.h"
+#include "ParticleEmitter.h"
 
 class Ground : public Spell
 {
@@ -53,6 +54,11 @@ public:
 
 	//sprites
 	SDL_Rect groundpound = { 128,160,64,32 };
+
+	particle_preset groundcontact;
+	particle_preset rockblockexplosion;
+	SDL_Rect r8ground;
+	SDL_Rect r9ground;
 };
 
 #endif

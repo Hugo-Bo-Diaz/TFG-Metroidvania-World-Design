@@ -13,6 +13,19 @@ CloudSummoner::CloudSummoner()
 	facing_right.AddFrame({ 128,0,64,48 });
 	facing_left.AddFrame({ 64,0,64,48 });
 	facing_front.AddFrame({ 0,0,64,48 });
+
+	r1exp = { 0,0,12,12 };
+	explosion.area_in_texture.push_back(&r1exp);
+	explosion.name = "explosion";
+	explosion.minmax_x_offset = std::make_pair(-20, 20);
+	explosion.minmax_y_offset = std::make_pair(-20, 20);
+	explosion.minmax_speed_y = std::make_pair(-2, -3);
+	explosion.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	explosion.minmax_scale_speed = std::make_pair(0.01, 0.02);
+	explosion.minmax_lifespan = std::make_pair(200, 500);
+	explosion.minmax_frequency = std::make_pair(10, 50);
+	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
+	explosion.texture_name = "particles";
 }
 
 CloudSummoner::CloudSummoner(float _initial_x, float _initial_y)
@@ -32,7 +45,7 @@ CloudSummoner::CloudSummoner(float _initial_x, float _initial_y)
 
 CloudSummoner::~CloudSummoner()
 {
-	App->par->AddParticleEmitter(&App->par->explosion, collider->x, collider->y, 300);
+	App->par->AddParticleEmitter(&explosion, collider->x, collider->y, 300);
 }
 
 bool CloudSummoner::Loop(float dt)
@@ -203,8 +216,6 @@ bool CloudSummoner::Loop(float dt)
 	oscilated_y = sin(3.14 * perm / 180) * 15;
 
 	book_angle += 4;
-
-	printf("%d\n", book_angle);
 
 	if (book_angle > 360)
 		book_angle = 0;

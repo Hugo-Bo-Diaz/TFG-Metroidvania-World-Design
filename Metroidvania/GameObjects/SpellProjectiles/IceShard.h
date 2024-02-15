@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Animation.h"
+#include "ParticleEmitter.h"
 
 class ParticleEmitter;
 
@@ -24,6 +25,9 @@ public:
 	Animation ice_shard_right;
 
 	ParticleEmitter* p;
+	particle_preset ice;
+	SDL_Rect r4ice;
+
 };
 
 #endif // !PLAYER__REP__H

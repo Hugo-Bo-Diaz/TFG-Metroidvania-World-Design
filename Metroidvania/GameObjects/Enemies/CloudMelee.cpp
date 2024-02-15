@@ -6,6 +6,19 @@
 
 CloudMelee::CloudMelee()
 {
+	r1exp = { 0,0,12,12 };
+	explosion.area_in_texture.push_back(&r1exp);
+	explosion.name = "explosion";
+	explosion.minmax_x_offset = std::make_pair(-20, 20);
+	explosion.minmax_y_offset = std::make_pair(-20, 20);
+	explosion.minmax_speed_y = std::make_pair(-2, -3);
+	explosion.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	explosion.minmax_scale_speed = std::make_pair(0.01, 0.02);
+	explosion.minmax_lifespan = std::make_pair(200, 500);
+	explosion.minmax_frequency = std::make_pair(10, 50);
+	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
+	explosion.texture_name = "particles";
+
 	//64*48
 
 	facing_right.AddFrame({ 64,0,64,48 });
@@ -26,7 +39,7 @@ CloudMelee::CloudMelee(float _initial_x, float _initial_y)
 
 CloudMelee::~CloudMelee()
 {
-	App->par->AddParticleEmitter(&App->par->explosion, collider->x, collider->y, 300);
+	App->par->AddParticleEmitter(&explosion, collider->x, collider->y, 300);
 }
 
 

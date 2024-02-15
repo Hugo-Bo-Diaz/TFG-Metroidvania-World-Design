@@ -19,9 +19,24 @@ Grass::~Grass()
 
 void Grass::Init()
 {
+	r10grass = { 24,24,12,12 };
+	r11grass = { 36,24,12,12 };
+	grass.area_in_texture.push_back(&r10grass);
+	grass.area_in_texture.push_back(&r11grass);
+	grass.name = "grass";
+	grass.minmax_x_offset = std::make_pair(-20, 20);
+	grass.minmax_y_offset = std::make_pair(-20, 20);
+	grass.minmax_angle_speed = std::make_pair(5, 15);
+	grass.minmax_angle = std::make_pair(0, 360);
+	grass.minmax_scale_speed = std::make_pair(0.03, 0.04);
+	grass.minmax_scale = std::make_pair(1, 1.2);
+	grass.minmax_lifespan = std::make_pair(100, 200);
+	grass.minmax_frequency = std::make_pair(5, 20);
+	grass.texture_name = "particles";
+
 	thorns_timer.Pause();
 	thorns_timer.Reset();
-	p = App->par->AddParticleEmitter(&App->par->grass, 0, 0);
+	p = App->par->AddParticleEmitter(&grass, 0, 0);
 	p->active = false;
 }
 

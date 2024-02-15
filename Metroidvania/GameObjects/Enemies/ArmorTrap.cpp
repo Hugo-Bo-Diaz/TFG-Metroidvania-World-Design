@@ -8,6 +8,40 @@
 
 ArmorTrap::ArmorTrap()
 {
+	r14firegedeath = { 24,36,12,12 };
+	r15firegedeath = { 36,36,12,12 };
+	r18metalfirst = { 48,24,12,12 };
+	r19metalsecond = { 48,36,12,12 };
+
+	fire_ge_death.area_in_texture.push_back(&r14firegedeath);
+	fire_ge_death.area_in_texture.push_back(&r15firegedeath);
+	fire_ge_death.name = "fire grounded death";
+	fire_ge_death.minmax_x_offset = std::make_pair(0, 48);
+	fire_ge_death.minmax_y_offset = std::make_pair(0, 48);
+	fire_ge_death.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	fire_ge_death.minmax_speed_y = std::make_pair(-2, -3);
+	fire_ge_death.minmax_scale = std::make_pair(1, 1.5);
+	fire_ge_death.minmax_angle = std::make_pair(0, 360);
+	fire_ge_death.minmax_lifespan = std::make_pair(200, 500);
+	fire_ge_death.minmax_frequency = std::make_pair(10, 20);
+	fire_ge_death.minmax_acc_y = std::make_pair(0.1, 0.3);
+	fire_ge_death.texture_name = "particles";
+
+
+	metal.area_in_texture.push_back(&r18metalfirst);
+	metal.area_in_texture.push_back(&r19metalsecond);
+	metal.name = "metal";
+	metal.minmax_speed_y = std::make_pair(-6, -4);
+	metal.minmax_speed_x = std::make_pair(-3, 3);
+	metal.minmax_lifespan = std::make_pair(75, 150);
+	metal.minmax_angle_speed = std::make_pair(5, 15);
+	metal.minmax_angle = std::make_pair(0, 360);
+	metal.minmax_x_offset = std::make_pair(-15, 15);
+	metal.minmax_y_offset = std::make_pair(-15, 15);
+	metal.minmax_acc_y = std::make_pair(1, 2);
+	metal.minmax_frequency = std::make_pair(8, 15);
+	metal.texture_name = "particles";
+
 	idle = {0,0,48,72};
 
 	left.AddFrame({ 48,0,48,72 });
@@ -23,7 +57,7 @@ ArmorTrap::ArmorTrap()
 ArmorTrap::~ArmorTrap()
 {
 	//ADD PARTICLES
-	App->par->AddParticleEmitter(&App->par->fire_ge_death, collider->x, collider->y, 200);
+	App->par->AddParticleEmitter(&fire_ge_death, collider->x, collider->y, 200);
 
 }
 
@@ -212,7 +246,7 @@ void ArmorTrap::RecieveDamage(int dmg, int direction)
 	}
 	else
 	{
-		App->par->AddParticleEmitter(&App->par->metal, collider->x, collider->y, 300);
+		App->par->AddParticleEmitter(&metal, collider->x, collider->y, 300);
 	}
 
 	speed_x = direction * 6;
