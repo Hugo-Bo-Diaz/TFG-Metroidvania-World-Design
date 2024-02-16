@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 class ParticleEmitter;
 
@@ -27,6 +28,8 @@ public:
 	particle_preset windslash_part;
 	SDL_Rect r5slash;
 
+	TextureID spells;
+	TextureID particles;
 };
 
 #endif // !PLAYER__REP__H

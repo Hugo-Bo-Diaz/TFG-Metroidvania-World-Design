@@ -14,12 +14,28 @@
 #include "ProgressTracker.h"
 
 #include <Windows.h>
+#include <exception>
 
 #include "SDL/include/SDL.h"
 
 Application::Application()
 {
 	SDL_Init(SDL_INIT_VIDEO);
+}
+
+
+void ExceptionHandler()
+{
+	std::exception_ptr lExc = std::current_exception();
+
+	try
+	{
+		std::rethrow_exception(lExc);
+	}
+	catch (const std::exception & e)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, e.what());
+	}
 }
 
 
@@ -126,6 +142,8 @@ bool Application::Init()
 
 bool Application::Start()
 {
+	std::set_terminate(ExceptionHandler);
+
 	bool ret = true;
 	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
 	{
@@ -189,7 +207,6 @@ bool Application::CleanUp()
 
 void Application::LoadConfig(const char* filename)
 {
-	bool create_file = false;
 	pugi::xml_document	config_file;
 	pugi::xml_node config_node;
 	pugi::xml_parse_result result = config_file.load_file(filename);
@@ -201,8 +218,14 @@ void Application::LoadConfig(const char* filename)
 		Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
 		Logger::Console_log(LogLevel::LOG_WARN,"creating new configuration file...");
 
-		create_file = true;
 		config_node = config_file.append_child("config");
+		for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
+		{
+			pugi::xml_node part_node = config_node.append_child((*it)->name.c_str());
+			(*it)->CreateConfig(part_node);
+		}
+		config_file.save_file(filename);
+
 	}
 	else
 	{
@@ -212,22 +235,8 @@ void Application::LoadConfig(const char* filename)
 
 	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
 	{
-
-		if (create_file == false)
-		{
 			pugi::xml_node part_node = config_node.child((*it)->name.c_str());
 			(*it)->LoadConfig(part_node);
-		}
-		else
-		{
-			pugi::xml_node part_node = config_node.append_child((*it)->name.c_str());
-			(*it)->CreateConfig(part_node);
-		}
-	}
-	
-	if (create_file)
-	{
-		config_file.save_file(filename);
 	}
 }
 

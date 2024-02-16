@@ -3,6 +3,13 @@
 #include "Render.h"
 #include "Cloud.h"
 #include "Physics.h"
+
+Rain::Rain()
+{
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
+
+}
+
 void Rain::Loop()
 {
 	hitbox.y += speed;
@@ -24,5 +31,5 @@ void Rain::Loop()
 
 void Rain::Render()
 {
-	App->ren->Blit(App->tex->Get_Texture("spells"), hitbox.x, hitbox.y, &blitrect, -2);
+	App->ren->Blit(spells, hitbox.x, hitbox.y, &blitrect, -2);
 }

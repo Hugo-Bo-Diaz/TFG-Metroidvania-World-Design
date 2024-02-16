@@ -5,6 +5,9 @@
 
 Thorns::Thorns()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
+
 	r10grass = { 24,24,12,12 };
 	r11grass = { 36,24,12,12 };
 	grass.area_in_texture.push_back(&r10grass);
@@ -18,7 +21,7 @@ Thorns::Thorns()
 	grass.minmax_scale = std::make_pair(1, 1.2);
 	grass.minmax_lifespan = std::make_pair(100, 200);
 	grass.minmax_frequency = std::make_pair(5, 20);
-	grass.texture_name = "particles";
+	grass.texture_name = particles;
 
 	p = App->par->AddParticleEmitter(&grass, collider->x, collider->y);
 	state = SEED;
@@ -170,7 +173,7 @@ bool Thorns::Render()
 	case SEED:
 	{
 
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, &seed, -1);
+		App->ren->Blit(spells, collider->x, collider->y, &seed, -1);
 	}
 	break;
 	case THORNS_ON_FLOOR:
@@ -183,16 +186,16 @@ bool Thorns::Render()
 			if (i % 2 == 0)
 			{
 				//draw thorns 1
-				App->ren->Blit(App->tex->Get_Texture("spells"), collider->x + i * 32, collider->y, &thorn_first, -2);
+				App->ren->Blit(spells, collider->x + i * 32, collider->y, &thorn_first, -2);
 			}
 			else
 			{
 				//draw thorns 2
-				App->ren->Blit(App->tex->Get_Texture("spells"), collider->x + i * 32, collider->y, &thorn_second, -2);
+				App->ren->Blit(spells, collider->x + i * 32, collider->y, &thorn_second, -2);
 			}
 		}
 		last_thorn_segment.w = extra_distance;
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x + i * 32, collider->y, &last_thorn_segment, -2);
+		App->ren->Blit(spells, collider->x + i * 32, collider->y, &last_thorn_segment, -2);
 
 	}
 	}

@@ -5,6 +5,9 @@
 #include "Particles.h"
 IceShard::IceShard()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
+
 	ice_shard_right.AddFrame({ 162,134,48,24 });
 	ice_shard_left.AddFrame({ 102,134,48,24 });
 
@@ -17,7 +20,7 @@ IceShard::IceShard()
 	ice.minmax_x_offset = std::make_pair(22, 42);
 	ice.minmax_y_offset = std::make_pair(4, 20);
 	ice.minmax_frequency = std::make_pair(5, 20);
-	ice.texture_name = "particles";
+	ice.texture_name = particles;
 
 	p = App->par->AddParticleEmitter(&ice, collider->x, collider->y);
 }
@@ -54,12 +57,12 @@ bool IceShard::Render()
 {
 	if (direction == 1)
 	{
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, ice_shard_right.GetCurrentFrame(), -2);
+		App->ren->Blit(spells, collider->x, collider->y, ice_shard_right.GetCurrentFrame(), -2);
 		ice_shard_right.NextFrame();
 	}
 	else
 	{
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, ice_shard_left.GetCurrentFrame(), -2);
+		App->ren->Blit(spells, collider->x, collider->y, ice_shard_left.GetCurrentFrame(), -2);
 		ice_shard_left.NextFrame();
 	}
 

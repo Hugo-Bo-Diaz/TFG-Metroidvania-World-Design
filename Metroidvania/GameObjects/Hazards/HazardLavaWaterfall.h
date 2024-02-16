@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Animation.h"
+#include "Textures.h"
 
 class HazardLavaWaterfall : public GameObject
 {
@@ -14,7 +15,7 @@ public:
 	Animation anim;
 	Timer lava_animation;
 	float iteration_time = 500;
-
+	TextureID hazards;
 };
 
 #endif

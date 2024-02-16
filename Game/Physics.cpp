@@ -1,48 +1,4 @@
 #include "Physics.h"
-//#include "Player.h"
-//
-//#include "FireBall.h"
-//
-//#include "WindSlash.h"
-//
-//#include "IceShard.h"
-//#include "IceBlock.h"
-//
-//#include "Cloud.h"
-//#include "Leaf.h"
-//#include "Thorns.h"
-//
-//#include "Rock.h"
-//#include "Shockwave.h"
-//
-//#include "FireSpellPickup.h"
-//#include "GroundSpellPickup.h"
-//
-//#include "MaxHealthPickup.h"
-//#include "MaxManaPickup.h"
-//
-//#include "GroundedElemental.h"
-//#include "FlyingElemental.h"
-//#include "CoalJumper.h"
-//#include "ArmorTrap.h"
-//#include "ShieldMonster.h"
-//#include "ClingingCreature.h"
-//#include "FlyingAxe.h"
-//#include "FlyingShield.h"
-//#include "CloudMelee.h"
-//#include "CloudSummoner.h"
-//#include "CloudSummonerProjectile.h"
-//
-//#include "HazardLava.h"
-//#include "HazardLavaWaterfall.h"
-//#include "HazardSpikes.h"
-//#include "HazardsRockBlock.h"
-//#include "CloudTrampoline.h"
-
-//#include "CheckPoint.h"
-//#include "FirstDialogue.h"
-//#include "TextBoxObject.h"
-//#include "DemoEndObject.h"
 #include "Logger.h"
 
 Physics::Physics()

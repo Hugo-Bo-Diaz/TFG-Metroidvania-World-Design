@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 class FlyingShield : public Enemy
 {
@@ -38,6 +39,8 @@ public:
 
 	float speed_x = 3;
 
+	TextureID particles;
+	TextureID floating_shield;
 };
 
 #endif

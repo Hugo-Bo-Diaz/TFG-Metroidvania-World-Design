@@ -18,6 +18,9 @@
 
 FireBall::FireBall()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
+
 	fireball_big.AddFrame({0,0,64,64});
 	fireball_small.AddFrame({96,0,32,32});
 
@@ -32,7 +35,7 @@ FireBall::FireBall()
 	explosion.minmax_lifespan = std::make_pair(200, 500);
 	explosion.minmax_frequency = std::make_pair(10, 50);
 	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
-	explosion.texture_name = "particles";
+	explosion.texture_name = particles;
 }
 
 void FireBall::Destroy()
@@ -89,9 +92,9 @@ bool FireBall::Loop(float dt)
 bool FireBall::Render()
 {
 	if (is_big)
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, fireball_big.GetCurrentFrame(), -2);
+		App->ren->Blit(spells, collider->x, collider->y, fireball_big.GetCurrentFrame(), -2);
 	else
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, fireball_small.GetCurrentFrame(), -2);
+		App->ren->Blit(spells, collider->x, collider->y, fireball_small.GetCurrentFrame(), -2);
 
 	return true;
 }

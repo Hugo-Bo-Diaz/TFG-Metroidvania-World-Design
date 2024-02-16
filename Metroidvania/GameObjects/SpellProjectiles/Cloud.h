@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Animation.h"
+#include "Textures.h"
 #include <vector>
 class Rain;
 
@@ -31,6 +32,7 @@ public:
 	std::vector<Rain*> rain_vector;
 	std::vector<Rain*> rain_to_delete;
 
+	TextureID spells;
 };
 
 #endif // !PLAYER__REP__H

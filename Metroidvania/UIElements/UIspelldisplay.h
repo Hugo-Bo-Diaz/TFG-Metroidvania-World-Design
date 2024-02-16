@@ -3,6 +3,7 @@
 
 #include "UIelement.h"
 #include <vector>
+#include "Textures.h"
 
 #include "../GameObjects/Player.h"
 
@@ -26,6 +27,8 @@ public:
 	
 	int current_spell;
 
+	TextureID lTexture;
+	TextureID lBooksTex;
 
 	void Loop();
 	void Render();

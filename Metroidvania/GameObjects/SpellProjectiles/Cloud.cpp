@@ -7,6 +7,7 @@
 Cloud::Cloud()
 {
 	SDL_Rect wall = { collider->x,collider->y,collider->w,collider->h };
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
 
 	blitrect = {96,96,64,32};
 }
@@ -15,7 +16,7 @@ bool Cloud::Loop(float dt)
 {
 	bool ret = true;
 
-	App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, &blitrect, -2);
+	App->ren->Blit(spells, collider->x, collider->y, &blitrect, -2);
 
 	if (timer.Read()>life_expectancy)
 	{

@@ -16,7 +16,7 @@ UIimage::UIimage(float _x, float _y, float _w, float _h, float _depth, const cha
 
 	depth = _depth;
 
-	texture_name = texture;
+	Tex = App->tex->Load_Texture(texture);
 }
 
 void UIimage::Loop()
@@ -26,7 +26,7 @@ void UIimage::Loop()
 
 void UIimage::Render()
 {
-	App->ren->BlitUI(App->tex->Get_Texture(texture_name.c_str()), global_x, global_y, &screenspace, depth);
+	App->ren->BlitUI(Tex, global_x, global_y, &screenspace, depth);
 
 	UIelement::Render();
 }

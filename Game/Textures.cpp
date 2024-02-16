@@ -1,5 +1,4 @@
 #include "Application.h"
-
 #include "Textures.h"
 #include "Render.h"
 #include "Logger.h"
@@ -8,8 +7,8 @@
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 
 #include <algorithm>
-
-
+#include <Windows.h>
+#include <direct.h>
 
 Textures::Textures()
 {
@@ -32,15 +31,15 @@ bool Textures::LoadConfig(pugi::xml_node& config_node)
 		Logger::Console_log(LogLevel::LOG_ERROR, lStr.c_str());
 		ret = false;
 	}
-	
-	pugi::xml_node node_textures = config_node.child("textures");
 
-	pugi::xml_node texture;
-	int i = 0;
-	for (texture = node_textures.first_child(); texture; texture = texture.next_sibling())// there are more entities with properties
+	std::list<std::string> lFiles;
+	GetAllImagesPathRecursive("", lFiles);
+	
+	for (std::list<std::string>::iterator it = lFiles.begin(); it != lFiles.end(); it++)
 	{
-		Load_Texture_nonode(texture.attribute("path").as_string(), texture.attribute("name").as_string());
+		Load_Texture((*it).c_str());
 	}
+
 	return ret;
 }
 
@@ -63,48 +62,6 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 
 	pugi::xml_node textures_node = config_node.append_child("textures");
 
-	Load_Texture("Assets/Sprites/Player.png", "player", textures_node);
-	Load_Texture("Assets/Sprites/spells.png", "spells", textures_node);
-
-	Load_Texture("Assets/UI/books.png", "spell_books", textures_node);
-	Load_Texture("Assets/UI/healthandmana.png", "healthbars", textures_node);
-	Load_Texture("Assets/UI/spell_location.png", "spell_display_base", textures_node);
-	Load_Texture("Assets/UI/textboxes.png", "text_boxes", textures_node);
-
-	Load_Texture("Assets/UI/mainmenu.png", "mainmenu", textures_node);
-	Load_Texture("Assets/UI/mainmenuselected.png", "mainmenuselected", textures_node);
-	Load_Texture("Assets/UI/mainmenudisabled.png", "mainmenudisabled", textures_node);
-
-	Load_Texture("Assets/UI/pause_menu_base.png", "pause_menu_base", textures_node);
-	Load_Texture("Assets/UI/pause_menu_options.png", "pause_menu_options", textures_node);
-	Load_Texture("Assets/UI/settings_menu_base.png", "settings_menu_base", textures_node);
-	Load_Texture("Assets/UI/settings_menu_options.png", "settings_menu_options", textures_node);
-
-	Load_Texture("Assets/UI/black_square.png", "black_square", textures_node);
-	Load_Texture("Assets/UI/black_square_alpha.png", "black_square_alpha", textures_node);
-
-	Load_Texture("Assets/UI/indicator.png", "indicator", textures_node);
-	Load_Texture("Assets/UI/selectmenubackground.png", "selectmenubackground", textures_node);
-	Load_Texture("Assets/UI/selectmenulogbook.png", "selectmenulogbook", textures_node);
-	
-	Load_Texture("Assets/UI/selectmenuoptions.png", "selectmenuoptions", textures_node);
-
-	Load_Texture("Assets/Sprites/particles.png", "particles", textures_node);
-	Load_Texture("Assets/Sprites/items.png", "items", textures_node);
-	Load_Texture("Assets/Sprites/hazards.png", "hazards", textures_node);
-
-	Load_Texture("Assets/Sprites/enemies/groundelemental.png","groundelemental", textures_node);
-	Load_Texture("Assets/Sprites/enemies/flyingelemental.png", "flyingelemental", textures_node);
-	Load_Texture("Assets/Sprites/enemies/coaljumper.png", "coaljumper", textures_node);
-	Load_Texture("Assets/Sprites/enemies/armortrap.png", "armortrap", textures_node);
-	Load_Texture("Assets/Sprites/enemies/shield_monster_arm.png", "shield_monster_arm", textures_node);
-	Load_Texture("Assets/Sprites/enemies/shield_monster.png", "shield_monster", textures_node);
-	Load_Texture("Assets/Sprites/enemies/cling_enemy.png", "cling_enemy", textures_node);
-	Load_Texture("Assets/Sprites/enemies/floating_axe.png", "floating_axe", textures_node);
-	Load_Texture("Assets/Sprites/enemies/floating_shield.png", "floating_shield", textures_node);
-	Load_Texture("Assets/Sprites/enemies/cloud_melee.png", "cloud_melee", textures_node);
-	Load_Texture("Assets/Sprites/enemies/cloud_summoner.png", "cloud_summoner", textures_node);
-	Load_Texture("Assets/Sprites/enemies/dark_cloud.png", "dark_cloud", textures_node);
 
 
 	return ret;
@@ -118,31 +75,66 @@ bool Textures::Init()
 	return ret;
 }
 
-bool Textures::Valid_Texture(const char* texture_to_validate)
+void Textures::GetAllImagesPathRecursive(const char* path, std::list<std::string>& listToFill)
 {
-	/*if (std::find(texture_list.begin(), texture_list.end(), texture_to_validate) != texture_list.end())
+	TCHAR pwd[MAX_PATH];
+	GetCurrentDirectory(MAX_PATH, pwd);
+
+	WIN32_FIND_DATAA fdFile;
+	HANDLE hFind = NULL;
+
+	std::wstring conver((const wchar_t*) &pwd[0], sizeof(pwd) / sizeof(pwd[0])); //convert to wstring
+	std::string fulldir(conver.begin(), conver.end());
+
+	fulldir += path;
+	fulldir += "\\*";
+
+	if ((hFind = FindFirstFileA(fulldir.c_str(), &fdFile)) == INVALID_HANDLE_VALUE)
 	{
-		return true;
+		return;
 	}
-	else
+	fulldir = fulldir.erase(fulldir.size() - 2);
+
+	do
 	{
-		printf("texture couldn't be validated");
-		return false;
-	}*/
-	return true;
+		//first two files
+		if (strcmp(fdFile.cFileName, ".") != 0
+			&& strcmp(fdFile.cFileName, "..") != 0)
+		{
+			//is it a folder
+			if (fdFile.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+			{
+				std::string folder_rel = path;
+				folder_rel += "\\";
+				folder_rel += fdFile.cFileName;
+
+				GetAllImagesPathRecursive(folder_rel.c_str(), listToFill);
+			}
+			else
+			{
+				std::string s = fdFile.cFileName;
+
+				if (s.substr(s.find_last_of(".") + 1) == "png")
+				{
+					listToFill.push_back(s);
+				}
+			}
+		}
+
+	} while (FindNextFileA(hFind, &fdFile));
+
+	FindClose(hFind);
+
 }
 
-void Textures::Load_Texture_nonode(const char* path, const char* name)
+TextureID Textures::Load_Texture(const char*path)
 {
-	Load_Texture(path, name, pugi::xml_node::xml_node());
-}
-void Textures::Load_Texture(const char*path,const char* name, pugi::xml_node& node)
-{
-	if (!node.empty())
+	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
 	{
-		pugi::xml_node tex_node = node.append_child("texture");
-		tex_node.append_attribute("path") = path;
-		tex_node.append_attribute("name") = name;
+		if (std::strcmp((*it)->name.c_str(), path) == 0)
+		{
+			return (*it)->id;
+		}
 	}
 
 	SDL_Texture* texture = NULL;
@@ -165,61 +157,23 @@ void Textures::Load_Texture(const char*path,const char* name, pugi::xml_node& no
 		}
 		SDL_FreeSurface(surface);
 		
-	Texture* new_tex = new Texture();
-	new_tex->texture = texture;
-	new_tex->id = number_of_textures;
-	++number_of_textures;
-	new_tex->name = name;
-
-	texture_list.push_back(new_tex);
-	}
-
-
-
-	return;
-}
-
-SDL_Texture * Textures::Load_Texture_Scene(const char * path)
-{
-	SDL_Texture* texture = NULL;
-	SDL_Surface* surface = IMG_Load(path);
-
-	if (surface == NULL)
-	{
-		std::string lStr = "Could not load surface with path: ";
-		lStr += path;
-		lStr += " IMG_Init: ";
-		lStr += IMG_GetError();
-		Logger::Console_log(LogLevel::LOG_ERROR, lStr.c_str());
-	}
-	else
-	{
-		texture = SDL_CreateTextureFromSurface(App->ren->renderer, surface);
-		if (texture == NULL)
-		{
-			Logger::Console_log(LogLevel::LOG_ERROR, "couldn't make texture from surface");
-		}
-		SDL_FreeSurface(surface);
-
 		Texture* new_tex = new Texture();
 		new_tex->texture = texture;
-		new_tex->id = number_of_textures;
 		++number_of_textures;
-		new_tex->name = name;
+		new_tex->id = number_of_textures;
+		new_tex->name = path;
 
 		texture_list.push_back(new_tex);
+		return new_tex->id;
 	}
-
-
-
-	return texture;
+	return 0;
 }
 
-SDL_Texture* Textures::Get_Texture(const char* name)
+SDL_Texture* Textures::Get_Texture(TextureID id)
 {
 	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
 	{
-		if ((*it)->name==name && Valid_Texture((*it)->name.c_str()))
+		if ((*it)->id==id)
 		{
 			return ((*it)->texture);
 		}
@@ -232,7 +186,7 @@ void Textures::Destroy_Texture(const char* texture_to_destroy)
 {
 	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
 	{
-		if ((*it)->name==texture_to_destroy&&Valid_Texture((*it)->name.c_str()))
+		if ((*it)->name==texture_to_destroy)
 		{
 			delete(*it);
 			texture_list.erase(it);
@@ -250,10 +204,8 @@ bool Textures::CleanUp()
 	Logger::Console_log(LogLevel::LOG_ERROR, "Freeing textures and Image library");
 	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
 	{
-		if (Valid_Texture((*it)->name.c_str()))
-		{
-			delete(*it);
-		}
+		delete(*it);
+		
 	}
 	texture_list.clear();
 	IMG_Quit();

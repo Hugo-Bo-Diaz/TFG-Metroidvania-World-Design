@@ -6,6 +6,9 @@
 
 CloudMelee::CloudMelee()
 {
+	cloud_melee = App->tex->Load_Texture("Assets/Sprites/enemies/cloud_melee.png");
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+
 	r1exp = { 0,0,12,12 };
 	explosion.area_in_texture.push_back(&r1exp);
 	explosion.name = "explosion";
@@ -17,7 +20,7 @@ CloudMelee::CloudMelee()
 	explosion.minmax_lifespan = std::make_pair(200, 500);
 	explosion.minmax_frequency = std::make_pair(10, 50);
 	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
-	explosion.texture_name = "particles";
+	explosion.texture_name = particles;
 
 	//64*48
 
@@ -251,11 +254,11 @@ bool CloudMelee::Render()
 	{
 		if (speed_x < 0)
 		{
-			App->ren->Blit(App->tex->Get_Texture("cloud_melee"), collider->x, collider->y, facing_left.GetCurrentFrame(), 0);
+			App->ren->Blit(cloud_melee, collider->x, collider->y, facing_left.GetCurrentFrame(), 0);
 		}
 		else
 		{
-			App->ren->Blit(App->tex->Get_Texture("cloud_melee"), collider->x, collider->y, facing_right.GetCurrentFrame(), 0);
+			App->ren->Blit(cloud_melee, collider->x, collider->y, facing_right.GetCurrentFrame(), 0);
 		}
 	}
 
@@ -263,11 +266,11 @@ bool CloudMelee::Render()
 	{
 		if (speed_x > 0)
 		{
-			App->ren->Blit(App->tex->Get_Texture("cloud_melee"), collider->x, collider->y, facing_left.GetCurrentFrame(), 0);
+			App->ren->Blit(cloud_melee, collider->x, collider->y, facing_left.GetCurrentFrame(), 0);
 		}
 		else
 		{
-			App->ren->Blit(App->tex->Get_Texture("cloud_melee"), collider->x, collider->y, facing_right.GetCurrentFrame(), 0);
+			App->ren->Blit(cloud_melee, collider->x, collider->y, facing_right.GetCurrentFrame(), 0);
 		}
 	}
 

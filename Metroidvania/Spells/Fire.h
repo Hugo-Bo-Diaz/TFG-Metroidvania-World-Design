@@ -74,6 +74,9 @@ public:
 	Animation firebreath_left;
 
 	Animation fireshield;
+
+	TextureID spells;
+	TextureID particles;
 };
 
 

@@ -1,8 +1,11 @@
 #ifndef FIRST__DIALOGUE
 #define FIRST__DIALOGUE
+
 #include "Physics.h"
+#include "Textures.h"
 
 class UItextbox;
+
 
 class FirstDialogue :
 	public GameObject
@@ -13,6 +16,7 @@ public:
 	bool Render();
 
 	UItextbox* textbox;
+	TextureID texture;
 };
 
 #endif

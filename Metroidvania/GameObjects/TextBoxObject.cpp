@@ -9,6 +9,8 @@
 
 TextBoxObject::TextBoxObject()
 {
+	texture = App->tex->Load_Texture("Assets/UI/indicator.png");
+
 	rectanglekeyboard = {0,0,48,48};
 	rectanglecontroller = { 48,0,48,48 };
 	if (App->trk->BaseSaveSection->GetChild("LoreLogs") == nullptr)
@@ -74,9 +76,9 @@ bool TextBoxObject::Render()
 	if (player_contact == true)
 	{
 		if(App->inp->using_controller)
-			App->ren->Blit(App->tex->Get_Texture("indicator"), collider->x + collider->w/2 - 24, collider->y - 48, &rectanglecontroller,-5);
+			App->ren->Blit(texture, collider->x + collider->w/2 - 24, collider->y - 48, &rectanglecontroller,-5);
 		else
-			App->ren->Blit(App->tex->Get_Texture("indicator"), collider->x + collider->w / 2 - 24, collider->y - 48, &rectanglekeyboard, -5);
+			App->ren->Blit(texture, collider->x + collider->w / 2 - 24, collider->y - 48, &rectanglekeyboard, -5);
 	}
 
 	return true;

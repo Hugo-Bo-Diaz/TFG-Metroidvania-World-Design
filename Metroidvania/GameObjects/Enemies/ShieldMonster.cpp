@@ -9,6 +9,10 @@
 
 ShieldMonster::ShieldMonster()
 {
+	shield_monster = App->tex->Load_Texture("Assets/Sprites/enemies/shield_monster.png");
+	shield_monster_arm = App->tex->Load_Texture("Assets/Sprites/enemies/shield_monster_arm.png");
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+
 	r8ground = { 0,24,12,12 };
 	r9ground = { 12,24,12,12 };
 	r16sandfirst = { 48,0,12,12 };
@@ -27,7 +31,7 @@ ShieldMonster::ShieldMonster()
 	shield_monster_hit.minmax_angle = std::make_pair(0, 360);
 	shield_monster_hit.minmax_acc_y = std::make_pair(1, 2);
 	shield_monster_hit.minmax_frequency = std::make_pair(10, 15);
-	shield_monster_hit.texture_name = "particles";
+	shield_monster_hit.texture_name = particles;
 
 	shield_monster_death.area_in_texture.push_back(&r16sandfirst);
 	shield_monster_death.area_in_texture.push_back(&r17sandsecond);
@@ -43,7 +47,7 @@ ShieldMonster::ShieldMonster()
 	shield_monster_death.minmax_lifespan = std::make_pair(200, 500);
 	shield_monster_death.minmax_frequency = std::make_pair(7, 15);
 	shield_monster_death.minmax_acc_y = std::make_pair(0.1, 0.3);
-	shield_monster_death.texture_name = "particles";
+	shield_monster_death.texture_name = particles;
 
 	stone_death.area_in_texture.push_back(&r16sandfirst);
 	stone_death.area_in_texture.push_back(&r17sandsecond);
@@ -57,7 +61,7 @@ ShieldMonster::ShieldMonster()
 	stone_death.minmax_lifespan = std::make_pair(200, 500);
 	stone_death.minmax_frequency = std::make_pair(7, 15);
 	stone_death.minmax_acc_y = std::make_pair(0.1, 0.3);
-	stone_death.texture_name = "particles";
+	stone_death.texture_name = particles;
 
 	metal.area_in_texture.push_back(&r18metalfirst);
 	metal.area_in_texture.push_back(&r19metalsecond);
@@ -71,7 +75,7 @@ ShieldMonster::ShieldMonster()
 	metal.minmax_y_offset = std::make_pair(-15, 15);
 	metal.minmax_acc_y = std::make_pair(1, 2);
 	metal.minmax_frequency = std::make_pair(8, 15);
-	metal.texture_name = "particles";
+	metal.texture_name = particles;
 
 
 	right.AddFrame({ 0,0,112,140 });
@@ -443,7 +447,7 @@ bool ShieldMonster::Render()
 
 	if (gdirection < 0)
 	{
-		App->ren->Blit(App->tex->Get_Texture("shield_monster"), collider->x, collider->y, left.GetCurrentFrame(), 0);
+		App->ren->Blit(shield_monster, collider->x, collider->y, left.GetCurrentFrame(), 0);
 		if (left.current_frame+1 > left.amount_of_frames / 2)
 		{
 			offset_y += 10;
@@ -451,7 +455,7 @@ bool ShieldMonster::Render()
 	}
 	else
 	{
-		App->ren->Blit(App->tex->Get_Texture("shield_monster"), collider->x, collider->y, right.GetCurrentFrame(), 0);
+		App->ren->Blit(shield_monster, collider->x, collider->y, right.GetCurrentFrame(), 0);
 		if (right.current_frame+1 > right.amount_of_frames / 2)
 		{
 			offset_y += 10;
@@ -461,9 +465,9 @@ bool ShieldMonster::Render()
 
 
 	if (gdirection < 0)
-		App->ren->Blit(App->tex->Get_Texture("shield_monster_arm"), collider->x-50, collider->y+8+offset_y, &arm_left, 0,arm_angle,1,1,98,16);
+		App->ren->Blit(shield_monster_arm, collider->x-50, collider->y+8+offset_y, &arm_left, 0,arm_angle,1,1,98,16);
 	else
-		App->ren->Blit(App->tex->Get_Texture("shield_monster_arm"), collider->x+42, collider->y+8+offset_y, &arm_right, 0,arm_angle,1,1,14,16);
+		App->ren->Blit(shield_monster_arm, collider->x+42, collider->y+8+offset_y, &arm_right, 0,arm_angle,1,1,14,16);
 
 	return true;
 }

@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 class Player;
 
@@ -81,6 +82,10 @@ public:
 	SDL_Rect r17sandsecond;
 	SDL_Rect r18metalfirst;
 	SDL_Rect r19metalsecond;
+	
+	TextureID shield_monster;
+	TextureID shield_monster_arm;
+	TextureID particles;
 
 	Timer animation_timer;
 

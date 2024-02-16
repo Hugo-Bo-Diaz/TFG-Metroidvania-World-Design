@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 class ParticleEmitter;
 
@@ -25,5 +26,8 @@ public:
 	particle_preset sand_right;
 	SDL_Rect r16sandfirst;
 	SDL_Rect r17sandsecond;
+
+	TextureID particles;
+	TextureID spell_books;
 };
 #endif

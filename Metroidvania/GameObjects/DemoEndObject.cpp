@@ -9,6 +9,9 @@
 
 EndDemoObject::EndDemoObject()
 {
+	indicator = App->tex->Load_Texture("Assets/UI/indicator.png");
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+
 	rectanglekeyboard = { 0,0,48,48 };
 	rectanglecontroller = { 48,0,48,48 };
 }
@@ -73,9 +76,9 @@ bool EndDemoObject::Render()
 	if (player_contact == true)
 	{
 		if (App->inp->using_controller)
-			App->ren->Blit(App->tex->Get_Texture("indicator"), collider->x + collider->w / 2 - 24, collider->y - 48, &rectanglecontroller, -5);
+			App->ren->Blit(indicator, collider->x + collider->w / 2 - 24, collider->y - 48, &rectanglecontroller, -5);
 		else
-			App->ren->Blit(App->tex->Get_Texture("indicator"), collider->x + collider->w / 2 - 24, collider->y - 48, &rectanglekeyboard, -5);
+			App->ren->Blit(indicator, collider->x + collider->w / 2 - 24, collider->y - 48, &rectanglekeyboard, -5);
 	}
 
 	return true;

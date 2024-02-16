@@ -1,7 +1,10 @@
 #ifndef TEXT__BOX__OBJECT__H
 #define TEXT__BOX__OBJECT__H
+
 #include "Physics.h"
 #include "Gui.h"
+#include "Textures.h"
+
 class UItextbox;
 
 class TextBoxObject :
@@ -29,6 +32,8 @@ public:
 
 	SDL_Rect rectanglekeyboard;
 	SDL_Rect rectanglecontroller;
+
+	TextureID texture;
 };
 
 #endif

@@ -9,6 +9,7 @@
 
 HazardLava::HazardLava()
 {
+	hazards = App->tex->Load_Texture("Assets/Sprites/hazards.png");
 	lava = {0,48,48,48};
 	lava_top1 = {0,0,48,48};
 	lava_top2 = {48,0,48,48};
@@ -53,11 +54,11 @@ bool HazardLava::Render()
 
 		if (cycle % 2 == 0)
 		{
-			App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x + 48 * i, collider->y - 48, &lava_top1, -20);
+			App->ren->Blit(hazards, collider->x + 48 * i, collider->y - 48, &lava_top1, -20);
 		}
 		else
 		{
-			App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x + 48 * i, collider->y - 48, &lava_top2, -20);
+			App->ren->Blit(hazards, collider->x + 48 * i, collider->y - 48, &lava_top2, -20);
 		}
 	}
 
@@ -66,7 +67,7 @@ bool HazardLava::Render()
 	{
 		for (int j = 0; j < tilesy; ++j)
 		{
-			App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x + 48 * i, collider->y + 48 * j, &lava, -20);
+			App->ren->Blit(hazards, collider->x + 48 * i, collider->y + 48 * j, &lava, -20);
 		}
 	}
 

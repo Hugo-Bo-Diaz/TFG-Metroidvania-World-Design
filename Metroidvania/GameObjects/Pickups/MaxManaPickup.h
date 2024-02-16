@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 class ParticleEmitter;
 
@@ -25,5 +26,8 @@ public:
 
 	particle_preset magic;
 	SDL_Rect r13magic;
+
+	TextureID particles;
+	TextureID items;
 };
 #endif

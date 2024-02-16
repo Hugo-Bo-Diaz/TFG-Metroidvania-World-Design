@@ -7,10 +7,11 @@
 #include "Particles.h"
 
 #include "ProgressTracker.h"
-#include "Textures.h"
 
 HazardRockBlock::HazardRockBlock()
 {
+	hazards = App->tex->Load_Texture("Assets/Sprites/hazards.png");
+
 	rockblock = { 48,48,48,48 };
 }
 
@@ -67,7 +68,7 @@ bool HazardRockBlock::Loop(float dt)
 bool HazardRockBlock::Render()
 {
 
-	App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x, collider->y+5, &rockblock, -20);
+	App->ren->Blit(hazards, collider->x, collider->y+5, &rockblock, -20);
 	
 
 	return true;

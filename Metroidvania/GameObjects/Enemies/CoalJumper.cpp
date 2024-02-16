@@ -19,6 +19,9 @@ CoalJumper::CoalJumper()
 	//6 {320,0,64,64}
 	//7 {384,0,64,64}
 
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	coaljumper = App->tex->Load_Texture("Assets/Sprites/enemies/coaljumper.png");
+
 	animations[COALJUMPER_IDLE].AddFrame({ 0,0,64,64 });//1
 	animations[COALJUMPER_IDLE].AddFrame({ 64,0,64,64 });//2
 	animations[COALJUMPER_IDLE].AddFrame({ 128,0,64,64 });//3
@@ -58,7 +61,7 @@ CoalJumper::CoalJumper()
 	fireshield.minmax_acc_y = std::make_pair(0.04, 0.05);
 	fireshield.minmax_lifespan = std::make_pair(300, 400);
 	fireshield.minmax_frequency = std::make_pair(5, 20);
-	fireshield.texture_name = "particles";
+	fireshield.texture_name = particles;
 
 	smoke.area_in_texture.push_back(&r7buff);
 	smoke.area_in_texture.push_back(&r12shield);
@@ -73,7 +76,7 @@ CoalJumper::CoalJumper()
 	smoke.minmax_acc_y = std::make_pair(0.04, 0.05);
 	smoke.minmax_lifespan = std::make_pair(300, 400);
 	smoke.minmax_frequency = std::make_pair(5, 20);
-	smoke.texture_name = "particles";
+	smoke.texture_name = particles;
 
 	//srand(time(NULL));
 	idle_time += rand() % max_variation + 1;
@@ -260,9 +263,7 @@ bool CoalJumper::Loop(float dt)
 
 bool CoalJumper::Render()
 {
-
-
-	App->ren->Blit(App->tex->Get_Texture("coaljumper"), collider->x, collider->y, animations[state].GetCurrentFrame(), -1);
+	App->ren->Blit(coaljumper, collider->x, collider->y, animations[state].GetCurrentFrame(), -1);
 
 	return true;
 }

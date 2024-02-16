@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "Spell.h"
+#include "Textures.h"
 
 enum state
 {
@@ -86,6 +87,8 @@ public:
 	Animation walking_left;
 	Animation air_right;
 	Animation air_left;
+
+	TextureID playerTex;
 
 	bool left;
 	bool right;

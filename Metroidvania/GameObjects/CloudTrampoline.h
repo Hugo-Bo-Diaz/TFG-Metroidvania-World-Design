@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Timer.h"
+#include "Textures.h"
 
 class CloudTrampoline :
 	public GameObject
@@ -16,6 +17,8 @@ public:
 	SDL_Rect cloudLeft;
 	SDL_Rect cloudLoop;
 	SDL_Rect cloudRight;
+
+	TextureID hazards;
 };
 
 #endif

@@ -6,6 +6,9 @@
 
 FlyingElemental::FlyingElemental()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	flyingelemental = App->tex->Load_Texture("Assets/Sprites/enemies/flyingelemental.png");
+
 	r1exp = { 0,0,12,12 };
 	explosion.area_in_texture.push_back(&r1exp);
 	explosion.name = "explosion";
@@ -17,7 +20,7 @@ FlyingElemental::FlyingElemental()
 	explosion.minmax_lifespan = std::make_pair(200, 500);
 	explosion.minmax_frequency = std::make_pair(10, 50);
 	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
-	explosion.texture_name = "particles";
+	explosion.texture_name = particles;
 
 }
 
@@ -219,12 +222,12 @@ bool FlyingElemental::Render()
 		if (speed_x < 0)
 		{
 			flying_left.NextFrame();
-			App->ren->Blit(App->tex->Get_Texture("flyingelemental"), collider->x, collider->y, flying_left.GetCurrentFrame(), 0);
+			App->ren->Blit(flyingelemental, collider->x, collider->y, flying_left.GetCurrentFrame(), 0);
 		}
 		else
 		{
 			flying_right.NextFrame();
-			App->ren->Blit(App->tex->Get_Texture("flyingelemental"), collider->x, collider->y, flying_right.GetCurrentFrame(), 0);
+			App->ren->Blit(flyingelemental, collider->x, collider->y, flying_right.GetCurrentFrame(), 0);
 		}
 	}
 
@@ -233,12 +236,12 @@ bool FlyingElemental::Render()
 		if (speed_x > 0)
 		{
 			flying_left.NextFrame();
-			App->ren->Blit(App->tex->Get_Texture("flyingelemental"), collider->x, collider->y, flying_left.GetCurrentFrame(), 0);
+			App->ren->Blit(flyingelemental, collider->x, collider->y, flying_left.GetCurrentFrame(), 0);
 		}
 		else
 		{
 			flying_right.NextFrame();
-			App->ren->Blit(App->tex->Get_Texture("flyingelemental"), collider->x, collider->y, flying_right.GetCurrentFrame(), 0);
+			App->ren->Blit(flyingelemental, collider->x, collider->y, flying_right.GetCurrentFrame(), 0);
 		}
 	}
 

@@ -9,6 +9,9 @@
 #include "../../UIelementFunctions.h"
 MaxManaPickup::MaxManaPickup()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	items = App->tex->Load_Texture("Assets/Sprites/items.png");
+
 	maxmanaplus = { 48,0,48,48 };
 
 	r13magic = { 0,36,12,12 };
@@ -22,7 +25,7 @@ MaxManaPickup::MaxManaPickup()
 	magic.minmax_angle = std::make_pair(0, 360);
 	magic.minmax_lifespan = std::make_pair(300, 400);
 	magic.minmax_frequency = std::make_pair(20, 40);
-	magic.texture_name = "particles";
+	magic.texture_name = particles;
 
 	p = App->par->AddParticleEmitter(&magic, 0, 0);
 
@@ -107,7 +110,7 @@ bool MaxManaPickup::Loop(float dt)
 
 bool MaxManaPickup::Render()
 {
-	App->ren->Blit(App->tex->Get_Texture("items"), collider->x, collider->y, &maxmanaplus, 10);
+	App->ren->Blit(items, collider->x, collider->y, &maxmanaplus, 10);
 
 	return true;
 }

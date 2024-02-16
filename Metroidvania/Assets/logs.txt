@@ -76,3 +76,388 @@ ERRO - 14-02-2024 07:32:29 - 39948 - Freeing textures and Image library
 INFO - 14-02-2024 07:32:29 - 39948 - Quitting Render
 INFO - 14-02-2024 07:32:29 - 39948 - Quitting Window
 ERRO - 14-02-2024 07:32:29 - 39948 - EXITING: no errors found
+INFO - 15-02-2024 20:55:04 - 42404 - found config file, loading...
+INFO - 15-02-2024 20:55:04 - 42404 - Init SDL window & surface
+INFO - 15-02-2024 20:55:04 - 42404 - Create SDL rendering context
+INFO - 15-02-2024 20:55:04 - 42404 - Init Image library
+INFO - 15-02-2024 20:55:05 - 42404 - Init SDL input event system
+INFO - 15-02-2024 20:55:05 - 42404 - Initiated phyisics
+INFO - 15-02-2024 20:55:05 - 42404 - Initializing audio
+ERRO - 15-02-2024 20:55:10 - 42404 - EXITING: with errors (loop)
+ERRO - 15-02-2024 20:55:10 - 42404 - Freeing textures and Image library
+INFO - 15-02-2024 20:55:10 - 42404 - Quitting Render
+INFO - 15-02-2024 20:55:10 - 42404 - Quitting Window
+ERRO - 15-02-2024 20:55:10 - 42404 - EXITING: no errors found
+INFO - 16-02-2024 18:16:19 - 22660 - found config file, loading...
+INFO - 16-02-2024 18:16:19 - 22660 - Init SDL window & surface
+INFO - 16-02-2024 18:16:19 - 22660 - Create SDL rendering context
+INFO - 16-02-2024 18:16:20 - 22660 - Init Image library
+INFO - 16-02-2024 18:16:20 - 22660 - Init SDL input event system
+INFO - 16-02-2024 18:16:20 - 22660 - Initiated phyisics
+INFO - 16-02-2024 18:16:20 - 22660 - Initializing audio
+ERRO - 16-02-2024 18:16:21 - 22660 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:16:21 - 22660 - EXITING: with errors (loop)
+ERRO - 16-02-2024 18:16:21 - 22660 - Freeing textures and Image library
+INFO - 16-02-2024 18:16:21 - 22660 - Quitting Render
+INFO - 16-02-2024 18:16:21 - 22660 - Quitting Window
+ERRO - 16-02-2024 18:16:21 - 22660 - EXITING: no errors found
+INFO - 16-02-2024 18:28:53 - 18136 - found config file, loading...
+INFO - 16-02-2024 18:28:53 - 18136 - Init SDL window & surface
+INFO - 16-02-2024 18:28:53 - 18136 - Create SDL rendering context
+INFO - 16-02-2024 18:28:53 - 18136 - Init Image library
+INFO - 16-02-2024 18:28:53 - 18136 - Init SDL input event system
+INFO - 16-02-2024 18:28:53 - 18136 - Initiated phyisics
+INFO - 16-02-2024 18:28:53 - 18136 - Initializing audio
+ERRO - 16-02-2024 18:28:54 - 18136 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:28:54 - 18136 - EXITING: with errors (loop)
+ERRO - 16-02-2024 18:28:54 - 18136 - Freeing textures and Image library
+INFO - 16-02-2024 18:28:54 - 18136 - Quitting Render
+INFO - 16-02-2024 18:28:54 - 18136 - Quitting Window
+ERRO - 16-02-2024 18:28:54 - 18136 - EXITING: no errors found
+INFO - 16-02-2024 18:30:00 - 8264 - found config file, loading...
+INFO - 16-02-2024 18:30:00 - 8264 - Init SDL window & surface
+INFO - 16-02-2024 18:30:00 - 8264 - Create SDL rendering context
+INFO - 16-02-2024 18:30:00 - 8264 - Init Image library
+INFO - 16-02-2024 18:30:00 - 8264 - Init SDL input event system
+INFO - 16-02-2024 18:30:00 - 8264 - Initiated phyisics
+INFO - 16-02-2024 18:30:00 - 8264 - Initializing audio
+ERRO - 16-02-2024 18:30:01 - 8264 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:32:19 - 8264 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:32:32 - 8264 - EXITING: with errors (loop)
+ERRO - 16-02-2024 18:32:32 - 8264 - Freeing textures and Image library
+INFO - 16-02-2024 18:32:32 - 8264 - Quitting Render
+INFO - 16-02-2024 18:32:33 - 8264 - Quitting Window
+ERRO - 16-02-2024 18:32:33 - 8264 - EXITING: no errors found
+INFO - 16-02-2024 18:33:42 - 12044 - found config file, loading...
+INFO - 16-02-2024 18:33:42 - 12044 - Init SDL window & surface
+INFO - 16-02-2024 18:33:42 - 12044 - Create SDL rendering context
+INFO - 16-02-2024 18:33:43 - 12044 - Init Image library
+INFO - 16-02-2024 18:33:43 - 12044 - Init SDL input event system
+INFO - 16-02-2024 18:33:43 - 12044 - Initiated phyisics
+INFO - 16-02-2024 18:33:43 - 12044 - Initializing audio
+ERRO - 16-02-2024 18:33:43 - 12044 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:10 - 12044 - EXITING: with errors (loop)
+ERRO - 16-02-2024 18:35:10 - 12044 - Freeing textures and Image library
+INFO - 16-02-2024 18:35:10 - 12044 - Quitting Render
+INFO - 16-02-2024 18:35:10 - 12044 - Quitting Window
+ERRO - 16-02-2024 18:35:10 - 12044 - EXITING: no errors found
+INFO - 16-02-2024 18:35:18 - 24000 - found config file, loading...
+INFO - 16-02-2024 18:35:18 - 24000 - Init SDL window & surface
+INFO - 16-02-2024 18:35:18 - 24000 - Create SDL rendering context
+INFO - 16-02-2024 18:35:18 - 24000 - Init Image library
+INFO - 16-02-2024 18:35:18 - 24000 - Init SDL input event system
+INFO - 16-02-2024 18:35:18 - 24000 - Initiated phyisics
+INFO - 16-02-2024 18:35:19 - 24000 - Initializing audio
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:19 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:20 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:21 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:22 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:23 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:24 - 24000 - Cannot blit to screen. SDL_RenderCopy error: Invalid texture
+ERRO - 16-02-2024 18:35:24 - 24000 - EXITING: with errors (loop)
+ERRO - 16-02-2024 18:35:24 - 24000 - Freeing textures and Image library
+INFO - 16-02-2024 18:35:24 - 24000 - Quitting Render
+INFO - 16-02-2024 18:35:24 - 24000 - Quitting Window
+ERRO - 16-02-2024 18:35:24 - 24000 - EXITING: no errors found
+INFO - 16-02-2024 18:36:23 - 7672 - found config file, loading...
+INFO - 16-02-2024 18:36:23 - 7672 - Init SDL window & surface
+INFO - 16-02-2024 18:36:23 - 7672 - Create SDL rendering context
+INFO - 16-02-2024 18:36:23 - 7672 - Init Image library
+INFO - 16-02-2024 18:36:23 - 7672 - Init SDL input event system
+INFO - 16-02-2024 18:36:23 - 7672 - Initiated phyisics
+INFO - 16-02-2024 18:36:24 - 7672 - Initializing audio
+INFO - 16-02-2024 18:38:10 - 22948 - found config file, loading...
+INFO - 16-02-2024 18:38:10 - 22948 - Init SDL window & surface
+INFO - 16-02-2024 18:38:10 - 22948 - Create SDL rendering context
+INFO - 16-02-2024 18:38:10 - 22948 - Init Image library
+INFO - 16-02-2024 18:38:10 - 22948 - Init SDL input event system
+INFO - 16-02-2024 18:38:10 - 22948 - Initiated phyisics
+INFO - 16-02-2024 18:38:10 - 22948 - Initializing audio
+INFO - 16-02-2024 18:38:45 - 26128 - found config file, loading...
+INFO - 16-02-2024 18:38:45 - 26128 - Init SDL window & surface
+INFO - 16-02-2024 18:38:45 - 26128 - Create SDL rendering context
+INFO - 16-02-2024 18:38:45 - 26128 - Init Image library
+INFO - 16-02-2024 18:38:45 - 26128 - Init SDL input event system
+INFO - 16-02-2024 18:38:45 - 26128 - Initiated phyisics
+INFO - 16-02-2024 18:38:45 - 26128 - Initializing audio
+INFO - 16-02-2024 18:38:57 - 24392 - found config file, loading...
+INFO - 16-02-2024 18:38:57 - 24392 - Init SDL window & surface
+INFO - 16-02-2024 18:38:57 - 24392 - Create SDL rendering context
+INFO - 16-02-2024 18:38:57 - 24392 - Init Image library
+INFO - 16-02-2024 18:38:57 - 24392 - Init SDL input event system
+INFO - 16-02-2024 18:38:57 - 24392 - Initiated phyisics
+INFO - 16-02-2024 18:38:57 - 24392 - Initializing audio
+INFO - 16-02-2024 18:39:58 - 6300 - found config file, loading...
+INFO - 16-02-2024 18:39:58 - 6300 - Init SDL window & surface
+INFO - 16-02-2024 18:39:58 - 6300 - Create SDL rendering context
+INFO - 16-02-2024 18:39:58 - 6300 - Init Image library
+INFO - 16-02-2024 18:39:58 - 6300 - Init SDL input event system
+INFO - 16-02-2024 18:39:58 - 6300 - Initiated phyisics
+INFO - 16-02-2024 18:39:58 - 6300 - Initializing audio
+ERRO - 16-02-2024 18:40:26 - 6300 - EXITING: with errors (loop)
+ERRO - 16-02-2024 18:40:26 - 6300 - Freeing textures and Image library
+INFO - 16-02-2024 18:40:26 - 6300 - Quitting Render
+INFO - 16-02-2024 18:40:26 - 6300 - Quitting Window
+ERRO - 16-02-2024 18:40:26 - 6300 - EXITING: no errors found

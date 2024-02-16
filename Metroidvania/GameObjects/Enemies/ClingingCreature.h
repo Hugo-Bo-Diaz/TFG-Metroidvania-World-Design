@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 enum ClingCreatureDirection {
 	CLINGCREATURE_RIGHT,
@@ -50,6 +51,9 @@ public:
 	bool shouldfall = false;
 	float accy = 1.0;
 	float speed_y = 0;
+
+	TextureID cling_enemy;
+	TextureID particles;
 };
 
 #endif // !CLING__CREATURE__H

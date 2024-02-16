@@ -50,31 +50,14 @@ bool Render::CreateConfig(pugi::xml_node& config_node)
 {
 	bool ret = true;
 
-	background.r = 0;
-	background.g = 0;
-	background.b = 0;
-	background.a = 0;
-
 	pugi::xml_node & color_node = config_node.append_child("bkg_color");
 	color_node.append_attribute("r") = 0.0;
 	color_node.append_attribute("g") = 0.0;
 	color_node.append_attribute("b") = 0.0;
 	color_node.append_attribute("a") = 0.0;
 
-	Logger::Console_log(LogLevel::LOG_INFO, "Create SDL rendering context");
-	// load flags
-	Uint32 flags = SDL_RENDERER_ACCELERATED;
-
 	//vsync will be on by default
 	config_node.append_child("vsync").append_attribute("on") = true;
-	flags |= SDL_RENDERER_PRESENTVSYNC;
-	Logger::Console_log(LogLevel::LOG_INFO, "Using vsync");
-
-	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
-	if (!renderer)
-	{
-		ret = false;
-	}
 	return ret;
 }
 
@@ -297,7 +280,7 @@ bool Render::Loop(float dt)
 				std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
 				errstr += SDL_GetError();
 				Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
-				ret = false;
+				//ret = false;
 			}
 
 			if (item->center_x != -1 && item->center_y != -1)
@@ -800,14 +783,14 @@ bool Render::Loop(float dt)
 	return ret;
 }
 
-void Render::Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle, float parallax_factor_x, float parallax_factor_y, int center_x,int center_y)
+void Render::Blit(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, float angle, float parallax_factor_x, float parallax_factor_y, int center_x,int center_y)
 {
 	BlitItem* it = new BlitItem();
 	it->depth = depth;
 	it->on_img = rect_on_image;
 	it->x = x;
 	it->y = y;
-	it->tex = tex;
+	it->tex = App->tex->Get_Texture(aTexID);
 
 	it->center_x = center_x;
 	it->center_y = center_y;
@@ -846,12 +829,12 @@ void Render::BlitMapTile(SDL_Texture * tex, int x_tile, int y_tile,SDL_Rect on_i
 
 }
 */
-void Render::BlitMapBackground(SDL_Texture * tex, int depth, bool repeat_y, float parallax_factor_x, float parallax_factor_y)
+void Render::BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x, float parallax_factor_y)
 {
 	BlitBackground* it = new BlitBackground();
 
 	it->depth = depth;
-	it->tex = tex;
+	it->tex = App->tex->Get_Texture(aTexID);
 
 	it->repeat_y = repeat_y;
 
@@ -893,14 +876,14 @@ void Render::BlitMapBackground(SDL_Texture * tex, int depth, bool repeat_y, floa
 
 }
 
-void Render::BlitUI(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle)
+void Render::BlitUI(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, float angle)
 {
 	BlitItem* it = new BlitItem();
 	it->depth = depth;
 	it->on_img = rect_on_image;
 	it->x = x;
 	it->y = y;
-	it->tex = tex;
+	it->tex = App->tex->Get_Texture(aTexID);
 
 	//it->img_center = {center_x,center_y};
 	it->angle = angle;

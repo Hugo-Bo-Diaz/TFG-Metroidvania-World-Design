@@ -23,6 +23,9 @@
 
 void Ground::Init()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
+
 	groundpoundhitbox.w = 64;
 	groundpoundhitbox.h = 32;
 
@@ -40,7 +43,7 @@ void Ground::Init()
 	rockblockexplosion.minmax_y_offset = std::make_pair(-25, 25);
 	rockblockexplosion.minmax_acc_y = std::make_pair(1, 2);
 	rockblockexplosion.minmax_frequency = std::make_pair(10, 25);
-	rockblockexplosion.texture_name = "particles";
+	rockblockexplosion.texture_name = particles;
 
 
 	groundcontact.area_in_texture.push_back(&r8ground);
@@ -55,7 +58,7 @@ void Ground::Init()
 	groundcontact.minmax_y_offset = std::make_pair(-15, 15);
 	groundcontact.minmax_acc_y = std::make_pair(1, 2);
 	groundcontact.minmax_frequency = std::make_pair(10, 25);
-	groundcontact.texture_name = "particles";
+	groundcontact.texture_name = particles;
 
 }
 
@@ -193,7 +196,7 @@ void Ground::Render()
 	if (groundpounding)
 	{
 		//add graphic
-		App->ren->Blit(App->tex->Get_Texture("spells"), player->collider->x, player->collider->y + player->collider->h, &groundpound, -2);
+		App->ren->Blit(spells, player->collider->x, player->collider->y + player->collider->h, &groundpound, -2);
 	}
 }
 

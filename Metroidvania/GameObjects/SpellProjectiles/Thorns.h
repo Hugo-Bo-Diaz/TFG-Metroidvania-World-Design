@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 class ParticleEmitter;
 
@@ -44,6 +45,9 @@ public:
 	particle_preset grass;
 	SDL_Rect r10grass;
 	SDL_Rect r11grass;
+
+	TextureID spells;
+	TextureID particles;
 };
 
 #endif // !PLAYER__REP__H

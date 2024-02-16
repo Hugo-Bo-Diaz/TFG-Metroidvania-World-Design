@@ -11,6 +11,9 @@
 
 CloudSummonerProjectile::CloudSummonerProjectile()
 {
+	cloud_summoner = App->tex->Load_Texture("Assets/Sprites/enemies/cloud_summoner.png");
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+
 	r13magic = { 0,36,12,12 };
 	magic.area_in_texture.push_back(&r13magic);
 	magic.name = "magic";
@@ -22,7 +25,7 @@ CloudSummonerProjectile::CloudSummonerProjectile()
 	magic.minmax_angle = std::make_pair(0, 360);
 	magic.minmax_lifespan = std::make_pair(300, 400);
 	magic.minmax_frequency = std::make_pair(20, 40);
-	magic.texture_name = "particles";
+	magic.texture_name = particles;
 
 	App->cam->CameraShake(7, 40);
 	projectile.AddFrame({ 230,22,26,26 });
@@ -62,7 +65,7 @@ bool CloudSummonerProjectile::Loop(float dt)
 
 bool CloudSummonerProjectile::Render()
 {
-		App->ren->Blit(App->tex->Get_Texture("cloud_summoner"), collider->x, collider->y, projectile.GetCurrentFrame(), -2);
+		App->ren->Blit(cloud_summoner, collider->x, collider->y, projectile.GetCurrentFrame(), -2);
 
 	return true;
 }

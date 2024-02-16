@@ -3,13 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "testing_grounds.tmx",
+    "activeFile": "map1_fire_pit.tmx",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
-        "FirePit",
         ".",
         "tilesets",
-        "Castle"
+        "FireArea",
+        "Castle",
+        "FirePit",
+        "GroundArea"
     ],
     "exportAsImage.useCurrentScale": false,
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -21,8 +23,8 @@
             "scale": 0.861304012345679,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 528.8492721164613,
-                "y": 287.9354983202687
+                "x": 527.6882418812991,
+                "y": 287.9354983202688
             }
         },
         "AssetStorage.tmx#objects": {
@@ -210,8 +212,8 @@
             "scale": 0.5,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 685,
-                "y": 502
+                "x": 527,
+                "y": 1152
             }
         },
         "FireArea/map02_fire_entrance.tmx#tileset01": {
@@ -224,8 +226,8 @@
             "scale": 0.8275390625,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 411.4609393438754,
-                "y": 241.68043426953028
+                "x": 767.9395798914326,
+                "y": 383.0634883172056
             }
         },
         "FireArea/map03_fire_spell_location.tmx#objects": {
@@ -694,8 +696,8 @@
             "scale": 0.5838541666666667,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 768.1712756467439,
-                "y": 452.16770740410345
+                "x": 766.4585191793042,
+                "y": 767.3148974130241
             }
         },
         "GroundArea/map30_ground_spell_location.tmx#objects": {
@@ -774,8 +776,8 @@
             "scale": 0.7193033854166667,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 812.591754536815,
-                "y": 129.29175906231615
+                "x": 766.714033579219,
+                "y": 385.09480925012446
             }
         },
         "GroundArea/map34_link_bottom.tmx#objects": {
@@ -869,8 +871,8 @@
             "scale": 0.5,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 1303,
-                "y": 744
+                "x": 1151,
+                "y": 384
             }
         },
         "map0_entrance.tmx#objects": {
@@ -1058,8 +1060,8 @@
             "scale": 0.33,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 610.6060606060607,
-                "y": 1069.6969696969695
+                "x": 1150,
+                "y": 769.6969696969696
             }
         },
         "map1_fire_pit.tmx#tileset01": {
@@ -1716,26 +1718,28 @@
     "map.width": 27,
     "openFiles": [
         "AssetStorage.tmx",
-        "map17_fire_exit.tmx",
-        "testing_grounds.tmx",
+        "map1_fire_pit.tmx",
         "map0_entrance.tmx",
-        "map40_ruined_elevator.tmx"
+        "FireArea/map02_fire_entrance.tmx",
+        "FireArea/map03_fire_spell_location.tmx",
+        "GroundArea/map34_link_bottom.tmx",
+        "GroundArea/map30_ground_spell_location.tmx"
     ],
     "project": "MetroidvaniaMap.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "AssetStorage.tmx",
+        "GroundArea/map30_ground_spell_location.tmx",
+        "GroundArea/map34_link_bottom.tmx",
+        "FireArea/map03_fire_spell_location.tmx",
+        "FireArea/map02_fire_entrance.tmx",
+        "map0_entrance.tmx",
+        "map1_fire_pit.tmx",
         "GroundArea/map24_rock_first_room.tmx",
         "GroundArea/map23_rock_entrance.tmx",
         "GroundArea/map25_first_vertical.tmx",
         "GroundArea/map26_battle_room.tmx",
-        "GroundArea/map28_second_vertical.tmx",
-        "GroundArea/map27_first_link.tmx",
-        "GroundArea/map29_two_items_room.tmx",
-        "GroundArea/map30_ground_spell_location.tmx",
-        "GroundArea/map31_third_vertical.tmx",
-        "GroundArea/map32_big_rock_room.tmx",
-        "GroundArea/map34_link_bottom.tmx",
-        "GroundArea/map35_lore_room.tmx"
+        "GroundArea/map28_second_vertical.tmx"
     ],
     "resizeMap.removeObjects": false,
     "tileset.embedInMap": true,

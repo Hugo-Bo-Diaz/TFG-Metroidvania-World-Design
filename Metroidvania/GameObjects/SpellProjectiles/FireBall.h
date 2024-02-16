@@ -31,6 +31,9 @@ public:
 	particle_preset explosion;
 
 	int damage = 2;
+
+	TextureID spells;
+	TextureID particles;
 };
 
 #endif // !PLAYER__REP__H

@@ -20,6 +20,9 @@ UIPauseMenu::UIPauseMenu()
 	exit_rect = {0,144,362,72};
 	
 	App->phy->PauseObjects();
+
+	TexMenuBase = App->tex->Load_Texture("Assets/UI/pause_menu_base.png");
+	TexMenuOptions = App->tex->Load_Texture("Assets/UI/pause_menu_options.png");
 }
 
 
@@ -100,19 +103,19 @@ void UIPauseMenu::Render()
 {
 
 	//render base
-	App->ren->BlitUI(App->tex->Get_Texture("pause_menu_base"), x, y, nullptr, -2);
+	App->ren->BlitUI(TexMenuBase, x, y, nullptr, -2);
 
 	//render highlighted option
 	switch (current_option)
 	{
 	case PAUSE_RESUME:
-		App->ren->BlitUI(App->tex->Get_Texture("pause_menu_options"), x+90, y+164, &resume_rect, -2);
+		App->ren->BlitUI(TexMenuOptions, x+90, y+164, &resume_rect, -2);
 		break;
 	case PAUSE_SETTINGS:
-		App->ren->BlitUI(App->tex->Get_Texture("pause_menu_options"), x + 90, y + 260, &settings_rect, -2);
+		App->ren->BlitUI(TexMenuOptions, x + 90, y + 260, &settings_rect, -2);
 		break;
 	case PAUSE_EXIT:
-		App->ren->BlitUI(App->tex->Get_Texture("pause_menu_options"), x + 90, y + 356, &exit_rect, -2);
+		App->ren->BlitUI(TexMenuOptions, x + 90, y + 356, &exit_rect, -2);
 		break;
 	default:
 		break;

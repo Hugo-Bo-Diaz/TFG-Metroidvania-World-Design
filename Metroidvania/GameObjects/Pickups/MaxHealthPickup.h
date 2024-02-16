@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 class ParticleEmitter;
 
@@ -19,10 +20,14 @@ public:
 	int pickup_id;
 
 	ParticleEmitter* p;
+
 	std::string text;
 	int lore_unlock = -1;
 
 	particle_preset magic;
 	SDL_Rect r13magic;
+
+	TextureID particles;
+	TextureID items;
 };
 #endif

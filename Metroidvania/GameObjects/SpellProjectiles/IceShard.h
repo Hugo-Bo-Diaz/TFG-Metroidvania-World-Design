@@ -28,6 +28,8 @@ public:
 	particle_preset ice;
 	SDL_Rect r4ice;
 
+	TextureID spells;
+	TextureID particles;
 };
 
 #endif // !PLAYER__REP__H

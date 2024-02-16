@@ -17,6 +17,8 @@ Wind::~Wind()
 
 void Wind::Init()
 {
+	particle = App->tex->Load_Texture("Assets/Sprites/particles.png");
+
 	r6buff = { 12,12,12,12 };
 	r7buff = { 24,12,12,12 };
 	windbuff.area_in_texture.push_back(&r6buff);
@@ -28,7 +30,7 @@ void Wind::Init()
 	windbuff.minmax_x_offset = std::make_pair(0, 48);
 	windbuff.minmax_y_offset = std::make_pair(40, 48);
 	windbuff.minmax_frequency = std::make_pair(5, 10);
-	windbuff.texture_name = "particles";
+	windbuff.texture_name = particle;
 
 	p = App->par->AddParticleEmitter(&windbuff, 0, 0);
 	p->active = false;

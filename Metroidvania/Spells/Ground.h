@@ -59,6 +59,9 @@ public:
 	particle_preset rockblockexplosion;
 	SDL_Rect r8ground;
 	SDL_Rect r9ground;
+
+	TextureID spells;
+	TextureID particles;
 };
 
 #endif

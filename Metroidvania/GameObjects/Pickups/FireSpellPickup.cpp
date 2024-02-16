@@ -10,6 +10,9 @@
 
 FireSpellPickup::FireSpellPickup()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spell_books = App->tex->Load_Texture("Assets/UI/books.png");
+
 	firespellbook = { 0,0,52,64 };
 
 	p = App->par->AddParticleEmitter(&fireshield, collider->x, collider->y);
@@ -37,7 +40,7 @@ FireSpellPickup::FireSpellPickup()
 	fireshield.minmax_acc_y = std::make_pair(0.04, 0.05);
 	fireshield.minmax_lifespan = std::make_pair(300, 400);
 	fireshield.minmax_frequency = std::make_pair(5, 20);
-	fireshield.texture_name = "particles";
+	fireshield.texture_name = particles;
 }
 
 FireSpellPickup::~FireSpellPickup()
@@ -83,6 +86,6 @@ bool FireSpellPickup::Loop(float dt)
 
 bool FireSpellPickup::Render()
 {
-	App->ren->Blit(App->tex->Get_Texture("spell_books"), collider->x, collider->y, &firespellbook, 10);
+	App->ren->Blit(spell_books, collider->x, collider->y, &firespellbook, 10);
 	return true;
 }

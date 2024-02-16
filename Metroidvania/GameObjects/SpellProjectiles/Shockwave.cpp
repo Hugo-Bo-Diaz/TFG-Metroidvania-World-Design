@@ -17,6 +17,9 @@
 
 Shockwave::Shockwave()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
+
 	shockwave_left.AddFrame({0,160,32,32});
 	shockwave_right.AddFrame({32,160,32,32});
 
@@ -34,7 +37,7 @@ Shockwave::Shockwave()
 	rockblockexplosion.minmax_y_offset = std::make_pair(-25, 25);
 	rockblockexplosion.minmax_acc_y = std::make_pair(1, 2);
 	rockblockexplosion.minmax_frequency = std::make_pair(10, 25);
-	rockblockexplosion.texture_name = "particles";
+	rockblockexplosion.texture_name = particles;
 
 
 	groundcontact.area_in_texture.push_back(&r8ground);
@@ -49,7 +52,7 @@ Shockwave::Shockwave()
 	groundcontact.minmax_y_offset = std::make_pair(-15, 15);
 	groundcontact.minmax_acc_y = std::make_pair(1, 2);
 	groundcontact.minmax_frequency = std::make_pair(10, 25);
-	groundcontact.texture_name = "particles";
+	groundcontact.texture_name = particles;
 
 	p = App->par->AddParticleEmitter(&groundcontact, collider->x, collider->y + collider->h);
 }
@@ -137,11 +140,11 @@ bool Shockwave::Render()
 {
 	if (x_speed > 0)
 	{
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, shockwave_right.GetCurrentFrame(), -2);
+		App->ren->Blit(spells, collider->x, collider->y, shockwave_right.GetCurrentFrame(), -2);
 	}
 	else
 	{
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, shockwave_left.GetCurrentFrame(), -2);
+		App->ren->Blit(spells, collider->x, collider->y, shockwave_left.GetCurrentFrame(), -2);
 	}
 	return true;
 }

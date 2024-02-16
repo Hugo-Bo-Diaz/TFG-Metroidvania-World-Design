@@ -4,6 +4,7 @@
 #include "UIelement.h"
 #include "Text.h"
 #include "Timer.h"
+#include "Textures.h"
 
 class UIcheckpointIndicator : public UIelement
 {
@@ -23,6 +24,8 @@ public:
 	Timer to_dissapear;
 
 	~UIcheckpointIndicator();
+
+	TextureID Texture;
 };
 
 #endif

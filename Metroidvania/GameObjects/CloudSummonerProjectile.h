@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 class CloudSummonerProjectile : public GameObject
 {
@@ -26,6 +27,9 @@ public:
 
 	particle_preset magic;
 	SDL_Rect r13magic;
+
+	TextureID cloud_summoner;
+	TextureID particles;
 };
 
 #endif // !PLAYER__REP__H

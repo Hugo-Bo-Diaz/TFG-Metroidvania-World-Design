@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 enum CloudSummonerState
 {
@@ -85,6 +86,8 @@ public:
 
 	int perm = 0;
 
+	TextureID cloud_summoner;
+	TextureID particles;
 };
 
 #endif

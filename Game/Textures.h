@@ -4,19 +4,21 @@
 #include "PartsDef.h"
 #include <vector>
 #include <map>
+#include <list>
 
 #include "SDL_image/include/SDL_image.h"
 
+typedef unsigned int TextureID;
 
 struct SDL_Texture;
 struct SDL_Surface;
 
 struct Texture
 {
-	int id;
+	TextureID id;
 	std::string name;
 	SDL_Texture* texture;
-	bool operator==(const int& t)
+	bool operator==(const TextureID& t)
 	{
 		if(id == t)
 		{
@@ -52,14 +54,11 @@ public:
 	Textures();
 	bool Init();
 
-	void Load_Texture(const char* path,const char* name,pugi::xml_node& node);
-	void Load_Texture_nonode(const char* path,const char* name);
-
-	SDL_Texture* Load_Texture_Scene(const char* path);
-	bool Valid_Texture(const char* texture_name);
+	void GetAllImagesPathRecursive(const char* path, std::list<std::string>& listToFill);
+	TextureID Load_Texture(const char* path);
 	void Destroy_Texture(const char* texture_name);
 
-	SDL_Texture* Get_Texture(const char* name);
+	SDL_Texture* Get_Texture(TextureID name);
 
 	bool CleanUp();
 

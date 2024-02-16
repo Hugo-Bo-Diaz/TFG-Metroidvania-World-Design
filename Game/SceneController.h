@@ -8,6 +8,8 @@
 #include "Text.h"
 #include "SDL/include/SDL.h"
 
+#include "Textures.h"
+
 #define ROOMS_MAX_X 10
 #define ROOMS_MAX_Y 10
 
@@ -31,7 +33,7 @@ struct tileset
 	int columns;
 	int total_tiles;
 
-	SDL_Texture* texture;
+	TextureID texture;
 };
 
 
@@ -56,7 +58,7 @@ struct layer
 
 struct background_texture
 {
-	SDL_Texture* texture;
+	TextureID texture;
 	float parallax_x;
 	float parallax_y;
 	int depth;

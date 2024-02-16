@@ -21,7 +21,7 @@
 
 Player::Player()
 {
-
+	playerTex = App->tex->Load_Texture("Assets/Sprites/Player.png");
 
 	speed_y = 0;
 	acceleration_y = 0.5;
@@ -654,43 +654,43 @@ bool Player::Render()
 		{
 			if (is_right)
 			{
-				App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, idle_right.GetCurrentFrame(), 0);
+				App->ren->Blit(playerTex, collider->x-separation, collider->y, idle_right.GetCurrentFrame(), 0);
 				idle_right.NextFrame();
 			}
 			else
 			{
-				App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, idle_left.GetCurrentFrame(), 0);
+				App->ren->Blit(playerTex, collider->x-separation, collider->y, idle_left.GetCurrentFrame(), 0);
 				idle_left.NextFrame();
 			}
 		}
 		break;
 		case WALKING_LEFT:
 		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, walking_left.GetCurrentFrame(), 0);
+			App->ren->Blit(playerTex, collider->x-separation, collider->y, walking_left.GetCurrentFrame(), 0);
 			walking_left.NextFrame();
 		}
 		break;
 		case WALKING_RIGHT:
 		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, walking_right.GetCurrentFrame(), 0);
+			App->ren->Blit(playerTex, collider->x-separation, collider->y, walking_right.GetCurrentFrame(), 0);
 			walking_right.NextFrame();
 		}
 		break;
 		case AIRBORNE_LEFT:
 		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, air_left.GetCurrentFrame(), 0);
+			App->ren->Blit(playerTex, collider->x-separation, collider->y, air_left.GetCurrentFrame(), 0);
 			air_left.NextFrame();
 		}
 		break;
 		case AIRBORNE_RIGHT:
 		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, air_right.GetCurrentFrame(), 0);
+			App->ren->Blit(playerTex, collider->x-separation, collider->y, air_right.GetCurrentFrame(), 0);
 			air_right.NextFrame();
 		}
 		break;
 		default:
 		{
-			App->ren->Blit(App->tex->Get_Texture("player"), collider->x-separation, collider->y, idle_right.GetCurrentFrame(), 0);
+			App->ren->Blit(playerTex, collider->x-separation, collider->y, idle_right.GetCurrentFrame(), 0);
 			idle_right.NextFrame();
 		}
 		break;

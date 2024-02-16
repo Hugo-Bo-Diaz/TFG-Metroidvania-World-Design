@@ -4,6 +4,7 @@
 #include"PartsDef.h"
 #include "SDL/include/SDL.h"
 #include <queue>
+#include "Textures.h"
 
 struct TextPrint;
 struct layer;
@@ -32,30 +33,7 @@ struct BlitItem
 			return false;
 	}
 };
-/*
-struct BlitTile
-{
-	int x_tile;
-	int y_tile;
-	SDL_Texture* tex;
-	int depth;
-	float parallax_factor_x;
-	float parallax_factor_y;
 
-	float on_tile_x;
-	float on_tile_y;
-	float on_tile_w;
-	float on_tile_h;
-
-	bool operator<(const BlitItem& rhs) const
-	{
-		if (depth < rhs.depth)
-			return true;
-		else
-			return false;
-	}
-};
-*/
 struct BlitBackground
 {
 	SDL_Texture*tex;
@@ -109,13 +87,13 @@ public:
 	bool Loop(float dt);
 	bool CleanUp();
 
-	void Blit(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1, int center_x = -1,int center_y = -1);
+	void Blit(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1, int center_x = -1,int center_y = -1);
 	
 	/*void BlitMapTile(SDL_Texture* tex, int x_tile, int y_tile,SDL_Rect on_img, int depth, float parallax_factor_x = 1, float parallax_factor_y = 1);
 	void BlitMapLayer(layer* layer);*/
 
-	void BlitMapBackground(SDL_Texture* tex, int depth, bool repeat_y, float parallax_factor_x = 1, float parallax_factor_y = 1);
-	void BlitUI(SDL_Texture* tex, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
+	void BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x = 1, float parallax_factor_y = 1);
+	void BlitUI(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
 	void BlitText(TextPrint* text,int x, int y);
 	void DrawRect(SDL_Rect* area, uint r, uint g, uint b, uint a, bool filled);
 	void DrawTrail(SDL_Point* point_array, int amount, int r = 255, int g = 255, int b= 255);

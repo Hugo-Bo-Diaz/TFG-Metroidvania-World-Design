@@ -1,5 +1,7 @@
 #ifndef UI_SETTINGS_MENU
 #define UI_SETTINGS_MENU
+
+#include "Textures.h"
 #include "UIelement.h"
 #include "Timer.h"
 
@@ -43,6 +45,9 @@ public:
 	float cooldown = 100;
 
 	SettingsParentType parent_type;
+
+	TextureID lTextureBase;
+	TextureID lTextureOptions;
 };
 
 #endif

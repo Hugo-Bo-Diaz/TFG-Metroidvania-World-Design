@@ -7,6 +7,9 @@
 
 CloudSummoner::CloudSummoner()
 {
+	cloud_summoner = App->tex->Load_Texture("Assets/Sprites/enemies/cloud_summoner.png");
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+
 	//64*48
 	book.AddFrame({ 192,0,22,22 });
 	//projectile.AddFrame({ 268,0,26,26 });
@@ -25,7 +28,7 @@ CloudSummoner::CloudSummoner()
 	explosion.minmax_lifespan = std::make_pair(200, 500);
 	explosion.minmax_frequency = std::make_pair(10, 50);
 	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
-	explosion.texture_name = "particles";
+	explosion.texture_name = particles;
 }
 
 CloudSummoner::CloudSummoner(float _initial_x, float _initial_y)
@@ -234,30 +237,30 @@ bool CloudSummoner::Render()
 {
 	if (speed_x < 0)
 	{
-		App->ren->Blit(App->tex->Get_Texture("cloud_summoner"), collider->x, collider->y, facing_left.GetCurrentFrame(), 0);
+		App->ren->Blit(cloud_summoner, collider->x, collider->y, facing_left.GetCurrentFrame(), 0);
 	}
 	else if (speed_x > 0)
 	{
-		App->ren->Blit(App->tex->Get_Texture("cloud_summoner"), collider->x, collider->y, facing_right.GetCurrentFrame(), 0);
+		App->ren->Blit(cloud_summoner, collider->x, collider->y, facing_right.GetCurrentFrame(), 0);
 	}
 	else if(following != nullptr)
 	{
 		if (following->collider->x > collider->x)
 		{
-			App->ren->Blit(App->tex->Get_Texture("cloud_summoner"), collider->x, collider->y, facing_right.GetCurrentFrame(), 0);
+			App->ren->Blit(cloud_summoner, collider->x, collider->y, facing_right.GetCurrentFrame(), 0);
 		}
 		else
 		{
-			App->ren->Blit(App->tex->Get_Texture("cloud_summoner"), collider->x, collider->y, facing_left.GetCurrentFrame(), 0);
+			App->ren->Blit(cloud_summoner, collider->x, collider->y, facing_left.GetCurrentFrame(), 0);
 		}
 	}
 	else
 	{
-		App->ren->Blit(App->tex->Get_Texture("cloud_summoner"), collider->x, collider->y, facing_front.GetCurrentFrame(), 0);
+		App->ren->Blit(cloud_summoner, collider->x, collider->y, facing_front.GetCurrentFrame(), 0);
 	}
 
 
-	App->ren->Blit(App->tex->Get_Texture("cloud_summoner"), collider->x + oscilated_book_x, collider->y+oscilated_book_y, book.GetCurrentFrame(), 0);
+	App->ren->Blit(cloud_summoner, collider->x + oscilated_book_x, collider->y+oscilated_book_y, book.GetCurrentFrame(), 0);
 
 	return true;
 }

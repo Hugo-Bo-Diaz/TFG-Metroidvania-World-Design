@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Timer.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 class ParticleEmitter;
 
@@ -43,6 +44,8 @@ public:
 	particle_preset windbuff;
 	SDL_Rect r6buff;
 	SDL_Rect r7buff;
+
+	TextureID particle;
 };
 
 #endif

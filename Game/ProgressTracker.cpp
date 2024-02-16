@@ -32,9 +32,9 @@ bool ProgressTracker::LoadConfig(pugi::xml_node & node)
 
 bool ProgressTracker::CreateConfig(pugi::xml_node & node)
 {
-	pugi::xml_node lore_location = node.append_child("lore_file");
+	//pugi::xml_node lore_location = node.append_child("lore_file");
 
-	lore_location.append_attribute("path") = "lore.xml";
+	//lore_location.append_attribute("path") = "lore.xml";
 	//LoadLogs("lore.xml");
 
 	return true;

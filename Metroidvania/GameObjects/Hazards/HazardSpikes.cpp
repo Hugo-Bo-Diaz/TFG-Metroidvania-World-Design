@@ -9,6 +9,7 @@
 
 HazardSpikes::HazardSpikes()
 {
+	hazards = App->tex->Load_Texture("Assets/Sprites/hazards.png");
 	spikes = { 96,48,48,48 };
 }
 
@@ -39,7 +40,7 @@ bool HazardSpikes::Render()
 	//top
 	for (int i = 0; i < tilesx; ++i)
 	{
-		App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x + 48 * i, collider->y, &spikes, -20);
+		App->ren->Blit(hazards, collider->x + 48 * i, collider->y, &spikes, -20);
 	}
 
 	return true;

@@ -24,6 +24,8 @@ UIcheckpointIndicator::UIcheckpointIndicator()
 	text_x = on_screen.w/2- textsize / 2;
 	//text_y = App->win->height / 2 + text->font_used->vsize / 2;
 	text_y = h / 2 + text->font_used->vsize / 2;
+
+	Texture = App->tex->Load_Texture("Assets/UI/black_square_alpha.png");
 }
 
 
@@ -40,7 +42,7 @@ void UIcheckpointIndicator::Loop()
 void UIcheckpointIndicator::Render()
 {
 	App->ren->BlitText(text, text_x, text_y);
-	App->ren->BlitUI(App->tex->Get_Texture("black_square_alpha"),on_screen.x,on_screen.y,NULL,-40);
+	App->ren->BlitUI(Texture, on_screen.x,on_screen.y,NULL,-40);
 }
 
 UIcheckpointIndicator::~UIcheckpointIndicator()

@@ -6,6 +6,9 @@
 
 Leaf::Leaf()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
+
 	r10grass = { 24,24,12,12 };
 	r11grass = { 36,24,12,12 };
 	grass.area_in_texture.push_back(&r10grass);
@@ -19,7 +22,7 @@ Leaf::Leaf()
 	grass.minmax_scale = std::make_pair(1, 1.2);
 	grass.minmax_lifespan = std::make_pair(100, 200);
 	grass.minmax_frequency = std::make_pair(5, 20);
-	grass.texture_name = "particles";
+	grass.texture_name = particles;
 
 	leaf_right.AddFrame({ 96,64,64,32 });
 	leaf_left.AddFrame({ 96,32,64,32 });//48 16
@@ -62,12 +65,12 @@ bool Leaf::Render()
 {
 	if (direction == 1)
 	{
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, leaf_right.GetCurrentFrame(), -2, angle);
+		App->ren->Blit(spells, collider->x, collider->y, leaf_right.GetCurrentFrame(), -2, angle);
 		leaf_right.NextFrame();
 	}
 	else
 	{
-		App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, leaf_left.GetCurrentFrame(), -2, angle);
+		App->ren->Blit(spells, collider->x, collider->y, leaf_left.GetCurrentFrame(), -2, angle);
 		leaf_left.NextFrame();
 	}
 	return true;

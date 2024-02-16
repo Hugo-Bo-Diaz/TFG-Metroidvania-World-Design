@@ -3,12 +3,12 @@
 #include "../Player.h"
 #include "Render.h"
 #include "Application.h"
-#include "Textures.h"
 #include "../../Spells/Fire.h"
 #include "../EntityIDs.h"
 
 HazardLavaWaterfall::HazardLavaWaterfall()
 {
+	hazards = App->tex->Load_Texture("Assets/Sprites/hazards.png");
 	anim.AddFrame({ 0,96,48,48 });
 	anim.AddFrame({ 0,108,48,48 });
 	anim.AddFrame({ 0,120,48,48 });
@@ -56,7 +56,7 @@ bool HazardLavaWaterfall::Render()
 	{
 		for (int j = 0; j < tilesy; ++j)
 		{
-			App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x + 48 * i, collider->y + 48 * j, anim.GetCurrentFrame(), 50);
+			App->ren->Blit(hazards, collider->x + 48 * i, collider->y + 48 * j, anim.GetCurrentFrame(), 50);
 		}
 	}
 	return true;

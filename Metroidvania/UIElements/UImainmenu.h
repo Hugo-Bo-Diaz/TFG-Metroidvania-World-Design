@@ -3,6 +3,7 @@
 
 #include "UIelement.h"
 #include "../GameObjects/Player.h"
+#include "Textures.h"
 
 class UISettingsMenu;
 
@@ -38,5 +39,9 @@ public:
 	int offset_option_x = 500;
 	int offset_option_y = 232;
 	int interval_y = 68;
+
+	TextureID TexBase;
+	TextureID TexSelected;
+	TextureID TexDisabled;
 };
 #endif // !UI_HEALTHBAR

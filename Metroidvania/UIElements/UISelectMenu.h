@@ -3,6 +3,7 @@
 
 #include "UIelement.h"
 #include <list>
+#include "Textures.h"
 
 #define MAX_LORE_CAPACITY_MENU 10
 
@@ -44,6 +45,9 @@ public:
 
 	bool first_update = true;
 
+	TextureID selectMenuBack;
+	TextureID selectLogBook;
+	TextureID selectOptions;
 };
 
 #endif

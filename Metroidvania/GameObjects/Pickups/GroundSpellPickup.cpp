@@ -10,6 +10,9 @@
 #include "../../UIelementFunctions.h"
 GroundSpellPickup::GroundSpellPickup()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spell_books = App->tex->Load_Texture("Assets/UI/books.png");
+
 	r16sandfirst = { 48,0,12,12 };
 	r17sandsecond = { 48,12,12,12 };
 
@@ -25,7 +28,7 @@ GroundSpellPickup::GroundSpellPickup()
 	sand_left.minmax_acc_y = std::make_pair(0.04, 0.05);
 	sand_left.minmax_lifespan = std::make_pair(500, 600);
 	sand_left.minmax_frequency = std::make_pair(5, 20);
-	sand_left.texture_name = "particles";
+	sand_left.texture_name = particles;
 
 	sand_right.area_in_texture.push_back(&r16sandfirst);
 	sand_right.area_in_texture.push_back(&r17sandsecond);
@@ -39,7 +42,7 @@ GroundSpellPickup::GroundSpellPickup()
 	sand_right.minmax_acc_y = std::make_pair(0.04, 0.05);
 	sand_right.minmax_lifespan = std::make_pair(500, 600);
 	sand_right.minmax_frequency = std::make_pair(5, 20);
-	sand_right.texture_name = "particles";
+	sand_right.texture_name = particles;
 
 	groundspellbook = { 216,0,52,64 };
 
@@ -106,6 +109,6 @@ bool GroundSpellPickup::Loop(float dt)
 
 bool GroundSpellPickup::Render()
 {
-	App->ren->Blit(App->tex->Get_Texture("spell_books"), collider->x, collider->y, &groundspellbook, 10);
+	App->ren->Blit(spell_books, collider->x, collider->y, &groundspellbook, 10);
 	return true;
 }

@@ -8,6 +8,9 @@
 
 ArmorTrap::ArmorTrap()
 {
+	armortrap = App->tex->Load_Texture("Assets/Sprites/enemies/armortrap.png");
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+
 	r14firegedeath = { 24,36,12,12 };
 	r15firegedeath = { 36,36,12,12 };
 	r18metalfirst = { 48,24,12,12 };
@@ -25,7 +28,7 @@ ArmorTrap::ArmorTrap()
 	fire_ge_death.minmax_lifespan = std::make_pair(200, 500);
 	fire_ge_death.minmax_frequency = std::make_pair(10, 20);
 	fire_ge_death.minmax_acc_y = std::make_pair(0.1, 0.3);
-	fire_ge_death.texture_name = "particles";
+	fire_ge_death.texture_name = particles;
 
 
 	metal.area_in_texture.push_back(&r18metalfirst);
@@ -40,7 +43,7 @@ ArmorTrap::ArmorTrap()
 	metal.minmax_y_offset = std::make_pair(-15, 15);
 	metal.minmax_acc_y = std::make_pair(1, 2);
 	metal.minmax_frequency = std::make_pair(8, 15);
-	metal.texture_name = "particles";
+	metal.texture_name = particles;
 
 	idle = {0,0,48,72};
 
@@ -221,14 +224,14 @@ bool ArmorTrap::Render()
 
 	if (current_state == ArmorTrap_IDLE)
 	{
-		App->ren->Blit(App->tex->Get_Texture("armortrap"), collider->x, collider->y, &idle, 0);
+		App->ren->Blit(armortrap, collider->x, collider->y, &idle, 0);
 	}
 	else
 	{
 		if (speed_x < 0)
-			App->ren->Blit(App->tex->Get_Texture("armortrap"), collider->x, collider->y, left.GetCurrentFrame(), 0);
+			App->ren->Blit(armortrap, collider->x, collider->y, left.GetCurrentFrame(), 0);
 		else
-			App->ren->Blit(App->tex->Get_Texture("armortrap"), collider->x, collider->y, right.GetCurrentFrame(), 0);
+			App->ren->Blit(armortrap, collider->x, collider->y, right.GetCurrentFrame(), 0);
 	}
 
 

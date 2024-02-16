@@ -24,6 +24,11 @@ UISelectMenu::UISelectMenu()
 	selectquad = {0,0,206,28 };
 
 	App->phy->PauseObjects();
+
+	selectMenuBack = App->tex->Load_Texture("Assets/UI/selectmenubackground.png");
+	selectLogBook = App->tex->Load_Texture("Assets/UI/selectmenulogbook.png");
+	selectOptions = App->tex->Load_Texture("Assets/UI/selectmenuoptions.png");
+
 }
 
 
@@ -117,14 +122,14 @@ void UISelectMenu::Render()
 {
 
 	//render base
-	App->ren->BlitUI(App->tex->Get_Texture("selectmenubackground"), x, y, nullptr, -2);
+	App->ren->BlitUI(selectMenuBack, x, y, nullptr, -2);
 
 	//render highlighted option
 	switch (current_option)
 	{
 	case SELECT_MENU_LORE:
 	{
-		App->ren->BlitUI(App->tex->Get_Texture("selectmenulogbook"), x, y, NULL, -3);
+		App->ren->BlitUI(selectLogBook, x, y, NULL, -3);
 		//print all the available logs
 
 		//for (int i = cam_y_coord; i < MAX_LORE_CAPACITY_MENU +cam_y_coord; ++i)
@@ -149,7 +154,7 @@ void UISelectMenu::Render()
 					int new_x = x + 110;
 					int new_y = y + 114 + (i - cam_y_coord) * 28;
 					//App->ren->DrawRect(&selectquad, 0, 0, 0, 150, true);
-					App->ren->BlitUI(App->tex->Get_Texture("selectmenuoptions"), new_x, new_y, &selectquad, -4);
+					App->ren->BlitUI(selectOptions, new_x, new_y, &selectquad, -4);
 				}
 
 			}

@@ -6,6 +6,9 @@
 
 FlyingAxe::FlyingAxe()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	floating_axe = App->tex->Load_Texture("Assets/Sprites/enemies/floating_axe.png");
+
 	r18metalfirst = { 48,24,12,12 };
 	r19metalsecond = { 48,36,12,12 };
 
@@ -21,7 +24,7 @@ FlyingAxe::FlyingAxe()
 	metal.minmax_y_offset = std::make_pair(-15, 15);
 	metal.minmax_acc_y = std::make_pair(1, 2);
 	metal.minmax_frequency = std::make_pair(8, 15);
-	metal.texture_name = "particles";
+	metal.texture_name = particles;
 
 	facing_right = {0,0,64,64};
 
@@ -216,11 +219,11 @@ bool FlyingAxe::Render()
 	{
 		if (speed_x < 0)
 		{
-			App->ren->Blit(App->tex->Get_Texture("floating_axe"), collider->x, collider->y, rotate_left.GetCurrentFrame(), 0);
+			App->ren->Blit(floating_axe, collider->x, collider->y, rotate_left.GetCurrentFrame(), 0);
 		}
 		else
 		{
-			App->ren->Blit(App->tex->Get_Texture("floating_axe"), collider->x, collider->y, rotate_right.GetCurrentFrame(), 0);
+			App->ren->Blit(floating_axe, collider->x, collider->y, rotate_right.GetCurrentFrame(), 0);
 		}
 	}
 
@@ -228,11 +231,11 @@ bool FlyingAxe::Render()
 	{
 		if (speed_x > 0)
 		{
-			App->ren->Blit(App->tex->Get_Texture("floating_axe"), collider->x, collider->y, rotate_left.GetCurrentFrame(), 0);
+			App->ren->Blit(floating_axe, collider->x, collider->y, rotate_left.GetCurrentFrame(), 0);
 		}
 		else
 		{
-			App->ren->Blit(App->tex->Get_Texture("floating_axe"), collider->x, collider->y, rotate_right.GetCurrentFrame(), 0);
+			App->ren->Blit(floating_axe, collider->x, collider->y, rotate_right.GetCurrentFrame(), 0);
 		}
 	}
 

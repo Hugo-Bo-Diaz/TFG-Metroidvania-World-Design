@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Timer.h"
+#include "Textures.h"
 
 class HazardSpikes :
 	public GameObject
@@ -14,6 +15,7 @@ public:
 	bool Render();
 
 	SDL_Rect spikes;
+	TextureID hazards;
 };
 
 #endif

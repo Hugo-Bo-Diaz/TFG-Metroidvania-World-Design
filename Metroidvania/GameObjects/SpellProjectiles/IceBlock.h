@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Animation.h"
+#include "Textures.h"
 
 class IceBlock : public GameObject
 {
@@ -22,6 +23,7 @@ public:
 
 	Timer timer;
 	float life_expectancy = 5000;
+	TextureID spells;
 };
 
 #endif // !PLAYER__REP__H

@@ -3,6 +3,8 @@
 
 #include "Timer.h"
 #include "SDL/include/SDL.h"
+#include "Textures.h"
+
 class Fire;
 
 class LavaSpell
@@ -15,12 +17,14 @@ public:
 	float lifespan = 500;
 	Timer life;
 
+	LavaSpell(TextureID tex);
 	void Loop();
 	void Render();
 
 	Fire* parent;
 
 	int damage = 1;
+	TextureID spells;
 };
 
 #endif

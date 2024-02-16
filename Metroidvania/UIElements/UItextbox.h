@@ -2,6 +2,7 @@
 #define UI_TEXTBOX
 
 #include "UIelement.h"
+#include "Textures.h"
 
 #include "Text.h"
 #include "Gui.h"
@@ -53,6 +54,8 @@ public:
 	SDL_Rect small_left =	{ 96, 0,32,48 };
 	SDL_Rect small_center =	{ 128,0,32,48 };
 	SDL_Rect small_right =	{ 160,0,32,48 };
+
+	TextureID TexTextBox;
 };
 
 #endif

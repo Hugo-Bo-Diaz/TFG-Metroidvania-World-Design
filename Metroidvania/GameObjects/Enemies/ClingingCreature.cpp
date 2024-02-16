@@ -4,6 +4,9 @@
 
 ClingCreature::ClingCreature()
 {
+	cling_enemy = App->tex->Load_Texture("Assets/Sprites/enemies/cling_enemy.png");
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+
 	r7buff = { 24,12,12,12 };
 	r16sandfirst = { 48,0,12,12 };
 	r17sandsecond = { 48,12,12,12 };
@@ -21,7 +24,7 @@ ClingCreature::ClingCreature()
 	stone_death.minmax_lifespan = std::make_pair(200, 500);
 	stone_death.minmax_frequency = std::make_pair(7, 15);
 	stone_death.minmax_acc_y = std::make_pair(0.1, 0.3);
-	stone_death.texture_name = "particles";
+	stone_death.texture_name = particles;
 
 	metal_and_sand.area_in_texture.push_back(&r16sandfirst);
 	//metal_and_sand.area_in_texture.push_back(&r17sandsecond);
@@ -37,7 +40,7 @@ ClingCreature::ClingCreature()
 	metal_and_sand.minmax_acc_y = std::make_pair(1, 2);
 	metal_and_sand.minmax_scale = std::make_pair(1.1, 1.3);
 	metal_and_sand.minmax_frequency = std::make_pair(5, 12);
-	metal_and_sand.texture_name = "particles";
+	metal_and_sand.texture_name = particles;
 
 	animation.AddFrame({ 0,0,48,48});
 	animation.AddFrame({ 48,0,48,48 });
@@ -215,7 +218,7 @@ bool ClingCreature::Render()
 		animation_timer.Reset();
 	}
 
-	App->ren->Blit(App->tex->Get_Texture("cling_enemy"), collider->x, collider->y, animation.GetCurrentFrame(), -2,angle);
+	App->ren->Blit(cling_enemy, collider->x, collider->y, animation.GetCurrentFrame(), -2,angle);
 
 
 	return true;

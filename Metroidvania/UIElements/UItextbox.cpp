@@ -43,7 +43,7 @@ UItextbox::UItextbox(const char * _author,const char* first_text, TextBoxColor c
 
 	author_print->current_letter = author_print->text.length();
 
-
+	TexTextBox = App->tex->Load_Texture("Assets/UI/textboxes.png");
 	App->phy->PauseObjects();
 }
 
@@ -103,8 +103,6 @@ void UItextbox::Loop()
 
 void UItextbox::Render()
 {
-	SDL_Texture* texboxtexture = App->tex->Get_Texture("text_boxes");
-
 	//lets draw the 2 squares
 	//BEEG SQUARE
 	for (int i = 0; i<tile_width; ++i)
@@ -152,7 +150,7 @@ void UItextbox::Render()
 			int real_x = position_x + i*32;
 			int real_y = position_y + j*32;
 
-			App->ren->BlitUI(texboxtexture,real_x,real_y,r,10);
+			App->ren->BlitUI(TexTextBox,real_x,real_y,r,10);
 		}
 		
 	}
@@ -183,7 +181,7 @@ void UItextbox::Render()
 			int real_x = position_x + i * 32;
 			int real_y = position_y - 40;
 
-			App->ren->BlitUI(texboxtexture, real_x, real_y, r, 9);
+			App->ren->BlitUI(TexTextBox, real_x, real_y, r, 9);
 
 
 		}

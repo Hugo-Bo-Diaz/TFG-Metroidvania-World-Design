@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 enum FlyingAxeState
 {
@@ -68,6 +69,9 @@ public:
 	//other
 	float speed_x = patrol_speed;
 	float speed_y = 0;
+
+	TextureID floating_axe;
+	TextureID particles;
 };
 
 #endif

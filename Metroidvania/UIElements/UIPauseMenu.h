@@ -3,6 +3,7 @@
 
 #include "UIelement.h"
 #include <list>
+#include "Textures.h"
 
 class UISettingsMenu;
 
@@ -34,6 +35,9 @@ public:
 	void CycleOption(float direction);
 
 	UISettingsMenu* settings;
+
+	TextureID TexMenuBase;
+	TextureID TexMenuOptions;
 };
 
 #endif

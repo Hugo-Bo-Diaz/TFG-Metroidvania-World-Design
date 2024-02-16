@@ -5,6 +5,9 @@
 
 FlyingShield::FlyingShield()
 {
+	floating_shield = App->tex->Load_Texture("Assets/Sprites/enemies/floating_shield.png");
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+
 	flying_left.AddFrame({ 0,0,48,48 });
 
 	flying_right.AddFrame({ 48,0,48,48 });
@@ -20,7 +23,7 @@ FlyingShield::FlyingShield()
 	explosion.minmax_lifespan = std::make_pair(200, 500);
 	explosion.minmax_frequency = std::make_pair(10, 50);
 	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
-	explosion.texture_name = "particles";
+	explosion.texture_name = particles;
 
 }
 
@@ -105,11 +108,11 @@ bool FlyingShield::Render()
 
 	if (speed_x < 0)
 	{
-		App->ren->Blit(App->tex->Get_Texture("floating_shield"), collider->x, collider->y, flying_left.GetCurrentFrame(), 0);
+		App->ren->Blit(floating_shield, collider->x, collider->y, flying_left.GetCurrentFrame(), 0);
 	}
 	else
 	{
-		App->ren->Blit(App->tex->Get_Texture("floating_shield"), collider->x, collider->y, flying_right.GetCurrentFrame(), 0);
+		App->ren->Blit(floating_shield, collider->x, collider->y, flying_right.GetCurrentFrame(), 0);
 	}
 	return true;
 }

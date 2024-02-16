@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 enum FlyingElementalColor
 {
@@ -79,6 +80,8 @@ public:
 	float speed_y = -10;
 	float acceleration_y = patrol_accel_y;
 
+	TextureID flyingelemental;
+	TextureID particles;
 };
 
 #endif

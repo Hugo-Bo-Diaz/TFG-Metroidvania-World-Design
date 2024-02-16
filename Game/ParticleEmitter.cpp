@@ -35,7 +35,7 @@ bool ParticleEmitter::Loop(float dt)
 
 			p->lifespan = RandomFloat(preset_for_emitter->minmax_lifespan.first, preset_for_emitter->minmax_lifespan.second);
 
-			p->texture = App->tex->Get_Texture(preset_for_emitter->texture_name.c_str());
+			p->texture = App->tex->Get_Texture(preset_for_emitter->texture_name);
 			p->area_in_texture = preset_for_emitter->area_in_texture[(rand() % static_cast<int>(preset_for_emitter->area_in_texture.size()))];
 
 			p->target_on_screen.x = RandomFloat(preset_for_emitter->minmax_x_offset.first, preset_for_emitter->minmax_x_offset.second) + position_x;

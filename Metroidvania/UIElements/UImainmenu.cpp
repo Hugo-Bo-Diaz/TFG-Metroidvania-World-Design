@@ -11,6 +11,9 @@
 
 UIMainMenu::UIMainMenu()
 {
+	TexBase = App->tex->Load_Texture("Assets/UI/mainmenu.png");
+	TexSelected = App->tex->Load_Texture("Assets/UI/mainmenuselected.png");
+	TexDisabled = App->tex->Load_Texture("Assets/UI/mainmenudisabled.png");
 }
 
 void UIMainMenu::Loop()
@@ -99,14 +102,14 @@ void UIMainMenu::Loop()
 
 void UIMainMenu::Render()
 {
-	App->ren->BlitUI(App->tex->Get_Texture("mainmenu"),0,0,NULL,0);
+	App->ren->BlitUI(TexBase,0,0,NULL,0);
 
-	App->ren->BlitUI(App->tex->Get_Texture("mainmenuselected"), offset_option_x, offset_option_y+current_option*interval_y, NULL, 0);
+	App->ren->BlitUI(TexSelected, offset_option_x, offset_option_y+current_option*interval_y, NULL, 0);
 
 
 	if (!App->trk->CanLoadGame("save_file.xml"))
 	{
-		App->ren->BlitUI(App->tex->Get_Texture("mainmenudisabled"),516,312,NULL,-2);
+		App->ren->BlitUI(TexDisabled,516,312,NULL,-2);
 	}
 
 }

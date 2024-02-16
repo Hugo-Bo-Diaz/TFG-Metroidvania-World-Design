@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Timer.h"
+#include "Textures.h"
 
 class HazardRockBlock :
 	public GameObject
@@ -17,6 +18,7 @@ public:
 	bool Render();
 
 	SDL_Rect rockblock;
+	TextureID hazards;
 };
 
 #endif

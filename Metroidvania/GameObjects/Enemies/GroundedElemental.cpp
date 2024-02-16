@@ -7,6 +7,9 @@
 
 GroundedElemental::GroundedElemental()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	groundelemental = App->tex->Load_Texture("Assets/Sprites/enemies/groundelemental.png");
+
 	r14firegedeath = { 24,36,12,12 };
 	r15firegedeath = { 36,36,12,12 };
 	r16sandfirst = { 48,0,12,12 };
@@ -24,7 +27,7 @@ GroundedElemental::GroundedElemental()
 	fire_ge_death.minmax_lifespan = std::make_pair(200, 500);
 	fire_ge_death.minmax_frequency = std::make_pair(10, 20);
 	fire_ge_death.minmax_acc_y = std::make_pair(0.1, 0.3);
-	fire_ge_death.texture_name = "particles";
+	fire_ge_death.texture_name = particles;
 
 
 	stone_death.area_in_texture.push_back(&r16sandfirst);
@@ -39,7 +42,7 @@ GroundedElemental::GroundedElemental()
 	stone_death.minmax_lifespan = std::make_pair(200, 500);
 	stone_death.minmax_frequency = std::make_pair(7, 15);
 	stone_death.minmax_acc_y = std::make_pair(0.1, 0.3);
-	stone_death.texture_name = "particles";
+	stone_death.texture_name = particles;
 
 }
 
@@ -153,9 +156,9 @@ bool GroundedElemental::Render()
 	
 
 	if (speed_x < 0)
-		App->ren->Blit(App->tex->Get_Texture("groundelemental"), collider->x, collider->y, walking_left.GetCurrentFrame(), 0);
+		App->ren->Blit(groundelemental, collider->x, collider->y, walking_left.GetCurrentFrame(), 0);
 	else
-		App->ren->Blit(App->tex->Get_Texture("groundelemental"), collider->x, collider->y, walking_right.GetCurrentFrame(), 0);
+		App->ren->Blit(groundelemental, collider->x, collider->y, walking_right.GetCurrentFrame(), 0);
 
 	return true;
 }

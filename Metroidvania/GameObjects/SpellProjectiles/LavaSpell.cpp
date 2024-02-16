@@ -14,6 +14,12 @@
 #include "../Enemies/FlyingShield.h"
 #include "../EntityIDs.h"
 
+
+LavaSpell::LavaSpell(TextureID tex)
+{
+	spells = tex;
+}
+
 void LavaSpell::Loop()
 {
 	hitbox.y += speed;
@@ -52,6 +58,6 @@ void LavaSpell::Loop()
 
 void LavaSpell::Render()
 {
-	App->ren->Blit(App->tex->Get_Texture("spells"), hitbox.x, hitbox.y, &blitrect, -2);
+	App->ren->Blit(spells, hitbox.x, hitbox.y, &blitrect, -2);
 	//App->ren->DrawRect(&hitbox, 255, 255, 255, 255, true);
 }

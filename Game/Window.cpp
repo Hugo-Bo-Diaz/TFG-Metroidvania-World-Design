@@ -73,47 +73,19 @@ bool Window::LoadConfig(pugi::xml_node& config_node)
 }
 bool Window::CreateConfig(pugi::xml_node& config_node)
 {
-	Logger::Console_log(LogLevel::LOG_INFO, "Init SDL window & surface");
+	pugi::xml_node dimensions = config_node.append_child("dimensions");
 
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		std::string errstr = "SDL_VIDEO could not initialize! SDL_Error:";
-		errstr += SDL_GetError();
-		Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
-	}
-	else
-	{
-		Uint32 flags = SDL_WINDOW_SHOWN;
+	dimensions.append_attribute("width") = 1024;
+	dimensions.append_attribute("height") = 576;
+	dimensions.append_attribute("scale") = 1;
 
-		width = 1024;
-		height = 576;//PIXEL ART RATIO = 4
-		scale = 1;
-		pugi::xml_node dimensions = config_node.append_child("dimensions");
+	config_node.append_child("fullscreen").append_attribute("value") = false;
+	config_node.append_child("borderless").append_attribute("value") = false;
+	config_node.append_child("resizable").append_attribute("value") = false;
+	config_node.append_child("fullscreen_window").append_attribute("value") = false;
 
-		dimensions.append_attribute("width") = width;
-		dimensions.append_attribute("height") = height;
-		dimensions.append_attribute("scale") = scale;
+	config_node.append_child("window_title").append_attribute("value") = "DEFAULT_CAPTION";
 
-		config_node.append_child("fullscreen").append_attribute("value") = false;
-		config_node.append_child("borderless").append_attribute("value") = false;
-		config_node.append_child("resizable").append_attribute("value") = false;
-		config_node.append_child("fullscreen_window").append_attribute("value") = false;
-
-		config_node.append_child("window_title").append_attribute("value") = "DEFAULT_CAPTION";
-
-		window = SDL_CreateWindow("DEFAULT CAPTION", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
-
-		if (window == NULL)
-		{
-			std::string errstr = "Window could not be created! SDL_Error:! SDL_Error:";
-			errstr += SDL_GetError();
-			Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
-		}
-		else
-		{
-			screen_surface = SDL_GetWindowSurface(window);
-		}
-	}
 	return true;
 }
 

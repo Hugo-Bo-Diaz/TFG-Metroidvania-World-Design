@@ -4,7 +4,7 @@
 #include "Physics.h"
 #include "Animation.h"
 #include "ParticleEmitter.h"
-
+#include "Textures.h"
 #include "Enemy.h"
 
 class Player;
@@ -59,6 +59,9 @@ public:
 	SDL_Rect aggro;
 
 	bool isplayernearby;
+
+	TextureID armortrap;
+	TextureID particles;
 };
 
 #endif

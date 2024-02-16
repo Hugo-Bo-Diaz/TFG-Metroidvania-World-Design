@@ -31,6 +31,39 @@ Fire::~Fire()
 
 void Fire::Init()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
+
+	r2shield = { 12,0,12,12 };
+	r12shield = { 24,0,12,12 };
+	fireshield_part.area_in_texture.push_back(&r2shield);
+	fireshield_part.area_in_texture.push_back(&r2shield);
+	fireshield_part.area_in_texture.push_back(&r12shield);
+	fireshield_part.name = "fireshield";
+	fireshield_part.minmax_x_offset = std::make_pair(-5, 69);
+	fireshield_part.minmax_y_offset = std::make_pair(0, 70);
+	fireshield_part.minmax_speed_y = std::make_pair(-1.5, -2.5);
+	fireshield_part.minmax_speed_x = std::make_pair(-0.1, 0.1);
+	fireshield_part.minmax_scale_speed = std::make_pair(-0.03, -0.04);
+	fireshield_part.minmax_scale = std::make_pair(1, 1.5);
+	fireshield_part.minmax_acc_y = std::make_pair(0.04, 0.05);
+	fireshield_part.minmax_lifespan = std::make_pair(300, 400);
+	fireshield_part.minmax_frequency = std::make_pair(5, 20);
+	fireshield_part.texture_name = particles;
+
+	r3lava = { 36,0,12,12 };
+	lava.area_in_texture.push_back(&r3lava);
+	lava.name = "lava";
+	lava.minmax_speed_y = std::make_pair(-3, -4);
+	lava.minmax_speed_x = std::make_pair(-2, 2);
+	lava.minmax_lifespan = std::make_pair(200, 300);
+	lava.minmax_x_offset = std::make_pair(0, 64);
+	lava.minmax_y_offset = std::make_pair(60, 64);
+	lava.minmax_acc_y = std::make_pair(0.4, 0.5);
+	lava.minmax_frequency = std::make_pair(5, 20);
+	lava.texture_name = particles;
+
+
 	firebreath_left.AddFrame({ 224,0,32,64 });
 	firebreath_right.AddFrame({ 224,64,32,64 });
 	fireshield.AddFrame({ 0,64,96,96 });
@@ -49,37 +82,6 @@ void Fire::Init()
 
 	lavaspawner.Pause();
 	lavaspawner.Reset();
-
-
-	r2shield = { 12,0,12,12 };
-	r12shield = { 24,0,12,12 };
-	fireshield_part.area_in_texture.push_back(&r2shield);
-	fireshield_part.area_in_texture.push_back(&r2shield);
-	fireshield_part.area_in_texture.push_back(&r12shield);
-	fireshield_part.name = "fireshield";
-	fireshield_part.minmax_x_offset = std::make_pair(-5, 69);
-	fireshield_part.minmax_y_offset = std::make_pair(0, 70);
-	fireshield_part.minmax_speed_y = std::make_pair(-1.5, -2.5);
-	fireshield_part.minmax_speed_x = std::make_pair(-0.1, 0.1);
-	fireshield_part.minmax_scale_speed = std::make_pair(-0.03, -0.04);
-	fireshield_part.minmax_scale = std::make_pair(1, 1.5);
-	fireshield_part.minmax_acc_y = std::make_pair(0.04, 0.05);
-	fireshield_part.minmax_lifespan = std::make_pair(300, 400);
-	fireshield_part.minmax_frequency = std::make_pair(5, 20);
-	fireshield_part.texture_name = "particles";
-
-	r3lava = { 36,0,12,12 };
-	lava.area_in_texture.push_back(&r3lava);
-	lava.name = "lava";
-	lava.minmax_speed_y = std::make_pair(-3, -4);
-	lava.minmax_speed_x = std::make_pair(-2, 2);
-	lava.minmax_lifespan = std::make_pair(200, 300);
-	lava.minmax_x_offset = std::make_pair(0, 64);
-	lava.minmax_y_offset = std::make_pair(60, 64);
-	lava.minmax_acc_y = std::make_pair(0.4, 0.5);
-	lava.minmax_frequency = std::make_pair(5, 20);
-	lava.texture_name = "particles";
-
 }
 
 void Fire::Loop(float dt)
@@ -138,7 +140,7 @@ void Fire::Loop(float dt)
 		if(lavaspawner.Read()>timebetweenlava)
 		{
 		//spawn lava
-			LavaSpell* r = new LavaSpell();
+			LavaSpell* r = new LavaSpell(spells);
 			r->blitrect = { 192, 224, 64, 48 };
 			r->speed = -6;
 			if(player->is_right)
@@ -261,14 +263,14 @@ void Fire::Render()
 			{
 				if (player->is_right)
 				{
-					App->ren->Blit(App->tex->Get_Texture("spells"),
+					App->ren->Blit(spells,
 						player->collider->x + player->collider->w - 5,
 						player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
 						&fireball_big, -2);
 				}
 				else
 				{
-					App->ren->Blit(App->tex->Get_Texture("spells"),
+					App->ren->Blit(spells,
 						player->collider->x - fireball_big.w + 5,
 						player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
 						&fireball_big, -2);
@@ -278,14 +280,14 @@ void Fire::Render()
 			{
 				if (player->is_right)
 				{
-					App->ren->Blit(App->tex->Get_Texture("spells"),
+					App->ren->Blit(spells,
 						player->collider->x + player->collider->w - 15,
 						player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
 						&fireball_small, -2);
 				}
 				else
 				{
-					App->ren->Blit(App->tex->Get_Texture("spells"),
+					App->ren->Blit(spells,
 						player->collider->x - fireball_small.w + 15,
 						player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
 						&fireball_small, -2);
@@ -301,7 +303,7 @@ void Fire::Render()
 
 	if (is_fireshield_up)
 	{
-		App->ren->Blit(App->tex->Get_Texture("spells"),
+		App->ren->Blit(spells,
 			player->collider->x + (player->collider->w - fireshield.GetCurrentFrame()->w) / 2,
 			player->collider->y + (player->collider->h - fireshield.GetCurrentFrame()->h) / 2,
 			fireshield.GetCurrentFrame(), -2);

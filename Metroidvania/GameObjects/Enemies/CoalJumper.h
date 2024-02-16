@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 enum CoalJumperState {
 	COALJUMPER_IDLE,
@@ -70,6 +71,8 @@ public:
 	SDL_Rect r7buff;
 	SDL_Rect r12shield;
 
+	TextureID particles;
+	TextureID coaljumper;
 };
 
 #endif

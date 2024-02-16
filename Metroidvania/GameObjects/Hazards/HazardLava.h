@@ -3,6 +3,7 @@
 
 #include "Physics.h"
 #include "Timer.h"
+#include "Textures.h"
 
 class HazardLava :
 	public GameObject
@@ -20,7 +21,7 @@ public:
 	bool offset_cycle=true;
 
 	SDL_Rect lava;
-
+	TextureID hazards;
 };
 
 #endif

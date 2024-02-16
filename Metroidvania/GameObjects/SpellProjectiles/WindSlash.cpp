@@ -6,11 +6,13 @@
 
 WindSlash::WindSlash()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
+
 	windslash.AddFrame({ 0,222,48,48 });
 	windslash.AddFrame({ 48,222,48,48 });
 	windslash.AddFrame({ 96,222,48,48 });
 	windslash.AddFrame({ 144,222,48,48 });
-
 
 	r5slash = { 0,12,12,12 };
 	windslash_part.area_in_texture.push_back(&r5slash);
@@ -23,7 +25,7 @@ WindSlash::WindSlash()
 	windslash_part.minmax_x_offset = std::make_pair(0, 48);
 	windslash_part.minmax_y_offset = std::make_pair(0, 48);
 	windslash_part.minmax_frequency = std::make_pair(5, 20);
-	windslash_part.texture_name = "particles";
+	windslash_part.texture_name = particles;
 
 	p = App->par->AddParticleEmitter(&windslash_part,collider->x,collider->h);
 }
@@ -59,7 +61,7 @@ bool WindSlash::Loop(float dt)
 
 bool WindSlash::Render()
 {
-	App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, windslash.GetCurrentFrame(), -2);
+	App->ren->Blit(spells, collider->x, collider->y, windslash.GetCurrentFrame(), -2);
 	return true;
 }
 

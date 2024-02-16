@@ -7,8 +7,12 @@
 #include "../../UIelementFunctions.h"
 #include "../Player.h"
 #include "../EntityIDs.h"
+
 MaxHealthPickup::MaxHealthPickup()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	items = App->tex->Load_Texture("Assets/Sprites/items.png");
+
 	maxhealthplus = {0,0,48,48};
 
 	r13magic = { 0,36,12,12 };
@@ -22,7 +26,7 @@ MaxHealthPickup::MaxHealthPickup()
 	magic.minmax_angle = std::make_pair(0, 360);
 	magic.minmax_lifespan = std::make_pair(300, 400);
 	magic.minmax_frequency = std::make_pair(20, 40);
-	magic.texture_name = "particles";
+	magic.texture_name = particles;
 
 	p = App->par->AddParticleEmitter(&magic, 0, 0);
 	if (App->trk->BaseSaveSection->GetChild("pickups") == nullptr)
@@ -104,7 +108,7 @@ bool MaxHealthPickup::Loop(float dt)
 
 bool MaxHealthPickup::Render()
 {
-	App->ren->Blit(App->tex->Get_Texture("items"), collider->x, collider->y, &maxhealthplus, 10);
+	App->ren->Blit(items, collider->x, collider->y, &maxhealthplus, 10);
 
 	return true;
 }

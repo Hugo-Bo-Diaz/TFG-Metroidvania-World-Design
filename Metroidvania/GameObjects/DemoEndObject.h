@@ -1,7 +1,10 @@
 #ifndef DEMO__END__OBJECT__H
 #define DEMO__END__OBJECT__H
+
 #include "Physics.h"
 #include "Gui.h"
+#include "Textures.h"
+
 class UItextbox;
 
 class EndDemoObject :
@@ -28,6 +31,9 @@ public:
 
 	SDL_Rect rectanglekeyboard;
 	SDL_Rect rectanglecontroller;
+
+	TextureID indicator;
+	TextureID particles;
 };
 
 #endif

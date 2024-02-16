@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 enum CloudMeleeState
 {
@@ -76,6 +77,8 @@ public:
 	float speed_y = -10;
 	float acceleration_y = patrol_accel_y;
 
+	TextureID cloud_melee;
+	TextureID particles;
 };
 
 #endif

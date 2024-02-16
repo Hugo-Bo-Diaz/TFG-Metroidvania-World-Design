@@ -38,15 +38,15 @@ void MetroidVaniaSceneProcessor::SceneProcessingMainMenu()
 
 void MetroidVaniaSceneProcessor::SceneProcessingInGame()
 {
-	if (App->inp->GetInput(BUTTON_3))
-	{
-		App->trk->SaveFile("save.xml");
-	}
+	//if (App->inp->GetInput(BUTTON_3))
+	//{
+	//	App->trk->SaveFile("save.xml");
+	//}
 
-	if (App->inp->GetInput(BUTTON_4))
-	{
-		App->trk->LoadGame("save.xml");
-	}
+	//if (App->inp->GetInput(BUTTON_4))
+	//{
+	//	App->trk->LoadGame("save.xml");
+	//}
 
 	if (App->inp->GetInput(START) == BUTTON_DOWN && canopenmenu && !is_pause_menu_up && !is_select_menu_up)
 	{

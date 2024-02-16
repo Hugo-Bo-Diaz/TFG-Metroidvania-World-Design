@@ -18,6 +18,9 @@
 
 Rock::Rock()
 {
+	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
+	spells = App->tex->Load_Texture("Assets/Sprites/spells.png");
+
 	r8ground = { 0,24,12,12 };
 	r9ground = { 12,24,12,12 };
 	rockblockexplosion.area_in_texture.push_back(&r8ground);
@@ -32,7 +35,7 @@ Rock::Rock()
 	rockblockexplosion.minmax_y_offset = std::make_pair(-25, 25);
 	rockblockexplosion.minmax_acc_y = std::make_pair(1, 2);
 	rockblockexplosion.minmax_frequency = std::make_pair(10, 25);
-	rockblockexplosion.texture_name = "particles";
+	rockblockexplosion.texture_name = particles;
 
 	groundcontact.area_in_texture.push_back(&r8ground);
 	groundcontact.area_in_texture.push_back(&r9ground);
@@ -46,7 +49,7 @@ Rock::Rock()
 	groundcontact.minmax_y_offset = std::make_pair(-15, 15);
 	groundcontact.minmax_acc_y = std::make_pair(1, 2);
 	groundcontact.minmax_frequency = std::make_pair(10, 25);
-	groundcontact.texture_name = "particles";
+	groundcontact.texture_name = particles;
 
 	rock_sprite.AddFrame({ 96,160,32,32 });
 }
@@ -115,7 +118,7 @@ bool Rock::Loop(float dt)
 
 bool Rock::Render()
 {
-	App->ren->Blit(App->tex->Get_Texture("spells"), collider->x, collider->y, rock_sprite.GetCurrentFrame(), -2);
+	App->ren->Blit(spells, collider->x, collider->y, rock_sprite.GetCurrentFrame(), -2);
 
 	return true;
 }

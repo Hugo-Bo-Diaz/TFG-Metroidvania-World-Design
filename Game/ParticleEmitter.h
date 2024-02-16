@@ -7,6 +7,7 @@
 
 #include "Application.h"
 #include "Render.h"
+#include "Textures.h"
 
 #define MAX_PARTICLES 2000
 
@@ -19,7 +20,7 @@ class particle_preset
 public:
 
 	std::string name;
-	std::string texture_name;
+	TextureID texture_name;
 
 	std::vector<SDL_Rect*> area_in_texture;
 

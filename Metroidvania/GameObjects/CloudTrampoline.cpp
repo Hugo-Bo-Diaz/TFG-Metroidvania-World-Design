@@ -8,6 +8,8 @@
 
 CloudTrampoline::CloudTrampoline()
 {
+	hazards = App->tex->Load_Texture("Assets/Sprites/hazards.png");
+
 	cloudLeft = { 48,96,48,48 };
 	cloudLoop = { 96,96,48,48 };
 	cloudRight = { 144,96,48,48 };
@@ -38,16 +40,16 @@ bool CloudTrampoline::Render()
 	int tilesy = collider->h / 48;
 
 
-	App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x , collider->y, &cloudLeft, -20);
+	App->ren->Blit(hazards, collider->x , collider->y, &cloudLeft, -20);
 
 	//top
 	for (int i = 1; i < tilesx-1; ++i)
 	{
-		App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x + 48 * i, collider->y, &cloudLoop, -20);
+		App->ren->Blit(hazards, collider->x + 48 * i, collider->y, &cloudLoop, -20);
 	}
 
 
-	App->ren->Blit(App->tex->Get_Texture("hazards"), collider->x + collider->w - 48 , collider->y, &cloudRight, -20);
+	App->ren->Blit(hazards, collider->x + collider->w - 48 , collider->y, &cloudRight, -20);
 
 	return true;
 }

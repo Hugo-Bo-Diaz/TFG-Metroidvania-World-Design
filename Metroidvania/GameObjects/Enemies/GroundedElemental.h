@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Enemy.h"
 #include "ParticleEmitter.h"
+#include "Textures.h"
 
 enum GroundedElementalColor
 {
@@ -45,6 +46,9 @@ public:
 	bool knocked_up = false;
 
 	GroundedElementalColor c;
+
+	TextureID particles;
+	TextureID groundelemental;
 };
 
 #endif

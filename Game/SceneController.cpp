@@ -14,20 +14,6 @@
 #include "Audio.h"
 #include "Logger.h"
 
-//#include "Player.h"
-//#include "MaxHealthPickup.h"
-//#include "MaxManaPickup.h"
-//#include "GroundedElemental.h"
-//#include "FlyingElemental.h"
-//#include "ArmorTrap.h"
-//#include "ClingingCreature.h"
-//
-//#include "CheckPoint.h"
-//#include "TextBoxObject.h"
-//#include "DemoEndObject.h"
-////#include "HazardLava.h"
-//#include "HazardsRockBlock.h"
-
 #include "Gui.h"
 #include "Text.h"
 
@@ -144,7 +130,7 @@ bool SceneController::LoadTilesets(pugi::xml_node & node)
 	base_folder += imagenode.attribute("source").as_string();
 
 	//load this texture
-	set->texture = App->tex->Load_Texture_Scene(base_folder.c_str());
+	set->texture = App->tex->Load_Texture(base_folder.c_str());
 
 	tilesets.push_back(set);
 
@@ -191,7 +177,7 @@ bool SceneController::LoadBackgroundImage(pugi::xml_node & node)
 	base_folder += back->path;
 
 	//load this texture
-	back->texture = App->tex->Load_Texture_Scene(base_folder.c_str());
+	back->texture = App->tex->Load_Texture(base_folder.c_str());
 
 	backgrounds.push_back(back);
 
@@ -810,7 +796,7 @@ SDL_Rect SceneController::GetImageRectFromId(tileset* t, int id)
 SDL_Texture * SceneController::GetTextureFromId(int id)
 {
 
-	return GetTilesetFromId(id)->texture;
+	return App->tex->Get_Texture(GetTilesetFromId(id)->texture);
 }
 
 int SceneController::RoundToNearestTileset(int id)
@@ -842,6 +828,8 @@ void SceneController::RenderTiles()
 		float para_x = (*it)->parallax_x;
 		float para_y = (*it)->parallax_y;
 		int depth = (*it)->depth;
+		
+		SDL_Texture* lTex = App->tex->Get_Texture((*it)->tileset_of_layer->texture);
 
 		for (int _y = 0; _y < (*it)->height; ++_y)
 		{
@@ -861,7 +849,7 @@ void SceneController::RenderTiles()
 				on_scn.w = 48*scale;
 				on_scn.h = 48*scale;
 
-				if (SDL_RenderCopyEx(App->ren->renderer, t->texture, &GetImageRectFromId((*it)->tileset_of_layer,(*it)->data[i]), &on_scn, 0, NULL, SDL_FLIP_NONE) != 0)
+				if (SDL_RenderCopyEx(App->ren->renderer, lTex, &GetImageRectFromId((*it)->tileset_of_layer,(*it)->data[i]), &on_scn, 0, NULL, SDL_FLIP_NONE) != 0)
 				{
 					std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
 					errstr += SDL_GetError();

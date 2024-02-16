@@ -1,9 +1,9 @@
 #ifndef UI_HEALTHBAR
 #define UI_HEALTHBAR
 
-
 #include "UIelement.h"
 #include "../GameObjects/Player.h"
+#include "Textures.h"
 
 enum playerresource
 {
@@ -38,5 +38,6 @@ public:
 
 	int size_in_image = 48;
 
+	TextureID TextureHB;
 };
 #endif // !UI_HEALTHBAR
