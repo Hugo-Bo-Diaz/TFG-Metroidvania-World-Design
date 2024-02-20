@@ -34,6 +34,8 @@ public:
 	SDL_Rect rectanglecontroller;
 
 	TextureID texture;
+	static GameObject* Factory(std::list<ObjectProperty*>&);
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

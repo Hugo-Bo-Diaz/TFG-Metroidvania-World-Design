@@ -8,9 +8,11 @@
 
 #include <list>
 #include <vector>
+#include <map>
 
 #include "SDL/include/SDL.h"
 #include <functional>
+#include <typeindex>
 
 #define MAX_WALLS 500
 
@@ -23,23 +25,31 @@ enum texture_type
 	NUMBER_OF_TEXTURES
 };
 
+
+struct ObjectProperty
+{
+	std::string name;
+	std::string str_value;
+	float num_value;
+	bool bool_value;
+};
+
 class GameObject
 {
 public:
 	//physics
 
 	SDL_Rect* collider;
-	SDL_Rect* nextpos;
 
 	objectId type;
 
+	virtual void Init() {};
 	virtual bool Loop(float dt) { return true; };
 	virtual bool Render() { return true; };
 
 	GameObject()
 	{
 		collider = new SDL_Rect({ 0,0,0,0 });
-		nextpos = new SDL_Rect({ 0,0,0,0 });
 	}
 	~GameObject()
 	{
@@ -52,12 +62,28 @@ public:
 			delete collider;
 			collider = nullptr;
 		}
-		if (nextpos != nullptr)
-		{
-			delete nextpos;
-			nextpos = nullptr;
-		}
 	}
+
+	bool IsSameTypeAs(GameObject* lG)
+	{
+		return (typeid(lG) == typeid(this));
+	}
+	bool IsSameTypeAs(std::type_index& aInfo)
+	{
+		return (aInfo == GetTypeInfo());
+	}
+	template<typename T>
+	bool IsSameTypeAs() {
+		return (dynamic_cast<T*>(this) != NULL);
+	}
+
+	template<typename T>
+	static std::type_index GetTypeInfo()
+	{
+		return std::type_index(typeid(T));
+	}
+
+	virtual std::type_index GetTypeInfo() = 0;
 };
 
 struct collision
@@ -80,7 +106,9 @@ public:
 	bool Clearphysics();
 	void DeleteObject(GameObject*);
 	void GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*>& colliders_near);
-	std::vector<GameObject*>* GetAllObjectsOfType(objectId type);
+
+	std::vector<GameObject*>* GetAllObjectsOfType(std::type_index);
+	std::vector<GameObject*>* GetAllObjectsOfType();
 
 	void GetCollisions(SDL_Rect* rect,std::vector<collision*>&collisions);
 	void ClearCollisionArray(std::vector<collision*>&collisions);
@@ -92,17 +120,20 @@ public:
 	void PauseObjects() { is_paused = true; };
 	void UnPauseObjects() { is_paused = false; };
 
-	GameObject* AddObject(int x, int y, int w_col, int h_col, objectId type, std::map<std::string, float>* properties = nullptr);
-	
-	std::function<GameObject* (objectId, std::map<std::string, float>*)> CallBack;
-	std::function<objectId(const char*)> typeCallBack;
+	//GameObject* AddObject(int x, int y, int w_col, int h_col, objectId type, std::map<std::string, float>* properties = nullptr);
+	GameObject* AddObject(int x, int y, int w_col, int h_col,std::type_index lType);
+	void AddObject(GameObject*);
 
 	SDL_Rect* walls[MAX_WALLS];
+
+	std::map<std::type_index, std::function<GameObject * (std::list<ObjectProperty*>&)>> lFactoriesType;
+	std::map<std::string, std::function<GameObject * (std::list<ObjectProperty*>&)>> lFactoriesString;
+	bool AddFactory(const char* lNameInMap, std::type_index lType, std::function<GameObject * (std::list<ObjectProperty*>&)> lFactory);
 
 private:
 
 	std::list<GameObject*> objects;
-	std::list<GameObject*>to_delete;
+	std::list<GameObject*> to_delete;
 };
 
 #endif // !PHYSICS__H

@@ -22,9 +22,11 @@ public:
 	ShieldMonster();
 	~ShieldMonster();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 
+	SDL_Rect* nextpos = nullptr;
 
 	//patrol
 	float partrol_speed = 1;
@@ -97,7 +99,8 @@ public:
 
 	float realx;
 
-
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new ShieldMonster(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

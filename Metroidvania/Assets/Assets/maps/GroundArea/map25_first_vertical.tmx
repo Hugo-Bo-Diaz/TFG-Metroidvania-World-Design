@@ -14,12 +14,30 @@
  </tileset>
  <imagelayer id="17" name="Image Layer 1">
   <image source="Backgrounds/ground_back.png"/>
+  <properties>
+   <property name="depth" type="int" value="30"/>
+   <property name="parallax_x" type="float" value="1"/>
+   <property name="parallax_y" type="float" value="1"/>
+   <property name="repeat_y" type="bool" value="true"/>
+  </properties>
  </imagelayer>
  <imagelayer id="18" name="Image Layer 2">
   <image source="Backgrounds/ground_far.png"/>
+  <properties>
+   <property name="depth" type="int" value="20"/>
+   <property name="parallax_x" type="float" value="0.8"/>
+   <property name="parallax_y" type="float" value="0.1"/>
+   <property name="repeat_y" type="bool" value="false"/>
+  </properties>
  </imagelayer>
  <imagelayer id="19" name="Image Layer 3">
   <image source="Backgrounds/ground_front.png"/>
+  <properties>
+   <property name="depth" type="int" value="10"/>
+   <property name="parallax_x" type="float" value="0.9"/>
+   <property name="parallax_y" type="float" value="0.2"/>
+   <property name="repeat_y" type="bool" value="false"/>
+  </properties>
  </imagelayer>
  <layer id="11" name="back_tiles" width="22" height="48">
   <properties>
@@ -4351,6 +4369,9 @@
   <object id="197" type="HazardRockBlock" gid="613" x="96" y="1296" width="48" height="48"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
+  <properties>
+   <property name="isWallLayer" type="bool" value="true"/>
+  </properties>
   <object id="110" x="288" y="1440" width="96" height="144"/>
   <object id="127" x="0" y="1296" width="240" height="624"/>
   <object id="129" x="624" y="2016" width="432" height="96"/>

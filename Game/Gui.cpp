@@ -3,6 +3,8 @@
 #include "Input.h"
 #include "SceneController.h"
 
+#include "Logger.h"
+
 UserInterface::UserInterface()
 {
 	name = "UserInterface";
@@ -51,6 +53,7 @@ bool UserInterface::CleanUp()
 
 void UserInterface::Clearelements()
 {
+	Logger::Console_log(LogLevel::LOG_INFO, "Clearing UI elements");
 	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
 	{
 				delete (*it);

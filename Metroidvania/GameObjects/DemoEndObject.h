@@ -34,6 +34,9 @@ public:
 
 	TextureID indicator;
 	TextureID particles;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new EndDemoObject(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

@@ -2133,6 +2133,9 @@
   </object>
  </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
+  <properties>
+   <property name="isWallLayer" type="bool" value="true"/>
+  </properties>
   <object id="5" x="-96" y="1344" width="1728" height="192"/>
   <object id="11" x="1296" y="624" width="48" height="48"/>
   <object id="12" x="576" y="864" width="96" height="48"/>

@@ -14,12 +14,30 @@
  </tileset>
  <imagelayer id="17" name="Image Layer 1">
   <image source="Backgrounds/fire_back.png"/>
+  <properties>
+   <property name="depth" type="int" value="30"/>
+   <property name="parallax_x" type="float" value="0"/>
+   <property name="parallax_y" type="float" value="0"/>
+   <property name="repeat_y" type="bool" value="true"/>
+  </properties>
  </imagelayer>
  <imagelayer id="18" name="Image Layer 2">
   <image source="Backgrounds/fire_far.png"/>
+  <properties>
+   <property name="depth" type="int" value="20"/>
+   <property name="parallax_x" type="float" value="0.2"/>
+   <property name="parallax_y" type="float" value="0.8"/>
+   <property name="repeat_y" type="bool" value="false"/>
+  </properties>
  </imagelayer>
  <imagelayer id="19" name="Image Layer 3">
   <image source="Backgrounds/fire_front.png"/>
+  <properties>
+   <property name="depth" type="int" value="10"/>
+   <property name="parallax_x" type="float" value="0.3"/>
+   <property name="parallax_y" type="float" value="0.9"/>
+   <property name="repeat_y" type="bool" value="false"/>
+  </properties>
  </imagelayer>
  <layer id="11" name="back_tiles" width="22" height="48">
   <properties>
@@ -2170,6 +2188,9 @@
   <object id="124" type="EnemyFlyingElemental" gid="315" x="240" y="1488" width="48" height="48"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
+  <properties>
+   <property name="isWallLayer" type="bool" value="true"/>
+  </properties>
   <object id="3" x="144" y="432" width="48" height="96"/>
   <object id="24" x="336" y="96" width="48" height="48"/>
   <object id="43" x="816" y="768" width="96" height="192"/>

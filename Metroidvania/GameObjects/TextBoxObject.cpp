@@ -93,3 +93,26 @@ void TextBoxObject::AddText(const char * text)
 {
 	strings.push_back(text);
 }
+
+GameObject* TextBoxObject::Factory(std::list<ObjectProperty*>& aProperties)
+{
+	TextBoxObject* textbox = new TextBoxObject();
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("text") == 0)
+		{
+			textbox->AddText((*it)->str_value.c_str());
+		}
+		else if ((*it)->name.compare("author") == 0)
+		{
+			textbox->author = (*it)->str_value;
+		}
+		else if ((*it)->name.compare("lore") == 0)
+		{
+			textbox->lore_unlock = (*it)->num_value;
+		}
+	}
+
+	return textbox;
+}

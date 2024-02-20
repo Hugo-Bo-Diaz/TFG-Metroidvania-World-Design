@@ -3171,6 +3171,9 @@
   <object id="79" type="DemoEndObject" x="1056" y="384" width="144" height="144"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
+  <properties>
+   <property name="isWallLayer" type="bool" value="true"/>
+  </properties>
   <object id="3" x="0" y="864" width="144" height="288"/>
   <object id="5" x="48" y="1440" width="96" height="192"/>
   <object id="8" x="0" y="0" width="1536" height="96"/>

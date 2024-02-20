@@ -24,15 +24,20 @@ void HazardRockBlock::Init()
 {
 	//wall_id = App->phy->AddWall(SDL_Rect{ collider->x + 1,collider->y + 1,46,46 });
 
-	wall_id = App->phy->AddWall(SDL_Rect{ collider->x,collider->y,48,48 });
-	collider->y -= 5;
-	collider->h += 5;
+
 	
 	//wall_id = App->phy->AddWall(*collider);
 }
 
 bool HazardRockBlock::Loop(float dt)
 {
+	if (wall_id == -1)
+	{
+		wall_id = App->phy->AddWall(SDL_Rect{ collider->x,collider->y,48,48 });
+		collider->y -= 5;
+		collider->h += 5;
+	}
+
 	std::vector<collision*> collisions;
 	App->phy->GetCollisions(collider, collisions);
 	/*

@@ -112,3 +112,26 @@ bool MaxHealthPickup::Render()
 
 	return true;
 }
+
+GameObject* MaxHealthPickup::Factory(std::list<ObjectProperty*>& aProperties)
+{
+	MaxHealthPickup* pickup = new MaxHealthPickup();
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("text") == 0)
+		{
+			pickup->text = (*it)->str_value;
+		}
+		else if ((*it)->name.compare("id") == 0)
+		{
+			pickup->pickup_id = (*it)->num_value;
+		}
+		else if ((*it)->name.compare("lore") == 0)
+		{
+			pickup->lore_unlock = (*it)->num_value;
+		}
+	}
+
+	return pickup;
+}

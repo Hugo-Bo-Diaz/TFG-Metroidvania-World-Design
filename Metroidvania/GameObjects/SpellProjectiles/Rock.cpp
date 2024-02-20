@@ -64,10 +64,8 @@ bool Rock::Loop(float dt)
 	bool ret = true;
 
 	collider->x += x_speed;
-	nextpos->x += x_speed;
 
 	collider->y += y_speed;
-	nextpos->y += y_speed;
 
 	y_speed += gravity;
 
@@ -104,7 +102,7 @@ bool Rock::Loop(float dt)
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
+		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
 		{
 			App->aud->PlaySFX(SFX_GROUND_HIT);
 			App->phy->DeleteObject(this);

@@ -111,6 +111,15 @@ ShieldMonster::~ShieldMonster()
 
 }
 
+void ShieldMonster::Init()
+{
+	nextpos = new SDL_Rect();
+	nextpos->x = collider->x;
+	nextpos->y = collider->y;
+	nextpos->w = collider->w;
+	nextpos->h = collider->h;
+}
+
 bool ShieldMonster::Loop(float dt)
 {
 	//STEP 1

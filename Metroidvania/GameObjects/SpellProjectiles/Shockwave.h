@@ -16,10 +16,12 @@ public:
 
 	void Fire(bool left_dir, float speed);
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 
 	float x_speed = 0;
+	SDL_Rect* nextpos = nullptr;
 
 	Animation shockwave_left;
 	Animation shockwave_right;
@@ -38,6 +40,9 @@ public:
 
 	TextureID spells;
 	TextureID particles;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new Shockwave(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__REP__H

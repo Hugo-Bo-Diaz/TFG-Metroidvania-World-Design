@@ -35,6 +35,8 @@ public:
 	Player();
 	~Player();
 	state current_state = IDLE;
+
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 
@@ -51,6 +53,7 @@ public:
 
 	float speed_x = 0;
 	float speed_y = -10;
+	SDL_Rect* nextpos = nullptr;
 
 	float speed_y_cap = 30;
 	
@@ -131,6 +134,9 @@ public:
 	bool respawn_player = false;
 	void Respawn();
 
+	//GameObject* Factory(std::list<ObjectProperty*>& lProperties);
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new Player(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__H

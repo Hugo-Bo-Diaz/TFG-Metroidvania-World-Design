@@ -92,7 +92,7 @@ void Fire::Loop(float dt)
 
 		if (charge > 70 && player->manaCost(manacost_big))
 		{
-			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, FIRE_BALL_ID);
+			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, GameObject::GetTypeInfo<FireBall>());
 			fireball->Fire(player->is_right, true);
 			App->cam->CameraShake(20, 120);
 			App->aud->PlaySFX(SFX_FIREBALL_SMALL);
@@ -100,7 +100,7 @@ void Fire::Loop(float dt)
 		}
 		else if (player->manaCost(manacost_small))
 		{
-			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, FIRE_BALL_ID);
+			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, GameObject::GetTypeInfo<FireBall>());
 			fireball->Fire(player->is_right, false);
 			App->cam->CameraShake(10, 120);
 			App->aud->PlaySFX(SFX_FIREBALL_BIG);

@@ -4144,6 +4144,9 @@
   </data>
  </layer>
  <objectgroup color="#0000ff" id="13" name="walls">
+  <properties>
+   <property name="isWallLayer" type="bool" value="true"/>
+  </properties>
   <object id="3" x="0" y="480" width="144" height="528"/>
   <object id="5" x="0" y="2880" width="1536" height="192"/>
   <object id="8" x="0" y="0" width="192" height="288"/>

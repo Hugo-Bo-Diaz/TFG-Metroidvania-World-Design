@@ -120,12 +120,14 @@ void Window::ToggleFullScreen()
 {
 	if(fullscreen)
 	{
+		Logger::Console_log(LogLevel::LOG_INFO, "Exit fullscreen");
 		SDL_SetWindowFullscreen(window,0);
 		fullscreen = false;
 		scale = 1;
 	}
 	else
 	{
+		Logger::Console_log(LogLevel::LOG_INFO, "Enter fullscreen");
 		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 		fullscreen = true;
 		scale = 2;
@@ -137,7 +139,6 @@ bool Window::CleanUp()
 {
 	bool ret = true;
 
-	Logger::Console_log(LogLevel::LOG_INFO,"Quitting Window");
 	if (window != NULL)
 	{
 		SDL_DestroyWindow(window);

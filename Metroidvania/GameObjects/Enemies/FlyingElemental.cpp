@@ -37,6 +37,17 @@ FlyingElemental::~FlyingElemental()
 
 
 
+void FlyingElemental::Init()
+{
+	initial_y = collider->y;
+
+	nextpos = new SDL_Rect();
+	nextpos->x = collider->x;
+	nextpos->y = collider->y;
+	nextpos->w = collider->w;
+	nextpos->h = collider->h;
+}
+
 bool FlyingElemental::Loop(float dt)
 {
 	//STEP 1
@@ -280,4 +291,20 @@ void FlyingElemental::SetAnimations(FlyingElementalColor _c)
 		flying_right.AddFrame({ 336,c * 56,56,56 });
 		flying_right.AddFrame({ 392,c * 56,56,56 });
 	}
+}
+
+
+GameObject* FlyingElemental::Factory(std::list<ObjectProperty*>& aProperties)
+{
+	FlyingElemental* flying = new FlyingElemental();
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("color") == 0)
+		{
+			flying->c = (FlyingElementalColor)(int)(*it)->num_value;
+		}
+	}
+
+	return flying;
 }

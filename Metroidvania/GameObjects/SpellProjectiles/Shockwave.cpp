@@ -63,6 +63,15 @@ Shockwave::~Shockwave()
 	App->par->RemoveParticleEmitter(p);
 }
 
+void Shockwave::Init()
+{
+	nextpos = new SDL_Rect();
+	nextpos->x = collider->x;
+	nextpos->y = collider->y;
+	nextpos->w = collider->w;
+	nextpos->h = collider->h;
+}
+
 bool Shockwave::Loop(float dt)
 {
 	bool ret = true;

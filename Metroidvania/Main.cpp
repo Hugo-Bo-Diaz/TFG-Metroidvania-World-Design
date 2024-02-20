@@ -54,6 +54,8 @@
 
 #include "SceneProcessing.h"
 #include "Logger.h"
+#include <functional>
+
 
 GameObject* CallB(objectId obj, std::map<std::string, float>* properties);
 objectId TypeCallB(const char*);
@@ -69,10 +71,62 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
+	App->phy->AddFactory("Player",GameObject::GetTypeInfo<Player>(), &Player::Factory);
+
+	//demo and lore
+	App->phy->AddFactory("TextBoxObject", GameObject::GetTypeInfo<TextBoxObject>(), &TextBoxObject::Factory);
+	App->phy->AddFactory("FirstDialog", GameObject::GetTypeInfo<FirstDialogue>(), &FirstDialogue::Factory);
+	App->phy->AddFactory("EndDemoObject", GameObject::GetTypeInfo<EndDemoObject>(), &EndDemoObject::Factory);
+
+	//flow
+	App->phy->AddFactory("Portal",GameObject::GetTypeInfo<Portal>(), &Portal::Factory);
+	App->phy->AddFactory("SpawnPoint",GameObject::GetTypeInfo<SpawnPoint>(), &SpawnPoint::Factory);
+	App->phy->AddFactory("Checkpoint",GameObject::GetTypeInfo<CheckPoint>(), &CheckPoint::Factory);
+
+	//hazards
+	App->phy->AddFactory("HazardsCloudTrampoline",GameObject::GetTypeInfo<CloudTrampoline>(), &CloudTrampoline::Factory);
+	App->phy->AddFactory("HazardLava",GameObject::GetTypeInfo<HazardLava>(), &HazardLava::Factory);
+	App->phy->AddFactory("HazardLavaWaterfall",GameObject::GetTypeInfo<HazardLavaWaterfall>(), &HazardLavaWaterfall::Factory);
+	App->phy->AddFactory("HazardSpikes",GameObject::GetTypeInfo<HazardSpikes>(), &HazardSpikes::Factory);
+	App->phy->AddFactory("HazardRockBlock",GameObject::GetTypeInfo<HazardRockBlock>(), &HazardRockBlock::Factory);
+
+	//projectiles
+	App->phy->AddFactory("ProjectileWindSlash",GameObject::GetTypeInfo<WindSlash>(), &WindSlash::Factory);
+	App->phy->AddFactory("ProjectileThorns",GameObject::GetTypeInfo<Thorns>(), &Thorns::Factory);
+	App->phy->AddFactory("ProjectileShockwave",GameObject::GetTypeInfo<Shockwave>(), &Shockwave::Factory);
+	App->phy->AddFactory("ProjectileRock",GameObject::GetTypeInfo<Rock>(), &Rock::Factory);
+	App->phy->AddFactory("ProjectileLeaf",GameObject::GetTypeInfo<Leaf>(), &Leaf::Factory);
+	App->phy->AddFactory("ProjectileIceBlock",GameObject::GetTypeInfo<IceBlock>(), &IceBlock::Factory);
+	App->phy->AddFactory("ProjectileIceShard",GameObject::GetTypeInfo<IceShard>(), &IceShard::Factory);
+	App->phy->AddFactory("ProjectileFireBall",GameObject::GetTypeInfo<FireBall>(), &FireBall::Factory);
+	App->phy->AddFactory("ProjectileCloud",GameObject::GetTypeInfo<Cloud>(), &Cloud::Factory);
+
+	//pickups
+	App->phy->AddFactory("HealthChargePickup",GameObject::GetTypeInfo<MaxHealthPickup>(), &MaxHealthPickup::Factory);
+	App->phy->AddFactory("ManaChargePickup",GameObject::GetTypeInfo<MaxManaPickup>(), &MaxManaPickup::Factory);
+	App->phy->AddFactory("SpellUnlockFire",GameObject::GetTypeInfo<FireSpellPickup>(), &FireSpellPickup::Factory);
+	App->phy->AddFactory("SpellUnlockGround",GameObject::GetTypeInfo<GroundSpellPickup>(), &GroundSpellPickup::Factory);
+
+	//Enemies
+	App->phy->AddFactory("EnemyArmorTrap",GameObject::GetTypeInfo<ArmorTrap>(), &ArmorTrap::Factory);
+	App->phy->AddFactory("EnemyClingCreature",GameObject::GetTypeInfo<ClingCreature>(), &ClingCreature::Factory);
+	App->phy->AddFactory("EnemyCloudMelee",GameObject::GetTypeInfo<CloudMelee>(), &CloudMelee::Factory);
+	App->phy->AddFactory("EnemyCloudSummoner",GameObject::GetTypeInfo<CloudSummoner>(), &CloudSummoner::Factory);
+	App->phy->AddFactory("EnemyCloudSummonerProjectile",GameObject::GetTypeInfo<CloudSummonerProjectile>(), &CloudSummonerProjectile::Factory);
+	App->phy->AddFactory("EnemyCoalJumper",GameObject::GetTypeInfo<CoalJumper>(), &CoalJumper::Factory);
+	App->phy->AddFactory("EnemyFlyingAxe",GameObject::GetTypeInfo<FlyingAxe>(), &FlyingAxe::Factory);
+	App->phy->AddFactory("EnemyFlyingShield",GameObject::GetTypeInfo<FlyingShield>(), &FlyingShield::Factory);
+	App->phy->AddFactory("EnemyFlyingElemental",GameObject::GetTypeInfo<FlyingElemental>(), &FlyingElemental::Factory);
+	App->phy->AddFactory("EnemyGroundedElemental",GameObject::GetTypeInfo<GroundedElemental>(), &GroundedElemental::Factory);
+	App->phy->AddFactory("EnemyShieldMonster",GameObject::GetTypeInfo<ShieldMonster>(), &ShieldMonster::Factory);
+
+
+	std::string str = std::type_index(typeid(ArmorTrap)).name();
+	Logger::Console_log(LogLevel::LOG_DEBUG, std::type_index(typeid(Portal)).name());
+
+
 	App->scn->AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingInGame,&MetroidVaniaSceneProcessor::GetInstance()));
 	App->scn->AssignLoadFunction(std::bind(&MetroidVaniaSceneProcessor::SceneCreationInGame,&MetroidVaniaSceneProcessor::GetInstance()));
-	App->phy->CallBack = CallB;
-	App->phy->typeCallBack = TypeCallB;
 	App->Run();
 
 
@@ -82,54 +136,6 @@ int main(int argc, char* args[])
 objectId TypeCallB(const char* obj)
 {
 	GameObject* r = nullptr;
-	if (std::strcmp(obj, "SpellUnlockFire") == 0)
-		return FIRE_SPELL_PICKUP_ID;
-	else if (std::strcmp(obj, "SpellUnlockGround") == 0)
-		return GROUND_SPELL_PICKUP_ID;
-	else if (std::strcmp(obj, "HealthChargePickup") == 0)
-		return MAX_HEALTH_PICKUP_ID;
-	else if (std::strcmp(obj, "ManaChargePickup") == 0)
-		return MAX_MANA_PICKUP_ID;
-	else if (std::strcmp(obj, "HazardLava") == 0)
-		return HAZARDS_LAVA_ID;
-	else if (std::strcmp(obj, "HazardLavaWaterfall") == 0)
-		return HAZARDS_LAVA_WATERFALL_ID;
-	else if (std::strcmp(obj, "HazardSpikes") == 0)
-		return HAZARDS_SPIKES_ID;
-	else if (std::strcmp(obj, "HazardRockBlock") == 0)
-		return HAZARDS_ROCK_BLOCK_ID;
-	else if (std::strcmp(obj, "HazardsCloudTrampoline") == 0)
-		return HAZARDS_CLOUD_TRAMPOLINE_ID;
-	else if (std::strcmp(obj, "EnemyGroundedElemental") == 0)
-		return GROUNDED_ELEMENTAL_ID;
-	else if (std::strcmp(obj, "EnemyFlyingElemental") == 0)
-		return FLYING_ELEMENTAL_ID;
-	else if (std::strcmp(obj, "EnemyCoalJumper") == 0)
-		return COAL_JUMPER_ID;
-	else if (std::strcmp(obj, "EnemyArmorTrap") == 0)
-		return ARMOR_TRAP_ID;
-	else if (std::strcmp(obj, "EnemyShieldMonster") == 0)
-		return SHIELD_MONSTER_ID;
-	else if (std::strcmp(obj, "EnemyClingCreature") == 0)
-		return CLING_CREATURE_ID;
-	else if (std::strcmp(obj, "EnemyFlyingAxe") == 0)
-		return FLYING_AXE_ID;
-	else if (std::strcmp(obj, "EnemyFlyingShield") == 0)
-		return FLYING_SHIELD_ID;
-	else if (std::strcmp(obj, "EnemyCloudMelee") == 0)
-		return CLOUD_MELEE_ID;
-	else if (std::strcmp(obj, "EnemyCloudSummoner") == 0)
-		return CLOUD_SUMMONER_ID;
-	else if (std::strcmp(obj, "TextBoxObject") == 0)
-		return TEXTBOXOBJECT_ID;
-	else if (std::strcmp(obj, "DemoEndObject") == 0)
-		return ENDDEMOOBJECT_ID;
-	else if (std::strcmp(obj, "Player") == 0)
-		return PLAYER_ID;
-	else if (std::strcmp(obj, "Portal") == 0)
-		return PORTAL_ID;
-	else if (std::strcmp(obj, "SpawnPoint") == 0)
-		return SPAWNPOINT_ID;
 
 	return -1;
 }

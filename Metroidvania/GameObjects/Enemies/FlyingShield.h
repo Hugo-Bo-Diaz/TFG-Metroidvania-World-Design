@@ -14,6 +14,7 @@ public:
 	FlyingShield(float initial_y);
 	~FlyingShield();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 
@@ -25,6 +26,7 @@ public:
 	float y;
 
 	float initial_y;
+	SDL_Rect* nextpos;
 
 	//graphics
 	Animation flying_left;
@@ -41,6 +43,9 @@ public:
 
 	TextureID particles;
 	TextureID floating_shield;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new FlyingShield(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

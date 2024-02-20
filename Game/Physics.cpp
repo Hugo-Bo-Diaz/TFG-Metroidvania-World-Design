@@ -1,6 +1,9 @@
 #include "Physics.h"
 #include "Logger.h"
 
+#include <sstream>
+#include <typeindex>
+
 Physics::Physics()
 {
 	name = "Physics";
@@ -13,7 +16,7 @@ Physics::Physics()
 bool Physics::Init()
 {
 	bool ret = true;
-	Logger::Console_log(LogLevel::LOG_INFO,"Initiated phyisics");
+
 
 	return ret;
 }
@@ -85,15 +88,27 @@ void Physics::GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*
 	}
 }
 
-std::vector<GameObject*>* Physics::GetAllObjectsOfType(objectId type)
+std::vector<GameObject*>* Physics::GetAllObjectsOfType(std::type_index info)
 {
 	std::vector<GameObject*>* ret = new std::vector<GameObject*>();
+
 	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
-		if ((*it)->type == type)
+		if ((*it)->GetTypeInfo() == info)
 		{
 			ret->push_back(*it);
 		}
+	}
+	return ret;
+}
+
+std::vector<GameObject*>* Physics::GetAllObjectsOfType()
+{
+	std::vector<GameObject*>* ret = new std::vector<GameObject*>();
+
+	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
+	{
+		ret->push_back(*it);
 	}
 	return ret;
 }
@@ -126,29 +141,41 @@ void Physics::ClearCollisionArray(std::vector<collision*>& collisions)
 	collisions.clear();
 }
 
-GameObject* Physics::AddObject(int x, int y, int w_col, int h_col,objectId objType, std::map<std::string, float>* properties)
+GameObject* Physics::AddObject(int x, int y, int w_col, int h_col,std::type_index lType)
 {
-	GameObject* r = CallBack(objType,properties);
+	auto lID = App->phy->lFactoriesType.find(lType);
+
+	std::list<ObjectProperty*> lPropList;
+
+	GameObject* r = (*lID).second(lPropList);
 
 	if (r != nullptr)
 	{
 		r->collider = new SDL_Rect();
-		r->nextpos = new SDL_Rect();
 
 		r->collider->x = x;
 		r->collider->y = y;
 		r->collider->w = w_col;
 		r->collider->h = h_col;
-		r->nextpos->x = x;
-		r->nextpos->y = y;
-		r->nextpos->w = w_col;
-		r->nextpos->h = h_col;
-		r->type = objType;
+
+		r->Init();
 
 		objects.push_back(r);
 	}
+	else
+	{
+		std::stringstream str;
+		str << "Attempted to create: " << lType.name() << " as GameObject, Invalid operation, please make sure that the class inherits from GameObject!";
+		Logger::Console_log(LogLevel::LOG_ERROR, str.str().c_str());
+	}
 
 	return r;
+}
+
+void Physics::AddObject(GameObject* lToAdd)
+{
+	if(lToAdd != nullptr)
+		objects.push_back(lToAdd);
 }
 
 int Physics::AddWall(SDL_Rect rect)
@@ -191,6 +218,13 @@ void Physics::DeleteWall(int id)
 	
 }
 
+bool Physics::AddFactory(const char* lNameInMap,std::type_index lType, std::function<GameObject * (std::list<ObjectProperty*>&)> lFactory)
+{
+	lFactoriesType.insert(std::make_pair(lType, lFactory));
+	lFactoriesString.insert(std::make_pair(lNameInMap, lFactory));
+	return true;
+}
+
 
 bool Physics::CleanUp()
 {
@@ -205,6 +239,7 @@ bool Physics::CleanUp()
 
 bool Physics::Clearphysics()
 {
+	Logger::Console_log(LogLevel::LOG_INFO, "Clearing UI physics");
 	bool ret = true;
 
 	for (int i = 0; i < MAX_WALLS; ++i)

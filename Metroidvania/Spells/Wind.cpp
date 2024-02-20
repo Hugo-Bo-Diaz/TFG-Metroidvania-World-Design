@@ -45,7 +45,7 @@ void Wind::Loop(float dt)
 	//if (App->inp->GetButton(X) == BUTTON_DOWN)
 	if (App->inp->GetInput(BUTTON_2)==KEY_DOWN)
 	{
-		WindSlash* windslash = (WindSlash*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, WIND_SLASH_ID);
+		WindSlash* windslash = (WindSlash*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, GameObject::GetTypeInfo<WindSlash>());
 		windslash->Fire(player->is_right);
 		App->cam->CameraShake(7, 100);
 

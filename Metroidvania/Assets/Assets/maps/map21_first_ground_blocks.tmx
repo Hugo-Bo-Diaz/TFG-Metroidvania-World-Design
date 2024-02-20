@@ -2096,6 +2096,9 @@
   </data>
  </layer>
  <objectgroup color="#0000ff" id="13" name="walls">
+  <properties>
+   <property name="isWallLayer" type="bool" value="true"/>
+  </properties>
   <object id="3" x="864" y="672" width="48" height="48"/>
   <object id="5" x="1200" y="720" width="48" height="48"/>
   <object id="8" x="2640" y="0" width="336" height="144"/>

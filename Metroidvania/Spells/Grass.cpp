@@ -58,15 +58,15 @@ void Grass::Loop(float dt)
 		{
 			/*Leaf* leaf = (Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF);
 			leaf->Fire(player->is_right, 15);*/
-			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF_ID))->Fire(player->is_right, 15);
-			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF_ID))->Fire(player->is_right, 0);
-			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF_ID))->Fire(player->is_right, -15);
+			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, GameObject::GetTypeInfo<Leaf>()))->Fire(player->is_right, 15);
+			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, GameObject::GetTypeInfo<Leaf>()))->Fire(player->is_right, 0);
+			((Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, GameObject::GetTypeInfo<Leaf>()))->Fire(player->is_right, -15);
 
 			App->cam->CameraShake(20, 100);
 		}
 		else
 		{
-			Leaf* leaf = (Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, LEAF_ID);
+			Leaf* leaf = (Leaf*)App->phy->AddObject(player->collider->x, player->collider->y, 48, 48, GameObject::GetTypeInfo<Leaf>());
 			leaf->Fire(player->is_right, 0);
 
 			App->cam->CameraShake(10, 50);
@@ -196,7 +196,7 @@ void Grass::Loop(float dt)
 	if (App->inp->GetInput(BUTTON_4) == KEY_DOWN && !is_thorns_on_cooldown)
 	{
 		is_thorns_on_cooldown = true;
-		Thorns* t = (Thorns*)App->phy->AddObject(player->x+player->collider->w/2, player->y + player->collider->h / 2,32,32,THORNS_ID);
+		Thorns* t = (Thorns*)App->phy->AddObject(player->x+player->collider->w/2, player->y + player->collider->h / 2,32,32, GameObject::GetTypeInfo<Thorns>());
 		t->Fire(player->is_right,thorns_max_time);
 		thorns_timer.Reset();
 		thorns_timer.Start();

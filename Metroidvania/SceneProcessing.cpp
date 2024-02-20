@@ -38,10 +38,24 @@ void MetroidVaniaSceneProcessor::SceneProcessingMainMenu()
 
 void MetroidVaniaSceneProcessor::SceneProcessingInGame()
 {
-	//if (App->inp->GetInput(BUTTON_3))
-	//{
-	//	App->trk->SaveFile("save.xml");
-	//}
+	if (App->inp->GetInput(BUTTON_3))
+	{
+		//App->trk->SaveFile("save.xml");
+
+		if (pl->IsSameTypeAs<UIPauseMenu>())
+		{
+			Logger::Console_log(LogLevel::LOG_ERROR, "WTF");
+		}
+
+		if (pl->IsSameTypeAs<GameObject>())
+		{
+			Logger::Console_log(LogLevel::LOG_WARN, "Inheritance yay");
+		}
+		if (pl->IsSameTypeAs<Portal>())
+		{
+			Logger::Console_log(LogLevel::LOG_INFO, "WTF portal lol");
+		}
+	}
 
 	//if (App->inp->GetInput(BUTTON_4))
 	//{
@@ -124,7 +138,7 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 {
 	if (pl == nullptr)
 	{
-		pl= (Player*)App->phy->AddObject(87, 200, 64, 64, PLAYER_ID);
+		pl= (Player*)App->phy->AddObject(87, 200, 64, 64, GameObject::GetTypeInfo<Player>());
 	}
 
 	if (inGameUI == nullptr)
@@ -136,8 +150,8 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 		inGameUI->SetPlayer(pl);
 	}
 
-	portals = *App->phy->GetAllObjectsOfType(PORTAL_ID);
-	spawnpoints = *App->phy->GetAllObjectsOfType(SPAWNPOINT_ID);
+	portals = *App->phy->GetAllObjectsOfType(GameObject::GetTypeInfo<Portal>());
+	spawnpoints = *App->phy->GetAllObjectsOfType(GameObject::GetTypeInfo<SpawnPoint>());
 
 	LoadMapArray("Assets/maps/map_array.xml");
 
@@ -235,9 +249,23 @@ void MetroidVaniaSceneProcessor::UsePortal(Portal* p, int offset)
 	int spawnpoint_x = 0;
 	int spawnpoint_y = 0;
 
-	portals = *App->phy->GetAllObjectsOfType(PORTAL_ID);
-	spawnpoints = *App->phy->GetAllObjectsOfType(SPAWNPOINT_ID);
+	portals = *App->phy->GetAllObjectsOfType(GameObject::GetTypeInfo<Portal>());
+	spawnpoints = *App->phy->GetAllObjectsOfType(GameObject::GetTypeInfo<SpawnPoint>());
 
+	//portals.clear();
+	//spawnpoints.clear();
+	//for (size_t i = 0; i < lAllObjects->size(); ++i)
+	//{
+	//	if ((lAllObjects->at(i)->IsSameTypeAs<Portal>()))
+	//	{
+	//		portals.push_back(lAllObjects->at(i));
+	//	}
+	//	else if (lAllObjects->at(i)->IsSameTypeAs<SpawnPoint>())
+	//	{
+	//		spawnpoints.push_back(lAllObjects->at(i));
+	//	}
+
+	//}
 	for (std::vector<GameObject*>::iterator it = spawnpoints.begin(); it != spawnpoints.end(); it++)
 	{
 		SpawnPoint* s = (SpawnPoint*)(*it);
@@ -259,7 +287,7 @@ void MetroidVaniaSceneProcessor::UsePortal(Portal* p, int offset)
 	}
 
 	//set player
-	pl = (Player*)App->phy->AddObject(newplayer_x, newplayer_y, 64, 64, PLAYER_ID);
+	pl = (Player*)App->phy->AddObject(newplayer_x, newplayer_y, 64, 64, GameObject::GetTypeInfo<Player>());
 
 	inGameUI->SetPlayer(pl);
 

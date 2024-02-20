@@ -35,7 +35,6 @@ bool WindSlash::Loop(float dt)
 	bool ret = true;
 
 	collider->x += direction * speed;
-	nextpos->x += direction * speed;
 	windslash.NextFrame();
 
 	p->position_x = collider->x;
@@ -47,7 +46,7 @@ bool WindSlash::Loop(float dt)
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
+		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
 		{
 			App->phy->DeleteObject(this);
 			//App->par->to_delete.push_back(p);

@@ -29,5 +29,8 @@ public:
 
 	TextureID particles;
 	TextureID spell_books;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new GroundSpellPickup(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 #endif

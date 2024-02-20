@@ -3151,6 +3151,9 @@
   </object>
  </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
+  <properties>
+   <property name="isWallLayer" type="bool" value="true"/>
+  </properties>
   <object id="3" x="-96" y="768" width="1200" height="96"/>
   <object id="5" x="-96" y="1344" width="2496" height="192"/>
   <object id="8" x="816" y="0" width="1584" height="96"/>

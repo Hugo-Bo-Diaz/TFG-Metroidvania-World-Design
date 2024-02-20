@@ -264,3 +264,18 @@ void ClingCreature::RecieveDamage(int dmg, int direction)
 	}
 
 }
+
+GameObject* ClingCreature::Factory(std::list<ObjectProperty*>& aProperties)
+{
+	ClingCreature* cling = new ClingCreature();
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("direction") == 0)
+		{
+			cling->curr_dir = (ClingCreatureDirection)(int)(*it)->num_value;
+		}
+	}
+
+	return cling;
+}

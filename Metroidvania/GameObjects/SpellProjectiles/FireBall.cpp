@@ -48,7 +48,6 @@ bool FireBall::Loop(float dt)
 	bool ret = true;
 
 	collider->x += direction * speed;
-	nextpos->x += direction * speed;
 
 	std::vector<SDL_Rect*> colliders;
 	App->phy->GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
@@ -56,7 +55,7 @@ bool FireBall::Loop(float dt)
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
+		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
 		{
 			App->phy->DeleteObject(this);
 			App->aud->PlaySFX(SFX_GROUND_HIT);
@@ -113,11 +112,6 @@ void FireBall::Fire(bool left_dir, bool _is_big)
 		collider->y += 16;
 		collider->w = 16;
 		collider->h = 16;
-
-		nextpos->y += 16;
-		nextpos->w = 16;
-		nextpos->h = 16;
-
 	}
 	else
 	{

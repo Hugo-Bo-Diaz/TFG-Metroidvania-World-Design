@@ -66,14 +66,11 @@ GroundedElemental::~GroundedElemental()
 bool GroundedElemental::Loop(float dt)
 {
 	//STEP 1
-	collider->x = nextpos->x;
-	collider->y = nextpos->y;
+	collider->x += speed_x;
+	collider->y += speed_y;
 
 	//STEP 2
 	speed_y += acceleration_y;
-
-	nextpos->x += speed_x;
-	nextpos->y += speed_y;
 
 	std::vector<SDL_Rect*> colliders;
 	App->phy->GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
@@ -108,10 +105,10 @@ bool GroundedElemental::Loop(float dt)
 		}
 
 		SDL_Rect result;
-			if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE && collider->y < colliders[i]->y)// he goin crash!
+			if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE && collider->y < colliders[i]->y)// he goin crash!
 			{
 				speed_y = 0;
-				nextpos->y -= result.h;
+				collider -= result.h;
 				
 				if (knocked_up)
 				{
@@ -194,4 +191,19 @@ void GroundedElemental::SetAnimations(GroundedElementalColor _c)
 		walking_right.AddFrame({ 288,c * 48,48,48 });
 		walking_right.AddFrame({ 336,c * 48,48,48 });
 	}
+}
+
+GameObject* GroundedElemental::Factory(std::list<ObjectProperty*>& aProperties)
+{
+	GroundedElemental* flying = new GroundedElemental();
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("color") == 0)
+		{
+			flying->c = (GroundedElementalColor)(int)(*it)->num_value;
+		}
+	}
+
+	return flying;
 }

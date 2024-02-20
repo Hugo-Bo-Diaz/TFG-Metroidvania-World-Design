@@ -28,7 +28,6 @@ bool Render::LoadConfig(pugi::xml_node& config_node)
 	background.b = color_node.attribute("b").as_float(0);
 	background.a = color_node.attribute("a").as_float(0);
 
-	Logger::Console_log(LogLevel::LOG_INFO, "Create SDL rendering context");
 	// load flags
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
 
@@ -38,6 +37,7 @@ bool Render::LoadConfig(pugi::xml_node& config_node)
 		Logger::Console_log(LogLevel::LOG_INFO, "Using vsync");
 	}
 
+	Logger::Console_log(LogLevel::LOG_INFO, "Create SDL rendering context");
 	renderer = SDL_CreateRenderer(App->win->window, -1, flags);
 	if(!renderer)
 	{
@@ -964,7 +964,6 @@ bool Render::CleanUp()
 {
 	bool ret = true;
 
-	Logger::Console_log(LogLevel::LOG_INFO,"Quitting Render");
 	SDL_DestroyRenderer(renderer);
 
 	//SDL_QuitSubSystem(SDL_INIT_VIDEO);

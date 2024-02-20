@@ -14,6 +14,9 @@ public:
 
 	int spawn_pos_x = 0;
 	int spawn_pos_y = 0;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new CheckPoint(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

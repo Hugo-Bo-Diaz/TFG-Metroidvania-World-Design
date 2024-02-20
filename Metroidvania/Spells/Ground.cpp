@@ -69,7 +69,7 @@ void Ground::Loop(float dt)
 	//if (App->inp->GetButton(X) == BUTTON_DOWN && ! is_rock_on_cooldown)
 	if (App->inp->GetInput(BUTTON_2) == KEY_DOWN && !is_rock_on_cooldown && player->manaCost(manacost_rock) && !App->phy->is_paused)
 	{
-			((Rock*)App->phy->AddObject(player->collider->x+player->collider->w/2, player->collider->y+player->collider->h / 2, 32, 32, ROCK_ID))->Fire(player->is_right,45,15,1);
+			((Rock*)App->phy->AddObject(player->collider->x+player->collider->w/2, player->collider->y+player->collider->h / 2, 32, 32, GameObject::GetTypeInfo<Rock>()))->Fire(player->is_right,45,15,1);
 			is_rock_on_cooldown = true;
 			rock_timer.Reset();
 			rock_timer.Start();
@@ -170,8 +170,8 @@ void Ground::Loop(float dt)
 	//if (App->inp->GetButton(B) == BUTTON_DOWN && player->grounded && !is_eq_on_cooldown)
 	if (App->inp->GetInput(BUTTON_4) == KEY_DOWN && player->grounded && !is_eq_on_cooldown && player->manaCost(manacost_earthquake) && !App->phy->is_paused)
 	{
-		((Shockwave*)App->phy->AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, SHOCKWAVE_ID))->Fire(true, 8);
-		((Shockwave*)App->phy->AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, SHOCKWAVE_ID))->Fire(false, 8);
+		((Shockwave*)App->phy->AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, GameObject::GetTypeInfo<Shockwave>()))->Fire(true, 8);
+		((Shockwave*)App->phy->AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, GameObject::GetTypeInfo<Shockwave>()))->Fire(false, 8);
 		
 		is_eq_on_cooldown = true;
 		earthquake_timer.Reset();

@@ -7,8 +7,10 @@
 #include "Input.h"
 #include "SceneController.h"
 #include "Render.h"
+#include "Logger.h"
 
 #include <string>
+#include <sstream>
 
 Camera::Camera()
 {
@@ -114,6 +116,7 @@ bool Camera::CleanUp()
 void Camera::FollowObject(GameObject* new_target)
 {
 	target = new_target;
+	Logger::Console_log(LogLevel::LOG_INFO,"New camera follow target!");
 }
 
 float Camera::GetCameraXoffset()
@@ -143,6 +146,10 @@ void Camera::CameraShake(int _amount, float _time)
 
 void Camera::CoverScreen(float amount_in_ms, float falloff_in_ms, int _r, int _g, int _b)
 {
+	std::stringstream lStr;
+	lStr << "Starting coverscreen for: " << amount_in_ms << "ms, with colors: r" << _r << " g" << _g << " b" << _b;
+	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
+
 	total_cover_time = amount_in_ms;
 	falloff = falloff_in_ms;
 	r = _r;

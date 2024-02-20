@@ -77,7 +77,6 @@ public:
 	bool Loop(float dt);
 	bool CleanUp();
 
-	bool LoadAssetsMap(const char* map);
 	bool LoadTilesets(pugi::xml_node&);
 	bool LoadBackgroundImage(pugi::xml_node&);
 

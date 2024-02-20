@@ -15,7 +15,10 @@
 
 #include <Windows.h>
 #include <exception>
-
+#include <signal.h>
+#include <iostream>
+#include <string>
+#include <sstream>
 #include "SDL/include/SDL.h"
 
 Application::Application()
@@ -24,18 +27,30 @@ Application::Application()
 }
 
 
-void ExceptionHandler()
+void ExceptionHandler(int signal_hand)
 {
-	std::exception_ptr lExc = std::current_exception();
+	switch (signal_hand)
+	{
+	case SIGABRT:
+		Logger::Console_log(LogLevel::LOG_ERROR, "Anomalous termination");
+		break;
+	case SIGFPE:
+		Logger::Console_log(LogLevel::LOG_ERROR, "Floating point exception");
+		break;
+	case SIGILL:
+		Logger::Console_log(LogLevel::LOG_ERROR, "Non-valid instruction");
+		break;
+	case SIGSEGV:
+		Logger::Console_log(LogLevel::LOG_ERROR, "Non-valid access to pointer");
+		break;
+	case SIGTERM:
+		Logger::Console_log(LogLevel::LOG_ERROR, "Solicited termination");
+		break;
+	default:
+		Logger::Console_log(LogLevel::LOG_ERROR, "Unknown error!");
+		break;
+	}
 
-	try
-	{
-		std::rethrow_exception(lExc);
-	}
-	catch (const std::exception & e)
-	{
-		Logger::Console_log(LogLevel::LOG_ERROR, e.what());
-	}
 }
 
 
@@ -87,6 +102,12 @@ bool Application::Init()
 	debug = true;
 #endif _DEBUG
 
+	signal(SIGBREAK, ExceptionHandler);
+	signal(SIGABRT, ExceptionHandler);
+	signal(SIGFPE, ExceptionHandler);
+	signal(SIGILL, ExceptionHandler);
+	signal(SIGSEGV, ExceptionHandler);
+
 	if (debug)
 	{
 		ShowConsole();
@@ -125,11 +146,14 @@ bool Application::Init()
 
 	LoadConfig("config.xml");
 	
-
+	Logger::Console_log(LogLevel::LOG_INFO, "Initializing engine");
 	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
 	{
 		if ((*it)->active)
 		{
+			std::ostringstream lStr;
+			lStr << "Initializing" << (*it)->name;
+			Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
 			if (!(*it)->Init())
 			{
 				ret = false;
@@ -142,13 +166,14 @@ bool Application::Init()
 
 bool Application::Start()
 {
-	std::set_terminate(ExceptionHandler);
+	Logger::Console_log(LogLevel::LOG_INFO, "Starting engine");
 
 	bool ret = true;
 	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
 	{
 		if (!(*it)->Start())
 		{
+			Logger::Console_log(LogLevel::LOG_ERROR, "Error while initializing module!");
 			ret = false;
 		}
 	}
@@ -192,9 +217,14 @@ bool Application::Loop()
 };
 bool Application::CleanUp() 
 {
+	Logger::Console_log(LogLevel::LOG_INFO, "Closing the engine");
+
 	bool ret = true;
 	for (std::list<Part*>::reverse_iterator it = parts.rbegin(); it != parts.rend(); it++)
 	{
+		std::ostringstream lStr;
+		lStr << "Cleaning up" << (*it)->name;
+		Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
 		if (!(*it)->CleanUp())
 		{
 			ret = false;
@@ -211,11 +241,11 @@ void Application::LoadConfig(const char* filename)
 	pugi::xml_node config_node;
 	pugi::xml_parse_result result = config_file.load_file(filename);
 
-	if (result == NULL)
+	if (result.status != pugi::xml_parse_status::status_ok)
 	{
-		std::string errstr = "Could not load map xml file config.xml. pugi error: ";
-		errstr += result.description();
-		Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
+		std::ostringstream lStr;
+		lStr << "Could not load map xml file"<< filename << "pugi error: " << result.description();
+		Logger::Console_log(LogLevel::LOG_ERROR, lStr.str().c_str());
 		Logger::Console_log(LogLevel::LOG_WARN,"creating new configuration file...");
 
 		config_node = config_file.append_child("config");
@@ -229,7 +259,9 @@ void Application::LoadConfig(const char* filename)
 	}
 	else
 	{
-		Logger::Console_log(LogLevel::LOG_INFO,"found config file, loading...");
+		std::ostringstream lStr;
+		lStr << "found config file,"<< filename << "loading the engine with config...";
+		Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
 		config_node = config_file.child("config");
 	}
 

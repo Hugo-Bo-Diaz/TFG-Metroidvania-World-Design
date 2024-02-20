@@ -51,6 +51,15 @@ CloudSummoner::~CloudSummoner()
 	App->par->AddParticleEmitter(&explosion, collider->x, collider->y, 300);
 }
 
+void CloudSummoner::Init()
+{
+	nextpos = new SDL_Rect();
+	nextpos->x = collider->x;
+	nextpos->y = collider->y;
+	nextpos->w = collider->w;
+	nextpos->h = collider->h;
+}
+
 bool CloudSummoner::Loop(float dt)
 {
 	float d_to_origin = std::sqrt(std::pow(collider->x - initial_x, 2) + std::pow(collider->y - initial_y, 2));
@@ -163,7 +172,7 @@ bool CloudSummoner::Loop(float dt)
 		{
 			shooting_timer.Reset();
 			shooting_timer.Start();
-			GameObject* obj = App->phy->AddObject(collider->x + collider->w/2 + 11, collider->y+ collider->h / 2 + 11, 22, 22, CLOUD_SUMMONER_PROJECTILE_ID);
+			GameObject* obj = App->phy->AddObject(collider->x + collider->w/2 + 11, collider->y+ collider->h / 2 + 11, 22, 22, GameObject::GetTypeInfo<CloudSummonerProjectile>());
 
 			float proj_speed_x = -cos(angle) * projectile_speed;
 			float proj_speed_y = sin(angle) * projectile_speed;

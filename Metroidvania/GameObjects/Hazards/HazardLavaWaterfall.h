@@ -16,6 +16,9 @@ public:
 	Timer lava_animation;
 	float iteration_time = 500;
 	TextureID hazards;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new HazardLavaWaterfall(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

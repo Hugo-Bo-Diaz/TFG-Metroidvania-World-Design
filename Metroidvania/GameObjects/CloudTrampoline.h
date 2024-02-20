@@ -19,6 +19,9 @@ public:
 	SDL_Rect cloudRight;
 
 	TextureID hazards;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new CloudTrampoline(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

@@ -25,6 +25,7 @@ public:
 	FlyingElemental(float initial_y);
 	~FlyingElemental();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 
@@ -36,8 +37,9 @@ public:
 	
 	float x;
 	float y;
+	SDL_Rect* nextpos;
 
-	float initial_y;
+	float initial_y = -1;
 
 	//graphics
 	Animation flying_left;
@@ -82,6 +84,9 @@ public:
 
 	TextureID flyingelemental;
 	TextureID particles;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&);
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

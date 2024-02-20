@@ -34,6 +34,9 @@ public:
 
 	TextureID spells;
 	TextureID particles;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new FireBall(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__REP__H

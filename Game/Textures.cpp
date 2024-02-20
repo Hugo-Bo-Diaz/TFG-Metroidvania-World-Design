@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <Windows.h>
 #include <direct.h>
+#include <sstream>
 
 Textures::Textures()
 {
@@ -136,6 +137,10 @@ TextureID Textures::Load_Texture(const char*path)
 			return (*it)->id;
 		}
 	}
+
+	std::stringstream lStr;
+	lStr << "Loading texture from: " << path;
+	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
 
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);

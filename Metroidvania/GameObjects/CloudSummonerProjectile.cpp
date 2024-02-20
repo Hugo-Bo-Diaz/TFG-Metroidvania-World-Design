@@ -43,16 +43,13 @@ bool CloudSummonerProjectile::Loop(float dt)
 	collider->x += speed_x;
 	collider->y += speed_y;
 
-	nextpos->x += speed_x;
-	nextpos->y += speed_y;
-
 	std::vector<SDL_Rect*> colliders;
 	App->phy->GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
+		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
 		{
 			App->phy->DeleteObject(this);
 			App->aud->PlaySFX(SFX_GROUND_HIT);

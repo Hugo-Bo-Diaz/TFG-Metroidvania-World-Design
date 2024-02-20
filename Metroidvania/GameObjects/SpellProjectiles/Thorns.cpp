@@ -35,10 +35,8 @@ bool Thorns::Loop(float dt)
 	case SEED:
 	{
 		collider->x += speed;
-		nextpos->x += speed;
 
 		collider->y += y_speed;
-		nextpos->y += y_speed;
 
 		y_speed += gravity;
 
@@ -52,7 +50,7 @@ bool Thorns::Loop(float dt)
 		for (int i = 0; i < colliders.size(); ++i)
 		{
 			SDL_Rect result;
-			if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
+			if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
 			{
 				state = THORNS_ON_FLOOR;
 				int tile_x = collider->x / 32;
@@ -61,10 +59,6 @@ bool Thorns::Loop(float dt)
 				collider->y = tile_y * 32;
 				collider->w = 8;
 				collider->h = 32;
-				nextpos->x = tile_x * 32;
-				nextpos->y = tile_y * 32;
-				nextpos->w = 8;
-				nextpos->h = 32;
 
 				life_timer.Reset();
 				life_timer.Start();
@@ -135,14 +129,11 @@ bool Thorns::Loop(float dt)
 			if (direction == -1)
 			{
 				collider->w += expansion_speed;
-				nextpos->w += expansion_speed;
 			}
 			else
 			{
 					collider->w += expansion_speed;
 					collider->x -= expansion_speed;
-					nextpos->w += expansion_speed;
-					nextpos->x -= expansion_speed;
 			}
 
 

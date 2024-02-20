@@ -6,6 +6,8 @@
 #include "Camera.h"
 
 #include <string>
+#include <sstream>
+#include "Logger.h"
 
 ProgressTracker::ProgressTracker()
 {
@@ -42,6 +44,10 @@ bool ProgressTracker::CreateConfig(pugi::xml_node & node)
 
 bool ProgressTracker::LoadFile(const char* save_loc)
 {
+	std::stringstream lStr;
+	lStr << "Loading variables from: " << save_loc;
+	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
+
 	pugi::xml_document	config_file;
 	pugi::xml_node save_file_node;
 
@@ -55,6 +61,10 @@ bool ProgressTracker::LoadFile(const char* save_loc)
 
 bool ProgressTracker::SaveFile(const char* save_loc)
 {
+	std::stringstream lStr;
+	lStr << "Saving variables to: " << save_loc;
+	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
+
 	pugi::xml_document	config_file;
 	pugi::xml_node save_file_node;
 

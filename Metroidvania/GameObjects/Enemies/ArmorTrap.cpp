@@ -66,15 +66,11 @@ ArmorTrap::~ArmorTrap()
 
 bool ArmorTrap::Loop(float dt)
 {
-	//STEP 1
-	collider->x = nextpos->x;
-	collider->y = nextpos->y;
-
 	//STEP 2
 	speed_y += acceleration_y;
 
-	nextpos->x += speed_x;
-	nextpos->y += speed_y;
+	collider->x += speed_x;
+	collider->y += speed_y;
 
 	aggro.x = collider->x + collider->w/2 - aggro.w/2;
 	aggro.y = collider->y + collider->h - aggro.h;
@@ -174,10 +170,10 @@ bool ArmorTrap::Loop(float dt)
 		}
 
 		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE && collider->y < colliders[i]->y)// he goin crash!
+		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE && collider->y < colliders[i]->y)// he goin crash!
 		{
 			speed_y = 0;
-			nextpos->y -= result.h;
+			collider->y -= result.h;
 
 			if (knocked_up)
 			{

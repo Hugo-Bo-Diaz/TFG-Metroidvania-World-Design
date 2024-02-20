@@ -15,7 +15,6 @@ FireSpellPickup::FireSpellPickup()
 
 	firespellbook = { 0,0,52,64 };
 
-	p = App->par->AddParticleEmitter(&fireshield, collider->x, collider->y);
 	if (App->trk->BaseSaveSection->GetChild("SpellsUnlock") == nullptr)
 	{
 		App->trk->BaseSaveSection->AddNewChild("SpellsUnlock");
@@ -41,6 +40,8 @@ FireSpellPickup::FireSpellPickup()
 	fireshield.minmax_lifespan = std::make_pair(300, 400);
 	fireshield.minmax_frequency = std::make_pair(5, 20);
 	fireshield.texture_name = particles;
+
+	p = App->par->AddParticleEmitter(&fireshield, collider->x, collider->y);
 }
 
 FireSpellPickup::~FireSpellPickup()

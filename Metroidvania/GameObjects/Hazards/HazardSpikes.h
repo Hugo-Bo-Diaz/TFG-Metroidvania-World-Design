@@ -16,6 +16,9 @@ public:
 
 	SDL_Rect spikes;
 	TextureID hazards;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new HazardSpikes(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

@@ -127,8 +127,18 @@ Player::Player()
 	}
 }
 
+void Player::Init()
+{
+	nextpos = new SDL_Rect();
+	nextpos->x = collider->x;
+	nextpos->y = collider->y;
+	nextpos->w = collider->w;
+	nextpos->h = collider->h;
+}
+
 bool Player::Loop(float dt)
 {
+
 	/*if(unlocked[FIRE]==false)
 	{
 		unlock_spell(FIRE);

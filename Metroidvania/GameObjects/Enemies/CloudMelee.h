@@ -22,6 +22,7 @@ public:
 	CloudMelee(float initial_x, float initial_y);
 	~CloudMelee();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 
@@ -36,6 +37,7 @@ public:
 
 	float initial_y;
 	float initial_x;
+	SDL_Rect* nextpos;
 
 	//graphics
 	Animation facing_left;
@@ -79,6 +81,9 @@ public:
 
 	TextureID cloud_melee;
 	TextureID particles;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new CloudMelee(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

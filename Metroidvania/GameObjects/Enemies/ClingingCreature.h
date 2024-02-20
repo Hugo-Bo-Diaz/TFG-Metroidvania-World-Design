@@ -54,6 +54,9 @@ public:
 
 	TextureID cling_enemy;
 	TextureID particles;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&);
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !CLING__CREATURE__H

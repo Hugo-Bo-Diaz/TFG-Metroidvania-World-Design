@@ -87,6 +87,15 @@ CoalJumper::~CoalJumper()
 	App->par->AddParticleEmitter(&fireshield, collider->x, collider->y, 600);
 }
 
+void CoalJumper::Init()
+{
+	nextpos = new SDL_Rect();
+	nextpos->x = collider->x;
+	nextpos->y = collider->y;
+	nextpos->w = collider->w;
+	nextpos->h = collider->h;
+}
+
 bool CoalJumper::Loop(float dt)
 {
 	if (!App->cam->isOnScreen(*collider) && !idle_timer.paused)

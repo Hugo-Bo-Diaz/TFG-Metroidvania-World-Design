@@ -24,10 +24,12 @@ public:
 	CoalJumper();
 	~CoalJumper();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 
 	float health=5;
+	SDL_Rect* nextpos = nullptr;
 	void RecieveDamage(int dmg, int direction);
 
 	//Idle
@@ -73,6 +75,9 @@ public:
 
 	TextureID particles;
 	TextureID coaljumper;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new CoalJumper(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

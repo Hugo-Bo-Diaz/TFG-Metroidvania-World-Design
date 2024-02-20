@@ -1,4 +1,5 @@
 #include "Particles.h"
+#include "Logger.h"
 
 Particles::Particles()
 {
@@ -72,6 +73,7 @@ void Particles::RemoveParticleEmitter(ParticleEmitter * _to_delete)
 
 void Particles::ClearParticles()
 {
+	Logger::Console_log(LogLevel::LOG_INFO, "Clearing Particles");
 	for (std::list<ParticleEmitter*>::iterator it = particles.begin(); it != particles.end(); it++)
 	{
 		//to_delete.push_back(*it);

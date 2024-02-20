@@ -16,6 +16,8 @@
 
 #include "Gui.h"
 #include "Text.h"
+#include <sstream>
+#include <map>
 
 SceneController::SceneController()
 {
@@ -25,8 +27,6 @@ SceneController::SceneController()
 
 bool SceneController::Init()
 {
-	LoadAssetsMap("Assets/maps/AssetStorage.tmx");
-
 	return true;
 }
 
@@ -79,40 +79,6 @@ bool SceneController::CleanUp()
 	App->phy->Clearphysics();
 	//App->gui->Clearelements();
 	return ret;
-}
-
-bool SceneController::LoadAssetsMap(const char * map)
-{
-
-	pugi::xml_document	map_file;
-	pugi::xml_node map_node;
-	pugi::xml_parse_result result = map_file.load_file(map);
-
-	if (result == NULL)
-	{
-		std::string errstr = "couldn't find map ";
-		errstr += map;
-		Logger::Console_log(LogLevel::LOG_ERROR,errstr.c_str());
-		return false;
-	}
-
-	//start!
-	map_node = map_file.child("map");
-	pugi::xml_node iterator;
-	for (iterator = map_node.first_child(); iterator; iterator = iterator.next_sibling())
-	{
-		std::string iterator_name = iterator.name();
-		if(iterator_name == "tileset")
-		{
-			LoadTilesets(iterator);
-		}
-		else if (iterator_name == "imagelayer")
-		{
-			LoadBackgroundImage(iterator);
-		}
-	}
-
-	return true;
 }
 
 bool SceneController::LoadTilesets(pugi::xml_node & node)
@@ -179,13 +145,20 @@ bool SceneController::LoadBackgroundImage(pugi::xml_node & node)
 	//load this texture
 	back->texture = App->tex->Load_Texture(base_folder.c_str());
 
-	backgrounds.push_back(back);
+
+	active_backgrounds.push_back(back);
+
+	//backgrounds.push_back(back);
 
 	return true;
 }
 
 bool SceneController::LoadMap(const char* filename)
 {
+	std::stringstream lStr;
+	lStr << "Loading map from: " << filename;
+	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
+
 	pugi::xml_document	map_file;
 	pugi::xml_node map_node;
 	pugi::xml_parse_result result = map_file.load_file(filename);
@@ -206,37 +179,35 @@ bool SceneController::LoadMap(const char* filename)
 	for (iterator = layer_node; iterator; iterator = iterator.next_sibling())
 	{
 		std::string iterator_name = iterator.name();
+		if (iterator_name == "tileset")
+		{
+			LoadTilesets(iterator);
+		}
 		if(iterator_name == "imagelayer")
 		{
-			LoadBackground(iterator);
+			LoadBackgroundImage(iterator);
 		}
 		if (iterator_name == "objectgroup")
 		{
-			std::string tmp = iterator.attribute("name").as_string();
-			if(tmp == "walls")
+			bool isWallLayer = false;
+			pugi::xml_node lProperties = iterator.child("properties");
+
+			pugi::xml_node iterator_prop;
+			for (iterator_prop = lProperties.first_child(); iterator_prop; iterator_prop = iterator_prop.next_sibling())
+			{
+				pugi::xml_attribute lName = iterator_prop.attribute("name");
+				if (std::strcmp(lName.value(), "isWallLayer") == 0)
+				{
+					isWallLayer = iterator_prop.attribute("value").as_bool(false);
+				}
+			}
+			if(isWallLayer)
 			{
 				LoadWalls(iterator);
 			}
-			if (tmp == "objects")
+			else
 			{
 				LoadObjects(iterator);
-			}
-			if (tmp == "doors")
-			{
-				LoadObjects(iterator);
-
-				//LoadPortals(iterator);
-			}
-			if (tmp == "spawnpoints")
-			{
-				LoadObjects(iterator);
-
-				//LoadSpawnPoints(iterator);
-			}
-			if (tmp == "checkpoints")
-			{
-
-				//LoadCheckPoints(iterator);
 			}
 		}
 		if (iterator_name == "layer")
@@ -286,9 +257,6 @@ bool SceneController::LoadBackground(pugi::xml_node& imagelayer_node)
 			active_backgrounds.push_back(*it);
 		}
 	}
-	//backgrounds.push_back(imagelayer_node.attribute("name").as_string());
-	//App->tex->Load_Texture(image_location.c_str(),imagelayer_node.attribute("name").as_string());
-	
 	return true;
 }
 
@@ -319,275 +287,63 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 		int w = 0;
 		int h = 0;
 		std::string type = object_iterator.attribute("type").as_string();
-		objectId lType = App->phy->typeCallBack(type.c_str());
-		//if(type== "SpellUnlockFire")
-		//{
-		//	w = 52;
-		//	h = 64;
-		//}
-		//if (type == "SpellUnlockGround")
-		//{
-		//	w = 52;
-		//	h = 64;
-		//}
-		//else if (type == "HealthChargePickup")
-		//{
-		//	w = 48;
-		//	h = 48;
-		//}
-		//else if (type == "ManaChargePickup")
-		//{
-		//	w = 48;
-		//	h = 48;
-		//}
-		//else if (type == "HazardLava")
-		//{
-		//	w = object_iterator.attribute("width").as_int();
-		//	h = object_iterator.attribute("height").as_int();
-		//}
-		//else if (type == "HazardLavaWaterfall")
-		//{
-		//	w = object_iterator.attribute("width").as_int();
-		//	h = object_iterator.attribute("height").as_int();
-		//}
-		//else if (type == "HazardSpikes")
-		//{
-		//	w = object_iterator.attribute("width").as_int();
-		//	h = object_iterator.attribute("height").as_int();
-		//}
-		//else if (type == "HazardRockBlock")
-		//{
-		//	w = object_iterator.attribute("width").as_int();
-		//	h = object_iterator.attribute("height").as_int();
-		//}
-		//else if (type == "HazardsCloudTrampoline")
-		//{
-		//	w = object_iterator.attribute("width").as_int();
-		//	h = object_iterator.attribute("height").as_int();
-		//}
-		//else if (type == "EnemyGroundedElemental")
-		//{
-		//	w = 48;
-		//	h = 48;
-		//}
-		//else if (type == "EnemyFlyingElemental")
-		//{
-		//	w = 56;
-		//	h = 56;
-		//}
-		//else if (type == "EnemyCoalJumper")
-		//{
-		//	w = 64;
-		//	h = 64;
-		//}
-		//else if (type == "EnemyArmorTrap" )
-		//{
-		//	w = 48;
-		//	h = 72;
-		//}
-		//else if (type == "EnemyShieldMonster")
-		//{
-		//	w = 112;
-		//	h = 140;
-		//}
-		//else if (type == "EnemyClingCreature")
-		//{
-		//	w = 48;
-		//	h = 48;
-		//	//y += 48;
-		//}
-		//else if (type == "EnemyFlyingAxe")
-		//{
-		//	w = 64;
-		//	h = 64;
-		//}
-		//else if (type == "EnemyFlyingShield")
-		//{
-		//	w = 48;
-		//	h = 48;
-		//}
-		//else if (type == "EnemyCloudMelee")
-		//{
-		//	w = 64;
-		//	h = 48;
-		//}
-		//else if (type == "EnemyCloudSummoner")
-		//{
-		//	w = 64;
-		//	h = 48;
-		//}
-		//else if (type == "TextBoxObject")
-		//{
-		//	w = object_iterator.attribute("width").as_int();
-		//	h = object_iterator.attribute("height").as_int();
-		//	y+=object_iterator.attribute("height").as_int();
 
-		//}
-		//else if (type == "DemoEndObject")
-		//{
-		//	w = object_iterator.attribute("width").as_int();
-		//	h = object_iterator.attribute("height").as_int();
-		//	y += object_iterator.attribute("height").as_int();
-
-		//}
 		GameObject*ret = nullptr;
 
 		w = object_iterator.attribute("width").as_int();
 		h = object_iterator.attribute("height").as_int();
 
-		std::map<std::string, float> lProperties;
+		//std::map<std::string, float> lProperties;
+
+		std::list<ObjectProperty*> lProperties;
 
 		pugi::xml_node properties_node = object_iterator.child("properties");
 		pugi::xml_node iterator;
 
 		for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
 		{
-			std::string name = iterator.attribute("name").as_string();
+			ObjectProperty* lObjProp = new ObjectProperty();
+
+			lObjProp->name = iterator.attribute("name").as_string();
 			std::string type = iterator.attribute("type").as_string();
 			float value = 0;
 			if (strcmp(type.c_str(), "bool") == 0)
 			{
-				value = iterator.attribute("value").as_bool();
+				lObjProp->bool_value = iterator.attribute("value").as_bool();
 			}
 			else if (strcmp(type.c_str(), "float") == 0)
 			{
-				value = iterator.attribute("value").as_float();
+				lObjProp->num_value = iterator.attribute("value").as_float();
 			}
 			else if (strcmp(type.c_str(), "int") == 0)
 			{
-				value = iterator.attribute("value").as_int();
+				lObjProp->num_value = iterator.attribute("value").as_int();
+			}
+			else if (strcmp(iterator.attribute("value").as_string(""), "") != 0)
+			{
+				lObjProp->str_value = iterator.attribute("value").as_string("");
 			}
 
-			lProperties.insert(std::make_pair(name, value));
+			lProperties.push_back(lObjProp);
 		}
 
-		ret = App->phy->AddObject(x, y, w, h, lType,&lProperties);
+		auto lID = App->phy->lFactoriesString.find(type);
+		
+		if (lID != App->phy->lFactoriesString.end())
+		{
+			ret = (*lID).second(lProperties);
 
-		//if (ret != nullptr)
-		//{
-		//	if (t == MAX_HEALTH_PICKUP)
-		//	{
+			ret->collider->x = x;
+			ret->collider->y = y;
+			ret->collider->w = w;
+			ret->collider->h = h;
 
-		//		pugi::xml_node properties_node = object_iterator.child("properties");
-		//		pugi::xml_node iterator;
+			ret->Init();
 
-		//		for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
-		//		{
-		//			std::string temp = iterator.attribute("name").as_string();
-		//			if (temp == "id")
-		//			{
-		//				((MaxHealthPickup*)ret)->pickup_id = iterator.attribute("value").as_int();
-		//			}
-		//			if (temp == "text")
-		//			{
-		//				((MaxHealthPickup*)ret)->text = iterator.attribute("value").as_string("");
-		//			}
-		//			if (temp == "lore")
-		//			{
-		//				((MaxHealthPickup*)ret)->lore_unlock = iterator.attribute("value").as_int(-1);
-		//			}
-		//		}
-		//	}
-		//	else if (t == MAX_MANA_PICKUP)
-		//	{
-
-		//		pugi::xml_node properties_node = object_iterator.child("properties");
-		//		pugi::xml_node iterator;
-
-		//		for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
-		//		{
-		//			std::string temp = iterator.attribute("name").as_string();
-		//			if (temp == "id")
-		//			{
-		//				((MaxManaPickup*)ret)->pickup_id = iterator.attribute("value").as_int();
-		//			}
-		//			if (temp == "text")
-		//			{
-		//				((MaxManaPickup*)ret)->text = iterator.attribute("value").as_string("");
-		//			}
-		//			if (temp == "lore")
-		//			{
-		//				((MaxHealthPickup*)ret)->lore_unlock = iterator.attribute("value").as_int(-1);
-		//			}
-		//		}
-		//	}
-			//else if (t == GROUNDED_ELEMENTAL)
-			//{
-
-			//	pugi::xml_node properties_node = object_iterator.child("properties");
-			//	pugi::xml_node iterator;
-
-			//	for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
-			//	{
-			//		std::string temp = iterator.attribute("name").as_string();
-			//		if (temp == "color")
-			//		{
-			//			((GroundedElemental*)ret)->SetAnimations((GroundedElementalColor)iterator.attribute("value").as_int());
-			//		}
-			//	}
-			//}
-
-			//else if (t == FLYING_ELEMENTAL)
-			//{
-
-			//	pugi::xml_node properties_node = object_iterator.child("properties");
-			//	pugi::xml_node iterator;
-
-			//	for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
-			//	{
-			//		std::string temp = iterator.attribute("name").as_string();
-			//		if (temp == "color")
-			//		{
-			//			((FlyingElemental*)ret)->SetAnimations((FlyingElementalColor)iterator.attribute("value").as_int());
-			//		}
-			//	}
-			//}
-
-			//else if (t == TEXTBOXOBJECT)
-			//{
-
-			//	pugi::xml_node properties_node = object_iterator.child("properties");
-			//	pugi::xml_node iterator;
-
-			//	for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
-			//	{
-			//		std::string temp = iterator.attribute("name").as_string();
-			//		if (temp == "text")
-			//		{
-			//			((TextBoxObject*)ret)->AddText(iterator.attribute("value").as_string());
-			//		}
-			//		if (temp == "author")
-			//		{
-			//			((TextBoxObject*)ret)->author = iterator.attribute("value").as_string();
-			//		}
-			//		if (temp == "lore")
-			//		{
-			//			((TextBoxObject*)ret)->lore_unlock = iterator.attribute("value").as_int(-1);
-			//		}
-			//	}
-			//}
-			//else if (t == HAZARDS_ROCK_BLOCK)
-			//{
-
-			//	((HazardRockBlock*)ret)->Init();
-			//}
-			//else if (t == CLING_CREATURE)
-			//{
-			//	pugi::xml_node properties_node = object_iterator.child("properties");
-			//	pugi::xml_node iterator;
-
-			//	for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
-			//	{
-			//		std::string temp = iterator.attribute("name").as_string();
-			//		if (temp == "direction")
-			//		{
-			//			((ClingCreature*)ret)->curr_dir = (ClingCreatureDirection)iterator.attribute("value").as_int(0);
-			//		}
-			//	}
-			//}
-		//}
-
+			App->phy->AddObject(ret);
+		}
 	}
+
 
 	return true;
 }
@@ -654,112 +410,6 @@ bool SceneController::LoadTiles(pugi::xml_node & tile_node)
 	return true;
 }
 
-//bool SceneController::LoadPortals(pugi::xml_node & objectgroup_node)
-//{
-//	pugi::xml_node object_iterator;
-//	for (object_iterator = objectgroup_node.child("object"); object_iterator; object_iterator = object_iterator.next_sibling())
-//	{
-//		Portal* new_portal = new Portal();
-//
-//		new_portal->area.x = object_iterator.attribute("x").as_int();
-//		new_portal->area.y = object_iterator.attribute("y").as_int();
-//		new_portal->area.w = object_iterator.attribute("width").as_int();
-//		new_portal->area.h = object_iterator.attribute("height").as_int();
-//
-//
-//		pugi::xml_node properties_node = object_iterator.child("properties");
-//		pugi::xml_node iterator;
-//
-//		new_portal->id_destination_room = 0;
-//		new_portal->id_destination_point = 0;
-//
-//		for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
-//		{
-//			std::string temp = iterator.attribute("name").as_string();
-//			if (temp == "id_room")
-//			{
-//				new_portal->id_destination_room = iterator.attribute("value").as_int(0);
-//			}
-//			else if (temp == "id_point")
-//			{
-//				new_portal->id_destination_point = iterator.attribute("value").as_int(0);
-//			}
-//			else if (temp == "horizontal")
-//			{
-//				new_portal->horizontal = iterator.attribute("value").as_bool(false);
-//			}
-//		}
-//		AddPortal(new_portal);
-//
-//	}
-//
-//
-//	return true;
-//}
-
-//bool SceneController::LoadSpawnPoints(pugi::xml_node & objectgroup_node)
-//{
-//	pugi::xml_node object_iterator;
-//	for (object_iterator = objectgroup_node.child("object"); object_iterator; object_iterator = object_iterator.next_sibling())
-//	{
-//		SpawnPoint* new_point = new SpawnPoint();
-//
-//		new_point->x = object_iterator.attribute("x").as_int();
-//		new_point->y = object_iterator.attribute("y").as_int();
-//
-//		pugi::xml_node properties_node = object_iterator.child("properties");
-//		pugi::xml_node iterator;
-//
-//		new_point->id = 0;
-//
-//		for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
-//		{
-//			std::string temp = iterator.attribute("name").as_string();
-//			if (temp == "id")
-//			{
-//				new_point->id = iterator.attribute("value").as_int(0);
-//			}
-//		}
-//
-//		spawnpoints.push_back(new_point);
-//	}
-//	return true;
-//}
-
-bool SceneController::LoadCheckPoints(pugi::xml_node &objectgroup_node)
-{
-	pugi::xml_node object_iterator;
-	for (object_iterator = objectgroup_node.child("object"); object_iterator; object_iterator = object_iterator.next_sibling())
-	{
-		int x = object_iterator.attribute("x").as_int();
-		int y= object_iterator.attribute("y").as_int();
-		int w= object_iterator.attribute("width").as_int();
-		int h= object_iterator.attribute("height").as_int();
-
-		//CheckPoint* new_point = (CheckPoint*)App->phy->AddObject(x,y,w,h,"Checkpoint");
-
-		//pugi::xml_node properties_node = object_iterator.child("properties");
-		//pugi::xml_node iterator;
-
-		//for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
-		//{
-		//	std::string temp = iterator.attribute("name").as_string();
-		//	if (temp == "x")
-		//	{
-		//		new_point->spawn_pos_x = iterator.attribute("value").as_int(0) + x;
-		//	}
-		//	if (temp == "y")
-		//	{
-		//		new_point->spawn_pos_y = iterator.attribute("value").as_int(0) + y;
-		//	}
-		//	if (temp == "room_id")
-		//	{
-		//		new_point->room_id = iterator.attribute("value").as_int(0);
-		//	}
-		//}
-	}
-	return true;
-}
 
 tileset* SceneController::GetTilesetFromId(int id)
 {
@@ -893,33 +543,6 @@ bool SceneController::AssignLoadFunction(std::function<void()> aLoadFunction)
 }
 
 
-//void SceneController::AddPortal(SDL_Rect area, int destination_r, int destination_i, bool horizontal)
-//{
-//	Portal* p = new Portal();
-//
-//	p->area = area;
-//	p->id_destination_room = destination_r;
-//	p->id_destination_point = destination_i;
-//	p->horizontal = horizontal;
-//
-//	portals.push_back(p);
-//}
-//
-//void SceneController::AddPortal(Portal * p)
-//{
-//	portals.push_back(p);
-//}
-//
-//void SceneController::DeletePortals()
-//{
-//	for (std::list<Portal*>::iterator it = portals.begin(); it != portals.end(); it++)
-//	{
-//		delete *it;
-//	}
-//	portals.clear();
-//}
-
-
 
 void SceneController::CleanMap()
 {
@@ -930,20 +553,28 @@ void SceneController::CleanMap()
 	}
 	layers.clear();
 
-	//for (std::vector<SpawnPoint*>::iterator it = spawnpoints.begin(); it != spawnpoints.end(); it++)
-	//{
-	//	delete *it;
-	//}
-	//spawnpoints.clear();
 
-	//DeletePortals();
+	for (std::vector<background_texture*>::iterator it = active_backgrounds.begin(); it != active_backgrounds.end(); it++)
+	{
+		//delete (*it)->data;
+		delete* it;
+	}
 
 	active_backgrounds.clear();
+	
+	for (std::vector<tileset*>::iterator it = tilesets.begin(); it != tilesets.end(); it++)
+	{
+		//delete (*it)->data;
+		delete* it;
+	}
+	tilesets.clear();
 }
 
 void SceneController::ChangeMap(const char * filename)
 {
-
+	std::stringstream lStr;
+	lStr << "Change map to: " << filename;
+	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
 	CleanMap();
 	App->phy->Clearphysics();
 	//App->gui->Clearelements();

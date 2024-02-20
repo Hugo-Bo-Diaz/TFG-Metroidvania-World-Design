@@ -62,6 +62,9 @@ public:
 
 	TextureID armortrap;
 	TextureID particles;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new ArmorTrap(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

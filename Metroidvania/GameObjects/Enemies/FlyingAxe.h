@@ -34,6 +34,8 @@ public:
 	float y;
 
 	float initial_y;
+	SDL_Rect* nextpos = nullptr;
+
 	Timer animation_timer;
 
 	//graphics
@@ -72,6 +74,9 @@ public:
 
 	TextureID floating_axe;
 	TextureID particles;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new FlyingAxe(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

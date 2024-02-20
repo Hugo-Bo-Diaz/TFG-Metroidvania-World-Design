@@ -46,6 +46,16 @@ CloudMelee::~CloudMelee()
 }
 
 
+void CloudMelee::Init()
+{
+	initial_y = collider->x;
+	nextpos = new SDL_Rect();
+	nextpos->x = collider->x;
+	nextpos->y = collider->y;
+	nextpos->w = collider->w;
+	nextpos->h = collider->h;
+}
+
 
 bool CloudMelee::Loop(float dt)
 {

@@ -38,10 +38,21 @@ FlyingShield::~FlyingShield()
 	App->par->AddParticleEmitter(&explosion, collider->x, collider->y, 300);
 }
 
+void FlyingShield::Init()
+{
+	initial_y = collider->x;
+	nextpos = new SDL_Rect();
+	nextpos->x = collider->x;
+	nextpos->y = collider->y;
+	nextpos->w = collider->w;
+	nextpos->h = collider->h;
+}
+
 
 
 bool FlyingShield::Loop(float dt)
 {
+
 	//STEP 1
 	collider->x = nextpos->x;
 	collider->y = nextpos->y;

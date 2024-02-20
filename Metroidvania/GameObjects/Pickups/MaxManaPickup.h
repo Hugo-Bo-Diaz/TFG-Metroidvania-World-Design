@@ -29,5 +29,8 @@ public:
 
 	TextureID particles;
 	TextureID items;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&);
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 #endif

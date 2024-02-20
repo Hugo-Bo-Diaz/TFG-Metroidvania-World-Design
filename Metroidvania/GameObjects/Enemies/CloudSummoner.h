@@ -20,6 +20,7 @@ public:
 	CloudSummoner(float initial_x, float initial_y);
 	~CloudSummoner();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 
@@ -34,6 +35,7 @@ public:
 
 	float initial_y;
 	float initial_x;
+	SDL_Rect* nextpos = nullptr;
 
 	//graphics
 	Animation facing_left;
@@ -88,6 +90,9 @@ public:
 
 	TextureID cloud_summoner;
 	TextureID particles;
+
+	static GameObject* Factory(std::list<ObjectProperty*>&) { return new CloudSummoner(); };
+	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

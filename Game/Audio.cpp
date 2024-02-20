@@ -38,14 +38,14 @@ bool Audio::CreateConfig(pugi::xml_node& config_node)
 
 bool Audio::Init()
 {
-	Logger::Console_log(LogLevel::LOG_INFO,"Initializing audio");
+	Logger::Console_log(LogLevel::LOG_INFO,"Initializing SDL audio");
 
 	bool ret = true;
 
 	SDL_Init(0);
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO)<0)
 	{
-		Logger::Console_log(LogLevel::LOG_ERROR,"Could not initialize audio");
+		Logger::Console_log(LogLevel::LOG_ERROR,"Could not initialize SDL audio");
 		ret = false;
 	}
 
