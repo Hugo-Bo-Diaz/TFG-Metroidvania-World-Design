@@ -102,14 +102,14 @@ void UIMainMenu::Loop()
 
 void UIMainMenu::Render()
 {
-	App->ren->BlitUI(TexBase,0,0,NULL,0);
+	App->ren->Blit(TexBase,0,0,NULL,0, RenderQueue::RENDER_UI);
 
-	App->ren->BlitUI(TexSelected, offset_option_x, offset_option_y+current_option*interval_y, NULL, 0);
+	App->ren->Blit(TexSelected, offset_option_x, offset_option_y+current_option*interval_y, NULL, 0, RenderQueue::RENDER_UI);
 
 
 	if (!App->trk->CanLoadGame("save_file.xml"))
 	{
-		App->ren->BlitUI(TexDisabled,516,312,NULL,-2);
+		App->ren->Blit(TexDisabled,516,312,NULL,-2, RenderQueue::RENDER_UI);
 	}
 
 }

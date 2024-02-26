@@ -5,19 +5,32 @@
 #include "SDL/include/SDL.h"
 #include <queue>
 #include "Textures.h"
+#include "Text.h"
+#include "SceneController.h"
+
 
 struct TextPrint;
-struct layer;
+class ParticleEmitter;
 
-struct BlitItem
+enum RenderQueue
 {
+	RENDER_GAME = 0,
+	RENDER_UI = 1,
+	RENDER_DEBUG = 2,
+
+	RENDER_MAX = 3
+};
+
+
+class BlitItem
+{
+public:
+	//position
 	int x;
 	int y;
-	SDL_Texture* tex;
-	SDL_Rect* on_img;
 	int depth;
-	float parallax_factor_x;
-	float parallax_factor_y;
+
+	SDL_Color color;
 
 	//rotation point and angle
 	//SDL_Point img_center;
@@ -25,58 +38,91 @@ struct BlitItem
 	int center_y;
 	float angle;
 
+	bool ignore_camera = false;
+
+	virtual void Blit(Render* aRender) = 0;
+
 	bool operator<(const BlitItem& rhs) const
 	{
-		if (depth < rhs.depth)
-			return true;
-		else
-			return false;
+		return rhs.depth > depth;
+	}
+};
+class Comparer
+{
+public:
+	bool operator() (BlitItem* itemA, BlitItem* itemB)
+	{
+		return itemB->depth > itemA->depth;
 	}
 };
 
-struct BlitBackground
+class BlitItemText : public BlitItem
 {
-	SDL_Texture*tex;
- 	bool repeat_y;
+public:
+	std::string mText;
+	FontID font_used;
+
+	void Blit(Render* aRender);
+};
+
+class BlitTexture : public BlitItem
+{
+public:
+	TextureID tex;
+	SDL_Rect on_image;
 	float parallax_x;
 	float parallax_y;
-	int depth;
 
-	bool operator<(const BlitItem& rhs) const
-	{
-		if (depth < rhs.depth)
-			return true;
-		else
-			return false;
-	}
+	void Blit(Render* lRender);
 };
-struct BlitRect
-{
-	uint r;
-	uint g;
-	uint b;
-	uint a;
 
-	SDL_Rect* area;
+class BlitLayer : public BlitItem
+{
+public:
+
+	layer* layer;
+
+	void Blit(Render* lRender);
+
+	SDL_Rect GetImageRectFromId(tileset* t, int id);
+
+};
+
+
+class BlitBackground : public BlitTexture
+{
+public:
+
+ 	bool repeat_y;
+	void Blit(Render* lRender);
+};
+
+class BlitParticles : public BlitTexture
+{
+public:
+	ParticleEmitter* lEmmitter;
+
+	void Blit(Render* lRender);
+};
+
+class BlitRect : public BlitItem
+{
+public:
+
+	int w;
+	int h;
 
 	bool filled;
+	void Blit(Render* lRender);
 };
 
-struct Trail
+class BlitTrail : public BlitItem
 {
+public:
+
 	SDL_Point* points;
 	int amount;
-
-	uint r;
-	uint g;
-	uint b;
-};
-
-struct TextBlit
-{
-	TextPrint* to_print;
-	int x;
-	int y;
+	void Blit(Render* lRender);
 };
 
 class Render : public Part
@@ -87,16 +133,18 @@ public:
 	bool Loop(float dt);
 	bool CleanUp();
 
-	void Blit(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1, int center_x = -1,int center_y = -1);
+	//all textured
+	void Blit(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, RenderQueue aQueue = RenderQueue::RENDER_GAME, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1, int center_x = -1,int center_y = -1);
+	void BlitMapLayer(layer* layer);
+	void BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x = 1, float parallax_factor_y = 1);
+	//void BlitUI(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
 	
 	/*void BlitMapTile(SDL_Texture* tex, int x_tile, int y_tile,SDL_Rect on_img, int depth, float parallax_factor_x = 1, float parallax_factor_y = 1);
 	void BlitMapLayer(layer* layer);*/
 
-	void BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x = 1, float parallax_factor_y = 1);
-	void BlitUI(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
-	void BlitText(TextPrint* text,int x, int y);
-	void DrawRect(SDL_Rect* area, uint r, uint g, uint b, uint a, bool filled);
-	void DrawTrail(SDL_Point* point_array, int amount, int r = 255, int g = 255, int b= 255);
+	void BlitText(const char* text, FontID font, int x, int y, int depth,SDL_Color aColor,RenderQueue aQueue);
+	void DrawRect(SDL_Rect* area, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled,RenderQueue aQueue);
+	void DrawTrail(SDL_Point* point_array, int amount, RenderQueue aQueue, Uint8 r = 255, Uint8 g = 255, Uint8 b= 255);
 
 	bool LoadConfig(pugi::xml_node&);
 	bool CreateConfig(pugi::xml_node&);
@@ -107,14 +155,21 @@ private:
 	int		height;
 	int		scale;
 	
-	std::vector<BlitItem*> blit_queue;
-	std::vector<BlitItem*> ui_blit_queue;
-	std::queue<TextBlit*> text_queue;
-	std::queue<BlitRect*> quad_queue;
-	std::queue<Trail*> trail_queue;
-	//std::vector<BlitTile*> tile_queue;
-	std::vector<BlitBackground*> background_queue;
-	
+	//std::vector<BlitItem*> blit_queue;
+	//std::vector<BlitItem*> ui_blit_queue;
+	//std::queue<TextBlit*> text_queue;
+	//std::queue<BlitRect*> quad_queue;
+	//std::queue<Trail*> trail_queue;
+	////std::vector<BlitTile*> tile_queue;
+	//std::vector<BlitBackground*> background_queue;
+	//
+
+	std::priority_queue<BlitItem*,std::vector<BlitItem*>,Comparer> allQueue;
+	std::priority_queue<BlitItem*,std::vector<BlitItem*>,Comparer> uiQueue;
+	std::priority_queue<BlitItem*,std::vector<BlitItem*>,Comparer> debugQueue;
+
+
+	std::priority_queue<BlitItem*, std::vector<BlitItem*>, Comparer>* GetQueue(RenderQueue aQueue);
 
 public:
 

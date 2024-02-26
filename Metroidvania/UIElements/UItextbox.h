@@ -14,8 +14,8 @@ class UItextbox : public UIelement
 public:
 	
 	int current_text = 0;
-	std::vector<TextPrint*> text_prints;
-	TextPrint* author_print;
+
+	FontID mFont;
 	
 	std::vector<std::string>texts;
 	std::string author;

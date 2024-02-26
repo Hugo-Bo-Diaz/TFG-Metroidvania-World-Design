@@ -69,6 +69,11 @@ bool SceneController::Loop(float dt)
 		SceneFunction();
 	}
 
+	for (std::vector<layer*>::iterator it = layers.begin(); it != layers.end(); ++it)
+	{
+		App->ren->BlitMapLayer(*it);
+	}
+
 	return ret;
 }
 
@@ -430,18 +435,6 @@ tileset* SceneController::GetTilesetFromId(int id)
 	return ret;
 }
 
-SDL_Rect SceneController::GetImageRectFromId(tileset* t, int id)
-{
-
-	SDL_Rect rect;
-	rect.w = t->tile_width;
-	rect.h = t->tile_height;
-	rect.x = ((rect.w) * (id % t->columns));
-	rect.y = ((rect.h) * (id / t->columns));
-
-	return rect;
-}
-
 
 SDL_Texture * SceneController::GetTextureFromId(int id)
 {
@@ -471,44 +464,44 @@ int SceneController::RoundToNearestTileset(int id)
 
 void SceneController::RenderTiles()
 {
-	for (std::vector<layer*>::iterator it = layers.begin(); it != layers.end(); it++)
-	{
-		float scale = App->win->GetScale();
+	//for (std::vector<layer*>::iterator it = layers.begin(); it != layers.end(); it++)
+	//{
+	//	float scale = App->win->GetScale();
 
-		float para_x = (*it)->parallax_x;
-		float para_y = (*it)->parallax_y;
-		int depth = (*it)->depth;
-		
-		SDL_Texture* lTex = App->tex->Get_Texture((*it)->tileset_of_layer->texture);
+	//	float para_x = (*it)->parallax_x;
+	//	float para_y = (*it)->parallax_y;
+	//	int depth = (*it)->depth;
+	//	
+	//	SDL_Texture* lTex = App->tex->Get_Texture((*it)->tileset_of_layer->texture);
 
-		for (int _y = 0; _y < (*it)->height; ++_y)
-		{
-			for (int _x = 0; _x < (*it)->width; ++_x)
-			{
-				int i = _y * (*it)->width + _x;
-				//tileset* t = GetTilesetFromId((*it)->data[i]);
-				tileset* t = (*it)->tileset_of_layer;//(*tilesets.begin());
-				float worldcoords_x = scale *_x * t->tile_width + App->cam->GetCameraXoffset();
-				float worldcoords_y = scale *_y * t->tile_height + App->cam->GetCameraYoffset();
+	//	for (int _y = 0; _y < (*it)->height; ++_y)
+	//	{
+	//		for (int _x = 0; _x < (*it)->width; ++_x)
+	//		{
+	//			int i = _y * (*it)->width + _x;
+	//			//tileset* t = GetTilesetFromId((*it)->data[i]);
+	//			tileset* t = (*it)->tileset_of_layer;//(*tilesets.begin());
+	//			float worldcoords_x = scale *_x * t->tile_width + App->cam->GetCameraXoffset();
+	//			float worldcoords_y = scale *_y * t->tile_height + App->cam->GetCameraYoffset();
 
-				//App->ren->BlitMapTile(t->texture, _x, _y, GetImageRectFromId((*it)->data[i]), depth, para_x, para_y);
+	//			//App->ren->BlitMapTile(t->texture, _x, _y, GetImageRectFromId((*it)->data[i]), depth, para_x, para_y);
 
-				SDL_Rect on_scn;
-				on_scn.x = worldcoords_x;
-				on_scn.y = worldcoords_y;
-				on_scn.w = 48*scale;
-				on_scn.h = 48*scale;
+	//			SDL_Rect on_scn;
+	//			on_scn.x = worldcoords_x;
+	//			on_scn.y = worldcoords_y;
+	//			on_scn.w = 48*scale;
+	//			on_scn.h = 48*scale;
 
-				if (SDL_RenderCopyEx(App->ren->renderer, lTex, &GetImageRectFromId((*it)->tileset_of_layer,(*it)->data[i]), &on_scn, 0, NULL, SDL_FLIP_NONE) != 0)
-				{
-					std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
-					errstr += SDL_GetError();
-					Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
-				}
-			}
-		}
+	//			if (SDL_RenderCopyEx(App->ren->renderer, lTex, &GetImageRectFromId((*it)->tileset_of_layer,(*it)->data[i]), &on_scn, 0, NULL, SDL_FLIP_NONE) != 0)
+	//			{
+	//				std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
+	//				errstr += SDL_GetError();
+	//				Logger::Console_log(LogLevel::LOG_ERROR, errstr.c_str());
+	//			}
+	//		}
+	//	}
 
-	}
+	//}
 }
 
 void SceneController::RenderBackground()

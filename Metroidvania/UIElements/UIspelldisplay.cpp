@@ -42,18 +42,18 @@ void UIspelldisplay::Render()
 			current_spell = 0;
 
 		//render borders;
-		App->ren->BlitUI(lTexture, x, y, &left_border, 50);
-		App->ren->BlitUI(lTexture, x + 160, y, &right_border, 50);//(32+8+31+8)*2
+		App->ren->Blit(lTexture, x, y, &left_border, 50, RenderQueue::RENDER_UI);
+		App->ren->Blit(lTexture, x + 160, y, &right_border, 50, RenderQueue::RENDER_UI);//(32+8+31+8)*2
 
-		App->ren->BlitUI(lTexture, x, y, &left_cover, 40);
-		App->ren->BlitUI(lTexture, x + 160, y, &right_cover, 40);//(32+8+31+8)*2
+		App->ren->Blit(lTexture, x, y, &left_cover, 40, RenderQueue::RENDER_UI);
+		App->ren->Blit(lTexture, x + 160, y, &right_cover, 40, RenderQueue::RENDER_UI);//(32+8+31+8)*2
 
-		App->ren->BlitUI(lTexture, x + 78, y, &square, 40);
+		App->ren->Blit(lTexture, x + 78, y, &square, 40, RenderQueue::RENDER_UI);
 
 
 		//render book;
 
-		App->ren->BlitUI(lBooksTex, x + 84, y + 8, &books[current_spell], 45);//(32+8)*2
+		App->ren->Blit(lBooksTex, x + 84, y + 8, &books[current_spell], 45, RenderQueue::RENDER_UI);//(32+8)*2
 	}
 
 }

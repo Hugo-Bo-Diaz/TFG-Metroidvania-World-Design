@@ -4,10 +4,9 @@
 #include "UIelement.h"
 #include <list>
 #include "Textures.h"
-
+#include "Text.h"
 #define MAX_LORE_CAPACITY_MENU 10
 
-struct TextPrint;
 
 enum SelectMenuScreen {
 	SELECT_MENU_LORE,
@@ -35,8 +34,7 @@ public:
 
 	void CycleOption(float direction);
 
-	TextPrint* different_texts[MAX_LORE_CAPACITY_MENU];
-	TextPrint* description;
+	FontID lFont;
 
 	SDL_Rect selectquad;
 

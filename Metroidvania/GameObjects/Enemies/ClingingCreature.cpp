@@ -208,8 +208,8 @@ bool ClingCreature::Render()
 {
 	if (App->debug)
 	{
-		App->ren->DrawRect(&check_down, 255, 0, 0, 100, true);
-		App->ren->DrawRect(&check_front, 0, 255, 0, 100, true);
+		App->ren->DrawRect(&check_down, 255, 0, 0, 100, true, RenderQueue::RENDER_DEBUG);
+		App->ren->DrawRect(&check_front, 0, 255, 0, 100, true, RenderQueue::RENDER_DEBUG);
 	}
 
 	if (animation_timer.Read() > animation_pace)
@@ -218,7 +218,7 @@ bool ClingCreature::Render()
 		animation_timer.Reset();
 	}
 
-	App->ren->Blit(cling_enemy, collider->x, collider->y, animation.GetCurrentFrame(), -2,angle);
+	App->ren->Blit(cling_enemy, collider->x, collider->y, animation.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
 
 
 	return true;

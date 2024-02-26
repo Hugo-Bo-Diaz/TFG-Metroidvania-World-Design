@@ -28,7 +28,7 @@ bool FirstDialogue::Loop(float dt)
 
 bool FirstDialogue::Render()
 {
-	App->ren->BlitUI(texture, 0,0, nullptr,10);
+	App->ren->Blit(texture, 0,0, nullptr,10, RenderQueue::RENDER_UI);
 
 	return true;
 }

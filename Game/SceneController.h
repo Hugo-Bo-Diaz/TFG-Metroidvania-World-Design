@@ -95,7 +95,6 @@ public:
 	bool LoadCheckPoints(pugi::xml_node&);
 
 	tileset* GetTilesetFromId(int id);
-	SDL_Rect GetImageRectFromId(tileset* t, int id);
 	SDL_Texture* GetTextureFromId(int id);
 
 	int RoundToNearestTileset(int id);

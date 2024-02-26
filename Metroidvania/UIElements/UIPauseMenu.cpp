@@ -103,19 +103,19 @@ void UIPauseMenu::Render()
 {
 
 	//render base
-	App->ren->BlitUI(TexMenuBase, x, y, nullptr, -2);
+	App->ren->Blit(TexMenuBase, x, y, nullptr, -2, RenderQueue::RENDER_UI);
 
 	//render highlighted option
 	switch (current_option)
 	{
 	case PAUSE_RESUME:
-		App->ren->BlitUI(TexMenuOptions, x+90, y+164, &resume_rect, -2);
+		App->ren->Blit(TexMenuOptions, x+90, y+164, &resume_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case PAUSE_SETTINGS:
-		App->ren->BlitUI(TexMenuOptions, x + 90, y + 260, &settings_rect, -2);
+		App->ren->Blit(TexMenuOptions, x + 90, y + 260, &settings_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case PAUSE_EXIT:
-		App->ren->BlitUI(TexMenuOptions, x + 90, y + 356, &exit_rect, -2);
+		App->ren->Blit(TexMenuOptions, x + 90, y + 356, &exit_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	default:
 		break;

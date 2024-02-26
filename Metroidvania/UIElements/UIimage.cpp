@@ -26,7 +26,7 @@ void UIimage::Loop()
 
 void UIimage::Render()
 {
-	App->ren->BlitUI(Tex, global_x, global_y, &screenspace, depth);
+	App->ren->Blit(Tex, global_x, global_y, &screenspace, depth, RenderQueue::RENDER_UI);
 
 	UIelement::Render();
 }

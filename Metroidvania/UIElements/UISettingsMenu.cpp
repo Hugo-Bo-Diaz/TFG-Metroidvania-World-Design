@@ -178,25 +178,25 @@ void UISettingsMenu::Render()
 	volume_sfx_bar_rect.w = 208 * (volume_sfx / 100);
 
 	//render base
-	App->ren->BlitUI(lTextureBase,x, y, nullptr, -2);
+	App->ren->Blit(lTextureBase,x, y, nullptr, -2, RenderQueue::RENDER_UI);
 	//render bars
-	App->ren->BlitUI(lTextureOptions, x+14,y+146,&volume_music_bar_rect,-3);
-	App->ren->BlitUI(lTextureOptions, x+14, y+86, &volume_sfx_bar_rect, -3);
+	App->ren->Blit(lTextureOptions, x+14,y+146,&volume_music_bar_rect,-3, RenderQueue::RENDER_UI);
+	App->ren->Blit(lTextureOptions, x+14, y+86, &volume_sfx_bar_rect, -3, RenderQueue::RENDER_UI);
 
 	//render highlighted option
 	switch (current_option)
 	{
 	case SETTINGS_VOLUME_SFX:
-		App->ren->BlitUI(lTextureOptions, x + 6, y + 78, &blue_mid_rect, -2);
+		App->ren->Blit(lTextureOptions, x + 6, y + 78, &blue_mid_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case SETTINGS_VOLUME_MUSIC:
-		App->ren->BlitUI(lTextureOptions, x + 6, y + 138, &blue_mid_rect, -2);
+		App->ren->Blit(lTextureOptions, x + 6, y + 138, &blue_mid_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case SETTINGS_FULLSCREEN_TOGGLE:
-		App->ren->BlitUI(lTextureOptions, x + 6, y + 174, &blue_big_rect, -2);
+		App->ren->Blit(lTextureOptions, x + 6, y + 174, &blue_big_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case SETTINGS_BACK:
-		App->ren->BlitUI(lTextureOptions, x + 6, y + 246, &blue_small_rect, -2);
+		App->ren->Blit(lTextureOptions, x + 6, y + 246, &blue_small_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	default:
 		break;

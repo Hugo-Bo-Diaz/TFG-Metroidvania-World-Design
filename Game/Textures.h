@@ -54,7 +54,6 @@ public:
 	Textures();
 	bool Init();
 
-	void GetAllImagesPathRecursive(const char* path, std::list<std::string>& listToFill);
 	TextureID Load_Texture(const char* path);
 	void Destroy_Texture(const char* texture_name);
 

@@ -12,7 +12,7 @@
  <imagelayer id="10" name="Image Layer 3">
   <image source="Backgrounds/ground_back.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="30"/>
+   <property name="depth" type="int" value="3000"/>
    <property name="parallax_x" type="float" value="1"/>
    <property name="parallax_y" type="float" value="1"/>
    <property name="repeat_y" type="bool" value="true"/>
@@ -21,7 +21,7 @@
  <imagelayer id="8" name="Image Layer 1">
   <image source="Backgrounds/ground_far.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="20"/>
+   <property name="depth" type="int" value="2900"/>
    <property name="parallax_x" type="float" value="0.8"/>
    <property name="parallax_y" type="float" value="0.8"/>
    <property name="repeat_y" type="bool" value="false"/>
@@ -30,7 +30,7 @@
  <imagelayer id="9" name="Image Layer 2">
   <image source="Backgrounds/ground_front.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="10"/>
+   <property name="depth" type="int" value="2800"/>
    <property name="parallax_x" type="float" value="0.9"/>
    <property name="parallax_y" type="float" value="0.9"/>
    <property name="repeat_y" type="bool" value="false"/>
@@ -38,6 +38,7 @@
  </imagelayer>
  <layer id="11" name="back_tiles" width="48" height="32">
   <properties>
+   <property name="depth" type="int" value="1000"/>
    <property name="tileset" type="int" value="0"/>
   </properties>
   <data>
@@ -1581,6 +1582,7 @@
  </layer>
  <layer id="12" name="front" width="48" height="32">
   <properties>
+   <property name="depth" type="int" value="900"/>
    <property name="tileset" type="int" value="0"/>
   </properties>
   <data>

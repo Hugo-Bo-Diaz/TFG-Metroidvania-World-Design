@@ -63,12 +63,12 @@ bool Leaf::Render()
 {
 	if (direction == 1)
 	{
-		App->ren->Blit(spells, collider->x, collider->y, leaf_right.GetCurrentFrame(), -2, angle);
+		App->ren->Blit(spells, collider->x, collider->y, leaf_right.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
 		leaf_right.NextFrame();
 	}
 	else
 	{
-		App->ren->Blit(spells, collider->x, collider->y, leaf_left.GetCurrentFrame(), -2, angle);
+		App->ren->Blit(spells, collider->x, collider->y, leaf_left.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
 		leaf_left.NextFrame();
 	}
 	return true;

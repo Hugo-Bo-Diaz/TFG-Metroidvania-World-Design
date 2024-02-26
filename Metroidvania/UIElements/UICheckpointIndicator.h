@@ -11,7 +11,7 @@ class UIcheckpointIndicator : public UIelement
 public:
 	UIcheckpointIndicator();
 
-	TextPrint* text;
+	FontID mFont;
 
 	SDL_Rect on_screen;
 	float text_x;

@@ -4,6 +4,7 @@
 #include "UItextbox.h"
 #include "Physics.h"
 #include "Input.h"
+#include "Text.h"
 
 UItextbox::UItextbox(const char * _author,const char* first_text, TextBoxColor color, int tiles_x, int tiles_y, int x, int y, float size, float speed)
 {
@@ -38,10 +39,11 @@ UItextbox::UItextbox(const char * _author,const char* first_text, TextBoxColor c
 	text_size = size;
 
 	SDL_Color Black = { 1,1,1,1 };
-	author_print = App->txt->CreateText(author.c_str(), Black, (tile_width - 2) * 32, "", text_size);
-	AddPanelToTextBox(first_text);
 
-	author_print->current_letter = author_print->text.length();
+	mFont = App->txt->LoadFont("Assets/Fonts/font1.xml", "default", SDL_Color{0,0,0,255},25);
+	//mFont = App->txt->LoadFont("Assets/Fonts/Bebas-Regular.ttf", "default", SDL_Color{0,0,0,255},25);
+
+	AddPanelToTextBox(first_text);
 
 	TexTextBox = App->tex->Load_Texture("Assets/UI/textboxes.png");
 	App->phy->PauseObjects();
@@ -49,27 +51,12 @@ UItextbox::UItextbox(const char * _author,const char* first_text, TextBoxColor c
 
 void UItextbox::AddPanelToTextBox(const char * text)
 {
-	std::string t = text;
-
-	texts.push_back(t.c_str());
-
-	SDL_Color Black = {1,1,1,1};
-	TextPrint* text_print = App->txt->CreateText(text, Black, (tile_width - 3) * 32, "", text_size);
-
-	text_print->current_letter = 0;
-
-	text_prints.push_back(text_print);
+	texts.push_back(text);
 }
 
 UItextbox::~UItextbox()
 {
 	App->phy->UnPauseObjects();
-
-	for (std::vector<TextPrint*>::iterator it = text_prints.begin(); it != text_prints.end(); it++)
-	{
-		App->txt->DeleteText(*it);
-	}
-	App->txt->DeleteText(author_print);
 }
 
 void UItextbox::Loop()
@@ -78,9 +65,6 @@ void UItextbox::Loop()
 
 	if (current_letter > texts[current_text].size())
 		current_letter = texts[current_text].size();
-
-	text_prints[current_text]->current_letter = current_letter;
-
 
 	if (App->inp->GetInput(BUTTON_1) == BUTTON_DOWN)
 	{
@@ -150,17 +134,18 @@ void UItextbox::Render()
 			int real_x = position_x + i*32;
 			int real_y = position_y + j*32;
 
-			App->ren->BlitUI(TexTextBox,real_x,real_y,r,10);
+			App->ren->Blit(TexTextBox,real_x,real_y,r,10, RenderQueue::RENDER_UI);
 		}
 		
 	}
 	//BLIT TEXT 12 12
-	App->ren->BlitText(text_prints[current_text], position_x + 12, position_y + 12 + text_size * text_prints[current_text]->font_used->vsize);
+	App->ren->BlitText(texts[current_text].substr(0, current_letter).c_str(), mFont, position_x + 12, position_y + 12, -10001, SDL_Color{0,0,0,255}, RenderQueue::RENDER_UI);
+	//App->ren->BlitText(texts[current_text].substr(0, current_letter).c_str(), mFont, position_x + 12, position_y + 12 + text_size * App->txt->GetFont(mFont)->size, -10001, SDL_Color{0,0,0,255});
 
 	if (author != "")
 	{
 		//SMALL SQUARE
-		float author_size = 1 + (author.size() * author_print->font_used->hsize * author_print->scale) / 32;
+		float author_size = 1 + (author.size() * App->txt->GetFont(mFont)->size) / 32;
 
 		for (int i = 0; i < author_size; ++i)
 		{
@@ -181,12 +166,10 @@ void UItextbox::Render()
 			int real_x = position_x + i * 32;
 			int real_y = position_y - 40;
 
-			App->ren->BlitUI(TexTextBox, real_x, real_y, r, 9);
-
-
+			App->ren->Blit(TexTextBox, real_x, real_y, r, 9, RenderQueue::RENDER_UI);
 		}
 
-		App->ren->BlitText(author_print, position_x + 12, position_y - 8);
+		App->ren->BlitText(author.c_str(), mFont, position_x + 12, position_y - 8, -10001, SDL_Color{0,0,0,255}, RenderQueue::RENDER_UI);
 	}
 
 }

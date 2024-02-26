@@ -14,14 +14,14 @@
 
 UISelectMenu::UISelectMenu()
 {
-	for (int i = 0; i < MAX_LORE_CAPACITY_MENU; ++i)
-	{
-		different_texts[i] = App->txt->CreateText("", SDL_Color{ 0,0,0,0 }, 500,"",1);
-	}
+	//for (int i = 0; i < MAX_LORE_CAPACITY_MENU; ++i)
+	//{
+	//	different_texts[i] = App->txt->CreateText("", SDL_Color{ 0,0,0,0 }, 500,"",1);
+	//}
 
-	description = App->txt->CreateText("", SDL_Color{ 0,0,0,0 }, 335, "", 2);
+	//description = App->txt->CreateText("", SDL_Color{ 0,0,0,0 }, 335, "", 2);
 
-	selectquad = {0,0,206,28 };
+	//selectquad = {0,0,206,28 };
 
 	App->phy->PauseObjects();
 
@@ -122,58 +122,58 @@ void UISelectMenu::Render()
 {
 
 	//render base
-	App->ren->BlitUI(selectMenuBack, x, y, nullptr, -2);
+	App->ren->Blit(selectMenuBack, x, y, nullptr, -2, RenderQueue::RENDER_UI);
 
 	//render highlighted option
-	switch (current_option)
-	{
-	case SELECT_MENU_LORE:
-	{
-		App->ren->BlitUI(selectLogBook, x, y, NULL, -3);
-		//print all the available logs
+	//switch (current_option)
+	//{
+	//case SELECT_MENU_LORE:
+	//{
+	//	App->ren->BlitUI(selectLogBook, x, y, NULL, -3);
+	//	//print all the available logs
 
-		//for (int i = cam_y_coord; i < MAX_LORE_CAPACITY_MENU +cam_y_coord; ++i)
-		if (App->trk->BaseSaveSection->GetChild("Logs")->GetSectionValues().size() > 0)
-		{
-			for (int i = cam_y_coord; i < MAX_LORE_CAPACITY_MENU+cam_y_coord && i < App->trk->BaseSaveSection->GetChild("Logs")->GetSectionValues().size(); ++i)
-			{
-				//LoreLog* l = App->trk->GetLog(i);
-				//different_texts[i - cam_y_coord]->text = App->trk->active_logs[i]->title;
-				//different_texts[i - cam_y_coord]->current_letter = different_texts[i - cam_y_coord]->text.size();
-				std::string temp = MetroidVaniaSceneProcessor::GetInstance().GetLog(i)->title;
+	//	//for (int i = cam_y_coord; i < MAX_LORE_CAPACITY_MENU +cam_y_coord; ++i)
+	//	if (App->trk->BaseSaveSection->GetChild("Logs")->GetSectionValues().size() > 0)
+	//	{
+	//		for (int i = cam_y_coord; i < MAX_LORE_CAPACITY_MENU+cam_y_coord && i < App->trk->BaseSaveSection->GetChild("Logs")->GetSectionValues().size(); ++i)
+	//		{
+	//			//LoreLog* l = App->trk->GetLog(i);
+	//			//different_texts[i - cam_y_coord]->text = App->trk->active_logs[i]->title;
+	//			//different_texts[i - cam_y_coord]->current_letter = different_texts[i - cam_y_coord]->text.size();
+	//			std::string temp = MetroidVaniaSceneProcessor::GetInstance().GetLog(i)->title;
 
-				different_texts[i - cam_y_coord]->ChangeText(temp.c_str() );
+	//			different_texts[i - cam_y_coord]->ChangeText(temp.c_str() );
 
-				App->ren->BlitText(different_texts[i - cam_y_coord],
-					x + 110,
-					y + 118 + (i - cam_y_coord) * 28 + 
-					different_texts[i - cam_y_coord]->font_used->hsize * different_texts[i - cam_y_coord]->scale);
+	//			App->ren->BlitText(different_texts[i - cam_y_coord],
+	//				x + 110,
+	//				y + 118 + (i - cam_y_coord) * 28 + 
+	//				different_texts[i - cam_y_coord]->font_used->hsize * different_texts[i - cam_y_coord]->scale);
 
-				if (current_lore == i)
-				{
-					int new_x = x + 110;
-					int new_y = y + 114 + (i - cam_y_coord) * 28;
-					//App->ren->DrawRect(&selectquad, 0, 0, 0, 150, true);
-					App->ren->BlitUI(selectOptions, new_x, new_y, &selectquad, -4);
-				}
+	//			if (current_lore == i)
+	//			{
+	//				int new_x = x + 110;
+	//				int new_y = y + 114 + (i - cam_y_coord) * 28;
+	//				//App->ren->DrawRect(&selectquad, 0, 0, 0, 150, true);
+	//				App->ren->BlitUI(selectOptions, new_x, new_y, &selectquad, -4);
+	//			}
 
-			}
-		
-			//description->text = App->trk->active_logs[current_lore]->text;
-			//description->current_letter = description->text.size();
+	//		}
+	//	
+	//		//description->text = App->trk->active_logs[current_lore]->text;
+	//		//description->current_letter = description->text.size();
 
-			description->ChangeText(MetroidVaniaSceneProcessor::GetInstance().GetLog(current_lore)->text.c_str());
+	//		description->ChangeText(MetroidVaniaSceneProcessor::GetInstance().GetLog(current_lore)->text.c_str());
 
-			//print the log itself
-			App->ren->BlitText(description, x + 320, y + 114 + description->font_used->hsize*description->scale + 15);
-		}
-	}
-		break;
-	case SELECT_MENU_MAP:
-		break;
-	default:
-		break;
-	}
+	//		//print the log itself
+	//		App->ren->BlitText(description, x + 320, y + 114 + description->font_used->hsize*description->scale + 15);
+	//	}
+	//}
+	//	break;
+	//case SELECT_MENU_MAP:
+	//	break;
+	//default:
+	//	break;
+	//}
 }
 
 void UISelectMenu::CycleOption(float direction)
@@ -219,7 +219,7 @@ void UISelectMenu::CycleText(float direction)
 
 		for (int i = 0; i < MAX_LORE_CAPACITY_MENU-1; ++i)
 		{
-			different_texts[i]->text = different_texts[i + 1]->text;
+			//different_texts[i]->text = different_texts[i + 1]->text;
 
 		}
 

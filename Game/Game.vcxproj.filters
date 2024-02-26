@@ -143,5 +143,6 @@
     <ClInclude Include="Logger.h">
       <Filter>Parts</Filter>
     </ClInclude>
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
 </Project>

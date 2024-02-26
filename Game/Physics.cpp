@@ -49,12 +49,12 @@ bool Physics::Loop(float dt)
 		for (int i = 0; i < MAX_WALLS; ++i)
 		{
 			if (walls[i] !=nullptr)
-				App->ren->DrawRect(walls[i],0,0,255,75,true);
+				App->ren->DrawRect(walls[i],0,0,255,75,true, RenderQueue::RENDER_DEBUG);
 		}
 	
 		for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 		{
-			App->ren->DrawRect((*it)->collider, 0, 255, 0, 75, true);
+			App->ren->DrawRect((*it)->collider, 0, 255, 0, 75, true, RenderQueue::RENDER_DEBUG);
 			//App->ren->DrawRect((*it)->nextpos, 0, 255, 255, 75, true);
 		}
 	}

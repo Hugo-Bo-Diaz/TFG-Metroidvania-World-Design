@@ -205,7 +205,7 @@ bool ArmorTrap::Render()
 {
 
 	if (App->debug)
-		App->ren->DrawRect(&aggro, 255, 255, 0, 100, true);
+		App->ren->DrawRect(&aggro, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG);
 
 	if ((animation_timer.Read() > animation_interval_chase && current_state == ArmorTrap_CHASE)||(animation_timer.Read() > animation_interval_patrol && current_state == ArmorTrap_PATROL))
 	{
