@@ -4,6 +4,7 @@
 #include "Textures.h"
 #include "Particles.h"
 #include "Audio.h"
+#include "Debug.h"
 #include "../EntityIDs.h"
 
 ArmorTrap::ArmorTrap()
@@ -203,10 +204,6 @@ bool ArmorTrap::Loop(float dt)
 
 bool ArmorTrap::Render()
 {
-
-	if (App->debug)
-		App->ren->DrawRect(&aggro, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG);
-
 	if ((animation_timer.Read() > animation_interval_chase && current_state == ArmorTrap_CHASE)||(animation_timer.Read() > animation_interval_patrol && current_state == ArmorTrap_PATROL))
 	{
 		if (speed_x < 0)
@@ -233,6 +230,12 @@ bool ArmorTrap::Render()
 
 	return true;
 }
+
+void ArmorTrap::RenderDebug()
+{
+	App->ren->DrawRect(aggro, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
+}
+
 
 void ArmorTrap::RecieveDamage(int dmg, int direction)
 {

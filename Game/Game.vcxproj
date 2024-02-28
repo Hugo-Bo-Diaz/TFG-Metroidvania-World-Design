@@ -125,6 +125,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="MathHelp.h" />

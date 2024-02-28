@@ -12,6 +12,7 @@
 #include "Gui.h"
 #include "Text.h"
 #include "ProgressTracker.h"
+#include "Debug.h"
 
 #include <Windows.h>
 #include <exception>
@@ -98,24 +99,11 @@ void Application::Run() {
 
 bool Application::Init() 
 {
-#ifdef _DEBUG
-	debug = true;
-#endif _DEBUG
-
 	signal(SIGBREAK, ExceptionHandler);
 	signal(SIGABRT, ExceptionHandler);
 	signal(SIGFPE, ExceptionHandler);
 	signal(SIGILL, ExceptionHandler);
 	signal(SIGSEGV, ExceptionHandler);
-
-	if (debug)
-	{
-		ShowConsole();
-	}
-	else
-	{
-		HideConsole();
-	}
 
 	bool ret = true;
 	inp = new Input();
@@ -130,6 +118,7 @@ bool Application::Init()
 	gui = new UserInterface();
 	txt = new Text();
 	trk = new ProgressTracker();
+	dbg = new Debug();
 
 	parts.push_back(inp);
 	parts.push_back(win);
@@ -143,6 +132,7 @@ bool Application::Init()
 	parts.push_back(tex);
 	parts.push_back(txt);
 	parts.push_back(trk);
+	parts.push_back(dbg);
 
 	LoadConfig("config.xml");
 	
@@ -244,7 +234,7 @@ void Application::LoadConfig(const char* filename)
 	if (result.status != pugi::xml_parse_status::status_ok)
 	{
 		std::ostringstream lStr;
-		lStr << "Could not load map xml file"<< filename << "pugi error: " << result.description();
+		lStr << "Could not load config xml file"<< filename << "pugi error: " << result.description();
 		Logger::Console_log(LogLevel::LOG_ERROR, lStr.str().c_str());
 		Logger::Console_log(LogLevel::LOG_WARN,"creating new configuration file...");
 

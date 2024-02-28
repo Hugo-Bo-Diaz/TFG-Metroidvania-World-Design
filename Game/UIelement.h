@@ -36,6 +36,7 @@ public:
 
 	virtual void Loop();
 	virtual void Render();
+	virtual void RenderDebug() {};
 
 	UIelement* parent;
 

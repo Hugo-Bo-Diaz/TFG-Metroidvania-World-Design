@@ -137,24 +137,24 @@ public:
 	void Blit(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, RenderQueue aQueue = RenderQueue::RENDER_GAME, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1, int center_x = -1,int center_y = -1);
 	void BlitMapLayer(layer* layer);
 	void BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x = 1, float parallax_factor_y = 1);
-	//void BlitUI(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, float angle = 0);
-	
-	/*void BlitMapTile(SDL_Texture* tex, int x_tile, int y_tile,SDL_Rect on_img, int depth, float parallax_factor_x = 1, float parallax_factor_y = 1);
-	void BlitMapLayer(layer* layer);*/
 
-	void BlitText(const char* text, FontID font, int x, int y, int depth,SDL_Color aColor,RenderQueue aQueue);
-	void DrawRect(SDL_Rect* area, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled,RenderQueue aQueue);
-	void DrawTrail(SDL_Point* point_array, int amount, RenderQueue aQueue, Uint8 r = 255, Uint8 g = 255, Uint8 b= 255);
+	void BlitText(const char* text, FontID font, int x, int y, int depth,SDL_Color aColor,RenderQueue aQueue,bool ignore_camera = false);
+	void DrawRect(SDL_Rect area, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled,RenderQueue aQueue, int depth, bool ignore_camera = false);
+	void DrawTrail(SDL_Point* point_array, int amount, RenderQueue aQueue,bool aIgnoreCamera,int depth, Uint8 r = 255, Uint8 g = 255, Uint8 b= 255);
 
 	bool LoadConfig(pugi::xml_node&);
 	bool CreateConfig(pugi::xml_node&);
+
+	long GetDrawCallsLastFrame() { return mDrawCallsLastFrame; };
+	void CountDrawCall() { mDrawCallsLastFrame++; };
 
 private:
 
 	int		width;
 	int		height;
 	int		scale;
-	
+	int		mDrawCallsLastFrame;
+
 	//std::vector<BlitItem*> blit_queue;
 	//std::vector<BlitItem*> ui_blit_queue;
 	//std::queue<TextBlit*> text_queue;

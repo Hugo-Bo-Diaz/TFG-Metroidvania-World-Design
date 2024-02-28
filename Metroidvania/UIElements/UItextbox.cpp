@@ -40,8 +40,8 @@ UItextbox::UItextbox(const char * _author,const char* first_text, TextBoxColor c
 
 	SDL_Color Black = { 1,1,1,1 };
 
-	mFont = App->txt->LoadFont("Assets/Fonts/font1.xml", "default", SDL_Color{0,0,0,255},25);
-	//mFont = App->txt->LoadFont("Assets/Fonts/Bebas-Regular.ttf", "default", SDL_Color{0,0,0,255},25);
+	//mFont = App->txt->LoadFont("Assets/Fonts/font1.xml", SDL_Color{0,0,0,255},25);
+	mFont = App->txt->LoadFont("Assets/Fonts/Bebas-Regular.ttf", SDL_Color{0,0,0,255},25);
 
 	AddPanelToTextBox(first_text);
 

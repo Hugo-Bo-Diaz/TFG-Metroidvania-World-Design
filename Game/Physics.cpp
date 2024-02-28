@@ -1,5 +1,6 @@
 #include "Physics.h"
 #include "Logger.h"
+#include "Debug.h"
 
 #include <sstream>
 #include <typeindex>
@@ -43,22 +44,6 @@ bool Physics::Loop(float dt)
 			ret = false;
 		}
 	}
-//if (App->debug)
-	if(true)
-	{
-		for (int i = 0; i < MAX_WALLS; ++i)
-		{
-			if (walls[i] !=nullptr)
-				App->ren->DrawRect(walls[i],0,0,255,75,true, RenderQueue::RENDER_DEBUG);
-		}
-	
-		for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
-		{
-			App->ren->DrawRect((*it)->collider, 0, 255, 0, 75, true, RenderQueue::RENDER_DEBUG);
-			//App->ren->DrawRect((*it)->nextpos, 0, 255, 255, 75, true);
-		}
-	}
-
 	//delete the current list
 	for (std::list<GameObject*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
 	{
@@ -70,6 +55,21 @@ bool Physics::Loop(float dt)
 	to_delete.clear();
 
 	return ret;
+}
+
+void Physics::RenderDebug()
+{
+	for (int i = 0; i < MAX_WALLS; ++i)
+	{
+		if (walls[i] != nullptr)
+			App->ren->DrawRect(*walls[i], 0, 0, 255, 75, true, RenderQueue::RENDER_DEBUG, 0);
+	}
+
+	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
+	{
+		(*it)->RenderDebug();
+		App->ren->DrawRect(*(*it)->collider, 0, 255, 0, 75, true, RenderQueue::RENDER_DEBUG, 0);
+	}
 }
 
 void Physics::GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*>& colliders_near)

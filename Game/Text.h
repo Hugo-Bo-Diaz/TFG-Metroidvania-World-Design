@@ -42,7 +42,7 @@ class Text : public Part
 public:
 	Text();
 
-	const std::string mSupportedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/.,'";
+	const std::string mSupportedChars = ":abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/.,'";
 
 	bool LoadConfig(pugi::xml_node&);
 	bool CreateConfig(pugi::xml_node&);
@@ -50,7 +50,7 @@ public:
 	virtual bool Init();
 	virtual bool CleanUp();
 
-	FontID LoadFont(const char* path, const char* name, SDL_Color aColor, int size = 15);
+	FontID LoadFont(const char* path, SDL_Color aColor, int size = 15);
 
 	FontID LoadFontXML(const char* path, SDL_Color aColor, int size);
 	FontID LoadFontTTF(const char*, SDL_Color aColor, int size);

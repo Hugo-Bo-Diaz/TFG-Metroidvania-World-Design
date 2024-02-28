@@ -1,6 +1,7 @@
 #include "ClingingCreature.h"
 #include "Audio.h"
 #include "Particles.h"
+#include "Debug.h"
 
 ClingCreature::ClingCreature()
 {
@@ -206,12 +207,6 @@ bool ClingCreature::Loop(float dt)
 }
 bool ClingCreature::Render()
 {
-	if (App->debug)
-	{
-		App->ren->DrawRect(&check_down, 255, 0, 0, 100, true, RenderQueue::RENDER_DEBUG);
-		App->ren->DrawRect(&check_front, 0, 255, 0, 100, true, RenderQueue::RENDER_DEBUG);
-	}
-
 	if (animation_timer.Read() > animation_pace)
 	{
 		animation.NextFrame();
@@ -222,6 +217,12 @@ bool ClingCreature::Render()
 
 
 	return true;
+}
+
+void ClingCreature::RenderDebug()
+{
+	App->ren->DrawRect(check_down, 255, 0, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
+	App->ren->DrawRect(check_front, 0, 255, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
 }
 
 void ClingCreature::TurnCorner(bool clockwise)

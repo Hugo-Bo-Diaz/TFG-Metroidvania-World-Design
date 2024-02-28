@@ -46,6 +46,7 @@ public:
 	virtual void Init() {};
 	virtual bool Loop(float dt) { return true; };
 	virtual bool Render() { return true; };
+	virtual void RenderDebug() {};
 
 	GameObject()
 	{
@@ -96,12 +97,17 @@ struct collision
 
 class Physics : public Part
 {
+private:
+
+	std::list<GameObject*> objects;
+	std::list<GameObject*> to_delete;
 public:
 
 	Physics();
 
 	bool Init();
 	bool Loop(float dt);
+	void RenderDebug();
 	bool CleanUp();
 	bool Clearphysics();
 	void DeleteObject(GameObject*);
@@ -124,16 +130,14 @@ public:
 	GameObject* AddObject(int x, int y, int w_col, int h_col,std::type_index lType);
 	void AddObject(GameObject*);
 
+	int GetTotalObjectNumber() { return objects.size(); };
+
 	SDL_Rect* walls[MAX_WALLS];
 
 	std::map<std::type_index, std::function<GameObject * (std::list<ObjectProperty*>&)>> lFactoriesType;
 	std::map<std::string, std::function<GameObject * (std::list<ObjectProperty*>&)>> lFactoriesString;
 	bool AddFactory(const char* lNameInMap, std::type_index lType, std::function<GameObject * (std::list<ObjectProperty*>&)> lFactory);
 
-private:
-
-	std::list<GameObject*> objects;
-	std::list<GameObject*> to_delete;
 };
 
 #endif // !PHYSICS__H

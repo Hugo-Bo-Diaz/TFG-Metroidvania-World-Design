@@ -35,6 +35,7 @@ public:
 
 	void Loop();
 	void Render();
+	void RenderDebug();
 
 	int size_in_image = 48;
 

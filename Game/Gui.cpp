@@ -39,6 +39,15 @@ bool UserInterface::Loop(float dt)
 	return true;
 }
 
+void UserInterface::RenderDebug()
+{
+	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
+	{
+		(*it)->RenderDebug();
+	}
+
+}
+
 bool UserInterface::CleanUp()
 {
 	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)

@@ -23,6 +23,7 @@ public:
 
 	bool Loop(float dt);
 	bool Render();
+	void RenderDebug();
 
 	float patrol_speed = 1;
 	float chase_speed = 3;

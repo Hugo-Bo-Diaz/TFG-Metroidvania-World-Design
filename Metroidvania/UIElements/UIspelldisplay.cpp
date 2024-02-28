@@ -57,3 +57,14 @@ void UIspelldisplay::Render()
 	}
 
 }
+
+void UIspelldisplay::RenderDebug()
+{
+	App->ren->DrawRect({(int)x,(int)y,left_border.w,left_border.h }, 255, 255, 255, 255, false, RenderQueue::RENDER_DEBUG, -10, true);
+	App->ren->DrawRect({ (int)x + 160, (int)y, right_border.w,right_border.h }, 255, 255, 255, 255, false, RenderQueue::RENDER_DEBUG, -10, true);
+
+	App->ren->DrawRect({ (int)x, (int)y, left_cover.w,left_cover.h }, 255, 255, 255, 255, false, RenderQueue::RENDER_DEBUG, -10, true);
+	App->ren->DrawRect({ (int)x + 160, (int)y, right_cover.w,right_cover.h }, 255, 255, 255, 255, false, RenderQueue::RENDER_DEBUG, -10, true);
+
+	App->ren->DrawRect({ (int)x + 78, (int)y, square.x,square.y }, 255,255,255,255,false, RenderQueue::RENDER_DEBUG,-10,true);
+}

@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
-<config>
-	<Console />
+<config debug = "true">
+	<Debug>
+		<debug_font>Assets/Fonts/Lato-Regular.ttf</debug_font>
+	</Debug>
 	<Input>
 		<controllers>
 			<set>

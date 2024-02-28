@@ -23,6 +23,6 @@ class Particles;
 class UserInterface;
 class Text;
 class ProgressTracker;
-
+class Debug;
 
 #endif // !PARTSDEF__H

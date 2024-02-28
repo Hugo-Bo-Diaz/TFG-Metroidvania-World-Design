@@ -84,6 +84,9 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Parts</Filter>
     </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Parts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -144,5 +147,8 @@
       <Filter>Parts</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="Debug.h">
+      <Filter>Parts</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -52,11 +52,11 @@ bool Text::CleanUp()
 	return true;
 }
 
-FontID Text::LoadFont(const char * path, const char * name, SDL_Color aColor, int size)
+FontID Text::LoadFont(const char * path, SDL_Color aColor, int size)
 {
 	for (std::map<FontID,Font*>::iterator it = fonts.begin(); it != fonts.end(); it++)
 	{
-		if (std::strcmp((*it).second->name.c_str(), path) == 0)
+		if (std::strcmp((*it).second->name.c_str(), path) == 0 && (*it).second->size == size)
 		{
 			return (*it).first;
 		}
@@ -170,7 +170,7 @@ FontID Text::LoadFontTTF(const char* aPath, SDL_Color aColor, int size)
 
 	SDL_Surface* totalSurface = SDL_CreateRGBSurface(0, 512, 512, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
 
-	std::map<char, SDL_Rect*> lMapping;
+	Font* lResult = new Font(aPath, nullptr, aColor, size);
 
 	int cursor_x = 0,cursor_y = 0;
 	for (int i = 0; i < mSupportedChars.size(); i++)
@@ -193,6 +193,7 @@ FontID Text::LoadFontTTF(const char* aPath, SDL_Color aColor, int size)
 		if (cursor_x + size > 512)
 		{
 			cursor_y += 2 * size;
+			cursor_x = 0;
 		}
 
 		if(lCharSurf == NULL)
@@ -202,20 +203,19 @@ FontID Text::LoadFontTTF(const char* aPath, SDL_Color aColor, int size)
 			Logger::Console_log(LogLevel::LOG_ERROR, lStream.str().c_str());
 		}
 
-		SDL_UpperBlit(lCharSurf, new SDL_Rect{0,0,size_char_x,size_char_y},totalSurface,lCharMapping);
+		lResult->lMapping.insert(std::make_pair(mSupportedChars[i], lCharMapping));
+		
+		SDL_Rect forBlit = { lCharMapping->x,lCharMapping->y,lCharMapping->w,lCharMapping->h };
+		SDL_UpperBlit(lCharSurf, new SDL_Rect{0,0,size_char_x,size_char_y},totalSurface,&forBlit);
 		SDL_FreeSurface(lCharSurf);
-
-		lMapping.insert(std::make_pair(mSupportedChars[i], lCharMapping));
 	}
 
-	SDL_Texture* font_texture = SDL_CreateTextureFromSurface(App->ren->renderer, totalSurface);
+	lResult->font_texture = SDL_CreateTextureFromSurface(App->ren->renderer, totalSurface);
 
-	if (font_texture == NULL)
+	if (lResult->font_texture == NULL)
 	{
 		Logger::Console_log(LogLevel::LOG_ERROR, "Could not render the font to a texture");
 	}
-
-	Font* lResult = new Font(aPath,font_texture,aColor,size);
 
 	FontID lID = fonts.size();
 

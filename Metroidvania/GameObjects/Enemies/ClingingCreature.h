@@ -22,6 +22,7 @@ public:
 
 	bool Loop(float dt);
 	bool Render();
+	void RenderDebug();
 
 	ClingCreatureDirection curr_dir;
 

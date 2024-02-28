@@ -22,6 +22,7 @@ public:
 
 	bool Init();
 	bool Loop(float dt);
+	void RenderDebug();
 	bool CleanUp();
 	void Clearelements();
 

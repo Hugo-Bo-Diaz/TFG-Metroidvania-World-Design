@@ -87,3 +87,16 @@ void UIhealthbar::Render()
 		App->ren->Blit(TextureHB, x + offset, y, &last_bar, 25, RenderQueue::RENDER_UI);
 	}
 }
+
+void UIhealthbar::RenderDebug()
+{
+	int lTotalW = size_in_image;
+	for (int i = 0; i < max_res; ++i)
+	{
+		lTotalW += size_in_image;
+	}
+	lTotalW += end.w;
+
+	App->ren->DrawRect({ (int)x,(int)y,lTotalW,begin.h }, 255, 255, 255, 255, false, RenderQueue::RENDER_DEBUG, -10, true);
+
+}

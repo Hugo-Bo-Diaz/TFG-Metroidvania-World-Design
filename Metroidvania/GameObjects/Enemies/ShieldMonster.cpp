@@ -6,6 +6,7 @@
 #include "Particles.h"
 #include "Audio.h"
 #include "../Player.h"
+#include "Debug.h"
 
 ShieldMonster::ShieldMonster()
 {
@@ -434,14 +435,6 @@ bool ShieldMonster::Loop(float dt)
 
 bool ShieldMonster::Render()
 {
-
-	if (App->debug)
-	{
-		App->ren->DrawRect(&aggro, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG);
-		App->ren->DrawRect(&range, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG);
-		App->ren->DrawRect(&shield, 255, 0, 0, 100, true, RenderQueue::RENDER_DEBUG);
-	}
-
 	if ((animation_timer.Read() > animation_interval_chase && current_state == ShieldMonster_CHASE) || (animation_timer.Read() > animation_interval_patrol && current_state == ShieldMonster_PATROL ))
 	{
 		if (gdirection < 0)
@@ -471,8 +464,6 @@ bool ShieldMonster::Render()
 		}
 	}
 
-
-
 	if (gdirection < 0)
 		App->ren->Blit(shield_monster_arm, collider->x-50, collider->y+8+offset_y, &arm_left, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,98,16);
 	else
@@ -480,6 +471,15 @@ bool ShieldMonster::Render()
 
 	return true;
 }
+
+void ShieldMonster::RenderDebug()
+{
+	App->ren->DrawRect(aggro, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
+	App->ren->DrawRect(range, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
+	App->ren->DrawRect(shield, 255, 0, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
+
+}
+
 
 void ShieldMonster::RecieveDamage(int dmg, int direction)
 {

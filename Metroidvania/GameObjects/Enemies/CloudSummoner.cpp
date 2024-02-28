@@ -136,7 +136,7 @@ bool CloudSummoner::Loop(float dt)
 			}
 		}
 
-		App->ren->DrawRect(&aggro, 0, 255, 0, 50,true, RenderQueue::RENDER_DEBUG);
+		App->ren->DrawRect(aggro, 0, 255, 0, 50,true, RenderQueue::RENDER_DEBUG,0);
 
 		last_state = CS_PATROL;
 

@@ -32,6 +32,6 @@ public:
 
 	void Loop();
 	void Render();
-
+	void RenderDebug();
 };
 #endif // !UI_HEALTHBAR

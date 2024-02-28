@@ -101,7 +101,7 @@ bool Camera::Loop(float dt)//camera can't go offbounds
 			alpha = 255;
 		}
 
-		App->ren->DrawRect(&screenarea,r,g,b,alpha,true,RenderQueue::RENDER_DEBUG);
+		App->ren->DrawRect(screenarea,r,g,b,alpha,true,RenderQueue::RENDER_DEBUG,-1000);
 	}
 	else { alpha = 0; }
 

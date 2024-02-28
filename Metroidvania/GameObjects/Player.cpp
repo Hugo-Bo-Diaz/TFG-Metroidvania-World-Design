@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "SceneController.h"
 #include "ProgressTracker.h"
+#include "Debug.h"
 
 #include "Window.h"
 #include "Audio.h"
@@ -601,7 +602,7 @@ bool Player::manaCost(float _mana)
 
 void Player::AddHealth(int amount, int knockbackdirection)
 {
-	if (!App->debug)
+	if (!App->dbg->IsDebugActive())
 	{
 		if (!is_invincible || amount > 0)
 		{

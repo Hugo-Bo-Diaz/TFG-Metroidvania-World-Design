@@ -21,6 +21,10 @@ enum ApplicationState
 
 class Application
 {
+private:
+	float dt;
+	float fps_cap = 60;
+	float last_frame_ms;
 public:
 
 	Input* inp;
@@ -35,6 +39,7 @@ public:
 	UserInterface* gui;
 	Text* txt;
 	ProgressTracker* trk;
+	Debug* dbg;
 
 	void Run();
 
@@ -55,14 +60,7 @@ public:
 	void ShowConsole();
 	bool IsConsoleVisible();
 
-	bool debug = false;
-
-private:
-
-	float dt;
-	float fps_cap = 60;
-	float last_frame_ms;
-
+	float GetLastUpdateTime() { return dt; }
 };
 extern Application* App;
 

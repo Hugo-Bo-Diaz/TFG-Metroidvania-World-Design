@@ -25,6 +25,7 @@ public:
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void RenderDebug();
 
 	SDL_Rect* nextpos = nullptr;
 

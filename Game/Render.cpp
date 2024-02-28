@@ -99,6 +99,8 @@ bool Render::Loop(float dt)
 	App->cam->screenarea.x = App->cam->position_x;
 	App->cam->screenarea.y = App->cam->position_y;
 
+	mDrawCallsLastFrame = 0;
+
 	for (int i = 0; i < RenderQueue::RENDER_MAX; i++)
 	{
 		std::priority_queue<BlitItem*, std::vector<BlitItem*>, Comparer>* lQueue = GetQueue((RenderQueue)i);
@@ -113,17 +115,6 @@ bool Render::Loop(float dt)
 		}
 	}
 
-	//while (!debugQueue.empty())
-	//{
-	//	BlitItem* lNextItem = debugQueue.top();
-	//	debugQueue.pop();
-
-	//	lNextItem->Blit(this);
-	//	delete lNextItem;
-	//}
-
-
-	//App->scn->RenderTiles();
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -183,11 +174,11 @@ void Render::BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float
 	allQueue.push(it);
 }
 
-void Render::BlitText(const char* text, FontID font, int x, int y, int depth, SDL_Color aColor, RenderQueue aQueue)
+void Render::BlitText(const char* text, FontID font, int x, int y, int depth, SDL_Color aColor, RenderQueue aQueue, bool ignore_camera)
 {
 	BlitItemText* it = new BlitItemText();
 
-	it->ignore_camera = aQueue == RenderQueue::RENDER_UI;
+	it->ignore_camera = aQueue == RenderQueue::RENDER_UI || ignore_camera;
 	it->x = x;
 	it->y = y;
 	it->color = aColor;
@@ -199,27 +190,38 @@ void Render::BlitText(const char* text, FontID font, int x, int y, int depth, SD
 }
 
 
-void Render::DrawRect(SDL_Rect* area, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, RenderQueue aQueue)
+void Render::DrawRect(SDL_Rect area, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, RenderQueue aQueue,int depth , bool ignore_camera)
 {
 	BlitRect* it = new BlitRect();
-	it->x = area->x;
-	it->y = area->y;
-	it->w = area->w;
-	it->h = area->h;
+	it->x = area.x;
+	it->y = area.y;
+	it->w = area.w;
+	it->h = area.h;
 	it->color = SDL_Color{ r,g,b,a };
 	it->filled = filled;
-	it->ignore_camera = aQueue == RenderQueue::RENDER_UI;
+	it->ignore_camera = aQueue == RenderQueue::RENDER_UI || ignore_camera;
+	it->depth = depth;
 
 	GetQueue(aQueue)->push(it);
 }
 
-void Render::DrawTrail(SDL_Point* point_array, int amount, RenderQueue aQueue, Uint8 r, Uint8 g, Uint8 b)
+void Render::DrawTrail(SDL_Point* point_array, int amount, RenderQueue aQueue,bool aIgnoreCamera,int depth, Uint8 r, Uint8 g, Uint8 b)
 {
 	BlitTrail* it = new BlitTrail();
-	it->points = point_array;
+
+	SDL_Point* lPoints = new SDL_Point[amount];
+
+	for (int i = 0; i < amount; ++i)
+	{
+		lPoints[i].x = point_array[i].x;
+		lPoints[i].y = point_array[i].y;
+	}
+
+	it->points = lPoints;
 	it->amount = amount;
+	it->depth = depth;
 	it->color = SDL_Color{ r,g,b };
-	it->ignore_camera = aQueue == RenderQueue::RENDER_UI;
+	it->ignore_camera = aQueue == RenderQueue::RENDER_UI || aIgnoreCamera;
 	GetQueue(aQueue)->push(it);
 }
 
@@ -258,6 +260,7 @@ void BlitTexture::Blit(Render* lRender)
 
 	SDL_Point p = { center_x,center_y };
 
+	lRender->CountDrawCall();
 	if (SDL_RenderCopyEx(lRender->renderer, lTex, &on_image, &rect, angle, &p, SDL_FLIP_NONE) != 0)
 	{
 		std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
@@ -295,6 +298,7 @@ void BlitLayer::Blit(Render* lRender)
 			on_scn.w = 48 * scale;
 			on_scn.h = 48 * scale;
 
+			lRender->CountDrawCall();
 			if (SDL_RenderCopyEx(App->ren->renderer, lTex, &GetImageRectFromId(layer->tileset_of_layer, layer->data[i]), &on_scn, 0, NULL, SDL_FLIP_NONE) != 0)
 			{
 				std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
@@ -317,7 +321,6 @@ SDL_Rect BlitLayer::GetImageRectFromId(tileset* t, int id)
 
 	return rect;
 }
-
 
 void BlitBackground::Blit(Render* lRender)
 {
@@ -385,6 +388,7 @@ void BlitBackground::Blit(Render* lRender)
 			rect.w *= scale;
 			rect.h *= scale;
 
+			lRender->CountDrawCall();
 			if (SDL_RenderCopyEx(lRender->renderer, lTex, NULL, &rect, 0, NULL, SDL_FLIP_NONE) != 0)
 			{
 				std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
@@ -422,6 +426,8 @@ void BlitRect::Blit(Render* lRender)
 	SDL_SetRenderDrawBlendMode(lRender->renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(lRender->renderer, color.r, color.g, color.b, color.a);
 	//SDL_SetRenderDrawColor(lRender->renderer, color.r, color.g, color.b, 255);
+
+	lRender->CountDrawCall();
 	int result = (filled) ? SDL_RenderFillRect(lRender->renderer, &temp) : SDL_RenderDrawRect(lRender->renderer, &temp);
 
 	if (result != 0)
@@ -449,14 +455,7 @@ void BlitTrail::Blit(Render* lRender)
 	SDL_SetRenderDrawColor(lRender->renderer, color.r, color.g, color.b, 255);// it's a debug feature so it'll have max visibility
 	int result = SDL_RenderDrawLines(lRender->renderer, points, amount);
 
-	if (!ignore_camera)
-	{
-		for (int i = 0; i < amount; ++i)
-		{
-			points[i].x -= App->cam->GetCameraXoffset();
-			points[i].y -= App->cam->GetCameraYoffset();
-		}
-	}
+	delete points;
 
 	if (result != 0)
 	{
@@ -488,6 +487,7 @@ void BlitParticles::Blit(Render* lRender)
 			rect.w *= scale;
 			rect.h *= scale;
 
+			lRender->CountDrawCall();
 			if (SDL_RenderCopyEx(lRender->renderer, lEmmitter->particles[i]->texture, lEmmitter->particles[i]->area_in_texture, &rect, lEmmitter->particles[i]->angle, NULL, SDL_FLIP_NONE) != 0)
 			{
 				std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
@@ -504,6 +504,9 @@ void BlitItemText::Blit(Render* lRender)
 	int length_so_far = 0;
 	int yLevel = 0;
 	Font* lFont = App->txt->GetFont(font_used);
+
+	if (lFont == nullptr)
+		return;
 
 	for (int i = 0; i < mText.size(); ++i)
 	{
@@ -523,6 +526,7 @@ void BlitItemText::Blit(Render* lRender)
 
 			length_so_far += on_screen.w;
 
+			lRender->CountDrawCall();
 			if (SDL_RenderCopyEx(lRender->renderer, lFont->font_texture, mappedRect, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)
 			{
 				std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
