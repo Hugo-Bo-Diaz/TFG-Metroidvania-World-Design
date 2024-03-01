@@ -4,6 +4,7 @@
 #include <list>
 #include <string>
 #include <Windows.h>
+#include <typeindex>
 
 
 static inline bool FileExists(const std::string& name) {
@@ -79,6 +80,10 @@ static void GetAllExtensionPathRecursive(const char* path, const char* extension
 
 }
 
-
+template<class T>
+static std::type_index GetTypeIndex()
+{
+	return std::type_index(typeid(T));
+}
 
 #endif

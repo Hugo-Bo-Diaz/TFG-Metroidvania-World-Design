@@ -10,6 +10,8 @@
 #include "Audio.h"
 #include "../GameObjects/SpellProjectiles/LavaSpell.h"
 
+#include "Utils.h"
+
 #include "../GameObjects/Enemies/CoalJumper.h"
 #include "../GameObjects/Enemies/GroundedElemental.h"
 #include "../GameObjects/Enemies/FlyingElemental.h"
@@ -17,7 +19,6 @@
 #include "../GameObjects/Enemies/ShieldMonster.h"
 #include "../GameObjects/Enemies/ClingingCreature.h"
 
-#include "../GameObjects/EntityIDs.h"
 
 Fire::~Fire()
 {
@@ -92,7 +93,7 @@ void Fire::Loop(float dt)
 
 		if (charge > 70 && player->manaCost(manacost_big))
 		{
-			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, GameObject::GetTypeInfo<FireBall>());
+			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, GetTypeIndex<FireBall>());
 			fireball->Fire(player->is_right, true);
 			App->cam->CameraShake(20, 120);
 			App->aud->PlaySFX(SFX_FIREBALL_SMALL);
@@ -100,7 +101,7 @@ void Fire::Loop(float dt)
 		}
 		else if (player->manaCost(manacost_small))
 		{
-			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, GameObject::GetTypeInfo<FireBall>());
+			FireBall* fireball = (FireBall*)App->phy->AddObject(player->collider->x, player->collider->y, 32, 32, GetTypeIndex<FireBall>());
 			fireball->Fire(player->is_right, false);
 			App->cam->CameraShake(10, 120);
 			App->aud->PlaySFX(SFX_FIREBALL_BIG);
@@ -240,10 +241,7 @@ void Fire::Loop(float dt)
 					direction = -1;
 				}
 
-				objectId t = (*it)->type;
-				if (t == COAL_JUMPER_ID || t == GROUNDED_ELEMENTAL_ID || t == FLYING_ELEMENTAL_ID ||
-					t == ARMOR_TRAP_ID || t == SHIELD_MONSTER_ID || t == CLING_CREATURE_ID ||
-					t == FLYING_AXE_ID || t == FLYING_SHIELD_ID)
+				if ((*it)->object->IsSameTypeAs<Enemy>())
 				{
 					((Enemy*)(*it)->object)->RecieveDamage(0.3, direction);
 				}

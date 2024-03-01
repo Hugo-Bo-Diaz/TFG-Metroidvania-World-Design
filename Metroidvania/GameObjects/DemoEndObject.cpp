@@ -5,7 +5,6 @@
 #include "ProgressTracker.h"
 #include "Player.h"
 #include "Camera.h"
-#include "EntityIDs.h"
 
 EndDemoObject::EndDemoObject()
 {
@@ -27,7 +26,7 @@ bool EndDemoObject::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				iscontactingplayer = true;
 				if (App->inp->GetInput(BUTTON_2) == BUTTON_DOWN)

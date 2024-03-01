@@ -200,7 +200,6 @@
     <ClInclude Include="GameObjects\Enemies\FlyingShield.h" />
     <ClInclude Include="GameObjects\Enemies\GroundedElemental.h" />
     <ClInclude Include="GameObjects\Enemies\ShieldMonster.h" />
-    <ClInclude Include="GameObjects\EntityIDs.h" />
     <ClInclude Include="GameObjects\FirstDialogue.h" />
     <ClInclude Include="GameObjects\Hazards\HazardLava.h" />
     <ClInclude Include="GameObjects\Hazards\HazardLavaWaterfall.h" />

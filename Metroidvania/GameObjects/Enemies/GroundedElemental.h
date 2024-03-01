@@ -17,6 +17,7 @@ class GroundedElemental : public Enemy
 {
 public:
 	GroundedElemental();
+	GroundedElemental(std::list<ObjectProperty*>& aProperties);
 	~GroundedElemental();
 
 	bool Loop(float dt);
@@ -49,9 +50,6 @@ public:
 
 	TextureID particles;
 	TextureID groundelemental;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&);
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

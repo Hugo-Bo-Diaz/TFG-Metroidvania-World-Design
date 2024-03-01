@@ -11,6 +11,7 @@ class MaxHealthPickup : public GameObject
 {
 public:
 	MaxHealthPickup();
+	MaxHealthPickup(std::list<ObjectProperty*>& aList);
 	~MaxHealthPickup();
 
 	bool Loop(float dt);
@@ -29,8 +30,5 @@ public:
 
 	TextureID particles;
 	TextureID items;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&);
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 #endif

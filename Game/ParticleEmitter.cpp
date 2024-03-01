@@ -2,12 +2,15 @@
 #include "Application.h"
 #include "Textures.h"
 #include "Render.h"
-ParticleEmitter::ParticleEmitter(particle_preset * preset, float lifespan, float p_x,float p_y)
+
+#include "Logger.h"
+ParticleEmitter::ParticleEmitter(particle_preset* preset, float lifespan, float p_x, float p_y, int aDepth)
 {
 	position_x = p_x;
 	position_y = p_y;
 	preset_for_emitter = new particle_preset(*preset);
 	total_lifespan = lifespan;
+	depth = aDepth;
 	
 	for (int i = 0; i < MAX_PARTICLES; ++i)
 	{
@@ -15,6 +18,7 @@ ParticleEmitter::ParticleEmitter(particle_preset * preset, float lifespan, float
 	}
 
 }
+
 float RandomFloat(float a, float b) {
 	float random = ((float)rand()) / (float)RAND_MAX;
 	float diff = b - a;

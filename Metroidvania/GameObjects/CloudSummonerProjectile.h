@@ -11,6 +11,7 @@ class CloudSummonerProjectile : public GameObject
 public:
 
 	CloudSummonerProjectile();
+	CloudSummonerProjectile(std::list<ObjectProperty*>& aList) { new (this) CloudSummonerProjectile; };
 	~CloudSummonerProjectile();
 
 	void Fire(float speed_x, float speed_y);
@@ -30,9 +31,6 @@ public:
 
 	TextureID cloud_summoner;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new CloudSummonerProjectile(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__REP__H

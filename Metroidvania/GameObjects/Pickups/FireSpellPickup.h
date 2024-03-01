@@ -13,6 +13,7 @@ class FireSpellPickup : public GameObject
 public:
 
 	FireSpellPickup();
+	FireSpellPickup(std::list<ObjectProperty*>& aList) { new (this) FireSpellPickup; };
 	~FireSpellPickup();
 
 	bool Loop(float dt);
@@ -27,8 +28,5 @@ public:
 
 	TextureID particles;
 	TextureID spell_books;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new FireSpellPickup(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 #endif

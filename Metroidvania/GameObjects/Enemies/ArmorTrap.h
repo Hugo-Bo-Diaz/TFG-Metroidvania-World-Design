@@ -19,6 +19,7 @@ class ArmorTrap : public Enemy
 {
 public:
 	ArmorTrap();
+	ArmorTrap(std::list<ObjectProperty*>& aList) { new (this) ArmorTrap; };
 	~ArmorTrap();
 
 	bool Loop(float dt);
@@ -63,9 +64,6 @@ public:
 
 	TextureID armortrap;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new ArmorTrap(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

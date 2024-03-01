@@ -33,6 +33,7 @@ class Player : public GameObject
 {
 public:
 	Player();
+	Player(std::list<ObjectProperty*>& aProps) {};
 	~Player();
 	state current_state = IDLE;
 
@@ -133,10 +134,6 @@ public:
 
 	bool respawn_player = false;
 	void Respawn();
-
-	//GameObject* Factory(std::list<ObjectProperty*>& lProperties);
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new Player(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__H

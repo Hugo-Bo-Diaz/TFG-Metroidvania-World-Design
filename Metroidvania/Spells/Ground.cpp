@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Particles.h"
 #include "Audio.h"
+#include "Utils.h"
 
 #include "../GameObjects/SpellProjectiles/Rock.h"
 #include "../GameObjects/SpellProjectiles/Shockwave.h"
@@ -19,7 +20,8 @@
 #include "../GameObjects/Enemies/ClingingCreature.h"
 #include "../GameObjects/Enemies/FlyingAxe.h"
 #include "../GameObjects/Enemies/FlyingShield.h"
-#include "../GameObjects/EntityIDs.h"
+
+#include "../GameObjects/Hazards/HazardsRockBlock.h"
 
 void Ground::Init()
 {
@@ -69,7 +71,7 @@ void Ground::Loop(float dt)
 	//if (App->inp->GetButton(X) == BUTTON_DOWN && ! is_rock_on_cooldown)
 	if (App->inp->GetInput(BUTTON_2) == KEY_DOWN && !is_rock_on_cooldown && player->manaCost(manacost_rock) && !App->phy->is_paused)
 	{
-			((Rock*)App->phy->AddObject(player->collider->x+player->collider->w/2, player->collider->y+player->collider->h / 2, 32, 32, GameObject::GetTypeInfo<Rock>()))->Fire(player->is_right,45,15,1);
+			((Rock*)App->phy->AddObject(player->collider->x+player->collider->w/2, player->collider->y+player->collider->h / 2, 32, 32, GetTypeIndex<Rock>()))->Fire(player->is_right,45,15,1);
 			is_rock_on_cooldown = true;
 			rock_timer.Reset();
 			rock_timer.Start();
@@ -109,15 +111,12 @@ void Ground::Loop(float dt)
 		{
 			if (!hashitsomething)
 			{
-				objectId t = (*it)->type;
-				if (t == COAL_JUMPER_ID || t == GROUNDED_ELEMENTAL_ID || t == FLYING_ELEMENTAL_ID ||
-					t == ARMOR_TRAP_ID || t == SHIELD_MONSTER_ID || t == CLING_CREATURE_ID ||
-					t == FLYING_AXE_ID || t == FLYING_SHIELD_ID)
+				if ((*it)->object->IsSameTypeAs<Enemy>())
 				{
 					((Enemy*)(*it)->object)->RecieveDamage(5, player->is_right);
 				}
 			}
-			if ((*it)->type == HAZARDS_ROCK_BLOCK_ID)
+			if ((*it)->object->IsSameTypeAs<HazardRockBlock>())
 			{
 				App->phy->DeleteObject((*it)->object);
 				App->par->AddParticleEmitter(&rockblockexplosion, ((*it)->object)->collider->x + ((*it)->object)->collider->w / 2, ((*it)->object)->collider->y + ((*it)->object)->collider->h / 2, 300);
@@ -170,8 +169,8 @@ void Ground::Loop(float dt)
 	//if (App->inp->GetButton(B) == BUTTON_DOWN && player->grounded && !is_eq_on_cooldown)
 	if (App->inp->GetInput(BUTTON_4) == KEY_DOWN && player->grounded && !is_eq_on_cooldown && player->manaCost(manacost_earthquake) && !App->phy->is_paused)
 	{
-		((Shockwave*)App->phy->AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, GameObject::GetTypeInfo<Shockwave>()))->Fire(true, 8);
-		((Shockwave*)App->phy->AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, GameObject::GetTypeInfo<Shockwave>()))->Fire(false, 8);
+		((Shockwave*)App->phy->AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(true, 8);
+		((Shockwave*)App->phy->AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(false, 8);
 		
 		is_eq_on_cooldown = true;
 		earthquake_timer.Reset();

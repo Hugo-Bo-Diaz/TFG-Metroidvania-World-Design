@@ -12,6 +12,7 @@ class Cloud : public GameObject
 public:
 
 	Cloud();
+	Cloud(std::list<ObjectProperty*>& aList) { new (this) Cloud; };
 
 	bool Loop(float dt);
 	bool Render();
@@ -33,9 +34,6 @@ public:
 	std::vector<Rain*> rain_to_delete;
 
 	TextureID spells;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new Cloud(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__REP__H

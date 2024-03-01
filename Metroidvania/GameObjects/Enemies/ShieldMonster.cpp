@@ -1,4 +1,3 @@
-#include "../EntityIDs.h"
 #include "ShieldMonster.h"
 #include "Application.h"
 #include "Render.h"
@@ -7,6 +6,8 @@
 #include "Audio.h"
 #include "../Player.h"
 #include "Debug.h"
+#include "../SpellProjectiles/FireBall.h"
+#include "../SpellProjectiles/Rock.h"
 
 ShieldMonster::ShieldMonster()
 {
@@ -154,7 +155,7 @@ bool ShieldMonster::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				isplayernearby = true;
 				target = (*it)->object;
@@ -171,7 +172,7 @@ bool ShieldMonster::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				isplayeronrange = true;
 			}
@@ -186,19 +187,19 @@ bool ShieldMonster::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == FIRE_BALL_ID)
+			if ((*it)->object->IsSameTypeAs<FireBall>())
 			{
 				App->aud->PlaySFX(SFX_ENEMY_PING);
 				App->phy->DeleteObject((*it)->object);
 				App->par->AddParticleEmitter(&metal, (*it)->object->collider->x, (*it)->object->collider->y, 300);
 			}
-			if ((*it)->type == ROCK_ID)
+			if ((*it)->object->IsSameTypeAs<Rock>())
 			{
 				App->aud->PlaySFX(SFX_ENEMY_PING);
 				App->phy->DeleteObject((*it)->object);
 				App->par->AddParticleEmitter(&metal, (*it)->object->collider->x, (*it)->object->collider->y, 300);
 			}
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				int direction = 0;
 				int distance = (*it)->object->collider->x - collider->x;
@@ -342,7 +343,7 @@ bool ShieldMonster::Loop(float dt)
 			{
 				if ((*it)->object != this)
 				{
-					if ((*it)->type == PLAYER_ID)
+					if ((*it)->object->IsSameTypeAs<Player>())
 					{
 						((Player*)((*it)->object))->AddHealth(-1, gdirection);
 					}

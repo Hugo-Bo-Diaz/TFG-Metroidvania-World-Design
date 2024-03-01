@@ -135,8 +135,9 @@ public:
 
 	//all textured
 	void Blit(TextureID aTexID, int x, int y, SDL_Rect* rect_on_image, int depth, RenderQueue aQueue = RenderQueue::RENDER_GAME, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1, int center_x = -1,int center_y = -1);
-	void BlitMapLayer(layer* layer);
 	void BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x = 1, float parallax_factor_y = 1);
+	void BlitMapLayer(layer* layer);
+	void BlitParticleEmitter(ParticleEmitter* emitter, RenderQueue aRenderQueue);
 
 	void BlitText(const char* text, FontID font, int x, int y, int depth,SDL_Color aColor,RenderQueue aQueue,bool ignore_camera = false);
 	void DrawRect(SDL_Rect area, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled,RenderQueue aQueue, int depth, bool ignore_camera = false);

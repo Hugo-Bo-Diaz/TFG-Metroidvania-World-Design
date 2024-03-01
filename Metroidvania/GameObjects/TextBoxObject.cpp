@@ -3,7 +3,6 @@
 #include "../UIElements/UItextbox.h"
 #include "ProgressTracker.h"
 #include "Player.h"
-#include "EntityIDs.h"
 #include "../UIelementFunctions.h"
 #include "../SceneProcessing.h"
 
@@ -19,6 +18,28 @@ TextBoxObject::TextBoxObject()
 	}
 }
 
+TextBoxObject::TextBoxObject(std::list<ObjectProperty*>& aProperties)
+{
+	new (this) TextBoxObject;
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("text") == 0)
+		{
+			AddText((*it)->str_value.c_str());
+		}
+		else if ((*it)->name.compare("author") == 0)
+		{
+			author = (*it)->str_value;
+		}
+		else if ((*it)->name.compare("lore") == 0)
+		{
+			lore_unlock = (*it)->num_value;
+		}
+	}
+
+}
+
 bool TextBoxObject::Loop(float dt)
 {
 	bool iscontactingplayer = false;
@@ -30,7 +51,7 @@ bool TextBoxObject::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				iscontactingplayer = true;
 				if (App->inp->GetInput(BUTTON_2) == BUTTON_DOWN && strings.size()>0)
@@ -92,27 +113,4 @@ TextBoxObject::~TextBoxObject()
 void TextBoxObject::AddText(const char * text)
 {
 	strings.push_back(text);
-}
-
-GameObject* TextBoxObject::Factory(std::list<ObjectProperty*>& aProperties)
-{
-	TextBoxObject* textbox = new TextBoxObject();
-
-	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
-	{
-		if ((*it)->name.compare("text") == 0)
-		{
-			textbox->AddText((*it)->str_value.c_str());
-		}
-		else if ((*it)->name.compare("author") == 0)
-		{
-			textbox->author = (*it)->str_value;
-		}
-		else if ((*it)->name.compare("lore") == 0)
-		{
-			textbox->lore_unlock = (*it)->num_value;
-		}
-	}
-
-	return textbox;
 }

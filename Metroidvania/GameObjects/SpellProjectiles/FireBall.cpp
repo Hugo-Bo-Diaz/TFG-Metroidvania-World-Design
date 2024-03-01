@@ -14,8 +14,6 @@
 #include "../Enemies/FlyingAxe.h"
 #include "../Enemies/FlyingShield.h"
 
-#include "../EntityIDs.h"
-
 FireBall::FireBall()
 {
 	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
@@ -70,10 +68,7 @@ bool FireBall::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			objectId t = (*it)->type;
-			if (t == COAL_JUMPER_ID || t == GROUNDED_ELEMENTAL_ID || t == FLYING_ELEMENTAL_ID ||
-				t == ARMOR_TRAP_ID || t == SHIELD_MONSTER_ID || t == CLING_CREATURE_ID ||
-				t == FLYING_AXE_ID || t == FLYING_SHIELD_ID)
+			if ((*it)->object->IsSameTypeAs<Enemy>())
 			{
 				((Enemy*)(*it)->object)->RecieveDamage(damage, direction);
 				App->phy->DeleteObject(this);

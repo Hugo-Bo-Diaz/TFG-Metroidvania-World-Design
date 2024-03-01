@@ -20,6 +20,7 @@ class ShieldMonster : public Enemy
 {
 public:
 	ShieldMonster();
+	ShieldMonster(std::list<ObjectProperty*>& aList) { new (this) ShieldMonster; };
 	~ShieldMonster();
 
 	void Init();
@@ -99,9 +100,6 @@ public:
 	ShieldMonsterState current_state = ShieldMonster_PATROL;
 
 	float realx;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new ShieldMonster(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

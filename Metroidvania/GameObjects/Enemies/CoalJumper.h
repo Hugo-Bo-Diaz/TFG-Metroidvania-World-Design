@@ -22,6 +22,7 @@ class CoalJumper : public Enemy
 {
 public:
 	CoalJumper();
+	CoalJumper(std::list<ObjectProperty*>& aList) { new (this) CoalJumper; };
 	~CoalJumper();
 
 	void Init();
@@ -75,9 +76,6 @@ public:
 
 	TextureID particles;
 	TextureID coaljumper;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new CoalJumper(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

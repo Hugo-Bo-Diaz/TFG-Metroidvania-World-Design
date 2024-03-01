@@ -6,7 +6,6 @@
 #include "../../UIElements/UItextbox.h"
 #include "../../UIelementFunctions.h"
 #include "../Player.h"
-#include "../EntityIDs.h"
 
 MaxHealthPickup::MaxHealthPickup()
 {
@@ -32,6 +31,27 @@ MaxHealthPickup::MaxHealthPickup()
 	if (App->trk->BaseSaveSection->GetChild("pickups") == nullptr)
 	{
 		App->trk->BaseSaveSection->AddNewChild("pickups");
+	}
+}
+
+MaxHealthPickup::MaxHealthPickup(std::list<ObjectProperty*>& aProperties)
+{
+	new (this) MaxHealthPickup;
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("text") == 0)
+		{
+			text = (*it)->str_value;
+		}
+		else if ((*it)->name.compare("id") == 0)
+		{
+			pickup_id = (*it)->num_value;
+		}
+		else if ((*it)->name.compare("lore") == 0)
+		{
+			lore_unlock = (*it)->num_value;
+		}
 	}
 }
 
@@ -61,7 +81,7 @@ bool MaxHealthPickup::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				Player* pl = (Player*)((*it)->object);
 				pl->AddHealth(1);
@@ -111,27 +131,4 @@ bool MaxHealthPickup::Render()
 	App->ren->Blit(items, collider->x, collider->y, &maxhealthplus, 10);
 
 	return true;
-}
-
-GameObject* MaxHealthPickup::Factory(std::list<ObjectProperty*>& aProperties)
-{
-	MaxHealthPickup* pickup = new MaxHealthPickup();
-
-	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
-	{
-		if ((*it)->name.compare("text") == 0)
-		{
-			pickup->text = (*it)->str_value;
-		}
-		else if ((*it)->name.compare("id") == 0)
-		{
-			pickup->pickup_id = (*it)->num_value;
-		}
-		else if ((*it)->name.compare("lore") == 0)
-		{
-			pickup->lore_unlock = (*it)->num_value;
-		}
-	}
-
-	return pickup;
 }

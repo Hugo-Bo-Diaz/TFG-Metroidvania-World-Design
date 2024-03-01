@@ -5,8 +5,8 @@
 #include "Gui.h"
 #include "../../UIElements/UItextbox.h"
 #include "../Player.h"
-#include "../EntityIDs.h"
 #include "../../UIelementFunctions.h"
+
 MaxManaPickup::MaxManaPickup()
 {
 	particles = App->tex->Load_Texture("Assets/Sprites/particles.png");
@@ -35,6 +35,27 @@ MaxManaPickup::MaxManaPickup()
 	}
 }
 
+MaxManaPickup::MaxManaPickup(std::list<ObjectProperty*>& aProperties)
+{
+	new (this) MaxManaPickup;
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("text") == 0)
+		{
+			text = (*it)->str_value;
+		}
+		else if ((*it)->name.compare("id") == 0)
+		{
+			pickup_id = (*it)->num_value;
+		}
+		else if ((*it)->name.compare("lore") == 0)
+		{
+			lore_unlock = (*it)->num_value;
+		}
+	}
+}
+
 MaxManaPickup::~MaxManaPickup()
 {
 	//App->par->to_delete.push_back(p);
@@ -60,7 +81,7 @@ bool MaxManaPickup::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				Player* pl = (Player*)((*it)->object);
 				pl->AddMana(1);
@@ -113,27 +134,4 @@ bool MaxManaPickup::Render()
 	App->ren->Blit(items, collider->x, collider->y, &maxmanaplus, 10);
 
 	return true;
-}
-
-GameObject* MaxManaPickup::Factory(std::list<ObjectProperty*>& aProperties)
-{
-	MaxManaPickup* pickup = new MaxManaPickup();
-
-	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
-	{
-		if ((*it)->name.compare("text") == 0)
-		{
-			pickup->text = (*it)->str_value;
-		}
-		else if ((*it)->name.compare("id") == 0)
-		{
-			pickup->pickup_id = (*it)->num_value;
-		}
-		else if ((*it)->name.compare("lore") == 0)
-		{
-			pickup->lore_unlock = (*it)->num_value;
-		}
-	}
-
-	return pickup;
 }

@@ -13,6 +13,7 @@ class WindSlash : public GameObject
 public:
 
 	WindSlash();
+	WindSlash(std::list<ObjectProperty*>& aList) { new (this) WindSlash; };
 
 	void Fire(bool left_dir);
 
@@ -30,9 +31,6 @@ public:
 
 	TextureID spells;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new WindSlash(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__REP__H

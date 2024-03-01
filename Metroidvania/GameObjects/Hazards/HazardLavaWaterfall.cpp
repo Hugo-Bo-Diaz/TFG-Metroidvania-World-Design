@@ -4,7 +4,6 @@
 #include "Render.h"
 #include "Application.h"
 #include "../../Spells/Fire.h"
-#include "../EntityIDs.h"
 
 HazardLavaWaterfall::HazardLavaWaterfall()
 {
@@ -25,7 +24,7 @@ bool HazardLavaWaterfall::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID && !((Fire*)((Player*)(*it)->object)->spells[FIRE])->is_fireshield_up)
+			if ((*it)->object->IsSameTypeAs<Player>() && !((Fire*)((Player*)(*it)->object)->spells[FIRE])->is_fireshield_up)
 			{
 				if ((*it)->object->collider->x > collider->x)
 				{

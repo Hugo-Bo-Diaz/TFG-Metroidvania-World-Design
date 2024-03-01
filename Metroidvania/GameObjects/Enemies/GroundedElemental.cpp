@@ -46,6 +46,19 @@ GroundedElemental::GroundedElemental()
 
 }
 
+GroundedElemental::GroundedElemental(std::list<ObjectProperty*>& aProperties)
+{
+	new (this) GroundedElemental;
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("color") == 0)
+		{
+			c = (GroundedElementalColor)(int)(*it)->num_value;
+		}
+	}
+}
+
 GroundedElemental::~GroundedElemental()
 {
 	//ADD PARTICLES
@@ -191,19 +204,4 @@ void GroundedElemental::SetAnimations(GroundedElementalColor _c)
 		walking_right.AddFrame({ 288,c * 48,48,48 });
 		walking_right.AddFrame({ 336,c * 48,48,48 });
 	}
-}
-
-GameObject* GroundedElemental::Factory(std::list<ObjectProperty*>& aProperties)
-{
-	GroundedElemental* flying = new GroundedElemental();
-
-	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
-	{
-		if ((*it)->name.compare("color") == 0)
-		{
-			flying->c = (GroundedElementalColor)(int)(*it)->num_value;
-		}
-	}
-
-	return flying;
 }

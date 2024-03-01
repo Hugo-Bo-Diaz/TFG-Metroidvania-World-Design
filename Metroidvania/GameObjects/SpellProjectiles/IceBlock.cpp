@@ -36,9 +36,9 @@ bool IceBlock::Render()
 	return true;
 }
 
-//IceBlock::~IceBlock()
-//{
-//	//App->phy->DeleteWall(wall_id);
-//
-//	physobj::~physobj();
-//}
+IceBlock::~IceBlock()
+{
+	App->phy->DeleteWall(wall_id);
+
+	GameObject::~GameObject();
+}

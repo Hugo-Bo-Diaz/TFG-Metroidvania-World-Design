@@ -2,8 +2,7 @@
 #include "Particles.h"
 #include "Application.h"
 #include "Audio.h"
-#include "../EntityIDs.h"
-
+#include "../Player.h"
 CloudMelee::CloudMelee()
 {
 	cloud_melee = App->tex->Load_Texture("Assets/Sprites/enemies/cloud_melee.png");
@@ -135,7 +134,7 @@ bool CloudMelee::Loop(float dt)
 		{
 			if ((*it)->object != this)
 			{
-				if ((*it)->type == PLAYER_ID)
+				if ((*it)->object->IsSameTypeAs<Player>())
 				{
 					state = CM_STARTING_CHARGE;
 					starting.Reset();

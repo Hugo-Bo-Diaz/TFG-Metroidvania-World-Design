@@ -5,7 +5,7 @@
 #include "Particles.h"
 #include "Audio.h"
 #include "Debug.h"
-#include "../EntityIDs.h"
+#include "../Player.h"
 
 ArmorTrap::ArmorTrap()
 {
@@ -84,7 +84,7 @@ bool ArmorTrap::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				isplayernearby = true;
 				target = (*it)->object;

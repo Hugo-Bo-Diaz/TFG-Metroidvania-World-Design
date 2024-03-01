@@ -155,9 +155,10 @@ public:
 	bool alive = true;
 	float position_x;
 	float position_y;
+	int depth;
 
 	ParticleEmitter() {};
-	ParticleEmitter(particle_preset*, float lifespan,float p_x, float p_y);
+	ParticleEmitter(particle_preset*, float lifespan, float p_x, float p_y, int depth);
 
 	bool Loop(float dt);
 	void Stop();

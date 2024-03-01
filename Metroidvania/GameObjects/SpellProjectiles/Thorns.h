@@ -17,6 +17,7 @@ class Thorns : public GameObject
 public:
 
 	Thorns();
+	Thorns(std::list<ObjectProperty*>& aList) { new (this) Thorns; };
 
 	void Fire(bool left_dir, float lifespan);
 
@@ -48,9 +49,6 @@ public:
 
 	TextureID spells;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new Thorns(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__REP__H

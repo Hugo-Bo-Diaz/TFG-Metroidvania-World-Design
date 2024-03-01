@@ -3,7 +3,8 @@
 #include "Application.h"
 #include "Audio.h"
 #include "../CloudSummonerProjectile.h"
-#include "../EntityIDs.h"
+#include "Utils.h"
+#include "../Player.h"
 
 CloudSummoner::CloudSummoner()
 {
@@ -127,7 +128,7 @@ bool CloudSummoner::Loop(float dt)
 		{
 			if ((*it)->object != this)
 			{
-				if ((*it)->type == PLAYER_ID)
+				if ((*it)->object->IsSameTypeAs<Player>())
 				{
 					state = CS_AGGRO;
 					following = (*it)->object;
@@ -172,7 +173,7 @@ bool CloudSummoner::Loop(float dt)
 		{
 			shooting_timer.Reset();
 			shooting_timer.Start();
-			GameObject* obj = App->phy->AddObject(collider->x + collider->w/2 + 11, collider->y+ collider->h / 2 + 11, 22, 22, GameObject::GetTypeInfo<CloudSummonerProjectile>());
+			GameObject* obj = App->phy->AddObject(collider->x + collider->w/2 + 11, collider->y+ collider->h / 2 + 11, 22, 22, GetTypeIndex<CloudSummonerProjectile>());
 
 			float proj_speed_x = -cos(angle) * projectile_speed;
 			float proj_speed_y = sin(angle) * projectile_speed;

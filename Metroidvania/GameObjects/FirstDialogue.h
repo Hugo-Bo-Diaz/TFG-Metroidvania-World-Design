@@ -12,14 +12,13 @@ class FirstDialogue :
 {
 public:
 	FirstDialogue();
+	FirstDialogue(std::list<ObjectProperty*>&) { new (this) FirstDialogue; };
+
 	bool Loop(float dt);
 	bool Render();
 
 	UItextbox* textbox;
 	TextureID texture;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new FirstDialogue(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

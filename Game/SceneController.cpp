@@ -69,10 +69,17 @@ bool SceneController::Loop(float dt)
 		SceneFunction();
 	}
 
+	if (lMapToLoad != "")
+	{
+		LoadMapExecute(lMapToLoad.c_str());
+		lMapToLoad = "";
+	}
+
 	for (std::vector<layer*>::iterator it = layers.begin(); it != layers.end(); ++it)
 	{
 		App->ren->BlitMapLayer(*it);
 	}
+
 
 	return ret;
 }
@@ -158,8 +165,17 @@ bool SceneController::LoadBackgroundImage(pugi::xml_node & node)
 	return true;
 }
 
-bool SceneController::LoadMap(const char* filename)
+void SceneController::LoadMap(const char* filename)
 {
+	lMapToLoad = filename;
+}
+
+bool SceneController::LoadMapExecute(const char* filename)
+{
+	CleanMap();
+	App->phy->Clearphysics();
+	App->par->ClearParticles();
+
 	std::stringstream lStr;
 	lStr << "Loading map from: " << filename;
 	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
@@ -332,11 +348,12 @@ bool SceneController::LoadObjects(pugi::xml_node& objectgroup_node)
 			lProperties.push_back(lObjProp);
 		}
 
-		auto lID = App->phy->lFactoriesString.find(type);
+		auto lID = App->phy->GetFactory(type.c_str());
 		
-		if (lID != App->phy->lFactoriesString.end())
+		if (lID != nullptr)
 		{
-			ret = (*lID).second(lProperties);
+			ret = (*lID).CreateInstace(lProperties);
+			ret->mType = lID->GetObjectTypeIndex();
 
 			ret->collider->x = x;
 			ret->collider->y = y;
@@ -568,10 +585,6 @@ void SceneController::ChangeMap(const char * filename)
 	std::stringstream lStr;
 	lStr << "Change map to: " << filename;
 	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
-	CleanMap();
-	App->phy->Clearphysics();
-	//App->gui->Clearelements();
-	App->par->ClearParticles();
 
 	LoadMap(filename);
 }

@@ -4,7 +4,6 @@
 #include "Player.h"
 #include "ProgressTracker.h"
 #include "Textures.h"
-#include "EntityIDs.h"
 
 CloudTrampoline::CloudTrampoline()
 {
@@ -24,7 +23,7 @@ bool CloudTrampoline::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				((Player*)(*it)->object)->speed_y = -30;
 			}

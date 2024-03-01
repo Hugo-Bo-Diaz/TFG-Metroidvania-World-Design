@@ -10,15 +10,13 @@ class HazardSpikes :
 {
 public:
 	HazardSpikes();
+	HazardSpikes(std::list<ObjectProperty*>& aList) { new (this) HazardSpikes; };
 
 	bool Loop(float dt);
 	bool Render();
 
 	SDL_Rect spikes;
 	TextureID hazards;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new HazardSpikes(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

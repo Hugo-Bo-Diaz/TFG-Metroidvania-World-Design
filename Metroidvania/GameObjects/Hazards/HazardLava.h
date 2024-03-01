@@ -10,6 +10,7 @@ class HazardLava :
 {
 public:
 	HazardLava();
+	HazardLava(std::list<ObjectProperty*>& aList) { new (this) HazardLava; };
 
 	bool Loop(float dt);
 	bool Render();
@@ -22,9 +23,6 @@ public:
 
 	SDL_Rect lava;
 	TextureID hazards;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new HazardLava(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

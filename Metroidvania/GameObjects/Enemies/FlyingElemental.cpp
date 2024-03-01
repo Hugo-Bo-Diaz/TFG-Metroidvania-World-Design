@@ -2,7 +2,7 @@
 #include "Particles.h"
 #include "Application.h"
 #include "Audio.h"
-#include "../EntityIDs.h"
+#include "../Player.h"
 
 FlyingElemental::FlyingElemental()
 {
@@ -22,6 +22,19 @@ FlyingElemental::FlyingElemental()
 	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
 	explosion.texture_name = particles;
 
+}
+
+FlyingElemental::FlyingElemental(std::list<ObjectProperty*>& aProperties)
+{
+	new (this) FlyingElemental;
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("color") == 0)
+		{
+			c = (FlyingElementalColor)(int)(*it)->num_value;
+		}
+	}
 }
 
 FlyingElemental::FlyingElemental(float _initial_y)
@@ -125,7 +138,7 @@ bool FlyingElemental::Loop(float dt)
 		{
 			if ((*it)->object != this)
 			{
-				if ((*it)->type == PLAYER_ID)
+				if ((*it)->object->IsSameTypeAs<Player>())
 				{
 					state = FE_STARTING_CHARGE;
 					starting.Reset();
@@ -291,20 +304,4 @@ void FlyingElemental::SetAnimations(FlyingElementalColor _c)
 		flying_right.AddFrame({ 336,c * 56,56,56 });
 		flying_right.AddFrame({ 392,c * 56,56,56 });
 	}
-}
-
-
-GameObject* FlyingElemental::Factory(std::list<ObjectProperty*>& aProperties)
-{
-	FlyingElemental* flying = new FlyingElemental();
-
-	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
-	{
-		if ((*it)->name.compare("color") == 0)
-		{
-			flying->c = (FlyingElementalColor)(int)(*it)->num_value;
-		}
-	}
-
-	return flying;
 }

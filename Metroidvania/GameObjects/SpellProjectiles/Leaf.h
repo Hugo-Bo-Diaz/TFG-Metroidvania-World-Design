@@ -12,6 +12,7 @@ class Leaf : public GameObject
 public:
 
 	Leaf();
+	Leaf(std::list<ObjectProperty*>& aList) { new (this) Leaf; };
 
 	void Fire(bool left_dir, float angle);
 
@@ -35,9 +36,6 @@ public:
 
 	TextureID spells;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new Leaf(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__REP__H

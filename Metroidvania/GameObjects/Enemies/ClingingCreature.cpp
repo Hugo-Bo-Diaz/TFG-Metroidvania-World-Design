@@ -50,6 +50,20 @@ ClingCreature::ClingCreature()
 	animation.AddFrame({ 192,0,48,48 });
 }
 
+ClingCreature::ClingCreature(std::list<ObjectProperty*>& aProperties)
+{
+	new (this) ClingCreature;
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("direction") == 0)
+		{
+			curr_dir = (ClingCreatureDirection)(int)(*it)->num_value;
+		}
+	}
+
+}
+
 ClingCreature::~ClingCreature()
 {
 	App->par->AddParticleEmitter(&stone_death, collider->x, collider->y, 200);
@@ -264,19 +278,4 @@ void ClingCreature::RecieveDamage(int dmg, int direction)
 		App->par->AddParticleEmitter(&metal_and_sand, collider->x, collider->y, 200);
 	}
 
-}
-
-GameObject* ClingCreature::Factory(std::list<ObjectProperty*>& aProperties)
-{
-	ClingCreature* cling = new ClingCreature();
-
-	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
-	{
-		if ((*it)->name.compare("direction") == 0)
-		{
-			cling->curr_dir = (ClingCreatureDirection)(int)(*it)->num_value;
-		}
-	}
-
-	return cling;
 }

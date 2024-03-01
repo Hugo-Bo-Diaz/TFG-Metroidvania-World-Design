@@ -6,7 +6,6 @@
 #include "Gui.h"
 #include "ProgressTracker.h"
 #include "../../UIElements/UItextbox.h"
-#include "../EntityIDs.h"
 #include "../../UIelementFunctions.h"
 GroundSpellPickup::GroundSpellPickup()
 {
@@ -87,7 +86,7 @@ bool GroundSpellPickup::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				((Player*)((*it)->object))->unlock_spell(GROUND);
 				App->trk->BaseSaveSection->GetChild("SpellsUnlock")->SetValue("Ground", 1);

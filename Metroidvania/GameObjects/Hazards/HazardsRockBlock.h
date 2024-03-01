@@ -10,6 +10,7 @@ class HazardRockBlock :
 {
 public:
 	HazardRockBlock();
+	HazardRockBlock(std::list<ObjectProperty*>& aList) { new (this) HazardRockBlock; };
 	~HazardRockBlock();
 	void Init();
 	int wall_id;
@@ -19,9 +20,6 @@ public:
 
 	SDL_Rect rockblock;
 	TextureID hazards;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new HazardRockBlock(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

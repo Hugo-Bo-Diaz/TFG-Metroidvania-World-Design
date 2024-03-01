@@ -12,6 +12,7 @@ class Shockwave : public GameObject
 public:
 
 	Shockwave();
+	Shockwave(std::list<ObjectProperty*>& aList) { new (this) Shockwave; };
 	~Shockwave();
 
 	void Fire(bool left_dir, float speed);
@@ -40,9 +41,6 @@ public:
 
 	TextureID spells;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new Shockwave(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__REP__H

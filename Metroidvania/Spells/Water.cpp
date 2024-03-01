@@ -8,7 +8,7 @@
 #include "../GameObjects/SpellProjectiles/IceBlock.h"
 #include "../GameObjects/SpellProjectiles/Cloud.h"
 #include "Camera.h"
-#include "../GameObjects/EntityIDs.h"
+#include "Utils.h"
 
 void Water::Init()
 {
@@ -21,7 +21,7 @@ void Water::Loop(float dt)
 	//if (App->inp->GetButton(X) == BUTTON_DOWN)
 	if (App->inp->GetInput(BUTTON_2) == KEY_DOWN)
 	{
-		IceShard* iceshard = (IceShard*)App->phy->AddObject(player->collider->x, player->collider->y+player->collider->h/2-12, 48, 24, GameObject::GetTypeInfo<IceShard>());
+		IceShard* iceshard = (IceShard*)App->phy->AddObject(player->collider->x, player->collider->y+player->collider->h/2-12, 48, 24, GetTypeIndex<IceShard>());
 		iceshard->Fire(player->is_right);
 		App->cam->CameraShake(10, 100);
 	}
@@ -32,12 +32,12 @@ void Water::Loop(float dt)
 	{
 		if (player->is_right)
 		{
-			IceBlock* block = (IceBlock*)App->phy->AddObject(player->collider->x + player->collider->w, player->collider->y, 64, 64, GameObject::GetTypeInfo<IceBlock>());
+			IceBlock* block = (IceBlock*)App->phy->AddObject(player->collider->x + player->collider->w, player->collider->y, 64, 64, GetTypeIndex<IceBlock>());
 			block->Init();
 		}
 		else
 		{
-			IceBlock* block = (IceBlock*)App->phy->AddObject(player->collider->x - 64, player->collider->y, 64, 64, GameObject::GetTypeInfo<IceBlock>());
+			IceBlock* block = (IceBlock*)App->phy->AddObject(player->collider->x - 64, player->collider->y, 64, 64, GetTypeIndex<IceBlock>());
 			block->Init();
 		}
 
@@ -66,11 +66,11 @@ void Water::Loop(float dt)
 		{
 			if (player->is_right)
 			{
-				current_cloud = (Cloud*)App->phy->AddObject(player->collider->x + player->collider->w + min_radius, player->collider->y, 64, 32, GameObject::GetTypeInfo<Cloud>());
+				current_cloud = (Cloud*)App->phy->AddObject(player->collider->x + player->collider->w + min_radius, player->collider->y, 64, 32, GetTypeIndex<Cloud>());
 			}
 			else
 			{
-				current_cloud = (Cloud*)App->phy->AddObject(player->collider->x - 64 - min_radius, player->collider->y, 64, 32, GameObject::GetTypeInfo<Cloud>());
+				current_cloud = (Cloud*)App->phy->AddObject(player->collider->x - 64 - min_radius, player->collider->y, 64, 32, GetTypeIndex<Cloud>());
 			}
 		}
 		else
@@ -78,13 +78,13 @@ void Water::Loop(float dt)
 			if (joystickx > 0)
 			{
 				float coord = min_radius + (max_radius - min_radius)*abs(joystickx);
-				current_cloud = (Cloud*)App->phy->AddObject(player->collider->x + player->collider->w + coord, player->collider->y, 64, 32, GameObject::GetTypeInfo<Cloud>());
+				current_cloud = (Cloud*)App->phy->AddObject(player->collider->x + player->collider->w + coord, player->collider->y, 64, 32, GetTypeIndex<Cloud>());
 			}
 
 			if (joystickx < 0)
 			{
 				float coord = min_radius + (max_radius - min_radius)*abs(joystickx);
-				current_cloud = (Cloud*)App->phy->AddObject(player->collider->x - 64 - coord, player->collider->y, 64, 32, GameObject::GetTypeInfo<Cloud>());
+				current_cloud = (Cloud*)App->phy->AddObject(player->collider->x - 64 - coord, player->collider->y, 64, 32, GetTypeIndex<Cloud>());
 			}
 		}
 

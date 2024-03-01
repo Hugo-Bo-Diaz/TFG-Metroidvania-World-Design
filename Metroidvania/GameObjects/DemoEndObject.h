@@ -12,6 +12,7 @@ class EndDemoObject :
 {
 public:
 	EndDemoObject();
+	EndDemoObject(std::list<ObjectProperty*>&) { new (this) EndDemoObject; };
 	bool Loop(float dt);
 	bool Render();
 	~EndDemoObject();
@@ -34,9 +35,6 @@ public:
 
 	TextureID indicator;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new EndDemoObject(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

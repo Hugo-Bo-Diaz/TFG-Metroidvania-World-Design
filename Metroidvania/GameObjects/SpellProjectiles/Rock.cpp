@@ -14,7 +14,8 @@
 #include "../Enemies/ClingingCreature.h"
 #include "../Enemies/FlyingAxe.h"
 #include "../Enemies/FlyingShield.h"
-#include "../EntityIDs.h"
+
+#include "../Hazards/HazardsRockBlock.h"
 
 Rock::Rock()
 {
@@ -76,17 +77,14 @@ bool Rock::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == HAZARDS_ROCK_BLOCK_ID)
+			if ((*it)->object->IsSameTypeAs<HazardRockBlock>())
 			{
 				//delete this object :^)
 				App->phy->DeleteObject(this);
 				App->phy->DeleteObject((*it)->object);
 			}
 
-			objectId t = (*it)->type;
-			if (t == COAL_JUMPER_ID || t == GROUNDED_ELEMENTAL_ID || t == FLYING_ELEMENTAL_ID ||
-				t == ARMOR_TRAP_ID || t == SHIELD_MONSTER_ID || t == CLING_CREATURE_ID ||
-				t == FLYING_AXE_ID || t == FLYING_SHIELD_ID)
+			if ((*it)->object->IsSameTypeAs<Enemy>())
 			{
 				((Enemy*)(*it)->object)->RecieveDamage(damage, direction);
 				App->phy->DeleteObject(this);

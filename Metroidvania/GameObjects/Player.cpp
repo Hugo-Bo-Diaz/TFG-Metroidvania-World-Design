@@ -18,7 +18,8 @@
 #include "../Spells/Water.h"
 #include "../Spells/Grass.h"
 #include "../Spells/Ground.h"
-#include "EntityIDs.h"
+
+#include "Enemy.h"
 
 Player::Player()
 {
@@ -108,10 +109,10 @@ Player::Player()
 	unlocked_spells =0;
 	
 	unlocked.push_back(true);
-	unlocked.push_back(false);
-	unlocked.push_back(false);
-	unlocked.push_back(false);
-	unlocked.push_back(false);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
+	unlocked.push_back(true);
 	
 	current_spell = FIRE;
 
@@ -450,12 +451,7 @@ bool Player::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == COAL_JUMPER_ID ||
-				(*it)->type == GROUNDED_ELEMENTAL_ID ||
-				(*it)->type == FLYING_ELEMENTAL_ID ||
-				(*it)->type == ARMOR_TRAP_ID ||
-				(*it)->type == SHIELD_MONSTER_ID ||
-				(*it)->type == CLING_CREATURE_ID)
+			if ((*it)->object->IsSameTypeAs<Enemy>())
 			{
 				if ((*it)->object->collider->x < collider->x)
 				{

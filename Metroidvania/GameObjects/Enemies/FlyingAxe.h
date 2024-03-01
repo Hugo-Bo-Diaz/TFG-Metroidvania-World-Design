@@ -18,6 +18,7 @@ class FlyingAxe : public Enemy
 {
 public:
 	FlyingAxe();
+	FlyingAxe(std::list<ObjectProperty*>& aList) { new (this) FlyingAxe; };
 	FlyingAxe(float initial_y);
 	~FlyingAxe();
 
@@ -74,9 +75,6 @@ public:
 
 	TextureID floating_axe;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new FlyingAxe(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

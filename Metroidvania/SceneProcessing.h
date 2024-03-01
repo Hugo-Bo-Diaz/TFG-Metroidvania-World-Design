@@ -41,10 +41,18 @@ public:
 	UIingameui* inGameUI = nullptr;
 	Player* pl = nullptr;
 
+	int point_id;
+	bool horizontal;
+	int offset;
+	float prev_speed_x;
+	float prev_speed_y;
+
 	int current_room_id = 0;
 	int spawn_point_id = 0;
 
 	static MetroidVaniaSceneProcessor& GetInstance();
+
+	void EngineInitialization();
 
 	void SceneProcessingMainMenu();
 	void SceneProcessingInGame();

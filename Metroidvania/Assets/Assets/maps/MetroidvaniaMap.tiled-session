@@ -23,8 +23,8 @@
             "scale": 0.861304012345679,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 195.05307950727888,
-                "y": 95.20447928331464
+                "x": 527.6882418812991,
+                "y": 287.9354983202688
             }
         },
         "AssetStorage.tmx#objects": {
@@ -212,7 +212,7 @@
             "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 686,
+                "x": 685,
                 "y": 502
             }
         },
@@ -226,8 +226,8 @@
             "scale": 0.8275390625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 413.2735426008968,
-                "y": 241.68043426953028
+                "x": 767.9395798914326,
+                "y": 383.0634883172056
             }
         },
         "FireArea/map03_fire_spell_location.tmx#objects": {
@@ -243,8 +243,8 @@
             "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 56,
-                "y": 436
+                "x": -12.666666666666686,
+                "y": 281.33333333333337
             }
         },
         "FireArea/map04_first_health_pickup.tmx#objects": {
@@ -275,10 +275,10 @@
         },
         "FireArea/map06_first_fire_passage.tmx": {
             "scale": 0.5537543402777778,
-            "selectedLayer": 0,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 2342.1938315632715,
-                "y": 500.221812909041
+                "x": 1655.0660344084336,
+                "y": 330.471450405612
             }
         },
         "FireArea/map06_first_fire_passage.tmx#objects": {
@@ -696,8 +696,8 @@
             "scale": 0.5838541666666667,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1160.3925066904549,
-                "y": 450.45495093666375
+                "x": 766.4585191793042,
+                "y": 767.3148974130241
             }
         },
         "GroundArea/map30_ground_spell_location.tmx#objects": {
@@ -776,8 +776,8 @@
             "scale": 0.7193033854166667,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1129.5650993347513,
-                "y": 127.90152509390413
+                "x": 766.7140335792187,
+                "y": 385.09480925012446
             }
         },
         "GroundArea/map34_link_bottom.tmx#objects": {
@@ -869,10 +869,10 @@
         },
         "map0_entrance.tmx": {
             "scale": 0.5,
-            "selectedLayer": 5,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 294,
-                "y": 264
+                "x": 2101,
+                "y": 262
             }
         },
         "map0_entrance.tmx#objects": {
@@ -1060,8 +1060,8 @@
             "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 342.42424242424227,
-                "y": 1069.6969696969695
+                "x": 343.939393939394,
+                "y": 1066.6666666666667
             }
         },
         "map1_fire_pit.tmx#tileset01": {
@@ -1728,6 +1728,9 @@
     "project": "MetroidvaniaMap.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "GroundArea/map30_ground_spell_location.tmx",
+        "GroundArea/map34_link_bottom.tmx",
+        "FireArea/map03_fire_spell_location.tmx",
         "map39_link_ascent.tmx",
         "map22_item_location.tmx",
         "map21_first_ground_blocks.tmx",
@@ -1736,10 +1739,7 @@
         "map19_first_spike_elevator.tmx",
         "GroundArea/map36_item_tease.tmx",
         "GroundArea/map35_lore_room.tmx",
-        "GroundArea/map34_link_bottom.tmx",
-        "GroundArea/map33_link_top.tmx",
-        "GroundArea/map32_big_rock_room.tmx",
-        "GroundArea/map31_third_vertical.tmx"
+        "GroundArea/map33_link_top.tmx"
     ],
     "resizeMap.removeObjects": false,
     "tileset.embedInMap": true,

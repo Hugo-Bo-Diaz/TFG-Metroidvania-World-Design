@@ -3,7 +3,6 @@
 #include "ProgressTracker.h"
 #include "Gui.h"
 #include "Player.h"
-#include "EntityIDs.h"
 #include "../UIElements/UICheckpointIndicator.h"
 
 CheckPoint::CheckPoint()
@@ -28,7 +27,7 @@ bool CheckPoint::Loop(float dt)
 	{
 		if ((*it)->object != this)
 		{
-			if ((*it)->type == PLAYER_ID)
+			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				if (App->trk->BaseSaveSection->GetChild("Checkpoint")->GetValue("last_checkpoint_id") != room_id ||
 					App->trk->BaseSaveSection->GetChild("Checkpoint")->GetValue("last_checkpoint_x") != spawn_pos_x ||

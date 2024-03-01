@@ -9,6 +9,7 @@ class HazardLavaWaterfall : public GameObject
 {
 public:
 	HazardLavaWaterfall();
+	HazardLavaWaterfall(std::list<ObjectProperty*>& aList) { new (this) HazardLavaWaterfall; };
 	bool Loop(float dt);
 	bool Render();
 
@@ -16,9 +17,6 @@ public:
 	Timer lava_animation;
 	float iteration_time = 500;
 	TextureID hazards;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new HazardLavaWaterfall(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

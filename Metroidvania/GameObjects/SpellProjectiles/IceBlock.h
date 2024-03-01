@@ -10,7 +10,8 @@ class IceBlock : public GameObject
 public:
 
 	IceBlock();
-	//~IceBlock();
+	IceBlock(std::list<ObjectProperty*>& aList) { new (this) IceBlock; };
+	~IceBlock();
 
 	int wall_id;
 
@@ -24,9 +25,6 @@ public:
 	Timer timer;
 	float life_expectancy = 5000;
 	TextureID spells;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new IceBlock(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__REP__H

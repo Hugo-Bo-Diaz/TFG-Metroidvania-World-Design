@@ -17,6 +17,7 @@ class CloudSummoner : public Enemy
 {
 public:
 	CloudSummoner();
+	CloudSummoner(std::list<ObjectProperty*>&) { new (this) CloudSummoner; };
 	CloudSummoner(float initial_x, float initial_y);
 	~CloudSummoner();
 
@@ -90,9 +91,6 @@ public:
 
 	TextureID cloud_summoner;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new CloudSummoner(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

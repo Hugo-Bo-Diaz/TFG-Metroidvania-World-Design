@@ -11,6 +11,7 @@ class MaxManaPickup : public GameObject
 {
 public:
 	MaxManaPickup();
+	MaxManaPickup(std::list<ObjectProperty*>& aProperties);
 	~MaxManaPickup();
 
 	bool Loop(float dt);
@@ -29,8 +30,5 @@ public:
 
 	TextureID particles;
 	TextureID items;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&);
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 #endif

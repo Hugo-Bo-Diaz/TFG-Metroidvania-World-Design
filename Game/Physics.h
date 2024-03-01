@@ -40,8 +40,7 @@ public:
 	//physics
 
 	SDL_Rect* collider;
-
-	objectId type;
+	std::type_index mType = std::type_index(typeid(*this));
 
 	virtual void Init() {};
 	virtual bool Loop(float dt) { return true; };
@@ -69,27 +68,46 @@ public:
 	{
 		return (typeid(lG) == typeid(this));
 	}
-	bool IsSameTypeAs(std::type_index& aInfo)
-	{
-		return (aInfo == GetTypeInfo());
-	}
+
 	template<typename T>
 	bool IsSameTypeAs() {
 		return (dynamic_cast<T*>(this) != NULL);
 	}
+};
 
-	template<typename T>
-	static std::type_index GetTypeInfo()
+class FactoryBase
+{
+public:
+	FactoryBase() {};
+	FactoryBase(const char* nameInMap){};
+
+	virtual GameObject* CreateInstace() { return nullptr; };
+	virtual GameObject* CreateInstace(std::list<ObjectProperty*>&) { return nullptr; };
+
+	virtual std::string GetObjectMapName() { return "ERRORTYPE"; };
+	virtual std::type_index GetObjectTypeIndex() { return std::type_index(typeid(this)); };
+};
+template<typename T> 
+class Factory : public FactoryBase
+{
+private:
+	std::string mNameInMap;
+public:
+	Factory() {};
+	Factory(const char* nameInMap) :mNameInMap(nameInMap) {};
+
+	GameObject* CreateInstace() { return new T(); };
+	GameObject* CreateInstace(std::list<ObjectProperty*>& lProps)
 	{
-		return std::type_index(typeid(T));
-	}
+		return new T(lProps); 
+	};
 
-	virtual std::type_index GetTypeInfo() = 0;
+	std::type_index GetObjectTypeIndex() { return std::type_index(typeid(T)); };
+	std::string GetObjectMapName() { return mNameInMap; };
 };
 
 struct collision
 {
-	objectId type;
 	GameObject* object;
 };
 
@@ -114,7 +132,6 @@ public:
 	void GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*>& colliders_near);
 
 	std::vector<GameObject*>* GetAllObjectsOfType(std::type_index);
-	std::vector<GameObject*>* GetAllObjectsOfType();
 
 	void GetCollisions(SDL_Rect* rect,std::vector<collision*>&collisions);
 	void ClearCollisionArray(std::vector<collision*>&collisions);
@@ -134,9 +151,15 @@ public:
 
 	SDL_Rect* walls[MAX_WALLS];
 
-	std::map<std::type_index, std::function<GameObject * (std::list<ObjectProperty*>&)>> lFactoriesType;
-	std::map<std::string, std::function<GameObject * (std::list<ObjectProperty*>&)>> lFactoriesString;
-	bool AddFactory(const char* lNameInMap, std::type_index lType, std::function<GameObject * (std::list<ObjectProperty*>&)> lFactory);
+	//std::map<std::type_index, std::function<GameObject * (std::list<ObjectProperty*>&)>> lFactoriesType;
+	//std::map<std::string, std::function<GameObject * (std::list<ObjectProperty*>&)>> lFactoriesString;
+	std::list<FactoryBase*> mFactories;
+
+	FactoryBase* GetFactory(const char* aNameInMap);
+	FactoryBase* GetFactory(std::type_index& aType);
+
+	//bool AddFactory(const char* lNameInMap, std::type_index lType, std::function<GameObject * (std::list<ObjectProperty*>&)> lFactory);
+	bool AddFactory(FactoryBase* lFactory);
 
 };
 

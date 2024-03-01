@@ -154,8 +154,16 @@ void Render::BlitMapLayer(layer* layer)
 	it->layer = layer;
 	it->depth = layer->depth;
 	allQueue.push(it);
-
 }
+
+void Render::BlitParticleEmitter(ParticleEmitter* layer,RenderQueue aRenderQueue)
+{
+	BlitParticles* it = new BlitParticles();
+	it->lEmmitter = layer;
+	it->depth = layer->depth;
+	GetQueue(aRenderQueue)->push(it);
+}
+
 
 void Render::BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x, float parallax_factor_y)
 {

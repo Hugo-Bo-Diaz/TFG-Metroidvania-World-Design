@@ -2,7 +2,7 @@
 #include "Particles.h"
 #include "Application.h"
 #include "Audio.h"
-#include "../EntityIDs.h"
+#include "../Player.h"
 
 FlyingAxe::FlyingAxe()
 {
@@ -139,7 +139,7 @@ bool FlyingAxe::Loop(float dt)
 		{
 			if ((*it)->object != this)
 			{
-				if ((*it)->type == PLAYER_ID)
+				if ((*it)->object->IsSameTypeAs<Player>())
 				{
 					state = AXE_STARTING_CHARGE;
 					starting.Reset();

@@ -19,6 +19,7 @@ class CloudMelee : public Enemy
 {
 public:
 	CloudMelee();
+	CloudMelee(std::list<ObjectProperty*>& aList) { new (this) CloudMelee; };
 	CloudMelee(float initial_x, float initial_y);
 	~CloudMelee();
 
@@ -81,9 +82,6 @@ public:
 
 	TextureID cloud_melee;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new CloudMelee(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

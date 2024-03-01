@@ -323,9 +323,6 @@
     <ClInclude Include="GameObjects\Player.h">
       <Filter>Resource Files\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjects\EntityIDs.h">
-      <Filter>Resource Files\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjects\SpellProjectiles\Rain.h">
       <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
     </ClInclude>

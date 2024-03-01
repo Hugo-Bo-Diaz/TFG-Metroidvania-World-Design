@@ -87,14 +87,13 @@ void Physics::GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*
 		}
 	}
 }
-
 std::vector<GameObject*>* Physics::GetAllObjectsOfType(std::type_index info)
 {
 	std::vector<GameObject*>* ret = new std::vector<GameObject*>();
 
 	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
-		if ((*it)->GetTypeInfo() == info)
+		if ((*it)->mType == info)
 		{
 			ret->push_back(*it);
 		}
@@ -102,21 +101,8 @@ std::vector<GameObject*>* Physics::GetAllObjectsOfType(std::type_index info)
 	return ret;
 }
 
-std::vector<GameObject*>* Physics::GetAllObjectsOfType()
-{
-	std::vector<GameObject*>* ret = new std::vector<GameObject*>();
-
-	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
-	{
-		ret->push_back(*it);
-	}
-	return ret;
-}
-
 void Physics::GetCollisions(SDL_Rect* obj, std::vector<collision*>& collisions)
 {
-	//std::vector<collision*>* ret;
-
 	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
 		if (SDL_HasIntersection((*it)->collider,obj))
@@ -124,7 +110,6 @@ void Physics::GetCollisions(SDL_Rect* obj, std::vector<collision*>& collisions)
 			collision* col = new collision();
 
 			col->object = *it;
-			col->type = (*it)->type;
 
 			collisions.push_back(col);
 		}
@@ -143,14 +128,16 @@ void Physics::ClearCollisionArray(std::vector<collision*>& collisions)
 
 GameObject* Physics::AddObject(int x, int y, int w_col, int h_col,std::type_index lType)
 {
-	auto lID = App->phy->lFactoriesType.find(lType);
+	auto lID = GetFactory(lType);
 
 	std::list<ObjectProperty*> lPropList;
 
-	GameObject* r = (*lID).second(lPropList);
+	//GameObject* r = (*lID).second(lPropList);
 
+	GameObject* r = (*lID).CreateInstace();
 	if (r != nullptr)
 	{
+		r->mType = lID->GetObjectTypeIndex();
 		r->collider = new SDL_Rect();
 
 		r->collider->x = x;
@@ -218,19 +205,46 @@ void Physics::DeleteWall(int id)
 	
 }
 
-bool Physics::AddFactory(const char* lNameInMap,std::type_index lType, std::function<GameObject * (std::list<ObjectProperty*>&)> lFactory)
+bool Physics::AddFactory(FactoryBase* aFactory)
 {
-	lFactoriesType.insert(std::make_pair(lType, lFactory));
-	lFactoriesString.insert(std::make_pair(lNameInMap, lFactory));
+	mFactories.push_back(aFactory);
 	return true;
 }
 
+FactoryBase* Physics::GetFactory(const char* aNameInMap)
+{
+	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
+	{
+		if (strcmp((*it)->GetObjectMapName().c_str(), aNameInMap) == 0)
+		{
+			return (*it);
+		}
+	}
+	return nullptr;
+}
+FactoryBase* Physics::GetFactory(std::type_index& aType)
+{
+	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
+	{
+		if ((*it)->GetObjectTypeIndex()== aType)
+		{
+			return (*it);
+		}
+	}
+	return nullptr;
+}
 
 bool Physics::CleanUp()
 {
 	bool ret = true;
 
 	Clearphysics();
+
+	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
+	{
+		delete *it;
+	}
+
 
 	active = false;
 

@@ -10,6 +10,7 @@ class FireBall : public GameObject
 public:
 
 	FireBall();
+	FireBall(std::list<ObjectProperty*>& aList) { new (this) FireBall; };
 
 	void Destroy();
 
@@ -34,9 +35,6 @@ public:
 
 	TextureID spells;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new FireBall(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif // !PLAYER__REP__H

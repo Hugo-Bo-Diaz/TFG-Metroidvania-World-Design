@@ -13,8 +13,7 @@
 #include "Portal.h"
 #include "ProgressTracker.h"
 #include "Logger.h"
-
-#include "GameObjects/EntityIDs.h"
+#include "Utils.h"
 
 MetroidVaniaSceneProcessor* Instance = nullptr;
 
@@ -136,10 +135,10 @@ void MetroidVaniaSceneProcessor::SceneCreationMainMenu()
 
 void MetroidVaniaSceneProcessor::SceneCreationInGame()
 {
-	if (pl == nullptr)
-	{
-		pl= (Player*)App->phy->AddObject(87, 200, 64, 64, GameObject::GetTypeInfo<Player>());
-	}
+	//if (pl == nullptr)
+	//{
+	//	pl= (Player*)App->phy->AddObject(87, 200, 64, 64, GetTypeIndex<Player>());
+	//}
 
 	if (inGameUI == nullptr)
 	{
@@ -150,29 +149,56 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 		inGameUI->SetPlayer(pl);
 	}
 
-	portals = *App->phy->GetAllObjectsOfType(GameObject::GetTypeInfo<Portal>());
-	spawnpoints = *App->phy->GetAllObjectsOfType(GameObject::GetTypeInfo<SpawnPoint>());
-
-	LoadMapArray("Assets/maps/map_array.xml");
+	portals = *App->phy->GetAllObjectsOfType(GetTypeIndex<Portal>());
+	spawnpoints = *App->phy->GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
 
 
-	pugi::xml_document	lore_file;
-	lore_file.load_file("lore.xml");
-	pugi::xml_node logs_file_node;
-	logs_file_node = lore_file.child("lore");
 
-	pugi::xml_node iterator;
 
-	for (iterator = logs_file_node.first_child(); iterator; iterator = iterator.next_sibling())
+
+	//ON NEW MAP
+	int newplayer_x = 0;
+	int newplayer_y = 0;
+
+	int spawnpoint_x = 0;
+	int spawnpoint_y = 0;
+
+	portals = *App->phy->GetAllObjectsOfType(GetTypeIndex<Portal>());
+	spawnpoints = *App->phy->GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
+
+	for (std::vector<GameObject*>::iterator it = spawnpoints.begin(); it != spawnpoints.end(); it++)
 	{
-		LogEntry* log = new LogEntry();
-
-		log->title = iterator.attribute("title").as_string();
-		log->text = iterator.attribute("content").as_string();
-
-		logs.push_back(log);
-		//active_logs.push_back(log);
+		SpawnPoint* s = (SpawnPoint*)(*it);
+		if (s->id == spawn_point_id)
+		{
+			spawnpoint_x = s->collider->x;
+			spawnpoint_y = s->collider->y;
+		}
 	}
+	newplayer_x = spawnpoint_x;
+	newplayer_y = spawnpoint_y;
+	if (horizontal)
+	{
+		newplayer_x = spawnpoint_x + offset;
+	}
+	else
+	{
+		newplayer_y = spawnpoint_y + offset;
+	}
+
+	//set player
+	pl = (Player*)App->phy->AddObject(newplayer_x, newplayer_y, 64, 64, GetTypeIndex<Player>());
+
+	inGameUI->SetPlayer(pl);
+
+	//inGameUI->player = pl;
+	//App->trk->SetPlayer(pl);
+
+	//pl->current_spell = (spell_type)current_spell;
+	pl->speed_y = prev_speed_y;
+	pl->speed_x = prev_speed_x;
+	pl->collider->w -= pl->separation * 2;
+	pl->nextpos->w -= pl->separation * 2;
 }
 
 void MetroidVaniaSceneProcessor::LoadMapArray(const char* document)
@@ -229,13 +255,14 @@ void MetroidVaniaSceneProcessor::UsePortal(Portal* p, int offset)
 	}
 
 	//int current_spell = App->trk->pl->current_spell;
-	float speed_x = pl->speed_x;
-	float speed_y = pl->speed_y;
+	prev_speed_x = pl->speed_x;
+	prev_speed_y = pl->speed_y;
 
 	//App->par->ClearParticles();
 
 	int point_id = p->id_destination_point;
 	spawn_point_id = point_id;
+	this->offset = offset;
 	bool horizontal = p->horizontal;
 	//CHANGES ALL MAP
 	inGameUI->SetPlayer(nullptr);
@@ -243,62 +270,48 @@ void MetroidVaniaSceneProcessor::UsePortal(Portal* p, int offset)
 	App->scn->ChangeMap(map_to_change.c_str());
 
 	//ON NEW MAP
-	int newplayer_x = 0;
-	int newplayer_y = 0;
+	//int newplayer_x = 0;
+	//int newplayer_y = 0;
 
-	int spawnpoint_x = 0;
-	int spawnpoint_y = 0;
+	//int spawnpoint_x = 0;
+	//int spawnpoint_y = 0;
 
-	portals = *App->phy->GetAllObjectsOfType(GameObject::GetTypeInfo<Portal>());
-	spawnpoints = *App->phy->GetAllObjectsOfType(GameObject::GetTypeInfo<SpawnPoint>());
+	//portals = *App->phy->GetAllObjectsOfType(GetTypeIndex<Portal>());
+	//spawnpoints = *App->phy->GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
 
-	//portals.clear();
-	//spawnpoints.clear();
-	//for (size_t i = 0; i < lAllObjects->size(); ++i)
+	//for (std::vector<GameObject*>::iterator it = spawnpoints.begin(); it != spawnpoints.end(); it++)
 	//{
-	//	if ((lAllObjects->at(i)->IsSameTypeAs<Portal>()))
+	//	SpawnPoint* s = (SpawnPoint*)(*it);
+	//	if (s->id == point_id)
 	//	{
-	//		portals.push_back(lAllObjects->at(i));
+	//		spawnpoint_x = s->collider->x;
+	//		spawnpoint_y = s->collider->y;
 	//	}
-	//	else if (lAllObjects->at(i)->IsSameTypeAs<SpawnPoint>())
-	//	{
-	//		spawnpoints.push_back(lAllObjects->at(i));
-	//	}
-
 	//}
-	for (std::vector<GameObject*>::iterator it = spawnpoints.begin(); it != spawnpoints.end(); it++)
-	{
-		SpawnPoint* s = (SpawnPoint*)(*it);
-		if (s->id == point_id)
-		{
-			spawnpoint_x = s->collider->x;
-			spawnpoint_y = s->collider->y;
-		}
-	}
-	newplayer_x = spawnpoint_x;
-	newplayer_y = spawnpoint_y;
-	if (horizontal)
-	{
-		newplayer_x = spawnpoint_x + offset;
-	}
-	else
-	{
-		newplayer_y = spawnpoint_y + offset;
-	}
+	//newplayer_x = spawnpoint_x;
+	//newplayer_y = spawnpoint_y;
+	//if (horizontal)
+	//{
+	//	newplayer_x = spawnpoint_x + offset;
+	//}
+	//else
+	//{
+	//	newplayer_y = spawnpoint_y + offset;
+	//}
 
-	//set player
-	pl = (Player*)App->phy->AddObject(newplayer_x, newplayer_y, 64, 64, GameObject::GetTypeInfo<Player>());
+	////set player
+	////pl = (Player*)App->phy->AddObject(newplayer_x, newplayer_y, 64, 64, GetTypeIndex<Player>());
 
-	inGameUI->SetPlayer(pl);
+	//inGameUI->SetPlayer(pl);
 
-	//inGameUI->player = pl;
-	//App->trk->SetPlayer(pl);
+	////inGameUI->player = pl;
+	////App->trk->SetPlayer(pl);
 
-	//pl->current_spell = (spell_type)current_spell;
-	pl->speed_y = speed_y;
-	pl->speed_x = speed_x;
-	pl->collider->w -= pl->separation * 2;
-	pl->nextpos->w -= pl->separation * 2;
+	////pl->current_spell = (spell_type)current_spell;
+	////pl->speed_y = speed_y;
+	////pl->speed_x = speed_x;
+	//pl->collider->w -= pl->separation * 2;
+	//pl->nextpos->w -= pl->separation * 2;
 
 
 	//TODO
@@ -392,4 +405,29 @@ MetroidVaniaSceneProcessor& MetroidVaniaSceneProcessor::GetInstance()
 		Instance = new MetroidVaniaSceneProcessor();
 
 	return *Instance;
+}
+
+void MetroidVaniaSceneProcessor::EngineInitialization()
+{
+	LoadMapArray("Assets/maps/map_array.xml");
+
+
+	pugi::xml_document	lore_file;
+	lore_file.load_file("lore.xml");
+	pugi::xml_node logs_file_node;
+	logs_file_node = lore_file.child("lore");
+
+	pugi::xml_node iterator;
+
+	for (iterator = logs_file_node.first_child(); iterator; iterator = iterator.next_sibling())
+	{
+		LogEntry* log = new LogEntry();
+
+		log->title = iterator.attribute("title").as_string();
+		log->text = iterator.attribute("content").as_string();
+
+		logs.push_back(log);
+		//active_logs.push_back(log);
+	}
+
 }

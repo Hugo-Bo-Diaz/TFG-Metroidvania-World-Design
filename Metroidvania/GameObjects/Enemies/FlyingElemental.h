@@ -22,6 +22,7 @@ class FlyingElemental : public Enemy
 {
 public:
 	FlyingElemental();
+	FlyingElemental(std::list<ObjectProperty*>& aProperties);
 	FlyingElemental(float initial_y);
 	~FlyingElemental();
 
@@ -84,9 +85,6 @@ public:
 
 	TextureID flyingelemental;
 	TextureID particles;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&);
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

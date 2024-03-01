@@ -11,6 +11,7 @@ class FlyingShield : public Enemy
 {
 public:
 	FlyingShield();
+	FlyingShield(std::list<ObjectProperty*>& aList) { new (this) FlyingShield; };
 	FlyingShield(float initial_y);
 	~FlyingShield();
 
@@ -43,9 +44,6 @@ public:
 
 	TextureID particles;
 	TextureID floating_shield;
-
-	static GameObject* Factory(std::list<ObjectProperty*>&) { return new FlyingShield(); };
-	std::type_index GetTypeInfo() { return std::type_index(typeid(*this)); }
 };
 
 #endif

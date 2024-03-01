@@ -80,8 +80,8 @@ public:
 	bool LoadTilesets(pugi::xml_node&);
 	bool LoadBackgroundImage(pugi::xml_node&);
 
-
-	bool LoadMap(const char* filename);
+	void LoadMap(const char* filename);
+	bool LoadMapExecute(const char* filename);
 	void LoadMapProperties(pugi::xml_node&);
 	void CleanMap();
 	void ChangeMap(const char* filename);
@@ -132,6 +132,7 @@ private:
 	std::vector<layer*> layers;
 	std::vector<background_texture*> active_backgrounds;
 
+	std::string lMapToLoad;
 
 	std::function<void ()> SceneFunction;
 	std::function<void ()> LoadFunction;
