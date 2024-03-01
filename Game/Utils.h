@@ -86,4 +86,18 @@ static std::type_index GetTypeIndex()
 	return std::type_index(typeid(T));
 }
 
+static void HideConsole()
+{
+	::ShowWindow(::GetConsoleWindow(), SW_HIDE);
+}
+
+static void ShowConsole()
+{
+	::ShowWindow(::GetConsoleWindow(), SW_SHOW);
+}
+
+static bool IsConsoleVisible()
+{
+	return ::IsWindowVisible(::GetConsoleWindow()) != FALSE;
+}
 #endif

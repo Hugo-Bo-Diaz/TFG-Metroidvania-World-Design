@@ -14,19 +14,12 @@
 #include "ProgressTracker.h"
 #include "Debug.h"
 
-#include <Windows.h>
 #include <exception>
 #include <signal.h>
 #include <iostream>
 #include <string>
 #include <sstream>
 #include "SDL/include/SDL.h"
-
-Application::Application()
-{
-	SDL_Init(SDL_INIT_VIDEO);
-}
-
 
 void ExceptionHandler(int signal_hand)
 {
@@ -51,15 +44,60 @@ void ExceptionHandler(int signal_hand)
 		Logger::Console_log(LogLevel::LOG_ERROR, "Unknown error!");
 		break;
 	}
+}
 
+Application::Application(const char* aConfigFile, bool& aSuccesful)
+{
+	mConfigFile = aConfigFile;
+	aSuccesful = true;
+
+	SDL_Init(SDL_INIT_VIDEO);
+
+	signal(SIGBREAK, ExceptionHandler);
+	signal(SIGABRT, ExceptionHandler);
+	signal(SIGFPE, ExceptionHandler);
+	signal(SIGILL, ExceptionHandler);
+	signal(SIGSEGV, ExceptionHandler);
+
+	inp = new Input();
+	win = new Window();
+	ren = new Render();
+	tex = new Textures();
+	scn = new SceneController();
+	phy = new Physics();
+	cam = new Camera();
+	aud = new Audio();
+	par = new Particles();
+	gui = new UserInterface();
+	txt = new Text();
+	trk = new ProgressTracker();
+	dbg = new Debug();
+
+	parts.push_back(inp);
+	parts.push_back(win);
+	parts.push_back(phy);
+	parts.push_back(gui);
+	parts.push_back(scn);
+	parts.push_back(cam);
+	parts.push_back(par);
+	parts.push_back(aud);
+	parts.push_back(ren);
+	parts.push_back(tex);
+	parts.push_back(txt);
+	parts.push_back(trk);
+	parts.push_back(dbg);
 }
 
 
-void Application::Run() {
+void Application::Run()
+{
 	ApplicationState state = CREATE;
-
+	if (!Init())
+	{
+		state = EXIT;
+		Logger::Console_log(LogLevel::LOG_ERROR, "Could not initialize engine!");
+	}
 	state = LOOP;
-	Start();
 
 	while (state != EXIT)
 	{
@@ -97,45 +135,13 @@ void Application::Run() {
 }
 
 
-bool Application::Init() 
+
+bool Application::Init()
 {
-	signal(SIGBREAK, ExceptionHandler);
-	signal(SIGABRT, ExceptionHandler);
-	signal(SIGFPE, ExceptionHandler);
-	signal(SIGILL, ExceptionHandler);
-	signal(SIGSEGV, ExceptionHandler);
+	Logger::Console_log(LogLevel::LOG_INFO, "Starting engine");
 
-	bool ret = true;
-	inp = new Input();
-	win = new Window();
-	ren = new Render();
-	tex = new Textures();
-	scn = new SceneController();
-	phy = new Physics();
-	cam = new Camera();
-	aud = new Audio();
-	par = new Particles();
-	gui = new UserInterface();
-	txt = new Text();
-	trk = new ProgressTracker();
-	dbg = new Debug();
+	LoadConfig(mConfigFile.c_str());
 
-	parts.push_back(inp);
-	parts.push_back(win);
-	parts.push_back(phy);
-	parts.push_back(gui);
-	parts.push_back(scn);
-	parts.push_back(cam);
-	parts.push_back(par);
-	parts.push_back(aud);
-	parts.push_back(ren);
-	parts.push_back(tex);
-	parts.push_back(txt);
-	parts.push_back(trk);
-	parts.push_back(dbg);
-
-	LoadConfig("config.xml");
-	
 	Logger::Console_log(LogLevel::LOG_INFO, "Initializing engine");
 	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
 	{
@@ -146,36 +152,16 @@ bool Application::Init()
 			Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
 			if (!(*it)->Init())
 			{
-				ret = false;
+				return false;
 			}
 		}
 	}
-
-	return ret;
-};
-
-bool Application::Start()
-{
-	Logger::Console_log(LogLevel::LOG_INFO, "Starting engine");
-
-	bool ret = true;
-	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
-	{
-		if (!(*it)->Start())
-		{
-			Logger::Console_log(LogLevel::LOG_ERROR, "Error while initializing module!");
-			ret = false;
-		}
-	}
-
-	return ret;
-
+	return true;
 }
 
 bool Application::Loop() 
 {
 	dt = update_timer.Read();
-
 	update_timer.Reset();
 
 	bool ret = true;
@@ -205,6 +191,7 @@ bool Application::Loop()
 	dt =1/( base_ms_on_frame/ms_of_frame);
 	return ret;
 };
+
 bool Application::CleanUp() 
 {
 	Logger::Console_log(LogLevel::LOG_INFO, "Closing the engine");
@@ -245,7 +232,6 @@ void Application::LoadConfig(const char* filename)
 			(*it)->CreateConfig(part_node);
 		}
 		config_file.save_file(filename);
-
 	}
 	else
 	{
@@ -260,20 +246,4 @@ void Application::LoadConfig(const char* filename)
 			pugi::xml_node part_node = config_node.child((*it)->name.c_str());
 			(*it)->LoadConfig(part_node);
 	}
-}
-
-
-void Application::HideConsole()
-{
-	::ShowWindow(::GetConsoleWindow(), SW_HIDE);
-}
-
-void Application::ShowConsole()
-{
-	::ShowWindow(::GetConsoleWindow(), SW_SHOW);
-}
-
-bool Application::IsConsoleVisible()
-{
-	return ::IsWindowVisible(::GetConsoleWindow()) != FALSE;
 }

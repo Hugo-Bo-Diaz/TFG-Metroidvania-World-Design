@@ -37,8 +37,6 @@ struct ObjectProperty
 class GameObject
 {
 public:
-	//physics
-
 	SDL_Rect* collider;
 	std::type_index mType = std::type_index(typeid(*this));
 
@@ -112,7 +110,6 @@ struct collision
 };
 
 
-
 class Physics : public Part
 {
 private:
@@ -143,7 +140,6 @@ public:
 	void PauseObjects() { is_paused = true; };
 	void UnPauseObjects() { is_paused = false; };
 
-	//GameObject* AddObject(int x, int y, int w_col, int h_col, objectId type, std::map<std::string, float>* properties = nullptr);
 	GameObject* AddObject(int x, int y, int w_col, int h_col,std::type_index lType);
 	void AddObject(GameObject*);
 
@@ -151,14 +147,11 @@ public:
 
 	SDL_Rect* walls[MAX_WALLS];
 
-	//std::map<std::type_index, std::function<GameObject * (std::list<ObjectProperty*>&)>> lFactoriesType;
-	//std::map<std::string, std::function<GameObject * (std::list<ObjectProperty*>&)>> lFactoriesString;
 	std::list<FactoryBase*> mFactories;
 
 	FactoryBase* GetFactory(const char* aNameInMap);
 	FactoryBase* GetFactory(std::type_index& aType);
 
-	//bool AddFactory(const char* lNameInMap, std::type_index lType, std::function<GameObject * (std::list<ObjectProperty*>&)> lFactory);
 	bool AddFactory(FactoryBase* lFactory);
 
 };

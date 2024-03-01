@@ -33,7 +33,6 @@ public:
 	Debug();
 
 	bool Init();
-	bool Start();
 	bool Loop(float dt);
 
 	bool LoadConfig(pugi::xml_node&);

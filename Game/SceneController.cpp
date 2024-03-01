@@ -27,32 +27,8 @@ SceneController::SceneController()
 
 bool SceneController::Init()
 {
-	return true;
-}
-
-bool SceneController::Start()
-{
-	//load backgrounds and tilesets
-
-	//App->gui->AddMainMenu();
-	//App->gui->AddSettingsMenu();
-	//App->gui->AddPauseMenu();
-	
-	//testing code starts
-	//LoadMap("Assets/maps/testing_grounds.tmx");
 	LoadMap("Assets/maps/map0_entrance.tmx");
-
-	//Player* pl= (Player*)App->phy->AddObject(87, 1000, 64, 64, "Player");
-	//App->gui->Add_GameUI((GameObject*)pl);
-
-	//pl->collider->w -= pl->separation * 2;
-	//pl->nextpos->w -= pl->separation * 2;
-	//testing code ends
-
-	//App->trk->pl = pl;
-	//song_try = App->aud->LoadMusic("Assets/Music/wtf.ogg","track1");
-
-	return true;//CHANGE PLS
+	return true;
 }
 
 bool SceneController::Loop(float dt)

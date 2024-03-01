@@ -39,8 +39,6 @@ void MetroidVaniaSceneProcessor::SceneProcessingInGame()
 {
 	if (App->inp->GetInput(BUTTON_3))
 	{
-		//App->trk->SaveFile("save.xml");
-
 		if (pl->IsSameTypeAs<UIPauseMenu>())
 		{
 			Logger::Console_log(LogLevel::LOG_ERROR, "WTF");

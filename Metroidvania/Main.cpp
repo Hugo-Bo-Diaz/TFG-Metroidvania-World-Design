@@ -57,10 +57,9 @@
 
 int main(int argc, char* args[])
 {
-	App = new Application();
-	//subscribe to error
-
-	if (!App->Init())
+	bool lResult = false;
+	App = new Application("config.xml", lResult);
+	if (!lResult)
 	{
 		Logger::Console_log(LogLevel::LOG_WARN,"EXITING: with errors (init)");
 		return 1;
@@ -121,7 +120,5 @@ int main(int argc, char* args[])
 	App->scn->AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingInGame,&MetroidVaniaSceneProcessor::GetInstance()));
 	App->scn->AssignLoadFunction(std::bind(&MetroidVaniaSceneProcessor::SceneCreationInGame,&MetroidVaniaSceneProcessor::GetInstance()));
 	App->Run();
-
-
 	return 1;
 }

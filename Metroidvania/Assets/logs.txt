@@ -17439,3 +17439,331 @@ INFO - 01-03-2024 18:22:08 - 49560 - Clearing UI physics
 INFO - 01-03-2024 18:22:08 - 49560 - Cleaning upWindow
 INFO - 01-03-2024 18:22:08 - 49560 - Cleaning upInput
 ERRO - 01-03-2024 18:22:08 - 49560 - EXITING: no errors found
+INFO - 01-03-2024 19:34:53 - 22312 - found config file,config.xmlloading the engine with config...
+INFO - 01-03-2024 19:34:53 - 22312 - Init SDL window & surface
+INFO - 01-03-2024 19:34:54 - 22312 - Create SDL rendering context
+INFO - 01-03-2024 19:38:40 - 30644 - Starting engine
+INFO - 01-03-2024 19:38:40 - 30644 - found config file,config.xmlloading the engine with config...
+INFO - 01-03-2024 19:38:40 - 30644 - Init SDL window & surface
+INFO - 01-03-2024 19:38:41 - 30644 - Create SDL rendering context
+INFO - 01-03-2024 19:38:41 - 30644 - Init Image library
+INFO - 01-03-2024 19:38:41 - 30644 - Initializing engine
+INFO - 01-03-2024 19:38:41 - 30644 - InitializingInput
+INFO - 01-03-2024 19:38:41 - 30644 - Init SDL input event system
+INFO - 01-03-2024 19:38:41 - 30644 - InitializingWindow
+INFO - 01-03-2024 19:38:41 - 30644 - InitializingPhysics
+INFO - 01-03-2024 19:38:41 - 30644 - InitializingUserInterface
+INFO - 01-03-2024 19:38:41 - 30644 - InitializingSceneController
+INFO - 01-03-2024 19:38:41 - 30644 - InitializingCamera
+INFO - 01-03-2024 19:38:41 - 30644 - InitializingParticles
+INFO - 01-03-2024 19:38:41 - 30644 - InitializingAudio
+INFO - 01-03-2024 19:38:41 - 30644 - Initializing SDL audio
+INFO - 01-03-2024 19:38:42 - 30644 - InitializingRender
+INFO - 01-03-2024 19:38:42 - 30644 - InitializingTextures
+INFO - 01-03-2024 19:38:42 - 30644 - Initializingtext
+INFO - 01-03-2024 19:38:42 - 30644 - InitializingProgressTracker
+INFO - 01-03-2024 19:38:42 - 30644 - InitializingDebug
+ERRO - 01-03-2024 19:38:54 - 30644 - EXITING: with errors (loop)
+INFO - 01-03-2024 19:38:54 - 30644 - Closing the engine
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upDebug
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upProgressTracker
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning uptext
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upTextures
+ERRO - 01-03-2024 19:38:54 - 30644 - Freeing textures and Image library
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upRender
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upAudio
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upParticles
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upCamera
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upSceneController
+INFO - 01-03-2024 19:38:54 - 30644 - Clearing UI physics
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upUserInterface
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upPhysics
+INFO - 01-03-2024 19:38:54 - 30644 - Clearing UI physics
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upWindow
+INFO - 01-03-2024 19:38:54 - 30644 - Cleaning upInput
+ERRO - 01-03-2024 19:38:54 - 30644 - EXITING: no errors found
+INFO - 01-03-2024 19:40:44 - 1940 - Starting engine
+INFO - 01-03-2024 19:40:44 - 1940 - found config file,config.xmlloading the engine with config...
+INFO - 01-03-2024 19:40:44 - 1940 - Init SDL window & surface
+INFO - 01-03-2024 19:40:44 - 1940 - Create SDL rendering context
+INFO - 01-03-2024 19:40:45 - 1940 - Init Image library
+INFO - 01-03-2024 19:40:45 - 1940 - Initializing engine
+INFO - 01-03-2024 19:40:45 - 1940 - InitializingInput
+INFO - 01-03-2024 19:40:45 - 1940 - Init SDL input event system
+INFO - 01-03-2024 19:40:45 - 1940 - InitializingWindow
+INFO - 01-03-2024 19:40:45 - 1940 - InitializingPhysics
+INFO - 01-03-2024 19:40:45 - 1940 - InitializingUserInterface
+INFO - 01-03-2024 19:40:45 - 1940 - InitializingSceneController
+INFO - 01-03-2024 19:40:45 - 1940 - InitializingCamera
+INFO - 01-03-2024 19:40:45 - 1940 - InitializingParticles
+INFO - 01-03-2024 19:40:45 - 1940 - InitializingAudio
+INFO - 01-03-2024 19:40:45 - 1940 - Initializing SDL audio
+INFO - 01-03-2024 19:40:45 - 1940 - InitializingRender
+INFO - 01-03-2024 19:40:45 - 1940 - InitializingTextures
+INFO - 01-03-2024 19:40:46 - 1940 - Initializingtext
+INFO - 01-03-2024 19:40:46 - 1940 - InitializingProgressTracker
+INFO - 01-03-2024 19:40:46 - 1940 - InitializingDebug
+ERRO - 01-03-2024 19:40:47 - 1940 - EXITING: with errors (loop)
+INFO - 01-03-2024 19:40:47 - 1940 - Closing the engine
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upDebug
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upProgressTracker
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning uptext
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upTextures
+ERRO - 01-03-2024 19:40:47 - 1940 - Freeing textures and Image library
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upRender
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upAudio
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upParticles
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upCamera
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upSceneController
+INFO - 01-03-2024 19:40:47 - 1940 - Clearing UI physics
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upUserInterface
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upPhysics
+INFO - 01-03-2024 19:40:47 - 1940 - Clearing UI physics
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upWindow
+INFO - 01-03-2024 19:40:47 - 1940 - Cleaning upInput
+ERRO - 01-03-2024 19:40:47 - 1940 - EXITING: no errors found
+INFO - 01-03-2024 19:41:07 - 46272 - Starting engine
+INFO - 01-03-2024 19:41:13 - 46272 - found config file,config.xmlloading the engine with config...
+INFO - 01-03-2024 19:41:28 - 46272 - Init SDL window & surface
+INFO - 01-03-2024 19:41:32 - 46272 - Create SDL rendering context
+INFO - 01-03-2024 19:41:33 - 46272 - Init Image library
+INFO - 01-03-2024 19:41:38 - 46272 - Initializing engine
+INFO - 01-03-2024 19:41:41 - 46272 - InitializingInput
+INFO - 01-03-2024 19:41:42 - 46272 - Init SDL input event system
+INFO - 01-03-2024 19:41:44 - 46272 - InitializingWindow
+INFO - 01-03-2024 19:41:51 - 46272 - InitializingPhysics
+INFO - 01-03-2024 19:41:54 - 46272 - InitializingUserInterface
+INFO - 01-03-2024 19:41:54 - 46272 - InitializingSceneController
+INFO - 01-03-2024 19:41:54 - 46272 - InitializingCamera
+INFO - 01-03-2024 19:41:54 - 46272 - InitializingParticles
+INFO - 01-03-2024 19:41:54 - 46272 - InitializingAudio
+INFO - 01-03-2024 19:41:54 - 46272 - Initializing SDL audio
+INFO - 01-03-2024 19:41:55 - 46272 - InitializingRender
+INFO - 01-03-2024 19:41:55 - 46272 - InitializingTextures
+INFO - 01-03-2024 19:41:55 - 46272 - Initializingtext
+INFO - 01-03-2024 19:41:55 - 46272 - InitializingProgressTracker
+INFO - 01-03-2024 19:41:55 - 46272 - InitializingDebug
+INFO - 01-03-2024 19:43:57 - 6076 - Starting engine
+INFO - 01-03-2024 19:43:57 - 6076 - found config file,config.xmlloading the engine with config...
+INFO - 01-03-2024 19:43:57 - 6076 - Init SDL window & surface
+INFO - 01-03-2024 19:43:58 - 6076 - Create SDL rendering context
+INFO - 01-03-2024 19:43:58 - 6076 - Init Image library
+INFO - 01-03-2024 19:43:58 - 6076 - Initializing engine
+INFO - 01-03-2024 19:43:58 - 6076 - InitializingInput
+INFO - 01-03-2024 19:43:58 - 6076 - Init SDL input event system
+INFO - 01-03-2024 19:43:58 - 6076 - InitializingWindow
+INFO - 01-03-2024 19:43:58 - 6076 - InitializingPhysics
+INFO - 01-03-2024 19:43:58 - 6076 - InitializingUserInterface
+INFO - 01-03-2024 19:43:58 - 6076 - InitializingSceneController
+INFO - 01-03-2024 19:43:58 - 6076 - InitializingCamera
+INFO - 01-03-2024 19:43:58 - 6076 - InitializingParticles
+INFO - 01-03-2024 19:43:58 - 6076 - InitializingAudio
+INFO - 01-03-2024 19:43:58 - 6076 - Initializing SDL audio
+INFO - 01-03-2024 19:43:59 - 6076 - InitializingRender
+INFO - 01-03-2024 19:43:59 - 6076 - InitializingTextures
+INFO - 01-03-2024 19:43:59 - 6076 - Initializingtext
+INFO - 01-03-2024 19:43:59 - 6076 - InitializingProgressTracker
+INFO - 01-03-2024 19:43:59 - 6076 - InitializingDebug
+INFO - 01-03-2024 19:43:59 - 6076 - Clearing UI physics
+INFO - 01-03-2024 19:43:59 - 6076 - Clearing Particles
+INFO - 01-03-2024 19:43:59 - 6076 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/maps/objects.png
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/UI/indicator.png
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/UI/healthandmana.png
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/UI/spell_location.png
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/UI/books.png
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/Sprites/Player.png
+INFO - 01-03-2024 19:43:59 - 6076 - New camera follow target!
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/Sprites/particles.png
+INFO - 01-03-2024 19:43:59 - 6076 - Loading texture from: Assets/Sprites/spells.png
+ERRO - 01-03-2024 19:44:06 - 6076 - EXITING: with errors (loop)
+INFO - 01-03-2024 19:44:06 - 6076 - Closing the engine
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upDebug
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upProgressTracker
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning uptext
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upTextures
+ERRO - 01-03-2024 19:44:06 - 6076 - Freeing textures and Image library
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upRender
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upAudio
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upParticles
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upCamera
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upSceneController
+INFO - 01-03-2024 19:44:06 - 6076 - Clearing UI physics
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upUserInterface
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upPhysics
+INFO - 01-03-2024 19:44:06 - 6076 - Clearing UI physics
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upWindow
+INFO - 01-03-2024 19:44:06 - 6076 - Cleaning upInput
+ERRO - 01-03-2024 19:44:06 - 6076 - EXITING: no errors found
+INFO - 01-03-2024 19:50:12 - 44264 - Starting engine
+INFO - 01-03-2024 19:50:12 - 44264 - found config file,config.xmlloading the engine with config...
+INFO - 01-03-2024 19:50:13 - 44264 - Init SDL window & surface
+INFO - 01-03-2024 19:50:13 - 44264 - Create SDL rendering context
+INFO - 01-03-2024 19:50:13 - 44264 - Init Image library
+INFO - 01-03-2024 19:50:13 - 44264 - Initializing engine
+INFO - 01-03-2024 19:50:13 - 44264 - InitializingInput
+INFO - 01-03-2024 19:50:13 - 44264 - Init SDL input event system
+INFO - 01-03-2024 19:50:13 - 44264 - InitializingWindow
+INFO - 01-03-2024 19:50:13 - 44264 - InitializingPhysics
+INFO - 01-03-2024 19:50:13 - 44264 - InitializingUserInterface
+INFO - 01-03-2024 19:50:13 - 44264 - InitializingSceneController
+INFO - 01-03-2024 19:50:13 - 44264 - InitializingCamera
+INFO - 01-03-2024 19:50:13 - 44264 - InitializingParticles
+INFO - 01-03-2024 19:50:13 - 44264 - InitializingAudio
+INFO - 01-03-2024 19:50:13 - 44264 - Initializing SDL audio
+INFO - 01-03-2024 19:50:14 - 44264 - InitializingRender
+INFO - 01-03-2024 19:50:14 - 44264 - InitializingTextures
+INFO - 01-03-2024 19:50:14 - 44264 - Initializingtext
+INFO - 01-03-2024 19:50:14 - 44264 - InitializingProgressTracker
+INFO - 01-03-2024 19:50:14 - 44264 - InitializingDebug
+INFO - 01-03-2024 19:50:14 - 44264 - Clearing UI physics
+INFO - 01-03-2024 19:50:14 - 44264 - Clearing Particles
+INFO - 01-03-2024 19:50:14 - 44264 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/maps/objects.png
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/UI/indicator.png
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/UI/healthandmana.png
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/UI/spell_location.png
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/UI/books.png
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/Sprites/Player.png
+INFO - 01-03-2024 19:50:14 - 44264 - New camera follow target!
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/Sprites/particles.png
+INFO - 01-03-2024 19:50:14 - 44264 - Loading texture from: Assets/Sprites/spells.png
+ERRO - 01-03-2024 19:50:24 - 44264 - EXITING: with errors (loop)
+INFO - 01-03-2024 19:50:24 - 44264 - Closing the engine
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning upDebug
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning upProgressTracker
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning uptext
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning upTextures
+ERRO - 01-03-2024 19:50:24 - 44264 - Freeing textures and Image library
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning upRender
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning upAudio
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning upParticles
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning upCamera
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning upSceneController
+INFO - 01-03-2024 19:50:24 - 44264 - Clearing UI physics
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning upUserInterface
+INFO - 01-03-2024 19:50:24 - 44264 - Cleaning upPhysics
+INFO - 01-03-2024 19:50:24 - 44264 - Clearing UI physics
+INFO - 01-03-2024 19:50:25 - 44264 - Cleaning upWindow
+INFO - 01-03-2024 19:50:25 - 44264 - Cleaning upInput
+ERRO - 01-03-2024 19:50:25 - 44264 - EXITING: no errors found
+INFO - 01-03-2024 20:19:10 - 21264 - Starting engine
+INFO - 01-03-2024 20:19:10 - 21264 - found config file,config.xmlloading the engine with config...
+INFO - 01-03-2024 20:19:10 - 21264 - Init SDL window & surface
+INFO - 01-03-2024 20:19:10 - 21264 - Create SDL rendering context
+INFO - 01-03-2024 20:19:10 - 21264 - Init Image library
+INFO - 01-03-2024 20:19:10 - 21264 - Initializing engine
+INFO - 01-03-2024 20:19:10 - 21264 - InitializingInput
+INFO - 01-03-2024 20:19:10 - 21264 - Init SDL input event system
+INFO - 01-03-2024 20:19:10 - 21264 - InitializingWindow
+INFO - 01-03-2024 20:19:10 - 21264 - InitializingPhysics
+INFO - 01-03-2024 20:19:10 - 21264 - InitializingUserInterface
+INFO - 01-03-2024 20:19:10 - 21264 - InitializingSceneController
+INFO - 01-03-2024 20:19:10 - 21264 - InitializingCamera
+INFO - 01-03-2024 20:19:10 - 21264 - InitializingParticles
+INFO - 01-03-2024 20:19:10 - 21264 - InitializingAudio
+INFO - 01-03-2024 20:19:10 - 21264 - Initializing SDL audio
+INFO - 01-03-2024 20:19:11 - 21264 - InitializingRender
+INFO - 01-03-2024 20:19:11 - 21264 - InitializingTextures
+INFO - 01-03-2024 20:19:11 - 21264 - Initializingtext
+INFO - 01-03-2024 20:19:11 - 21264 - InitializingProgressTracker
+INFO - 01-03-2024 20:19:11 - 21264 - InitializingDebug
+INFO - 01-03-2024 20:19:11 - 21264 - Clearing UI physics
+INFO - 01-03-2024 20:19:11 - 21264 - Clearing Particles
+INFO - 01-03-2024 20:19:11 - 21264 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/maps/objects.png
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/UI/indicator.png
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/UI/healthandmana.png
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/UI/spell_location.png
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/UI/books.png
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/Sprites/Player.png
+INFO - 01-03-2024 20:19:12 - 21264 - New camera follow target!
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/Sprites/particles.png
+INFO - 01-03-2024 20:19:12 - 21264 - Loading texture from: Assets/Sprites/spells.png
+ERRO - 01-03-2024 20:19:13 - 21264 - EXITING: with errors (loop)
+INFO - 01-03-2024 20:19:13 - 21264 - Closing the engine
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upDebug
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upProgressTracker
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning uptext
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upTextures
+ERRO - 01-03-2024 20:19:13 - 21264 - Freeing textures and Image library
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upRender
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upAudio
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upParticles
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upCamera
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upSceneController
+INFO - 01-03-2024 20:19:13 - 21264 - Clearing UI physics
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upUserInterface
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upPhysics
+INFO - 01-03-2024 20:19:13 - 21264 - Clearing UI physics
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upWindow
+INFO - 01-03-2024 20:19:13 - 21264 - Cleaning upInput
+ERRO - 01-03-2024 20:19:13 - 21264 - EXITING: no errors found
+INFO - 01-03-2024 20:35:51 - 37896 - Starting engine
+INFO - 01-03-2024 20:35:51 - 37896 - found config file,config.xmlloading the engine with config...
+INFO - 01-03-2024 20:35:51 - 37896 - Init SDL window & surface
+INFO - 01-03-2024 20:35:51 - 37896 - Create SDL rendering context
+INFO - 01-03-2024 20:35:51 - 37896 - Init Image library
+INFO - 01-03-2024 20:35:51 - 37896 - Initializing engine
+INFO - 01-03-2024 20:35:51 - 37896 - InitializingInput
+INFO - 01-03-2024 20:35:51 - 37896 - Init SDL input event system
+INFO - 01-03-2024 20:35:51 - 37896 - InitializingWindow
+INFO - 01-03-2024 20:35:51 - 37896 - InitializingPhysics
+INFO - 01-03-2024 20:35:51 - 37896 - InitializingUserInterface
+INFO - 01-03-2024 20:35:51 - 37896 - InitializingSceneController
+INFO - 01-03-2024 20:35:51 - 37896 - InitializingCamera
+INFO - 01-03-2024 20:35:51 - 37896 - InitializingParticles
+INFO - 01-03-2024 20:35:51 - 37896 - InitializingAudio
+INFO - 01-03-2024 20:35:51 - 37896 - Initializing SDL audio
+INFO - 01-03-2024 20:35:52 - 37896 - InitializingRender
+INFO - 01-03-2024 20:35:52 - 37896 - InitializingTextures
+INFO - 01-03-2024 20:35:52 - 37896 - Initializingtext
+INFO - 01-03-2024 20:35:52 - 37896 - InitializingProgressTracker
+INFO - 01-03-2024 20:35:52 - 37896 - InitializingDebug
+INFO - 01-03-2024 20:35:52 - 37896 - Clearing UI physics
+INFO - 01-03-2024 20:35:52 - 37896 - Clearing Particles
+INFO - 01-03-2024 20:35:52 - 37896 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/maps/objects.png
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/UI/indicator.png
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/UI/healthandmana.png
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/UI/spell_location.png
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/UI/books.png
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/Sprites/Player.png
+INFO - 01-03-2024 20:35:52 - 37896 - New camera follow target!
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/Sprites/particles.png
+INFO - 01-03-2024 20:35:52 - 37896 - Loading texture from: Assets/Sprites/spells.png
+ERRO - 01-03-2024 20:35:59 - 37896 - EXITING: with errors (loop)
+INFO - 01-03-2024 20:35:59 - 37896 - Closing the engine
+INFO - 01-03-2024 20:35:59 - 37896 - Cleaning upDebug
+INFO - 01-03-2024 20:35:59 - 37896 - Cleaning upProgressTracker
+INFO - 01-03-2024 20:35:59 - 37896 - Cleaning uptext
+INFO - 01-03-2024 20:35:59 - 37896 - Cleaning upTextures
+ERRO - 01-03-2024 20:35:59 - 37896 - Freeing textures and Image library
+INFO - 01-03-2024 20:35:59 - 37896 - Cleaning upRender
+INFO - 01-03-2024 20:36:00 - 37896 - Cleaning upAudio
+INFO - 01-03-2024 20:36:00 - 37896 - Cleaning upParticles
+INFO - 01-03-2024 20:36:00 - 37896 - Cleaning upCamera
+INFO - 01-03-2024 20:36:00 - 37896 - Cleaning upSceneController
+INFO - 01-03-2024 20:36:00 - 37896 - Clearing UI physics
+INFO - 01-03-2024 20:36:00 - 37896 - Cleaning upUserInterface
+INFO - 01-03-2024 20:36:00 - 37896 - Cleaning upPhysics
+INFO - 01-03-2024 20:36:00 - 37896 - Clearing UI physics
+INFO - 01-03-2024 20:36:00 - 37896 - Cleaning upWindow
+INFO - 01-03-2024 20:36:00 - 37896 - Cleaning upInput
+ERRO - 01-03-2024 20:36:00 - 37896 - EXITING: no errors found

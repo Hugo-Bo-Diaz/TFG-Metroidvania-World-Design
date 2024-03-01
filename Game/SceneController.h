@@ -73,7 +73,6 @@ public:
 	SceneController();
 
 	bool Init();
-	bool Start();
 	bool Loop(float dt);
 	bool CleanUp();
 

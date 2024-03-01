@@ -33,11 +33,6 @@ bool Debug::Init()
 	return true;
 }
 
-bool Debug::Start()
-{
-	return true;
-}
-
 bool Debug::Loop(float dt)
 {
 	if (App->inp->GetKey(mKeyTogglePanel) == Keystate::KEY_DOWN)

@@ -43,10 +43,10 @@ public:
 
 	void Run();
 
-	Application();
+	Application(const char* aConfigFile, bool& aResult);
+	std::string mConfigFile;
 
 	bool Init();
-	bool Start();
 	bool Loop();
 	bool CleanUp();
 
@@ -55,10 +55,6 @@ public:
 	Timer update_timer;
 
 	void LoadConfig(const char* filename);
-
-	void HideConsole();
-	void ShowConsole();
-	bool IsConsoleVisible();
 
 	float GetLastUpdateTime() { return dt; }
 };
