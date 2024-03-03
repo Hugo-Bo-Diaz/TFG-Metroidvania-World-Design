@@ -17767,3 +17767,62 @@ INFO - 01-03-2024 20:36:00 - 37896 - Clearing UI physics
 INFO - 01-03-2024 20:36:00 - 37896 - Cleaning upWindow
 INFO - 01-03-2024 20:36:00 - 37896 - Cleaning upInput
 ERRO - 01-03-2024 20:36:00 - 37896 - EXITING: no errors found
+INFO - 03-03-2024 23:39:00 - 11840 - Starting engine
+INFO - 03-03-2024 23:39:00 - 11840 - found config file,config.xmlloading the engine with config...
+INFO - 03-03-2024 23:39:00 - 11840 - Init SDL window & surface
+INFO - 03-03-2024 23:39:00 - 11840 - Create SDL rendering context
+INFO - 03-03-2024 23:39:00 - 11840 - Init Image library
+INFO - 03-03-2024 23:39:00 - 11840 - Initializing engine
+INFO - 03-03-2024 23:39:00 - 11840 - InitializingInput
+INFO - 03-03-2024 23:39:00 - 11840 - Init SDL input event system
+INFO - 03-03-2024 23:39:01 - 11840 - InitializingWindow
+INFO - 03-03-2024 23:39:01 - 11840 - InitializingObjectManager
+INFO - 03-03-2024 23:39:01 - 11840 - InitializingUserInterface
+INFO - 03-03-2024 23:39:01 - 11840 - InitializingSceneController
+INFO - 03-03-2024 23:39:01 - 11840 - InitializingCamera
+INFO - 03-03-2024 23:39:01 - 11840 - InitializingParticles
+INFO - 03-03-2024 23:39:01 - 11840 - InitializingAudio
+INFO - 03-03-2024 23:39:01 - 11840 - Initializing SDL audio
+INFO - 03-03-2024 23:39:02 - 11840 - InitializingRender
+INFO - 03-03-2024 23:39:02 - 11840 - InitializingTextures
+INFO - 03-03-2024 23:39:02 - 11840 - InitializingText
+INFO - 03-03-2024 23:39:02 - 11840 - InitializingProgressTracker
+INFO - 03-03-2024 23:39:02 - 11840 - InitializingDebug
+INFO - 03-03-2024 23:39:02 - 11840 - Clearing UI physics
+INFO - 03-03-2024 23:39:02 - 11840 - Clearing Particles
+INFO - 03-03-2024 23:39:02 - 11840 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 03-03-2024 23:39:02 - 11840 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 03-03-2024 23:39:02 - 11840 - Loading texture from: Assets/maps/objects.png
+INFO - 03-03-2024 23:39:02 - 11840 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 03-03-2024 23:39:02 - 11840 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 03-03-2024 23:39:02 - 11840 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 03-03-2024 23:41:55 - 6496 - Starting engine
+INFO - 03-03-2024 23:41:55 - 6496 - found config file,config.xmlloading the engine with config...
+INFO - 03-03-2024 23:41:55 - 6496 - Init SDL window & surface
+INFO - 03-03-2024 23:41:55 - 6496 - Create SDL rendering context
+INFO - 03-03-2024 23:41:56 - 6496 - Init Image library
+INFO - 03-03-2024 23:41:56 - 6496 - Initializing engine
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingInput
+INFO - 03-03-2024 23:41:56 - 6496 - Init SDL input event system
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingWindow
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingObjectManager
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingUserInterface
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingSceneController
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingCamera
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingParticles
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingAudio
+INFO - 03-03-2024 23:41:56 - 6496 - Initializing SDL audio
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingRender
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingTextures
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingText
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingProgressTracker
+INFO - 03-03-2024 23:41:56 - 6496 - InitializingDebug
+INFO - 03-03-2024 23:41:56 - 6496 - Clearing UI physics
+INFO - 03-03-2024 23:41:56 - 6496 - Clearing Particles
+INFO - 03-03-2024 23:41:56 - 6496 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 03-03-2024 23:41:56 - 6496 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 03-03-2024 23:41:56 - 6496 - Loading texture from: Assets/maps/objects.png
+INFO - 03-03-2024 23:41:56 - 6496 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 03-03-2024 23:41:56 - 6496 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 03-03-2024 23:41:56 - 6496 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 03-03-2024 23:41:56 - 6496 - Loading texture from: Assets/UI/indicator.png

@@ -69,18 +69,23 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>D:\Projects\2DGameEngine\bin\Debug;$(ProjectDir)RexEngine\lib;$(LibraryPath)</LibraryPath>
+    <IntDir>bin\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Projects\2DGameEngine\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)RexEngine\lib;$(ProjectDir)RexEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>Engine.lib;SDL\libx86\SDL2.lib;SDL\libx86\SDL2main.lib;SDL_image\libx86\SDL2_image.lib;SDL_mixer\libx86\SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,116 +135,119 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameObjects\CheckPoint.cpp" />
-    <ClCompile Include="GameObjects\CloudSummonerProjectile.cpp" />
-    <ClCompile Include="GameObjects\CloudTrampoline.cpp" />
-    <ClCompile Include="GameObjects\DemoEndObject.cpp" />
-    <ClCompile Include="GameObjects\Enemies\ArmorTrap.cpp" />
-    <ClCompile Include="GameObjects\Enemies\ClingingCreature.cpp" />
-    <ClCompile Include="GameObjects\Enemies\CloudMelee.cpp" />
-    <ClCompile Include="GameObjects\Enemies\CloudSummoner.cpp" />
-    <ClCompile Include="GameObjects\Enemies\CoalJumper.cpp" />
-    <ClCompile Include="GameObjects\Enemies\FlyingAxe.cpp" />
-    <ClCompile Include="GameObjects\Enemies\FlyingElemental.cpp" />
-    <ClCompile Include="GameObjects\Enemies\FlyingShield.cpp" />
-    <ClCompile Include="GameObjects\Enemies\GroundedElemental.cpp" />
-    <ClCompile Include="GameObjects\Enemies\ShieldMonster.cpp" />
-    <ClCompile Include="GameObjects\FirstDialogue.cpp" />
-    <ClCompile Include="GameObjects\Hazards\HazardLava.cpp" />
-    <ClCompile Include="GameObjects\Hazards\HazardLavaWaterfall.cpp" />
-    <ClCompile Include="GameObjects\Hazards\HazardSpikes.cpp" />
-    <ClCompile Include="GameObjects\Hazards\HazardsRockBlock.cpp" />
-    <ClCompile Include="GameObjects\Pickups\FireSpellPickup.cpp" />
-    <ClCompile Include="GameObjects\Pickups\GroundSpellPickup.cpp" />
-    <ClCompile Include="GameObjects\Pickups\MaxHealthPickup.cpp" />
-    <ClCompile Include="GameObjects\Pickups\MaxManaPickup.cpp" />
-    <ClCompile Include="GameObjects\Player.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\Cloud.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\FireBall.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\IceBlock.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\IceShard.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\LavaSpell.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\Leaf.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\Rain.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\Rock.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\Shockwave.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\Thorns.cpp" />
-    <ClCompile Include="GameObjects\SpellProjectiles\WindSlash.cpp" />
-    <ClCompile Include="GameObjects\TextBoxObject.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Portal.cpp" />
-    <ClCompile Include="SceneProcessing.cpp" />
-    <ClCompile Include="Spells\Fire.cpp" />
-    <ClCompile Include="Spells\Grass.cpp" />
-    <ClCompile Include="Spells\Ground.cpp" />
-    <ClCompile Include="Spells\Water.cpp" />
-    <ClCompile Include="Spells\Wind.cpp" />
-    <ClCompile Include="UIElements\UICheckpointIndicator.cpp" />
-    <ClCompile Include="UIElements\UIhealthbar.cpp" />
-    <ClCompile Include="UIElements\UIimage.cpp" />
-    <ClCompile Include="UIElements\UIingameUI.cpp" />
-    <ClCompile Include="UIElements\UImainmenu.cpp" />
-    <ClCompile Include="UIElements\UIPauseMenu.cpp" />
-    <ClCompile Include="UIElements\UISelectMenu.cpp" />
-    <ClCompile Include="UIElements\UISettingsMenu.cpp" />
-    <ClCompile Include="UIElements\UIspelldisplay.cpp" />
-    <ClCompile Include="UIElements\UItextbox.cpp" />
+    <ClCompile Include="pugiXML\src\pugixml.cpp" />
+    <ClCompile Include="src\GameObjects\CheckPoint.cpp" />
+    <ClCompile Include="src\GameObjects\DemoEndObject.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\ArmorTrap.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\ClingingCreature.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\CloudMelee.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\CloudSummoner.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\CloudSummonerProjectile.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\CoalJumper.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\FlyingAxe.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\FlyingElemental.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\FlyingShield.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\GroundedElemental.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\ShieldMonster.cpp" />
+    <ClCompile Include="src\GameObjects\FirstDialogue.cpp" />
+    <ClCompile Include="src\GameObjects\Hazards\CloudTrampoline.cpp" />
+    <ClCompile Include="src\GameObjects\Hazards\HazardLava.cpp" />
+    <ClCompile Include="src\GameObjects\Hazards\HazardLavaWaterfall.cpp" />
+    <ClCompile Include="src\GameObjects\Hazards\HazardSpikes.cpp" />
+    <ClCompile Include="src\GameObjects\Hazards\HazardsRockBlock.cpp" />
+    <ClCompile Include="src\GameObjects\Pickups\FireSpellPickup.cpp" />
+    <ClCompile Include="src\GameObjects\Pickups\GroundSpellPickup.cpp" />
+    <ClCompile Include="src\GameObjects\Pickups\MaxHealthPickup.cpp" />
+    <ClCompile Include="src\GameObjects\Pickups\MaxManaPickup.cpp" />
+    <ClCompile Include="src\GameObjects\Player.cpp" />
+    <ClCompile Include="src\GameObjects\Portal.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\Cloud.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\FireBall.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\IceBlock.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\IceShard.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\LavaSpell.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\Leaf.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\Rain.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\Rock.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\Shockwave.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\Thorns.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\WindSlash.cpp" />
+    <ClCompile Include="src\GameObjects\TextBoxObject.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\SceneProcessing.cpp" />
+    <ClCompile Include="src\Spells\Fire.cpp" />
+    <ClCompile Include="src\Spells\Grass.cpp" />
+    <ClCompile Include="src\Spells\Ground.cpp" />
+    <ClCompile Include="src\Spells\Water.cpp" />
+    <ClCompile Include="src\Spells\Wind.cpp" />
+    <ClCompile Include="src\UIElements\UICheckpointIndicator.cpp" />
+    <ClCompile Include="src\UIElements\UIhealthbar.cpp" />
+    <ClCompile Include="src\UIElements\UIimage.cpp" />
+    <ClCompile Include="src\UIElements\UIingameUI.cpp" />
+    <ClCompile Include="src\UIElements\UImainmenu.cpp" />
+    <ClCompile Include="src\UIElements\UIPauseMenu.cpp" />
+    <ClCompile Include="src\UIElements\UISelectMenu.cpp" />
+    <ClCompile Include="src\UIElements\UISettingsMenu.cpp" />
+    <ClCompile Include="src\UIElements\UIspelldisplay.cpp" />
+    <ClCompile Include="src\UIElements\UItextbox.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObjects\CheckPoint.h" />
-    <ClInclude Include="GameObjects\CloudSummonerProjectile.h" />
-    <ClInclude Include="GameObjects\CloudTrampoline.h" />
-    <ClInclude Include="GameObjects\DemoEndObject.h" />
-    <ClInclude Include="GameObjects\Enemies\ArmorTrap.h" />
-    <ClInclude Include="GameObjects\Enemies\ClingingCreature.h" />
-    <ClInclude Include="GameObjects\Enemies\CloudMelee.h" />
-    <ClInclude Include="GameObjects\Enemies\CloudSummoner.h" />
-    <ClInclude Include="GameObjects\Enemies\CoalJumper.h" />
-    <ClInclude Include="GameObjects\Enemies\FlyingAxe.h" />
-    <ClInclude Include="GameObjects\Enemies\FlyingElemental.h" />
-    <ClInclude Include="GameObjects\Enemies\FlyingShield.h" />
-    <ClInclude Include="GameObjects\Enemies\GroundedElemental.h" />
-    <ClInclude Include="GameObjects\Enemies\ShieldMonster.h" />
-    <ClInclude Include="GameObjects\FirstDialogue.h" />
-    <ClInclude Include="GameObjects\Hazards\HazardLava.h" />
-    <ClInclude Include="GameObjects\Hazards\HazardLavaWaterfall.h" />
-    <ClInclude Include="GameObjects\Hazards\HazardSpikes.h" />
-    <ClInclude Include="GameObjects\Hazards\HazardsRockBlock.h" />
-    <ClInclude Include="GameObjects\Pickups\FireSpellPickup.h" />
-    <ClInclude Include="GameObjects\Pickups\GroundSpellPickup.h" />
-    <ClInclude Include="GameObjects\Pickups\MaxHealthPickup.h" />
-    <ClInclude Include="GameObjects\Pickups\MaxManaPickup.h" />
-    <ClInclude Include="GameObjects\Player.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\Cloud.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\FireBall.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\IceBlock.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\IceShard.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\LavaSpell.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\Leaf.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\Rain.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\Rock.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\Shockwave.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\Thorns.h" />
-    <ClInclude Include="GameObjects\SpellProjectiles\WindSlash.h" />
-    <ClInclude Include="GameObjects\TextBoxObject.h" />
-    <ClInclude Include="Portal.h" />
-    <ClInclude Include="SceneProcessing.h" />
-    <ClInclude Include="Spells\Fire.h" />
-    <ClInclude Include="Spells\Grass.h" />
-    <ClInclude Include="Spells\Ground.h" />
-    <ClInclude Include="Spells\Spell.h" />
-    <ClInclude Include="Spells\Water.h" />
-    <ClInclude Include="Spells\Wind.h" />
-    <ClInclude Include="UIElements\UICheckpointIndicator.h" />
-    <ClInclude Include="UIElements\UIhealthbar.h" />
-    <ClInclude Include="UIElements\UIimage.h" />
-    <ClInclude Include="UIElements\UIingameUI.h" />
-    <ClInclude Include="UIElements\UImainmenu.h" />
-    <ClInclude Include="UIElements\UIPauseMenu.h" />
-    <ClInclude Include="UIElements\UISelectMenu.h" />
-    <ClInclude Include="UIElements\UISettingsMenu.h" />
-    <ClInclude Include="UIElements\UIspelldisplay.h" />
-    <ClInclude Include="UIElements\UItextbox.h" />
+    <ClInclude Include="pugiXML\src\pugiconfig.hpp" />
+    <ClInclude Include="pugiXML\src\pugixml.hpp" />
+    <ClInclude Include="src\GameObjects\CheckPoint.h" />
+    <ClInclude Include="src\GameObjects\DemoEndObject.h" />
+    <ClInclude Include="src\GameObjects\Enemies\ArmorTrap.h" />
+    <ClInclude Include="src\GameObjects\Enemies\ClingingCreature.h" />
+    <ClInclude Include="src\GameObjects\Enemies\CloudMelee.h" />
+    <ClInclude Include="src\GameObjects\Enemies\CloudSummoner.h" />
+    <ClInclude Include="src\GameObjects\Enemies\CloudSummonerProjectile.h" />
+    <ClInclude Include="src\GameObjects\Enemies\CoalJumper.h" />
+    <ClInclude Include="src\GameObjects\Enemies\FlyingAxe.h" />
+    <ClInclude Include="src\GameObjects\Enemies\FlyingElemental.h" />
+    <ClInclude Include="src\GameObjects\Enemies\FlyingShield.h" />
+    <ClInclude Include="src\GameObjects\Enemies\GroundedElemental.h" />
+    <ClInclude Include="src\GameObjects\Enemies\ShieldMonster.h" />
+    <ClInclude Include="src\GameObjects\FirstDialogue.h" />
+    <ClInclude Include="src\GameObjects\Hazards\CloudTrampoline.h" />
+    <ClInclude Include="src\GameObjects\Hazards\HazardLava.h" />
+    <ClInclude Include="src\GameObjects\Hazards\HazardLavaWaterfall.h" />
+    <ClInclude Include="src\GameObjects\Hazards\HazardSpikes.h" />
+    <ClInclude Include="src\GameObjects\Hazards\HazardsRockBlock.h" />
+    <ClInclude Include="src\GameObjects\Pickups\FireSpellPickup.h" />
+    <ClInclude Include="src\GameObjects\Pickups\GroundSpellPickup.h" />
+    <ClInclude Include="src\GameObjects\Pickups\MaxHealthPickup.h" />
+    <ClInclude Include="src\GameObjects\Pickups\MaxManaPickup.h" />
+    <ClInclude Include="src\GameObjects\Player.h" />
+    <ClInclude Include="src\GameObjects\Portal.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\Cloud.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\FireBall.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\IceBlock.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\IceShard.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\LavaSpell.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\Leaf.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\Rain.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\Rock.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\Shockwave.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\Thorns.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\WindSlash.h" />
+    <ClInclude Include="src\GameObjects\TextBoxObject.h" />
+    <ClInclude Include="src\SceneProcessing.h" />
+    <ClInclude Include="src\Spells\Fire.h" />
+    <ClInclude Include="src\Spells\Grass.h" />
+    <ClInclude Include="src\Spells\Ground.h" />
+    <ClInclude Include="src\Spells\Spell.h" />
+    <ClInclude Include="src\Spells\Water.h" />
+    <ClInclude Include="src\Spells\Wind.h" />
+    <ClInclude Include="src\UIElements\UICheckpointIndicator.h" />
+    <ClInclude Include="src\UIElements\UIhealthbar.h" />
+    <ClInclude Include="src\UIElements\UIimage.h" />
+    <ClInclude Include="src\UIElements\UIingameUI.h" />
+    <ClInclude Include="src\UIElements\UImainmenu.h" />
+    <ClInclude Include="src\UIElements\UIPauseMenu.h" />
+    <ClInclude Include="src\UIElements\UISelectMenu.h" />
+    <ClInclude Include="src\UIElements\UISettingsMenu.h" />
+    <ClInclude Include="src\UIElements\UIspelldisplay.h" />
+    <ClInclude Include="src\UIElements\UItextbox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

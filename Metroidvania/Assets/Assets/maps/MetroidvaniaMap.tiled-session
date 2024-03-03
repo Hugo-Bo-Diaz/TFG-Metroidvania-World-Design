@@ -3,15 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "map1_fire_pit.tmx",
+    "activeFile": "map0_entrance.tmx",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
-        ".",
         "tilesets",
-        "FireArea",
         "Castle",
         "FirePit",
-        "GroundArea"
+        "GroundArea",
+        ".",
+        "FireArea"
     ],
     "exportAsImage.useCurrentScale": false,
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -871,7 +871,7 @@
             "scale": 0.5,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 2101,
+                "x": 2135,
                 "y": 262
             }
         },
@@ -1721,25 +1721,24 @@
         "map1_fire_pit.tmx",
         "map0_entrance.tmx",
         "FireArea/map02_fire_entrance.tmx",
-        "FireArea/map03_fire_spell_location.tmx",
-        "GroundArea/map34_link_bottom.tmx",
-        "GroundArea/map30_ground_spell_location.tmx"
+        "FireArea/map04_first_health_pickup.tmx",
+        "FireArea/map06_first_fire_passage.tmx"
     ],
     "project": "MetroidvaniaMap.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "AssetStorage.tmx",
+        "map1_fire_pit.tmx",
+        "FireArea/map06_first_fire_passage.tmx",
+        "FireArea/map04_first_health_pickup.tmx",
+        "FireArea/map02_fire_entrance.tmx",
+        "map0_entrance.tmx",
         "GroundArea/map30_ground_spell_location.tmx",
         "GroundArea/map34_link_bottom.tmx",
         "FireArea/map03_fire_spell_location.tmx",
         "map39_link_ascent.tmx",
         "map22_item_location.tmx",
-        "map21_first_ground_blocks.tmx",
-        "map20_corridor.tmx",
-        "map18_first_spike_corridor.tmx",
-        "map19_first_spike_elevator.tmx",
-        "GroundArea/map36_item_tease.tmx",
-        "GroundArea/map35_lore_room.tmx",
-        "GroundArea/map33_link_top.tmx"
+        "map21_first_ground_blocks.tmx"
     ],
     "resizeMap.removeObjects": false,
     "tileset.embedInMap": true,
