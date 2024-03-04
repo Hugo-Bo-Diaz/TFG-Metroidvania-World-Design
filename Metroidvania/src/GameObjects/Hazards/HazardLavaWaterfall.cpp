@@ -7,12 +7,15 @@
 
 HazardLavaWaterfall::HazardLavaWaterfall()
 {
-	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
 	anim.AddFrame({ 0,96,48,48 });
 	anim.AddFrame({ 0,108,48,48 });
 	anim.AddFrame({ 0,120,48,48 });
 	anim.AddFrame({ 0,132,48,48 });
+}
 
+void HazardLavaWaterfall::Init()
+{
+	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
 }
 
 bool HazardLavaWaterfall::Loop(float dt)

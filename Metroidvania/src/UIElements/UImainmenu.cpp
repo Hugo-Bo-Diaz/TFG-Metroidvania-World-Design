@@ -11,6 +11,10 @@
 
 UIMainMenu::UIMainMenu()
 {
+}
+
+void UIMainMenu::Init()
+{
 	TexBase = Engine->GetModule<Textures>().Load_Texture("Assets/UI/mainmenu.png");
 	TexSelected = Engine->GetModule<Textures>().Load_Texture("Assets/UI/mainmenuselected.png");
 	TexDisabled = Engine->GetModule<Textures>().Load_Texture("Assets/UI/mainmenudisabled.png");

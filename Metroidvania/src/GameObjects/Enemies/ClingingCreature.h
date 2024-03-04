@@ -21,6 +21,7 @@ public:
 	ClingCreature(std::list<ObjectProperty*>&);
 	~ClingCreature();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 	void RenderDebug();

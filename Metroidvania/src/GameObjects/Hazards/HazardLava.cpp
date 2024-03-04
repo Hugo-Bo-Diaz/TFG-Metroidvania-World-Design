@@ -8,10 +8,14 @@
 
 HazardLava::HazardLava()
 {
-	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
 	lava = {0,48,48,48};
 	lava_top1 = {0,0,48,48};
 	lava_top2 = {48,0,48,48};
+}
+
+void HazardLava::Init()
+{
+	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
 }
 
 bool HazardLava::Loop(float dt)

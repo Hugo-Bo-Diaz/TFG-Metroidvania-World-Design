@@ -17826,3 +17826,257 @@ INFO - 03-03-2024 23:41:56 - 6496 - Loading texture from: Assets/maps/Background
 INFO - 03-03-2024 23:41:56 - 6496 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
 INFO - 03-03-2024 23:41:56 - 6496 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
 INFO - 03-03-2024 23:41:56 - 6496 - Loading texture from: Assets/UI/indicator.png
+INFO - 04-03-2024 07:09:17 - 38728 - Starting engine
+INFO - 04-03-2024 07:09:17 - 38728 - found config file,config.xmlloading the engine with config...
+INFO - 04-03-2024 07:09:17 - 38728 - Init SDL window & surface
+INFO - 04-03-2024 07:09:17 - 38728 - Create SDL rendering context
+INFO - 04-03-2024 07:09:17 - 38728 - Init Image library
+INFO - 04-03-2024 07:09:17 - 38728 - Initializing engine
+INFO - 04-03-2024 07:09:17 - 38728 - InitializingInput
+INFO - 04-03-2024 07:09:17 - 38728 - Init SDL input event system
+INFO - 04-03-2024 07:09:17 - 38728 - InitializingWindow
+INFO - 04-03-2024 07:09:17 - 38728 - InitializingObjectManager
+INFO - 04-03-2024 07:09:17 - 38728 - InitializingUserInterface
+INFO - 04-03-2024 07:09:17 - 38728 - InitializingSceneController
+INFO - 04-03-2024 07:09:17 - 38728 - InitializingCamera
+INFO - 04-03-2024 07:09:17 - 38728 - InitializingParticles
+INFO - 04-03-2024 07:09:17 - 38728 - InitializingAudio
+INFO - 04-03-2024 07:09:17 - 38728 - Initializing SDL audio
+INFO - 04-03-2024 07:09:18 - 38728 - InitializingRender
+INFO - 04-03-2024 07:09:18 - 38728 - InitializingTextures
+INFO - 04-03-2024 07:09:18 - 38728 - InitializingText
+INFO - 04-03-2024 07:09:18 - 38728 - InitializingProgressTracker
+INFO - 04-03-2024 07:09:18 - 38728 - InitializingDebug
+INFO - 04-03-2024 07:09:18 - 38728 - Clearing UI physics
+INFO - 04-03-2024 07:09:18 - 38728 - Clearing Particles
+INFO - 04-03-2024 07:09:18 - 38728 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 04-03-2024 07:09:18 - 38728 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 04-03-2024 07:09:18 - 38728 - Loading texture from: Assets/maps/objects.png
+INFO - 04-03-2024 07:09:18 - 38728 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 04-03-2024 07:09:18 - 38728 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 04-03-2024 07:09:18 - 38728 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 04-03-2024 07:09:18 - 38728 - Loading texture from: Assets/UI/indicator.png
+INFO - 04-03-2024 07:17:13 - 43784 - Starting engine
+INFO - 04-03-2024 07:17:13 - 43784 - found config file,config.xmlloading the engine with config...
+INFO - 04-03-2024 07:17:13 - 43784 - Init SDL window & surface
+INFO - 04-03-2024 07:17:13 - 43784 - Create SDL rendering context
+INFO - 04-03-2024 07:17:13 - 43784 - Init Image library
+INFO - 04-03-2024 07:17:13 - 43784 - Initializing engine
+INFO - 04-03-2024 07:17:13 - 43784 - InitializingInput
+INFO - 04-03-2024 07:17:13 - 43784 - Init SDL input event system
+INFO - 04-03-2024 07:17:13 - 43784 - InitializingWindow
+INFO - 04-03-2024 07:17:13 - 43784 - InitializingObjectManager
+INFO - 04-03-2024 07:17:13 - 43784 - InitializingUserInterface
+INFO - 04-03-2024 07:17:13 - 43784 - InitializingSceneController
+INFO - 04-03-2024 07:17:13 - 43784 - InitializingCamera
+INFO - 04-03-2024 07:17:13 - 43784 - InitializingParticles
+INFO - 04-03-2024 07:17:13 - 43784 - InitializingAudio
+INFO - 04-03-2024 07:17:13 - 43784 - Initializing SDL audio
+INFO - 04-03-2024 07:17:14 - 43784 - InitializingRender
+INFO - 04-03-2024 07:17:14 - 43784 - InitializingTextures
+INFO - 04-03-2024 07:17:14 - 43784 - InitializingText
+INFO - 04-03-2024 07:17:14 - 43784 - InitializingProgressTracker
+INFO - 04-03-2024 07:17:14 - 43784 - InitializingDebug
+INFO - 04-03-2024 07:17:14 - 43784 - Clearing UI physics
+INFO - 04-03-2024 07:17:14 - 43784 - Clearing Particles
+INFO - 04-03-2024 07:17:14 - 43784 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 04-03-2024 07:17:14 - 43784 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 04-03-2024 07:17:14 - 43784 - Loading texture from: Assets/maps/objects.png
+INFO - 04-03-2024 07:17:14 - 43784 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 04-03-2024 07:17:14 - 43784 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 04-03-2024 07:17:14 - 43784 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 04-03-2024 07:17:14 - 43784 - Loading texture from: Assets/UI/indicator.png
+INFO - 04-03-2024 07:18:36 - 9964 - Starting engine
+INFO - 04-03-2024 07:18:36 - 9964 - found config file,config.xmlloading the engine with config...
+INFO - 04-03-2024 07:18:36 - 9964 - Init SDL window & surface
+INFO - 04-03-2024 07:18:36 - 9964 - Create SDL rendering context
+INFO - 04-03-2024 07:18:36 - 9964 - Init Image library
+INFO - 04-03-2024 07:18:36 - 9964 - Initializing engine
+INFO - 04-03-2024 07:18:36 - 9964 - InitializingInput
+INFO - 04-03-2024 07:18:36 - 9964 - Init SDL input event system
+INFO - 04-03-2024 07:18:36 - 9964 - InitializingWindow
+INFO - 04-03-2024 07:18:36 - 9964 - InitializingObjectManager
+INFO - 04-03-2024 07:18:36 - 9964 - InitializingUserInterface
+INFO - 04-03-2024 07:18:36 - 9964 - InitializingSceneController
+INFO - 04-03-2024 07:18:36 - 9964 - InitializingCamera
+INFO - 04-03-2024 07:18:36 - 9964 - InitializingParticles
+INFO - 04-03-2024 07:18:36 - 9964 - InitializingAudio
+INFO - 04-03-2024 07:18:36 - 9964 - Initializing SDL audio
+INFO - 04-03-2024 07:18:37 - 9964 - InitializingRender
+INFO - 04-03-2024 07:18:37 - 9964 - InitializingTextures
+INFO - 04-03-2024 07:18:37 - 9964 - InitializingText
+INFO - 04-03-2024 07:18:37 - 9964 - InitializingProgressTracker
+INFO - 04-03-2024 07:18:37 - 9964 - InitializingDebug
+INFO - 04-03-2024 07:18:37 - 9964 - Clearing UI physics
+INFO - 04-03-2024 07:18:37 - 9964 - Clearing Particles
+INFO - 04-03-2024 07:18:37 - 9964 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 04-03-2024 07:18:37 - 9964 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 04-03-2024 07:18:37 - 9964 - Loading texture from: Assets/maps/objects.png
+INFO - 04-03-2024 07:18:37 - 9964 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 04-03-2024 07:18:37 - 9964 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 04-03-2024 07:18:37 - 9964 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 04-03-2024 07:18:37 - 9964 - Loading texture from: Assets/UI/indicator.png
+INFO - 04-03-2024 07:19:47 - 42116 - Starting engine
+INFO - 04-03-2024 07:19:47 - 42116 - found config file,config.xmlloading the engine with config...
+INFO - 04-03-2024 07:19:47 - 42116 - Init SDL window & surface
+INFO - 04-03-2024 07:19:47 - 42116 - Create SDL rendering context
+INFO - 04-03-2024 07:19:47 - 42116 - Init Image library
+INFO - 04-03-2024 07:19:47 - 42116 - Initializing engine
+INFO - 04-03-2024 07:19:47 - 42116 - InitializingInput
+INFO - 04-03-2024 07:19:47 - 42116 - Init SDL input event system
+INFO - 04-03-2024 07:19:47 - 42116 - InitializingWindow
+INFO - 04-03-2024 07:19:47 - 42116 - InitializingObjectManager
+INFO - 04-03-2024 07:19:47 - 42116 - InitializingUserInterface
+INFO - 04-03-2024 07:19:47 - 42116 - InitializingSceneController
+INFO - 04-03-2024 07:19:47 - 42116 - InitializingCamera
+INFO - 04-03-2024 07:19:47 - 42116 - InitializingParticles
+INFO - 04-03-2024 07:19:47 - 42116 - InitializingAudio
+INFO - 04-03-2024 07:19:47 - 42116 - Initializing SDL audio
+INFO - 04-03-2024 07:19:48 - 42116 - InitializingRender
+INFO - 04-03-2024 07:19:48 - 42116 - InitializingTextures
+INFO - 04-03-2024 07:19:48 - 42116 - InitializingText
+INFO - 04-03-2024 07:19:48 - 42116 - InitializingProgressTracker
+INFO - 04-03-2024 07:19:48 - 42116 - InitializingDebug
+INFO - 04-03-2024 07:19:48 - 42116 - Clearing UI physics
+INFO - 04-03-2024 07:19:48 - 42116 - Clearing Particles
+INFO - 04-03-2024 07:19:48 - 42116 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 04-03-2024 07:19:48 - 42116 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 04-03-2024 07:19:48 - 42116 - Loading texture from: Assets/maps/objects.png
+INFO - 04-03-2024 07:19:48 - 42116 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 04-03-2024 07:19:48 - 42116 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 04-03-2024 07:19:48 - 42116 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 04-03-2024 07:19:48 - 42116 - Loading texture from: Assets/UI/indicator.png
+INFO - 04-03-2024 07:19:48 - 42116 - Loading texture from: Assets/UI/healthandmana.png
+INFO - 04-03-2024 07:19:48 - 42116 - Loading texture from: Assets/UI/spell_location.png
+INFO - 04-03-2024 07:19:48 - 42116 - Loading texture from: Assets/UI/books.png
+INFO - 04-03-2024 07:20:50 - 20456 - Starting engine
+INFO - 04-03-2024 07:20:50 - 20456 - found config file,config.xmlloading the engine with config...
+INFO - 04-03-2024 07:20:50 - 20456 - Init SDL window & surface
+INFO - 04-03-2024 07:20:50 - 20456 - Create SDL rendering context
+INFO - 04-03-2024 07:20:50 - 20456 - Init Image library
+INFO - 04-03-2024 07:20:50 - 20456 - Initializing engine
+INFO - 04-03-2024 07:20:50 - 20456 - InitializingInput
+INFO - 04-03-2024 07:20:50 - 20456 - Init SDL input event system
+INFO - 04-03-2024 07:20:51 - 20456 - InitializingWindow
+INFO - 04-03-2024 07:20:51 - 20456 - InitializingObjectManager
+INFO - 04-03-2024 07:20:51 - 20456 - InitializingUserInterface
+INFO - 04-03-2024 07:20:51 - 20456 - InitializingSceneController
+INFO - 04-03-2024 07:20:51 - 20456 - InitializingCamera
+INFO - 04-03-2024 07:20:51 - 20456 - InitializingParticles
+INFO - 04-03-2024 07:20:51 - 20456 - InitializingAudio
+INFO - 04-03-2024 07:20:51 - 20456 - Initializing SDL audio
+INFO - 04-03-2024 07:20:52 - 20456 - InitializingRender
+INFO - 04-03-2024 07:20:52 - 20456 - InitializingTextures
+INFO - 04-03-2024 07:20:52 - 20456 - InitializingText
+INFO - 04-03-2024 07:20:52 - 20456 - InitializingProgressTracker
+INFO - 04-03-2024 07:20:52 - 20456 - InitializingDebug
+INFO - 04-03-2024 07:20:52 - 20456 - Clearing UI physics
+INFO - 04-03-2024 07:20:52 - 20456 - Clearing Particles
+INFO - 04-03-2024 07:20:52 - 20456 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/maps/objects.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/UI/indicator.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/UI/healthandmana.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/UI/spell_location.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/UI/books.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/Sprites/particles.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/Sprites/spells.png
+INFO - 04-03-2024 07:20:52 - 20456 - Loading texture from: Assets/Sprites/Player.png
+INFO - 04-03-2024 07:20:52 - 20456 - New camera follow target!
+INFO - 04-03-2024 08:02:55 - 32528 - Starting engine
+INFO - 04-03-2024 08:02:55 - 32528 - found config file,config.xmlloading the engine with config...
+INFO - 04-03-2024 08:02:55 - 32528 - Init SDL window & surface
+INFO - 04-03-2024 08:02:55 - 32528 - Create SDL rendering context
+INFO - 04-03-2024 08:02:55 - 32528 - Init Image library
+INFO - 04-03-2024 08:02:56 - 32528 - Initializing engine
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingInput
+INFO - 04-03-2024 08:02:56 - 32528 - Init SDL input event system
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingWindow
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingObjectManager
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingUserInterface
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingSceneController
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingCamera
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingParticles
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingAudio
+INFO - 04-03-2024 08:02:56 - 32528 - Initializing SDL audio
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingRender
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingTextures
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingText
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingProgressTracker
+INFO - 04-03-2024 08:02:56 - 32528 - InitializingDebug
+INFO - 04-03-2024 08:02:56 - 32528 - Clearing UI physics
+INFO - 04-03-2024 08:02:56 - 32528 - Clearing Particles
+INFO - 04-03-2024 08:02:56 - 32528 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/maps/objects.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/UI/indicator.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/UI/healthandmana.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/UI/spell_location.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/UI/books.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/Sprites/particles.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/Sprites/spells.png
+INFO - 04-03-2024 08:02:56 - 32528 - Loading texture from: Assets/Sprites/Player.png
+INFO - 04-03-2024 08:02:56 - 32528 - New camera follow target!
+INFO - 04-03-2024 08:04:08 - 32528 - Loading texture from: Assets/UI/textboxes.png
+INFO - 04-03-2024 08:04:58 - 36848 - Starting engine
+INFO - 04-03-2024 08:04:58 - 36848 - found config file,config.xmlloading the engine with config...
+INFO - 04-03-2024 08:04:58 - 36848 - Init SDL window & surface
+INFO - 04-03-2024 08:04:58 - 36848 - Create SDL rendering context
+INFO - 04-03-2024 08:04:59 - 36848 - Init Image library
+INFO - 04-03-2024 08:04:59 - 36848 - Initializing engine
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingInput
+INFO - 04-03-2024 08:04:59 - 36848 - Init SDL input event system
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingWindow
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingObjectManager
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingUserInterface
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingSceneController
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingCamera
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingParticles
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingAudio
+INFO - 04-03-2024 08:04:59 - 36848 - Initializing SDL audio
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingRender
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingTextures
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingText
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingProgressTracker
+INFO - 04-03-2024 08:04:59 - 36848 - InitializingDebug
+INFO - 04-03-2024 08:04:59 - 36848 - Clearing UI physics
+INFO - 04-03-2024 08:04:59 - 36848 - Clearing Particles
+INFO - 04-03-2024 08:04:59 - 36848 - Loading map from: Assets/maps/map0_entrance.tmx
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/maps/tilesets/tileset01.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/maps/objects.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/maps/Backgrounds/ground_back.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/maps/Backgrounds/ground_far.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/maps/Backgrounds/ground_front.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/UI/indicator.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/UI/healthandmana.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/UI/spell_location.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/UI/books.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/Sprites/particles.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/Sprites/spells.png
+INFO - 04-03-2024 08:04:59 - 36848 - Loading texture from: Assets/Sprites/Player.png
+INFO - 04-03-2024 08:04:59 - 36848 - New camera follow target!
+ERRO - 04-03-2024 08:05:04 - 36848 - EXITING: with errors (loop)
+INFO - 04-03-2024 08:05:04 - 36848 - Closing the engine
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upDebug
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upProgressTracker
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upText
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upTextures
+ERRO - 04-03-2024 08:05:04 - 36848 - Freeing textures and Image library
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upRender
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upAudio
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upParticles
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upCamera
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upSceneController
+INFO - 04-03-2024 08:05:04 - 36848 - Clearing UI physics
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upUserInterface
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upObjectManager
+INFO - 04-03-2024 08:05:04 - 36848 - Clearing UI physics
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upWindow
+INFO - 04-03-2024 08:05:04 - 36848 - Cleaning upInput
+ERRO - 04-03-2024 08:05:04 - 36848 - EXITING: no errors found

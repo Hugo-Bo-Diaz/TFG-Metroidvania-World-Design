@@ -11,6 +11,47 @@
 
 ShieldMonster::ShieldMonster()
 {
+	right.AddFrame({ 0,0,112,140 });
+	right.AddFrame({ 112,0,112,140 });
+	right.AddFrame({ 0,140,112,140 });
+	right.AddFrame({ 112,140,112,140 });
+
+	left.AddFrame({ 224,0,112,140 });
+	left.AddFrame({ 336,0,112,140 });
+	left.AddFrame({ 224,140,112,140 });
+	left.AddFrame({ 336,140,112,140 });
+
+	arm_left = {112,0,112,128};
+	arm_right = {0,0,112,128};
+
+	range.w = 300;
+	range.h = 50;
+
+	aggro.w = 400;
+	aggro.h = 144;
+
+	shield.w = 50;
+	shield.h = max_shield_height;
+
+	HitBox.w = 100;
+	HitBox.h = 50;
+}
+
+ShieldMonster::~ShieldMonster()
+{
+	//ADD PARTICLES
+	Engine->GetModule<Particles>().AddParticleEmitter(&shield_monster_death, collider->x, collider->y, 400);
+
+}
+
+void ShieldMonster::Init()
+{
+	nextpos = new SDL_Rect();
+	nextpos->x = collider->x;
+	nextpos->y = collider->y;
+	nextpos->w = collider->w;
+	nextpos->h = collider->h;
+
 	shield_monster = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/shield_monster.png");
 	shield_monster_arm = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/shield_monster_arm.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
@@ -80,46 +121,6 @@ ShieldMonster::ShieldMonster()
 	metal.texture_name = particles;
 
 
-	right.AddFrame({ 0,0,112,140 });
-	right.AddFrame({ 112,0,112,140 });
-	right.AddFrame({ 0,140,112,140 });
-	right.AddFrame({ 112,140,112,140 });
-
-	left.AddFrame({ 224,0,112,140 });
-	left.AddFrame({ 336,0,112,140 });
-	left.AddFrame({ 224,140,112,140 });
-	left.AddFrame({ 336,140,112,140 });
-
-	arm_left = {112,0,112,128};
-	arm_right = {0,0,112,128};
-
-	range.w = 300;
-	range.h = 50;
-
-	aggro.w = 400;
-	aggro.h = 144;
-
-	shield.w = 50;
-	shield.h = max_shield_height;
-
-	HitBox.w = 100;
-	HitBox.h = 50;
-}
-
-ShieldMonster::~ShieldMonster()
-{
-	//ADD PARTICLES
-	Engine->GetModule<Particles>().AddParticleEmitter(&shield_monster_death, collider->x, collider->y, 400);
-
-}
-
-void ShieldMonster::Init()
-{
-	nextpos = new SDL_Rect();
-	nextpos->x = collider->x;
-	nextpos->y = collider->y;
-	nextpos->w = collider->w;
-	nextpos->h = collider->h;
 }
 
 bool ShieldMonster::Loop(float dt)

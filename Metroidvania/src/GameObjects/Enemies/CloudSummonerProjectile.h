@@ -19,6 +19,7 @@ public:
 	float speed_x;
 	float speed_y;
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

@@ -6,6 +6,10 @@
 
 WindSlash::WindSlash()
 {
+	windslash.AddFrame({ 0,222,48,48 });
+	windslash.AddFrame({ 48,222,48,48 });
+	windslash.AddFrame({ 96,222,48,48 });
+	windslash.AddFrame({ 144,222,48,48 });
 }
 
 void WindSlash::Init()
@@ -13,10 +17,6 @@ void WindSlash::Init()
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
 
-	windslash.AddFrame({ 0,222,48,48 });
-	windslash.AddFrame({ 48,222,48,48 });
-	windslash.AddFrame({ 96,222,48,48 });
-	windslash.AddFrame({ 144,222,48,48 });
 
 	r5slash = { 0,12,12,12 };
 	windslash_part.area_in_texture.push_back(&r5slash);

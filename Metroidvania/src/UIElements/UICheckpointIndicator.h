@@ -18,6 +18,7 @@ public:
 	float text_x;
 	float text_y;
 
+	void Init();
 	void Loop();
 	void Render();
 

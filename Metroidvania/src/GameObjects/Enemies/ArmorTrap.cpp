@@ -9,6 +9,10 @@
 
 ArmorTrap::ArmorTrap()
 {
+}
+
+void ArmorTrap::Init()
+{
 	armortrap = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/armortrap.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 

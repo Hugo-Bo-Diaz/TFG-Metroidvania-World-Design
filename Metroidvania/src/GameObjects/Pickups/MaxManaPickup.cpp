@@ -9,6 +9,10 @@
 
 MaxManaPickup::MaxManaPickup()
 {
+}
+
+void MaxManaPickup::Init()
+{
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	items = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/items.png");
 

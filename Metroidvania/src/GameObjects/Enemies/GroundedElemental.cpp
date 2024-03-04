@@ -7,43 +7,6 @@
 
 GroundedElemental::GroundedElemental()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	groundelemental = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/groundelemental.png");
-
-	r14firegedeath = { 24,36,12,12 };
-	r15firegedeath = { 36,36,12,12 };
-	r16sandfirst = { 48,0,12,12 };
-	r17sandsecond = { 48,12,12,12 };
-
-	fire_ge_death.area_in_texture.push_back(&r14firegedeath);
-	fire_ge_death.area_in_texture.push_back(&r15firegedeath);
-	fire_ge_death.name = "fire grounded death";
-	fire_ge_death.minmax_x_offset = std::make_pair(0, 48);
-	fire_ge_death.minmax_y_offset = std::make_pair(0, 48);
-	fire_ge_death.minmax_speed_x = std::make_pair(-0.6, 0.6);
-	fire_ge_death.minmax_speed_y = std::make_pair(-2, -3);
-	fire_ge_death.minmax_scale = std::make_pair(1, 1.5);
-	fire_ge_death.minmax_angle = std::make_pair(0, 360);
-	fire_ge_death.minmax_lifespan = std::make_pair(200, 500);
-	fire_ge_death.minmax_frequency = std::make_pair(10, 20);
-	fire_ge_death.minmax_acc_y = std::make_pair(0.1, 0.3);
-	fire_ge_death.texture_name = particles;
-
-
-	stone_death.area_in_texture.push_back(&r16sandfirst);
-	stone_death.area_in_texture.push_back(&r17sandsecond);
-	stone_death.name = "stone_monster_death";
-	stone_death.minmax_x_offset = std::make_pair(0, 48);
-	stone_death.minmax_y_offset = std::make_pair(0, 48);
-	stone_death.minmax_speed_x = std::make_pair(-0.6, 0.6);
-	stone_death.minmax_speed_y = std::make_pair(-2, -3);
-	stone_death.minmax_scale = std::make_pair(1, 1.5);
-	stone_death.minmax_angle = std::make_pair(0, 360);
-	stone_death.minmax_lifespan = std::make_pair(200, 500);
-	stone_death.minmax_frequency = std::make_pair(7, 15);
-	stone_death.minmax_acc_y = std::make_pair(0.1, 0.3);
-	stone_death.texture_name = particles;
-
 }
 
 GroundedElemental::GroundedElemental(std::list<ObjectProperty*>& aProperties)
@@ -74,6 +37,45 @@ GroundedElemental::~GroundedElemental()
 		break;
 	}
 
+}
+
+void GroundedElemental::Init()
+{
+	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	groundelemental = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/groundelemental.png");
+
+	r14firegedeath = { 24,36,12,12 };
+	r15firegedeath = { 36,36,12,12 };
+	r16sandfirst = { 48,0,12,12 };
+	r17sandsecond = { 48,12,12,12 };
+
+	fire_ge_death.area_in_texture.push_back(&r14firegedeath);
+	fire_ge_death.area_in_texture.push_back(&r15firegedeath);
+	fire_ge_death.name = "fire grounded death";
+	fire_ge_death.minmax_x_offset = std::make_pair(0, 48);
+	fire_ge_death.minmax_y_offset = std::make_pair(0, 48);
+	fire_ge_death.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	fire_ge_death.minmax_speed_y = std::make_pair(-2, -3);
+	fire_ge_death.minmax_scale = std::make_pair(1, 1.5);
+	fire_ge_death.minmax_angle = std::make_pair(0, 360);
+	fire_ge_death.minmax_lifespan = std::make_pair(200, 500);
+	fire_ge_death.minmax_frequency = std::make_pair(10, 20);
+	fire_ge_death.minmax_acc_y = std::make_pair(0.1, 0.3);
+	fire_ge_death.texture_name = particles;
+
+	stone_death.area_in_texture.push_back(&r16sandfirst);
+	stone_death.area_in_texture.push_back(&r17sandsecond);
+	stone_death.name = "stone_monster_death";
+	stone_death.minmax_x_offset = std::make_pair(0, 48);
+	stone_death.minmax_y_offset = std::make_pair(0, 48);
+	stone_death.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	stone_death.minmax_speed_y = std::make_pair(-2, -3);
+	stone_death.minmax_scale = std::make_pair(1, 1.5);
+	stone_death.minmax_angle = std::make_pair(0, 360);
+	stone_death.minmax_lifespan = std::make_pair(200, 500);
+	stone_death.minmax_frequency = std::make_pair(7, 15);
+	stone_death.minmax_acc_y = std::make_pair(0.1, 0.3);
+	stone_death.texture_name = particles;
 }
 
 bool GroundedElemental::Loop(float dt)

@@ -5,6 +5,29 @@
 
 ClingCreature::ClingCreature()
 {
+}
+
+ClingCreature::ClingCreature(std::list<ObjectProperty*>& aProperties)
+{
+	new (this) ClingCreature;
+
+	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
+	{
+		if ((*it)->name.compare("direction") == 0)
+		{
+			curr_dir = (ClingCreatureDirection)(int)(*it)->num_value;
+		}
+	}
+
+}
+
+ClingCreature::~ClingCreature()
+{
+	Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider->x, collider->y, 200);
+}
+
+void ClingCreature::Init()
+{
 	cling_enemy = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cling_enemy.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 
@@ -50,25 +73,6 @@ ClingCreature::ClingCreature()
 	animation.AddFrame({ 192,0,48,48 });
 }
 
-ClingCreature::ClingCreature(std::list<ObjectProperty*>& aProperties)
-{
-	new (this) ClingCreature;
-
-	for (std::list<ObjectProperty*>::iterator it = aProperties.begin(); it != aProperties.end(); ++it)
-	{
-		if ((*it)->name.compare("direction") == 0)
-		{
-			curr_dir = (ClingCreatureDirection)(int)(*it)->num_value;
-		}
-	}
-
-}
-
-ClingCreature::~ClingCreature()
-{
-	Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider->x, collider->y, 200);
-}
-
 bool ClingCreature::Loop(float dt)
 {
 
@@ -76,9 +80,6 @@ bool ClingCreature::Loop(float dt)
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x, collider->y, 50, colliders);
 
 	bool thereisfloor = false;
-
-
-
 
 	switch (curr_dir)
 	{

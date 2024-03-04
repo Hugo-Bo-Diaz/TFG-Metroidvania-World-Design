@@ -14,6 +14,7 @@ public:
 	MaxManaPickup(std::list<ObjectProperty*>& aProperties);
 	~MaxManaPickup();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

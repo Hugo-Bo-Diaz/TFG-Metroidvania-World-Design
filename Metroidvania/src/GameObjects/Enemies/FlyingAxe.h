@@ -22,6 +22,7 @@ public:
 	FlyingAxe(float initial_y);
 	~FlyingAxe();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

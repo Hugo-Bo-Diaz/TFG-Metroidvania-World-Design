@@ -20,6 +20,7 @@ public:
 	GroundedElemental(std::list<ObjectProperty*>& aProperties);
 	~GroundedElemental();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

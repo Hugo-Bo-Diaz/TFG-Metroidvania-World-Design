@@ -12,6 +12,7 @@ public:
 	CloudTrampoline();
 	CloudTrampoline(std::list<ObjectProperty*>& aList) { new (this) CloudTrampoline; };
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

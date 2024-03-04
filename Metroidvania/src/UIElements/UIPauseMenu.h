@@ -29,6 +29,7 @@ public:
 	float last_joy_y = 0;
 	bool stop_inputs = false;
 
+	void Init();
 	void Loop();
 	void Render();
 

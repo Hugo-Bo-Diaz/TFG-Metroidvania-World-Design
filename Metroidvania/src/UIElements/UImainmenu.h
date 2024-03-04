@@ -32,6 +32,7 @@ public:
 
 	MainMenuOption current_option;
 
+	void Init();
 	void Loop();
 	void Render();
 

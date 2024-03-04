@@ -15,7 +15,8 @@ public:
 	Leaf(std::list<ObjectProperty*>& aList) { new (this) Leaf; };
 
 	void Fire(bool left_dir, float angle);
-
+	
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

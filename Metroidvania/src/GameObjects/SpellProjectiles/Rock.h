@@ -15,6 +15,7 @@ public:
 	~Rock();
 	void Fire(bool left_dir, float angle, float speed, float gravity);
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

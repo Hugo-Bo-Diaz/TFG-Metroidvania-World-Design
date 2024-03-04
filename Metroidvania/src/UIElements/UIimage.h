@@ -12,9 +12,11 @@ public:
 
 	UIimage(float x, float y, float w, float h, float depth, const char* texture);
 
+	void Init();
 	void Loop();
 	void Render();
 
+	std::string mPath;
 	TextureID Tex;
 };
 

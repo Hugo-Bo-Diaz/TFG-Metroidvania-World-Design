@@ -23,6 +23,7 @@ public:
 
 	SelectMenuScreen current_option = SELECT_MENU_LORE;
 
+	void Init();
 	void Loop();
 	void Render();
 

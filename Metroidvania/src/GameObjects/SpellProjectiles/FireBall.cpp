@@ -16,9 +16,6 @@
 
 FireBall::FireBall()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
-
 	fireball_big.AddFrame({0,0,64,64});
 	fireball_small.AddFrame({96,0,32,32});
 
@@ -36,6 +33,11 @@ FireBall::FireBall()
 	explosion.texture_name = particles;
 }
 
+void FireBall::Init()
+{
+	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+}
 void FireBall::Destroy()
 {
 	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider->x, collider->y, 300);

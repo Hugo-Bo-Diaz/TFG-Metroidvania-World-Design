@@ -7,9 +7,13 @@
 Cloud::Cloud()
 {
 	SDL_Rect wall = { collider->x,collider->y,collider->w,collider->h };
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
 
 	blitrect = {96,96,64,32};
+}
+
+void Cloud::Init()
+{
+	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
 }
 
 bool Cloud::Loop(float dt)

@@ -19,6 +19,24 @@ CoalJumper::CoalJumper()
 	//6 {320,0,64,64}
 	//7 {384,0,64,64}
 
+
+	//srand(time(NULL));
+	idle_time += rand() % max_variation + 1;
+}
+
+CoalJumper::~CoalJumper()
+{
+	Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider->x, collider->y, 600);
+}
+
+void CoalJumper::Init()
+{
+	nextpos = new SDL_Rect();
+	nextpos->x = collider->x;
+	nextpos->y = collider->y;
+	nextpos->w = collider->w;
+	nextpos->h = collider->h;
+
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	coaljumper = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/coaljumper.png");
 
@@ -77,23 +95,6 @@ CoalJumper::CoalJumper()
 	smoke.minmax_lifespan = std::make_pair(300, 400);
 	smoke.minmax_frequency = std::make_pair(5, 20);
 	smoke.texture_name = particles;
-
-	//srand(time(NULL));
-	idle_time += rand() % max_variation + 1;
-}
-
-CoalJumper::~CoalJumper()
-{
-	Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider->x, collider->y, 600);
-}
-
-void CoalJumper::Init()
-{
-	nextpos = new SDL_Rect();
-	nextpos->x = collider->x;
-	nextpos->y = collider->y;
-	nextpos->w = collider->w;
-	nextpos->h = collider->h;
 }
 
 bool CoalJumper::Loop(float dt)

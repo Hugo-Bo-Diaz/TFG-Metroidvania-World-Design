@@ -8,8 +8,12 @@
 
 HazardSpikes::HazardSpikes()
 {
-	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
 	spikes = { 96,48,48,48 };
+}
+
+void HazardSpikes::Init()
+{
+	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
 }
 
 bool HazardSpikes::Loop(float dt)

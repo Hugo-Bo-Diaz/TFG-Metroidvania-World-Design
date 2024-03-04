@@ -10,7 +10,6 @@
 
 HazardRockBlock::HazardRockBlock()
 {
-	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
 
 	rockblock = { 48,48,48,48 };
 }
@@ -24,8 +23,7 @@ void HazardRockBlock::Init()
 {
 	//wall_id = Engine->GetModule<ObjectManager>().AddWall(SDL_Rect{ collider->x + 1,collider->y + 1,46,46 });
 
-
-	
+	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
 	//wall_id = Engine->GetModule<ObjectManager>().AddWall(*collider);
 }
 

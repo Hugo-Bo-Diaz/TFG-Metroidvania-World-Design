@@ -37,6 +37,7 @@ public:
 
 	SDL_Rect screenspace;
 
+	virtual void Init();
 	virtual void Loop();
 	virtual void Render();
 	virtual void RenderDebug() {};

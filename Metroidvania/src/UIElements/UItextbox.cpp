@@ -40,14 +40,7 @@ UItextbox::UItextbox(const char * _author,const char* first_text, TextBoxColor c
 	text_size = size;
 
 	SDL_Color Black = { 1,1,1,1 };
-
-	//mFont = App->txt->LoadFont("Assets/Fonts/font1.xml", SDL_Color{0,0,0,255},25);
-	mFont = Engine->GetModule<Text>().LoadFont("Assets/Fonts/Bebas-Regular.ttf", SDL_Color{0,0,0,255},25);
-
 	AddPanelToTextBox(first_text);
-
-	TexTextBox = Engine->GetModule<Textures>().Load_Texture("Assets/UI/textboxes.png");
-	Engine->GetModule<ObjectManager>().PauseObjects();
 }
 
 void UItextbox::AddPanelToTextBox(const char * text)
@@ -58,6 +51,15 @@ void UItextbox::AddPanelToTextBox(const char * text)
 UItextbox::~UItextbox()
 {
 	Engine->GetModule<ObjectManager>().UnPauseObjects();
+}
+
+void UItextbox::Init()
+{
+	//mFont = App->txt->LoadFont("Assets/Fonts/font1.xml", SDL_Color{0,0,0,255},25);
+	mFont = Engine->GetModule<Text>().LoadFont("Assets/Fonts/Bebas-Regular.ttf", SDL_Color{ 0,0,0,255 }, 25);
+
+	TexTextBox = Engine->GetModule<Textures>().Load_Texture("Assets/UI/textboxes.png");
+	Engine->GetModule<ObjectManager>().PauseObjects();
 }
 
 void UItextbox::Loop()

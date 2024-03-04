@@ -24,6 +24,10 @@ UIhealthbar::UIhealthbar(playerresource resource)
 		bar.y += size_in_image;
 	}
 
+}
+
+void UIhealthbar::Init()
+{
 	TextureHB = Engine->GetModule<Textures>().Load_Texture("Assets/UI/healthandmana.png");
 }
 

@@ -16,6 +16,7 @@ public:
 	GroundSpellPickup(std::list<ObjectProperty*>& aList) { new (this) GroundSpellPickup; };
 	~GroundSpellPickup();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

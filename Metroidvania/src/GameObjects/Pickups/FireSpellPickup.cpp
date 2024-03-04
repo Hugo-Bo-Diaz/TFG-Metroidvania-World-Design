@@ -9,6 +9,17 @@
 
 FireSpellPickup::FireSpellPickup()
 {
+
+}
+
+FireSpellPickup::~FireSpellPickup()
+{
+	//Engine->GetModule<Particles>().to_delete.push_back(p);
+	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
+}
+
+void FireSpellPickup::Init()
+{
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spell_books = Engine->GetModule<Textures>().Load_Texture("Assets/UI/books.png");
 
@@ -41,12 +52,6 @@ FireSpellPickup::FireSpellPickup()
 	fireshield.texture_name = particles;
 
 	p = Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider->x, collider->y);
-}
-
-FireSpellPickup::~FireSpellPickup()
-{
-	//Engine->GetModule<Particles>().to_delete.push_back(p);
-	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
 }
 
 bool FireSpellPickup::Loop(float dt)

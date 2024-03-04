@@ -1,4 +1,14 @@
 #include "EngineElements/UIelement.h"
+#include "EngineAPI.h"
+
+void UIelement::Init()
+{
+	for (std::list<UIelement*>::iterator it = children.begin(); it != children.end(); it++)
+	{
+		(*it)->Engine = new EngineAPI(*Engine);
+		(*it)->Init();
+	}
+}
 
 void UIelement::Loop()
 {

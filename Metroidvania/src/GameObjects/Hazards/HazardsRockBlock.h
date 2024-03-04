@@ -12,9 +12,9 @@ public:
 	HazardRockBlock();
 	HazardRockBlock(std::list<ObjectProperty*>& aList) { new (this) HazardRockBlock; };
 	~HazardRockBlock();
-	void Init();
 	int wall_id;
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

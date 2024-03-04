@@ -25,6 +25,10 @@ UIspelldisplay::UIspelldisplay()
 	right_cover = {270,0,64,82};
 	square = { 134,0,68,82 };
 
+}
+
+void UIspelldisplay::Init()
+{
 	lTexture = Engine->GetModule<Textures>().Load_Texture("Assets/UI/spell_location.png");
 	lBooksTex = Engine->GetModule<Textures>().Load_Texture("Assets/UI/books.png"); 
 }

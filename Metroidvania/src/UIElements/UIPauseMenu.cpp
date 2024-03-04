@@ -19,12 +19,15 @@ UIPauseMenu::UIPauseMenu()
 	settings_rect = {0,72,362,72};
 	exit_rect = {0,144,362,72};
 	
+}
+
+void UIPauseMenu::Init()
+{
 	Engine->GetModule<ObjectManager>().PauseObjects();
 
 	TexMenuBase = Engine->GetModule<Textures>().Load_Texture("Assets/UI/pause_menu_base.png");
 	TexMenuOptions = Engine->GetModule<Textures>().Load_Texture("Assets/UI/pause_menu_options.png");
 }
-
 
 UIPauseMenu::~UIPauseMenu()
 {

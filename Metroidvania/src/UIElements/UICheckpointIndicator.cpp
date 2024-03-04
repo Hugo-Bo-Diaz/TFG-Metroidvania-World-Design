@@ -27,9 +27,12 @@ UIcheckpointIndicator::UIcheckpointIndicator()
 	//text_y = App->win->height / 2 + text->font_used->vsize / 2;
 	text_y = h / 2 + textheight/ 2;
 
-	Texture = Engine->GetModule<Textures>().Load_Texture("Assets/UI/black_square_alpha.png");
 }
 
+void UIcheckpointIndicator::Init()
+{
+	Texture = Engine->GetModule<Textures>().Load_Texture("Assets/UI/black_square_alpha.png");
+}
 
 void UIcheckpointIndicator::Loop()
 {

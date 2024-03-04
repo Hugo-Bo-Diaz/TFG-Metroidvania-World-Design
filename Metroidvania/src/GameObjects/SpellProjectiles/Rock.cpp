@@ -19,6 +19,15 @@
 
 Rock::Rock()
 {
+}
+
+Rock::~Rock()
+{
+	Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
+}
+
+void Rock::Init()
+{
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
 
@@ -53,11 +62,6 @@ Rock::Rock()
 	groundcontact.texture_name = particles;
 
 	rock_sprite.AddFrame({ 96,160,32,32 });
-}
-
-Rock::~Rock()
-{
-	Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
 }
 
 bool Rock::Loop(float dt)

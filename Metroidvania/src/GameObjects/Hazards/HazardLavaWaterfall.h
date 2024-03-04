@@ -10,6 +10,8 @@ class HazardLavaWaterfall : public GameObject
 public:
 	HazardLavaWaterfall();
 	HazardLavaWaterfall(std::list<ObjectProperty*>& aList) { new (this) HazardLavaWaterfall; };
+
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

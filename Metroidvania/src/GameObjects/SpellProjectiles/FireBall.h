@@ -17,6 +17,7 @@ public:
 
 	void Fire(bool left_dir, bool is_big);
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

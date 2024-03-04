@@ -9,29 +9,7 @@
 
 MaxHealthPickup::MaxHealthPickup()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	items = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/items.png");
 
-	maxhealthplus = {0,0,48,48};
-
-	r13magic = { 0,36,12,12 };
-	magic.area_in_texture.push_back(&r13magic);
-	magic.name = "magic";
-	magic.minmax_x_offset = std::make_pair(-5, 53);
-	magic.minmax_y_offset = std::make_pair(24, 55);
-	magic.minmax_speed_y = std::make_pair(-0.3, -0.5);
-	magic.minmax_scale = std::make_pair(0.5, 1);
-	magic.minmax_angle_speed = std::make_pair(5, 15);
-	magic.minmax_angle = std::make_pair(0, 360);
-	magic.minmax_lifespan = std::make_pair(300, 400);
-	magic.minmax_frequency = std::make_pair(20, 40);
-	magic.texture_name = particles;
-
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&magic, 0, 0);
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups") == nullptr)
-	{
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("pickups");
-	}
 }
 
 MaxHealthPickup::MaxHealthPickup(std::list<ObjectProperty*>& aProperties)
@@ -60,6 +38,33 @@ MaxHealthPickup::~MaxHealthPickup()
 	//Engine->GetModule<Particles>().to_delete.push_back(p);
 	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
 	//GameObject::~GameObject();
+}
+
+void MaxHealthPickup::Init()
+{
+	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	items = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/items.png");
+
+	maxhealthplus = { 0,0,48,48 };
+
+	r13magic = { 0,36,12,12 };
+	magic.area_in_texture.push_back(&r13magic);
+	magic.name = "magic";
+	magic.minmax_x_offset = std::make_pair(-5, 53);
+	magic.minmax_y_offset = std::make_pair(24, 55);
+	magic.minmax_speed_y = std::make_pair(-0.3, -0.5);
+	magic.minmax_scale = std::make_pair(0.5, 1);
+	magic.minmax_angle_speed = std::make_pair(5, 15);
+	magic.minmax_angle = std::make_pair(0, 360);
+	magic.minmax_lifespan = std::make_pair(300, 400);
+	magic.minmax_frequency = std::make_pair(20, 40);
+	magic.texture_name = particles;
+
+	p = Engine->GetModule<Particles>().AddParticleEmitter(&magic, 0, 0);
+	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups") == nullptr)
+	{
+		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("pickups");
+	}
 }
 
 bool MaxHealthPickup::Loop(float dt)

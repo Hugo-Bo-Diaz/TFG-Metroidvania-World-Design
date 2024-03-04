@@ -16,6 +16,7 @@ public:
 
 	void Fire(bool left_dir);
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

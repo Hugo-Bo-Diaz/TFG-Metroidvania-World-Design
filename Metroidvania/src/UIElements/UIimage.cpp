@@ -16,7 +16,13 @@ UIimage::UIimage(float _x, float _y, float _w, float _h, float _depth, const cha
 
 	depth = _depth;
 
-	Tex = Engine->GetModule<Textures>().Load_Texture(texture);
+	mPath = texture;
+}
+
+void UIimage::Init()
+{
+
+	Tex = Engine->GetModule<Textures>().Load_Texture(mPath.c_str());
 }
 
 void UIimage::Loop()

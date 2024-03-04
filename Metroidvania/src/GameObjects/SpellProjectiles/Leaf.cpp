@@ -6,6 +6,10 @@
 
 Leaf::Leaf()
 {
+}
+
+void Leaf::Init()
+{
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
 
@@ -27,6 +31,7 @@ Leaf::Leaf()
 	leaf_right.AddFrame({ 96,64,64,32 });
 	leaf_left.AddFrame({ 96,32,64,32 });//48 16
 	p = Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider->x, collider->y);
+
 }
 
 bool Leaf::Loop(float dt)

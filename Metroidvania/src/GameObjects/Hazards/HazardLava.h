@@ -12,6 +12,7 @@ public:
 	HazardLava();
 	HazardLava(std::list<ObjectProperty*>& aList) { new (this) HazardLava; };
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

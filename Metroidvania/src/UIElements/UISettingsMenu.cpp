@@ -20,10 +20,13 @@ UISettingsMenu::UISettingsMenu()
 	blue_big_rect = {0,52,224,64};
 	blue_small_rect = {0,116,224,34};
 
+}
+
+void UISettingsMenu::Init()
+{
 	lTextureBase = Engine->GetModule<Textures>().Load_Texture("Assets/UI/settings_menu_base.png");
 	lTextureOptions = Engine->GetModule<Textures>().Load_Texture("Assets/UI/settings_menu_options.png");
 }
-
 
 UISettingsMenu::~UISettingsMenu()
 {

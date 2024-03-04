@@ -13,7 +13,8 @@ public:
 
 	Cloud();
 	Cloud(std::list<ObjectProperty*>& aList) { new (this) Cloud; };
-
+	
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

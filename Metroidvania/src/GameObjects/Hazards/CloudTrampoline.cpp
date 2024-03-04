@@ -7,11 +7,14 @@
 
 CloudTrampoline::CloudTrampoline()
 {
-	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
-
 	cloudLeft = { 48,96,48,48 };
 	cloudLoop = { 96,96,48,48 };
 	cloudRight = { 144,96,48,48 };
+}
+
+void CloudTrampoline::Init()
+{
+	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
 }
 
 bool CloudTrampoline::Loop(float dt)

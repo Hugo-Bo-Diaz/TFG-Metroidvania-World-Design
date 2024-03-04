@@ -6,6 +6,23 @@
 
 FlyingAxe::FlyingAxe()
 {
+
+}
+
+FlyingAxe::FlyingAxe(float _initial_y)
+{
+	initial_y = _initial_y;
+}
+
+
+FlyingAxe::~FlyingAxe()
+{
+	Engine->GetModule<Particles>().AddParticleEmitter(&metal, collider->x, collider->y, 300);
+}
+
+
+void FlyingAxe::Init()
+{
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	floating_axe = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/floating_axe.png");
 
@@ -26,14 +43,14 @@ FlyingAxe::FlyingAxe()
 	metal.minmax_frequency = std::make_pair(8, 15);
 	metal.texture_name = particles;
 
-	facing_right = {0,0,64,64};
+	facing_right = { 0,0,64,64 };
 
 	rotate_right.AddFrame({ 0,0,64,64 });
 	rotate_right.AddFrame({ 64,0,64,64 });
 	rotate_right.AddFrame({ 128,0,64,64 });
 	rotate_right.AddFrame({ 192,0,64,64 });
 
-	facing_left = {0,64,64,64};
+	facing_left = { 0,64,64,64 };
 
 	rotate_left.AddFrame({ 0,64,64,64 });
 	rotate_left.AddFrame({ 64,64,64,64 });
@@ -41,19 +58,6 @@ FlyingAxe::FlyingAxe()
 	rotate_left.AddFrame({ 192,64,64,64 });
 
 }
-
-FlyingAxe::FlyingAxe(float _initial_y)
-{
-	initial_y = _initial_y;
-}
-
-
-FlyingAxe::~FlyingAxe()
-{
-	Engine->GetModule<Particles>().AddParticleEmitter(&metal, collider->x, collider->y, 300);
-}
-
-
 
 bool FlyingAxe::Loop(float dt)
 {

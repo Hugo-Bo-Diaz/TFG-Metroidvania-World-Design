@@ -24,14 +24,17 @@ UISelectMenu::UISelectMenu()
 
 	//selectquad = {0,0,206,28 };
 
+
+}
+
+void UISelectMenu::Init()
+{
 	Engine->GetModule<ObjectManager>().PauseObjects();
 
 	selectMenuBack = Engine->GetModule<Textures>().Load_Texture("Assets/UI/selectmenubackground.png");
 	selectLogBook = Engine->GetModule<Textures>().Load_Texture("Assets/UI/selectmenulogbook.png");
 	selectOptions = Engine->GetModule<Textures>().Load_Texture("Assets/UI/selectmenuoptions.png");
-
 }
-
 
 UISelectMenu::~UISelectMenu()
 {

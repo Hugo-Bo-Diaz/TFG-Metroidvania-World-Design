@@ -17,6 +17,7 @@ bool UserInterface::Loop(float dt)
 	//delete elements
 	for (std::vector<UIelement*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
 	{
+		delete(*it)->Engine;
 		delete (*it);
 		elements.erase(std::find(elements.begin(), elements.end(), *it));
 	}
@@ -49,6 +50,7 @@ bool UserInterface::CleanUp()
 {
 	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
 	{
+		delete(*it)->Engine;
 		delete (*it);
 	}
 
@@ -62,7 +64,8 @@ void UserInterface::Clearelements()
 	Logger::Console_log(LogLevel::LOG_INFO, "Clearing UI elements");
 	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
 	{
-				delete (*it);
+		delete(*it)->Engine;
+		delete (*it);
 	}
 	to_delete.clear();
 	elements.clear();
@@ -100,6 +103,8 @@ bool UserInterface::AddElement(UIelement* uiElement)
 	if (uiElement == nullptr)
 		return false;
 
+	uiElement->Engine = new EngineAPI(mApp);
+	uiElement->Init();
 	elements.push_back(uiElement);
 	return true;
 }

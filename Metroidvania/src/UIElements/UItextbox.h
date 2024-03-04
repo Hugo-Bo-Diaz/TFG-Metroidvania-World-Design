@@ -36,6 +36,7 @@ public:
 
 	~UItextbox();
 
+	void Init();
 	void Loop();
 	void Render();
 

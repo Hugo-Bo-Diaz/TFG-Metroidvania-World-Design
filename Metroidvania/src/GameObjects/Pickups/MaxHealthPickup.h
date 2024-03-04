@@ -14,6 +14,7 @@ public:
 	MaxHealthPickup(std::list<ObjectProperty*>& aList);
 	~MaxHealthPickup();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

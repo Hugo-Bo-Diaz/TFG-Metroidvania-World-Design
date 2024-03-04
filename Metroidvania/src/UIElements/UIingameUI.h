@@ -12,6 +12,7 @@ public:
 
 	UIingameui(Player* player);
 
+	void Init();
 	void Loop();
 	void Render();
 

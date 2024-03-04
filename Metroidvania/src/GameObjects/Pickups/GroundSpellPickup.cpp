@@ -9,6 +9,19 @@
 #include "../../UIelementFunctions.h"
 GroundSpellPickup::GroundSpellPickup()
 {
+
+}
+
+GroundSpellPickup::~GroundSpellPickup()
+{
+	//Engine->GetModule<Particles>().to_delete.push_back(p);
+	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
+	Engine->GetModule<Particles>().RemoveParticleEmitter(q);
+
+}
+
+void GroundSpellPickup::Init()
+{
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spell_books = Engine->GetModule<Textures>().Load_Texture("Assets/UI/books.png");
 
@@ -56,14 +69,6 @@ GroundSpellPickup::GroundSpellPickup()
 	{
 		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("LoreLogs");
 	}
-}
-
-GroundSpellPickup::~GroundSpellPickup()
-{
-	//Engine->GetModule<Particles>().to_delete.push_back(p);
-	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
-	Engine->GetModule<Particles>().RemoveParticleEmitter(q);
-
 }
 
 bool GroundSpellPickup::Loop(float dt)

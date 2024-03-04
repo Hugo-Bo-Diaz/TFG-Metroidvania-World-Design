@@ -16,6 +16,7 @@ public:
 	FireSpellPickup(std::list<ObjectProperty*>& aList) { new (this) FireSpellPickup; };
 	~FireSpellPickup();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 

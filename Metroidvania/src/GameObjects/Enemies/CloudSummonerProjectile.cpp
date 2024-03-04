@@ -11,6 +11,15 @@
 
 CloudSummonerProjectile::CloudSummonerProjectile()
 {
+}
+
+CloudSummonerProjectile::~CloudSummonerProjectile()
+{
+	Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider->x, collider->y, 300);
+}
+
+void CloudSummonerProjectile::Init()
+{
 	cloud_summoner = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cloud_summoner.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 
@@ -29,11 +38,6 @@ CloudSummonerProjectile::CloudSummonerProjectile()
 
 	Engine->GetModule<Camera>().CameraShake(7, 40);
 	projectile.AddFrame({ 230,22,26,26 });
-}
-
-CloudSummonerProjectile::~CloudSummonerProjectile()
-{
-	Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider->x, collider->y, 300);
 }
 
 bool CloudSummonerProjectile::Loop(float dt)

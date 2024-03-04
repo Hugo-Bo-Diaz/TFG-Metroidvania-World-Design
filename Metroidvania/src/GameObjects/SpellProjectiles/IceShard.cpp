@@ -5,11 +5,14 @@
 #include "Modules/Particles.h"
 IceShard::IceShard()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
-
 	ice_shard_right.AddFrame({ 162,134,48,24 });
 	ice_shard_left.AddFrame({ 102,134,48,24 });
+}
+
+void IceShard::Init()
+{
+	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
 
 	r4ice = { 36,12,12,12 };
 	ice.area_in_texture.push_back(&r4ice);

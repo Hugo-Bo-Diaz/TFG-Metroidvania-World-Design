@@ -83,6 +83,11 @@ Player::Player()
 		trail[i].y = 0;
 	}
 
+
+}
+
+void Player::Init()
+{
 	Fire* fire_spell = new Fire(Engine);
 	fire_spell->Init();
 	fire_spell->player = this;
@@ -120,11 +125,6 @@ Player::Player()
 	unlocked.push_back(true);
 	unlocked.push_back(true);
 	*/
-
-}
-
-void Player::Init()
-{
 	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Stats") == nullptr)
 	{
 		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("Stats");

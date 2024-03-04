@@ -22,6 +22,7 @@ public:
 	ArmorTrap(std::list<ObjectProperty*>& aList) { new (this) ArmorTrap; };
 	~ArmorTrap();
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 	void RenderDebug();

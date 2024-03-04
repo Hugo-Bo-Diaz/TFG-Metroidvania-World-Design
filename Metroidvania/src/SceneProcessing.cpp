@@ -146,6 +146,7 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 	{
 		inGameUI->SetPlayer(pl);
 	}
+	App->gui->AddElement(inGameUI);
 
 	portals = *App->phy->GetAllObjectsOfType(GetTypeIndex<Portal>());
 	spawnpoints = *App->phy->GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());

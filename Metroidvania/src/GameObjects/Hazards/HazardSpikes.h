@@ -12,6 +12,7 @@ public:
 	HazardSpikes();
 	HazardSpikes(std::list<ObjectProperty*>& aList) { new (this) HazardSpikes; };
 
+	void Init();
 	bool Loop(float dt);
 	bool Render();
 
