@@ -31,6 +31,8 @@ void Rock::Init()
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
 
+	mSFXGroundHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
+
 	r8ground = { 0,24,12,12 };
 	r9ground = { 12,24,12,12 };
 	rockblockexplosion.area_in_texture.push_back(&r8ground);
@@ -106,7 +108,7 @@ bool Rock::Loop(float dt)
 		SDL_Rect result;
 		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
 		{
-			Engine->GetModule<Audio>().PlaySFX(SFX_GROUND_HIT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, collider->x + collider->w/2, collider->y + collider->h/2, 100);
 			Engine->GetModule<Camera>().CameraShake(15, 60);

@@ -35,6 +35,11 @@ void Fire::Init()
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
 
+	mSFXFireBall = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/fireball_small.wav");
+	mSFXFireBallBig = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/fireball_big.wav");
+	mSFXFireShield = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/waterfall.wav");
+	mSFXFireWaterFall = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/shield2.wav");
+
 	r2shield = { 12,0,12,12 };
 	r12shield = { 24,0,12,12 };
 	fireshield_part.area_in_texture.push_back(&r2shield);
@@ -96,7 +101,7 @@ void Fire::Loop(float dt)
 			FireBall* fireball = (FireBall*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y, 32, 32, GetTypeIndex<FireBall>());
 			fireball->Fire(player->is_right, true);
 			Engine->GetModule<Camera>().CameraShake(20, 120);
-			Engine->GetModule<Audio>().PlaySFX(SFX_FIREBALL_SMALL);
+			Engine->GetModule<Audio>().PlaySFX(mSFXFireBall);
 			player->AddMana(-manacost_big);
 		}
 		else if (player->manaCost(manacost_small))
@@ -104,7 +109,7 @@ void Fire::Loop(float dt)
 			FireBall* fireball = (FireBall*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y, 32, 32, GetTypeIndex<FireBall>());
 			fireball->Fire(player->is_right, false);
 			Engine->GetModule<Camera>().CameraShake(10, 120);
-			Engine->GetModule<Audio>().PlaySFX(SFX_FIREBALL_BIG);
+			Engine->GetModule<Audio>().PlaySFX(mSFXFireBallBig);
 			player->AddMana(-manacost_small);
 
 		}
@@ -122,7 +127,7 @@ void Fire::Loop(float dt)
 		lavaspawner.Start();
 		volcano_particles->active = true;
 		is_volcano_active = true;
-		Engine->GetModule<Audio>().PlaySFX(SFX_FIRE_WATERFALL, -1,audiochannel_volcano);
+		Engine->GetModule<Audio>().PlaySFX(mSFXFireWaterFall, -1,audiochannel_volcano);
 		
 	}
 
@@ -204,7 +209,7 @@ void Fire::Loop(float dt)
 		player->AddMana(-manacost_shield);
 
 
-		audiochannel_shield = Engine->GetModule<Audio>().PlaySFX(SFX_FIRESHIELD,8);
+		audiochannel_shield = Engine->GetModule<Audio>().PlaySFX(mSFXFireShield,8);
 	}
 
 	if (fireshield_timer.Read() > shield_max_time)

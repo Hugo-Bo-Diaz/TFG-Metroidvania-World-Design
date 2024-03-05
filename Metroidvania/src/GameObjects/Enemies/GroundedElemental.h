@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 enum GroundedElementalColor
 {
@@ -18,11 +19,12 @@ class GroundedElemental : public Enemy
 public:
 	GroundedElemental();
 	GroundedElemental(std::list<ObjectProperty*>& aProperties);
-	~GroundedElemental();
+	~GroundedElemental() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	float patrol_speed = 1;
 	float speed_x = patrol_speed;
@@ -51,6 +53,8 @@ public:
 
 	TextureID particles;
 	TextureID groundelemental;
+
+	AudioID mSFXHit;
 };
 
 #endif

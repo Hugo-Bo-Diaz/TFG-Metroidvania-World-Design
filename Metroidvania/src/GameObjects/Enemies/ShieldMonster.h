@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 class Player;
 
@@ -27,6 +28,7 @@ public:
 	bool Loop(float dt);
 	bool Render();
 	void RenderDebug();
+	void Destroy();
 
 	SDL_Rect* nextpos = nullptr;
 
@@ -100,6 +102,9 @@ public:
 	ShieldMonsterState current_state = ShieldMonster_PATROL;
 
 	float realx;
+
+	AudioID mSFXHit;
+	AudioID mSFXPing;
 };
 
 #endif

@@ -21,15 +21,12 @@ ClingCreature::ClingCreature(std::list<ObjectProperty*>& aProperties)
 
 }
 
-ClingCreature::~ClingCreature()
-{
-	Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider->x, collider->y, 200);
-}
-
 void ClingCreature::Init()
 {
 	cling_enemy = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cling_enemy.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+
+	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
 	r7buff = { 24,12,12,12 };
 	r16sandfirst = { 48,0,12,12 };
@@ -240,6 +237,11 @@ void ClingCreature::RenderDebug()
 	Engine->GetModule<::Render>().DrawRect(check_front, 0, 255, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
 }
 
+void ClingCreature::Destroy()
+{
+	Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider->x, collider->y, 200);
+}
+
 void ClingCreature::TurnCorner(bool clockwise)
 {
 	int prevdir = curr_dir;
@@ -267,7 +269,7 @@ void ClingCreature::TurnCorner(bool clockwise)
 
 void ClingCreature::RecieveDamage(int dmg, int direction)
 {
-	Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_HIT);
+	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 
 	health -= dmg;
 	if (health <= 0)

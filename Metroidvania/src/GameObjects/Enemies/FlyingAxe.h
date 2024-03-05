@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 enum FlyingAxeState
 {
@@ -20,11 +21,12 @@ public:
 	FlyingAxe();
 	FlyingAxe(std::list<ObjectProperty*>& aList) { new (this) FlyingAxe; };
 	FlyingAxe(float initial_y);
-	~FlyingAxe();
+	~FlyingAxe() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	FlyingAxeState state = AXE_PATROL;
 	FlyingAxeState last_state = AXE_PATROL;
@@ -76,6 +78,8 @@ public:
 
 	TextureID floating_axe;
 	TextureID particles;
+
+	AudioID mSFXHit;
 };
 
 #endif

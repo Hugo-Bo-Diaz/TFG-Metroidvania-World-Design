@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 enum CloudSummonerState
 {
@@ -19,11 +20,12 @@ public:
 	CloudSummoner();
 	CloudSummoner(std::list<ObjectProperty*>&) { new (this) CloudSummoner; };
 	CloudSummoner(float initial_x, float initial_y);
-	~CloudSummoner();
+	~CloudSummoner() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	CloudSummonerState state = CS_PATROL;
 	CloudSummonerState last_state = CS_PATROL;
@@ -91,6 +93,8 @@ public:
 
 	TextureID cloud_summoner;
 	TextureID particles;
+
+	AudioID mSFXHit;
 };
 
 #endif

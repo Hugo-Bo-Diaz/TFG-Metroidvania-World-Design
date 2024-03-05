@@ -33,7 +33,7 @@ MaxHealthPickup::MaxHealthPickup(std::list<ObjectProperty*>& aProperties)
 	}
 }
 
-MaxHealthPickup::~MaxHealthPickup()
+void MaxHealthPickup::Destroy()
 {
 	//Engine->GetModule<Particles>().to_delete.push_back(p);
 	Engine->GetModule<Particles>().RemoveParticleEmitter(p);

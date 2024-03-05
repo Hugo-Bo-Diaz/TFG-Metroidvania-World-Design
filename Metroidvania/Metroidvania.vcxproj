@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>D:\Projects\2DGameEngine\bin\Debug;$(ProjectDir)RexEngine\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)bin\Debug;$(ProjectDir)RexEngine\lib;$(LibraryPath)</LibraryPath>
     <IntDir>bin\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
   </PropertyGroup>

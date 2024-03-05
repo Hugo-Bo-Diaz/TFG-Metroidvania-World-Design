@@ -60,11 +60,10 @@ MaxManaPickup::MaxManaPickup(std::list<ObjectProperty*>& aProperties)
 	}
 }
 
-MaxManaPickup::~MaxManaPickup()
+void MaxManaPickup::Destroy()
 {
 	//Engine->GetModule<Particles>().to_delete.push_back(p);
 	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
-	GameObject::~GameObject();
 }
 
 bool MaxManaPickup::Loop(float dt)

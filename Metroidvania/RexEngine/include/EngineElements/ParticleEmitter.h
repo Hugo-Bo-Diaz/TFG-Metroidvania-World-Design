@@ -96,7 +96,6 @@ public:
 
 struct particle
 {
-	SDL_Texture* texture;
 	SDL_Rect* area_in_texture;
 
 	float angle;
@@ -169,7 +168,6 @@ public:
 	particle* particles [MAX_PARTICLES];
 
 	SDL_Rect r = { 0,0,100,100 };
-
 };
 
 

@@ -16,6 +16,8 @@ void ArmorTrap::Init()
 	armortrap = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/armortrap.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 
+	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
+
 	r14firegedeath = { 24,36,12,12 };
 	r15firegedeath = { 36,36,12,12 };
 	r18metalfirst = { 48,24,12,12 };
@@ -60,13 +62,6 @@ void ArmorTrap::Init()
 
 	aggro.w = 300;
 	aggro.h = 144;
-}
-
-ArmorTrap::~ArmorTrap()
-{
-	//ADD PARTICLES
-	Engine->GetModule<Particles>().AddParticleEmitter(&fire_ge_death, collider->x, collider->y, 200);
-
 }
 
 bool ArmorTrap::Loop(float dt)
@@ -240,10 +235,15 @@ void ArmorTrap::RenderDebug()
 	Engine->GetModule<::Render>().DrawRect(aggro, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
 }
 
+void ArmorTrap::Destroy()
+{
+	Engine->GetModule<Particles>().AddParticleEmitter(&fire_ge_death, collider->x, collider->y, 200);
+}
+
 
 void ArmorTrap::RecieveDamage(int dmg, int direction)
 {
-	Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_HIT);
+	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 
 	health -= dmg;
 	if (health <= 0)

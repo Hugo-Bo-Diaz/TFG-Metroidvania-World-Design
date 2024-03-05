@@ -9,6 +9,7 @@
 #include <list>
 #include <vector>
 #include <map>
+#include <unordered_set>
 
 #include "SDL/include/SDL.h"
 #include <functional>
@@ -46,17 +47,14 @@ public:
 	virtual bool Loop(float dt) { return true; };
 	virtual bool Render() { return true; };
 	virtual void RenderDebug() {};
+	virtual void Destroy() {};
 
 	GameObject()
 	{
 		collider = new SDL_Rect({ 0,0,0,0 });
 	}
-	~GameObject()
-	{
-		delete Engine;
-	}
 	//visuals
-	virtual void Destroy()
+	~GameObject()
 	{
 		if (collider != nullptr)
 		{
@@ -123,7 +121,7 @@ class DLL_EXPORT ObjectManager : public Part
 private:
 
 	std::list<GameObject*> objects;
-	std::list<GameObject*> to_delete;
+	std::unordered_set<GameObject*> to_delete;
 public:
 
 	ObjectManager(EngineAPI& aAPI);

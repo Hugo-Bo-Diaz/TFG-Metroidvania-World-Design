@@ -24,7 +24,7 @@ CoalJumper::CoalJumper()
 	idle_time += rand() % max_variation + 1;
 }
 
-CoalJumper::~CoalJumper()
+void CoalJumper::Destroy()
 {
 	Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider->x, collider->y, 600);
 }
@@ -39,6 +39,7 @@ void CoalJumper::Init()
 
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	coaljumper = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/coaljumper.png");
+	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
 	animations[COALJUMPER_IDLE].AddFrame({ 0,0,64,64 });//1
 	animations[COALJUMPER_IDLE].AddFrame({ 64,0,64,64 });//2
@@ -280,7 +281,7 @@ bool CoalJumper::Render()
 
 void CoalJumper::RecieveDamage(int dmg, int _direction)
 {
-	Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_HIT);
+	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{

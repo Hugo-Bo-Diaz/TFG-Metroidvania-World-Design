@@ -12,11 +12,12 @@ class MaxHealthPickup : public GameObject
 public:
 	MaxHealthPickup();
 	MaxHealthPickup(std::list<ObjectProperty*>& aList);
-	~MaxHealthPickup();
+	~MaxHealthPickup() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	SDL_Rect maxhealthplus;
 	int pickup_id;

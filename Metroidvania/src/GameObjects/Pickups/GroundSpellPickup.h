@@ -14,11 +14,12 @@ public:
 
 	GroundSpellPickup();
 	GroundSpellPickup(std::list<ObjectProperty*>& aList) { new (this) GroundSpellPickup; };
-	~GroundSpellPickup();
+	~GroundSpellPickup() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	SDL_Rect groundspellbook;
 

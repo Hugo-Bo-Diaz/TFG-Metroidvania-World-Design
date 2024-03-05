@@ -26,6 +26,9 @@ void UISettingsMenu::Init()
 {
 	lTextureBase = Engine->GetModule<Textures>().Load_Texture("Assets/UI/settings_menu_base.png");
 	lTextureOptions = Engine->GetModule<Textures>().Load_Texture("Assets/UI/settings_menu_options.png");
+
+	mSFXMenuSelect = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_choose2.wav");
+	mSFXMenuChange = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_change.wav");
 }
 
 UISettingsMenu::~UISettingsMenu()
@@ -58,7 +61,7 @@ void UISettingsMenu::Loop()
 			cooldown_timer.Reset();
 			Engine->GetModule<Audio>().sfx_volume -= 5*factor;
 
-			Engine->GetModule<Audio>().PlaySFX(SFX_MENU_CHANGE);
+			Engine->GetModule<Audio>().PlaySFX(mSFXMenuChange);
 
 			if (Engine->GetModule<Audio>().sfx_volume > 100)
 				Engine->GetModule<Audio>().sfx_volume = 100;
@@ -85,7 +88,7 @@ void UISettingsMenu::Loop()
 			cooldown_timer.Reset();
 			Engine->GetModule<Audio>().music_volume -= 5 * factor;
 
-			Engine->GetModule<Audio>().PlaySFX(SFX_MENU_CHANGE);
+			Engine->GetModule<Audio>().PlaySFX(mSFXMenuChange);
 
 			if (Engine->GetModule<Audio>().music_volume > 100)
 				Engine->GetModule<Audio>().music_volume = 100;
@@ -100,7 +103,7 @@ void UISettingsMenu::Loop()
 		if (Engine->GetModule<Input>().GetInput(BUTTON_1) == BUTTON_DOWN)
 		{
 			Engine->GetModule<Window>().ToggleFullScreen();
-			Engine->GetModule<Audio>().PlaySFX(SFX_MENU_SELECT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
 
 		}
 	}
@@ -122,7 +125,7 @@ void UISettingsMenu::Loop()
 			default:
 				break;
 			}*/
-			Engine->GetModule<Audio>().PlaySFX(SFX_MENU_SELECT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
 
 		}
 	}
@@ -155,7 +158,7 @@ void UISettingsMenu::Loop()
 		prev_joy_y.clear();
 		stop_inputs = true;
 
-		Engine->GetModule<Audio>().PlaySFX(SFX_MENU_CHANGE);
+		Engine->GetModule<Audio>().PlaySFX(mSFXMenuChange);
 	}
 
 

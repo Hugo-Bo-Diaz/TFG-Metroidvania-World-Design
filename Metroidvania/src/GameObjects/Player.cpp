@@ -119,6 +119,9 @@ void Player::Init()
 	
 	current_spell = FIRE;
 
+	mSFXJump = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/jump.wav");
+	mSFXPlayerHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/player_hit.wav");
+
 	/*unlocked.push_back(true);
 	unlocked.push_back(true);
 	unlocked.push_back(true);
@@ -370,7 +373,7 @@ bool Player::Loop(float dt)
 		grounded = false;
 		acceleration_y = 0.5;
 
-		Engine->GetModule<Audio>().PlaySFX(SFX_JUMP);
+		Engine->GetModule<Audio>().PlaySFX(mSFXJump);
 	}
 
 	if (speed_y>1||(Engine->GetModule<Input>().GetInput(BUTTON_1) == BUTTON_RELEASE && grounded == false))
@@ -615,7 +618,7 @@ void Player::AddHealth(int amount, int knockbackdirection)
 
 	if (amount < 0 && !is_invincible)
 	{
-		Engine->GetModule<Audio>().PlaySFX(SFX_PLAYER_HIT);
+		Engine->GetModule<Audio>().PlaySFX(mSFXPlayerHit);
 	}
 
 	if (!is_invincible && amount < 0 && knockbackdirection !=0)
@@ -740,7 +743,7 @@ void Player::Respawn() {
 }
 
 
-Player::~Player()
+void Player::Destroy()
 {
 	delete spells[FIRE];
 	delete spells[WIND];

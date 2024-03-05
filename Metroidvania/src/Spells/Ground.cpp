@@ -28,6 +28,10 @@ void Ground::Init()
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
 
+	mSFXGroundPound = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/groundpound.wav");
+	mSFXRock = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/rock_throw.wav");
+	mSFXShockwave = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/shockwave.wav.wav");
+
 	groundpoundhitbox.w = 64;
 	groundpoundhitbox.h = 32;
 
@@ -46,7 +50,6 @@ void Ground::Init()
 	rockblockexplosion.minmax_acc_y = std::make_pair(1, 2);
 	rockblockexplosion.minmax_frequency = std::make_pair(10, 25);
 	rockblockexplosion.texture_name = particles;
-
 
 	groundcontact.area_in_texture.push_back(&r8ground);
 	groundcontact.area_in_texture.push_back(&r9ground);
@@ -76,7 +79,7 @@ void Ground::Loop(float dt)
 			rock_timer.Reset();
 			rock_timer.Start();
 			player->AddMana(-manacost_rock);
-			Engine->GetModule<Audio>().PlaySFX(SFX_ROCK_THROW);
+			Engine->GetModule<Audio>().PlaySFX(mSFXRock);
 	}
 	
 	if(is_rock_on_cooldown && rock_timer.Read()> cooldown_rock)
@@ -92,7 +95,7 @@ void Ground::Loop(float dt)
 		current_yspeed = initial_yspeed;
 		groundpounding = true;
 		player->LockMovement();
-		Engine->GetModule<Audio>().PlaySFX(SFX_GROUNDPOUND_START);
+		Engine->GetModule<Audio>().PlaySFX(mSFXGroundPound);
 
 		player->AddMana(-manacost_groundpound);
 
@@ -176,7 +179,7 @@ void Ground::Loop(float dt)
 		earthquake_timer.Reset();
 		earthquake_timer.Start();
 
-		Engine->GetModule<Audio>().PlaySFX(SFX_SHOCKWAVE);
+		Engine->GetModule<Audio>().PlaySFX(mSFXShockwave);
 		player->AddMana(-manacost_earthquake);
 
 		Engine->GetModule<Camera>().CameraShake(15, 2);//ADD PARTICLES

@@ -4,6 +4,7 @@
 #include "Modules/ObjectManager.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
+#include "Modules/Audio.h"
 
 class FireBall : public GameObject
 {
@@ -36,6 +37,8 @@ public:
 
 	TextureID spells;
 	TextureID particles;
+
+	AudioID mSFXGroundHit;
 };
 
 #endif // !PLAYER__REP__H

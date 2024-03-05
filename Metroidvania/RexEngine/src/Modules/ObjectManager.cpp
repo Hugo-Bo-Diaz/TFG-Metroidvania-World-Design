@@ -44,7 +44,7 @@ bool ObjectManager::Loop(float dt)
 		}
 	}
 	//delete the current list
-	for (std::list<GameObject*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
+	for (std::unordered_set<GameObject*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
 	{
 		(*it)->Destroy();
 		delete(*it);
@@ -264,6 +264,7 @@ bool ObjectManager::Clearphysics()
 	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
 		(*it)->Destroy();
+		delete (*it)->Engine;
 		delete *it;
 	}
 	objects.clear();
@@ -284,7 +285,6 @@ void ObjectManager::DeleteObject(GameObject* _to_delete)
 	//	}
 	//}
 	//delete to_delete;
-	if(!(std::find(to_delete.begin(), to_delete.end(), _to_delete)!=to_delete.end()))
-		to_delete.push_back(_to_delete);
+		to_delete.insert(_to_delete);
 
 }

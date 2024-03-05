@@ -5,6 +5,7 @@
 #include "../include/EngineElements/Animation.h"
 #include "../Spells/Spell.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 enum state
 {
@@ -40,6 +41,7 @@ public:
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	float min_invin_interval = 0;
 	float max_invin_interval=200;
@@ -93,6 +95,9 @@ public:
 	Animation air_left;
 
 	TextureID playerTex;
+
+	AudioID mSFXJump;
+	AudioID mSFXPlayerHit;
 
 	bool left;
 	bool right;

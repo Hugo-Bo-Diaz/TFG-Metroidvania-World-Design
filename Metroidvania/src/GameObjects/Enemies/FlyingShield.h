@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 class FlyingShield : public Enemy
 {
@@ -13,11 +14,12 @@ public:
 	FlyingShield();
 	FlyingShield(std::list<ObjectProperty*>& aList) { new (this) FlyingShield; };
 	FlyingShield(float initial_y);
-	~FlyingShield();
+	~FlyingShield() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	float health = 1;
 	
@@ -44,6 +46,9 @@ public:
 
 	TextureID particles;
 	TextureID floating_shield;
+
+	AudioID mSFXHit;
+	AudioID mSFXPing;
 };
 
 #endif

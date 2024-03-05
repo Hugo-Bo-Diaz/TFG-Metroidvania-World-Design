@@ -495,7 +495,7 @@ void BlitParticles::Blit(Render& aRender, Camera& camera, Window& aWindow)
 			rect.h *= scale;
 
 			aRender.CountDrawCall();
-			if (SDL_RenderCopyEx(aRender.renderer, lEmmitter->particles[i]->texture, lEmmitter->particles[i]->area_in_texture, &rect, lEmmitter->particles[i]->angle, NULL, SDL_FLIP_NONE) != 0)
+			if (SDL_RenderCopyEx(aRender.renderer, tex, lEmmitter->particles[i]->area_in_texture, &rect, lEmmitter->particles[i]->angle, NULL, SDL_FLIP_NONE) != 0)
 			{
 				std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
 				errstr += SDL_GetError();

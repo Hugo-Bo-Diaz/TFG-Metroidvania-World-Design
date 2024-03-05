@@ -14,11 +14,12 @@ public:
 
 	FireSpellPickup();
 	FireSpellPickup(std::list<ObjectProperty*>& aList) { new (this) FireSpellPickup; };
-	~FireSpellPickup();
+	~FireSpellPickup() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	SDL_Rect firespellbook;
 

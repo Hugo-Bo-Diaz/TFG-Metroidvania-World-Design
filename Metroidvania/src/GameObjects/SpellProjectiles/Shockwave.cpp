@@ -35,9 +35,10 @@ void Shockwave::Init()
 	nextpos->w = collider->w;
 	nextpos->h = collider->h;
 
-
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+
+	mSFXGroundHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
 
 	shockwave_left.AddFrame({ 0,160,32,32 });
 	shockwave_right.AddFrame({ 32,160,32,32 });
@@ -126,7 +127,7 @@ bool Shockwave::Loop(float dt)
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			//Engine->GetModule<Particles>().to_delete.push_back(p);
-			Engine->GetModule<Audio>().PlaySFX(SFX_GROUND_HIT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
 			Engine->GetModule<Particles>().RemoveParticleEmitter(p);
 		}
 		if (SDL_PointInRect(&floor_check, colliders[i]) == SDL_TRUE)
@@ -139,7 +140,7 @@ bool Shockwave::Loop(float dt)
 	{
 		Engine->GetModule<ObjectManager>().DeleteObject(this);
 		//Engine->GetModule<Particles>().to_delete.push_back(p);
-		Engine->GetModule<Audio>().PlaySFX(SFX_GROUND_HIT);
+		Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
 		Engine->GetModule<Particles>().RemoveParticleEmitter(p);
 	}
 

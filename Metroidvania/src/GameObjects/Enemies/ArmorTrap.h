@@ -5,9 +5,12 @@
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 #include "Enemy.h"
 
 class Player;
+
+typedef int AudioID;
 
 enum ArmorTrapState {
 	ArmorTrap_IDLE,
@@ -26,6 +29,7 @@ public:
 	bool Loop(float dt);
 	bool Render();
 	void RenderDebug();
+	void Destroy();
 
 	float patrol_speed = 1;
 	float chase_speed = 3;
@@ -65,6 +69,8 @@ public:
 
 	TextureID armortrap;
 	TextureID particles;
+
+	AudioID mSFXHit;
 };
 
 #endif

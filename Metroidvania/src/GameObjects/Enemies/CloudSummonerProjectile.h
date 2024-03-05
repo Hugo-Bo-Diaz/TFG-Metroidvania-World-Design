@@ -5,6 +5,7 @@
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 class CloudSummonerProjectile : public GameObject
 {
@@ -12,7 +13,7 @@ public:
 
 	CloudSummonerProjectile();
 	CloudSummonerProjectile(std::list<ObjectProperty*>& aList) { new (this) CloudSummonerProjectile; };
-	~CloudSummonerProjectile();
+	~CloudSummonerProjectile() {};
 
 	void Fire(float speed_x, float speed_y);
 
@@ -22,6 +23,7 @@ public:
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	Animation projectile;
 
@@ -32,6 +34,8 @@ public:
 
 	TextureID cloud_summoner;
 	TextureID particles;
+
+	AudioID mSFXLand;
 };
 
 #endif // !PLAYER__REP__H

@@ -5,6 +5,7 @@
 #include "EngineElements/Animation.h"
 #include "Utils/Timer.h"
 #include "EngineElements/ParticleEmitter.h"
+#include "Modules/Audio.h"
 
 class Ground : public Spell
 {
@@ -64,6 +65,10 @@ public:
 
 	TextureID spells;
 	TextureID particles;
+
+	AudioID mSFXGroundPound;
+	AudioID mSFXRock;
+	AudioID mSFXShockwave;
 };
 
 #endif

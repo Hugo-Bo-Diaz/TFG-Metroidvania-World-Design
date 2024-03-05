@@ -14,7 +14,7 @@ HazardRockBlock::HazardRockBlock()
 	rockblock = { 48,48,48,48 };
 }
 
-HazardRockBlock::~HazardRockBlock()
+void HazardRockBlock::Destroy()
 {
 	Engine->GetModule<ObjectManager>().DeleteWall(wall_id);
 }

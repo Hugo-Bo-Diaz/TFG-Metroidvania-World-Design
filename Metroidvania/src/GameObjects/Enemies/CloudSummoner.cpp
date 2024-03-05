@@ -26,7 +26,7 @@ CloudSummoner::CloudSummoner(float _initial_x, float _initial_y)
 	base_book_offset_y = 48 / 2 - 30 / 2;
 }
 
-CloudSummoner::~CloudSummoner()
+void CloudSummoner::Destroy()
 {
 	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider->x, collider->y, 300);
 }
@@ -41,6 +41,8 @@ void CloudSummoner::Init()
 
 	cloud_summoner = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cloud_summoner.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+
+	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
 	//64*48
 	book.AddFrame({ 192,0,22,22 });
@@ -279,7 +281,7 @@ bool CloudSummoner::Render()
 
 void CloudSummoner::RecieveDamage(int dmg, int direction)
 {
-	Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_HIT);
+	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{

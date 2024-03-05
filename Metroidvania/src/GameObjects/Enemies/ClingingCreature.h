@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 enum ClingCreatureDirection {
 	CLINGCREATURE_RIGHT,
@@ -19,12 +20,12 @@ class ClingCreature : public Enemy
 public:
 	ClingCreature();
 	ClingCreature(std::list<ObjectProperty*>&);
-	~ClingCreature();
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
 	void RenderDebug();
+	void Destroy();
 
 	ClingCreatureDirection curr_dir;
 
@@ -57,6 +58,8 @@ public:
 
 	TextureID cling_enemy;
 	TextureID particles;
+
+	AudioID mSFXHit;
 };
 
 #endif // !CLING__CREATURE__H

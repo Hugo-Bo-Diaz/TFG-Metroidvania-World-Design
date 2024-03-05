@@ -1,7 +1,7 @@
 #ifndef AUDIO__H
 #define AUDIO__H
 
-#include <vector>
+#include <map>
 #include <string>
 #include "Part.h"
 #include "PartsDef.h"
@@ -9,38 +9,11 @@
 struct _Mix_Music;
 struct Mix_Chunk;
 
-enum AudioSFX
-{
-	SFX_JUMP,
-	SFX_PLAYER_HIT,
-	SFX_FIREBALL_BIG,
-	SFX_FIREBALL_SMALL,
-	SFX_FIRE_WATERFALL,
-	SFX_FIRESHIELD,
-	SFX_ROCK_THROW,
-	SFX_GROUNDPOUND_START,
-	SFX_SHOCKWAVE,
-
-	SFX_ENEMY_HIT,
-	SFX_ENEMY_PING,
-	SFX_GROUND_HIT,
-
-	SFX_MENU_CHANGE,
-	SFX_MENU_SELECT
-};
-
-
-enum AudioMusic
-{
-	MUSIC_MENU,
-	MUSIC_FIRST_CASTLE,
-	MUSIC_SECOND_CASTLE,
-	MUSIC_MAGIC_AREA
-};
+typedef int AudioID;
 
 struct Music
 {
-	std::string name;
+	std::string path;
 	uint id;
 	_Mix_Music* music;
 	float volume = 1.0f;
@@ -49,7 +22,7 @@ struct Music
 
 struct SFX
 {
-	std::string name;
+	std::string path;
 	uint id;
 	Mix_Chunk* sfx;
 	float volume = 1.0f;
@@ -66,19 +39,19 @@ private:
 	bool LoadConfig(pugi::xml_node& config_node);
 	bool CreateConfig(pugi::xml_node& config_node);
 
-	std::vector<Music*> music_list;
-	std::vector<SFX*> sfx_list;
+	std::map<AudioID,Music*> music_list;
+	std::map<AudioID,SFX*> sfx_list;
 
 	//static Audio* thisInst;
 public:
 	Audio(EngineAPI& aAPI);
 	~Audio() {};
 	
-	uint LoadMusic(const char* file,const char* name,float fade= 500.0f,float volume = 1.0f);
-	uint LoadSFX(const char* file, const char* name, float volume = 1.0f);
+	AudioID LoadMusic(const char* file, float fade= 500.0f,float volume = 1.0f);
+	AudioID LoadSFX(const char* file, float volume = 1.0f);
 
-	void PlayMusic(uint music_id,float fade_in_ms);
-	uint PlaySFX(uint sfx_id, int repeat = 0, uint channel=-1);
+	void PlayMusic(AudioID music_id,float fade_in_ms);
+	uint PlaySFX(AudioID sfx_id, int repeat = 0, uint channel=-1);
 
 	void StopMusic();
 	void StopChannel(uint channel);

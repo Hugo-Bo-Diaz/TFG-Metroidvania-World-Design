@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 enum CloudMeleeState
 {
@@ -21,11 +22,12 @@ public:
 	CloudMelee();
 	CloudMelee(std::list<ObjectProperty*>& aList) { new (this) CloudMelee; };
 	CloudMelee(float initial_x, float initial_y);
-	~CloudMelee();
+	~CloudMelee() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	CloudMeleeState state = CM_PATROL;
 	CloudMeleeState last_state = CM_PATROL;
@@ -82,6 +84,8 @@ public:
 
 	TextureID cloud_melee;
 	TextureID particles;
+
+	AudioID mSFXHit;
 };
 
 #endif

@@ -22,7 +22,7 @@ GroundedElemental::GroundedElemental(std::list<ObjectProperty*>& aProperties)
 	}
 }
 
-GroundedElemental::~GroundedElemental()
+void GroundedElemental::Destroy()
 {
 	//ADD PARTICLES
 	switch (c)
@@ -43,6 +43,8 @@ void GroundedElemental::Init()
 {
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	groundelemental = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/groundelemental.png");
+
+	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
 	r14firegedeath = { 24,36,12,12 };
 	r15firegedeath = { 36,36,12,12 };
@@ -177,7 +179,7 @@ bool GroundedElemental::Render()
 
 void GroundedElemental::RecieveDamage(int dmg, int direction)
 {
-	Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_HIT);
+	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{

@@ -27,6 +27,9 @@ void UIPauseMenu::Init()
 
 	TexMenuBase = Engine->GetModule<Textures>().Load_Texture("Assets/UI/pause_menu_base.png");
 	TexMenuOptions = Engine->GetModule<Textures>().Load_Texture("Assets/UI/pause_menu_options.png");
+
+	mSFXMenuSelect = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_choose2.wav");
+	mSFXMenuChange = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_change.wav");
 }
 
 UIPauseMenu::~UIPauseMenu()
@@ -43,11 +46,11 @@ void UIPauseMenu::Loop()
 			Engine->GetModule<ObjectManager>().UnPauseObjects();
 			MetroidVaniaSceneProcessor::GetInstance().is_pause_menu_up = false;
 			Engine->GetModule<UserInterface>().RemoveElement(this);
-			Engine->GetModule<Audio>().PlaySFX(SFX_MENU_SELECT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
 			break;
 		case PAUSE_SETTINGS:
 			//App->trk->AddSettingsMenu(2);
-			Engine->GetModule<Audio>().PlaySFX(SFX_MENU_SELECT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
 			break;
 		case PAUSE_EXIT:
 			Engine->GetModule<ObjectManager>().UnPauseObjects();
@@ -56,7 +59,7 @@ void UIPauseMenu::Loop()
 			Engine->GetModule<UserInterface>().RemoveElement(this);
 			Engine->GetModule<ProgressTracker>().SaveGame("save_file.xml");
 			Engine->GetModule<Camera>().CoverScreen(1000, 300, 0, 0, 0);
-			Engine->GetModule<Audio>().PlaySFX(SFX_MENU_SELECT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
 			break;
 		default:
 			break;
@@ -90,7 +93,7 @@ void UIPauseMenu::Loop()
 		CycleOption(amount_of_movement);
 		prev_joy_y.clear();
 		stop_inputs = true;
-		Engine->GetModule<Audio>().PlaySFX(SFX_MENU_CHANGE);
+		Engine->GetModule<Audio>().PlaySFX(mSFXMenuChange);
 	}
 
 

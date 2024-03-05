@@ -13,7 +13,7 @@ FlyingShield::FlyingShield(float _initial_y)
 }
 
 
-FlyingShield::~FlyingShield()
+void FlyingShield::Destroy()
 {
 	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider->x, collider->y, 300);
 }
@@ -29,6 +29,9 @@ void FlyingShield::Init()
 
 	floating_shield = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/floating_shield.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+
+	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
+	mSFXPing = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/ping.wav");
 
 	flying_left.AddFrame({ 0,0,48,48 });
 
@@ -132,7 +135,7 @@ void FlyingShield::RecieveDamage(int dmg, int direction)
 {
 	if (direction == speed_x / abs(speed_x))
 	{
-		Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_HIT);
+		Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 		health -= dmg;
 		if (health <= 0)
 		{
@@ -141,6 +144,6 @@ void FlyingShield::RecieveDamage(int dmg, int direction)
 	}
 	else
 	{
-		Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_PING);
+		Engine->GetModule<Audio>().PlaySFX(mSFXPing);
 	}
 }

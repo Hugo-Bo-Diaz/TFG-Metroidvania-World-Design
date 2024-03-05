@@ -5,6 +5,7 @@
 #include "EngineElements/Animation.h"
 #include "Utils/Timer.h"
 #include "EngineElements/ParticleEmitter.h"
+#include "Modules/Audio.h"
 
 class ParticleEmitter;
 class LavaSpell;
@@ -77,6 +78,11 @@ public:
 
 	TextureID spells;
 	TextureID particles;
+
+	AudioID mSFXFireBall;
+	AudioID mSFXFireBallBig;
+	AudioID mSFXFireShield;
+	AudioID mSFXFireWaterFall;
 };
 
 

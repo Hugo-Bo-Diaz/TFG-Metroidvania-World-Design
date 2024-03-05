@@ -37,7 +37,7 @@ ShieldMonster::ShieldMonster()
 	HitBox.h = 50;
 }
 
-ShieldMonster::~ShieldMonster()
+void ShieldMonster::Destroy()
 {
 	//ADD PARTICLES
 	Engine->GetModule<Particles>().AddParticleEmitter(&shield_monster_death, collider->x, collider->y, 400);
@@ -55,6 +55,9 @@ void ShieldMonster::Init()
 	shield_monster = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/shield_monster.png");
 	shield_monster_arm = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/shield_monster_arm.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+
+	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
+	mSFXPing = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/ping.wav");
 
 	r8ground = { 0,24,12,12 };
 	r9ground = { 12,24,12,12 };
@@ -190,13 +193,13 @@ bool ShieldMonster::Loop(float dt)
 		{
 			if ((*it)->object->IsSameTypeAs<FireBall>())
 			{
-				Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_PING);
+				Engine->GetModule<Audio>().PlaySFX(mSFXPing);
 				Engine->GetModule<ObjectManager>().DeleteObject((*it)->object);
 				Engine->GetModule<Particles>().AddParticleEmitter(&metal, (*it)->object->collider->x, (*it)->object->collider->y, 300);
 			}
 			if ((*it)->object->IsSameTypeAs<Rock>())
 			{
-				Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_PING);
+				Engine->GetModule<Audio>().PlaySFX(mSFXPing);
 				Engine->GetModule<ObjectManager>().DeleteObject((*it)->object);
 				Engine->GetModule<Particles>().AddParticleEmitter(&metal, (*it)->object->collider->x, (*it)->object->collider->y, 300);
 			}
@@ -489,7 +492,7 @@ void ShieldMonster::RecieveDamage(int dmg, int direction)
 	int dir = -gdirection;
 	if (direction == dir)
 	{
-		Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_HIT);
+		Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 
 		health -= dmg;
 		if (health <= 0)
@@ -510,7 +513,7 @@ void ShieldMonster::RecieveDamage(int dmg, int direction)
 	}
 	else
 	{
-		Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_PING);
+		Engine->GetModule<Audio>().PlaySFX(mSFXPing);
 
 		float fromdir = ((gdirection*0.25) + 0.75);
 		if (dir == 1)

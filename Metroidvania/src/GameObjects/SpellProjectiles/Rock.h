@@ -5,6 +5,7 @@
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 class Rock : public GameObject
 {
@@ -35,6 +36,8 @@ public:
 
 	TextureID spells;
 	TextureID particles;
+
+	AudioID mSFXGroundHit;
 };
 
 #endif // !PLAYER__REP__H

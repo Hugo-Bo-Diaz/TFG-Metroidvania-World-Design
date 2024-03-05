@@ -4,6 +4,7 @@
 #include "EngineElements/UIelement.h"
 #include <list>
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 class UISettingsMenu;
 
@@ -39,6 +40,9 @@ public:
 
 	TextureID TexMenuBase;
 	TextureID TexMenuOptions;
+
+	AudioID mSFXMenuSelect;
+	AudioID mSFXMenuChange;
 };
 
 #endif

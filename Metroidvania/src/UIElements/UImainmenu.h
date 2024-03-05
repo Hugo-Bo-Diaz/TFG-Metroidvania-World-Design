@@ -5,6 +5,7 @@
 #include "../GameObjects/Player.h"
 #include "Modules/Textures.h"
 #include "EngineElements/UIelement.h"
+#include "Modules/Audio.h"
 
 class UISettingsMenu;
 
@@ -45,5 +46,10 @@ public:
 	TextureID TexBase;
 	TextureID TexSelected;
 	TextureID TexDisabled;
+
+	AudioID mMenuMusic;
+	AudioID mSFXMenuSelect;
+	AudioID mSFXPing;
+	AudioID mSFXMenuChange;
 };
 #endif // !UI_HEALTHBAR

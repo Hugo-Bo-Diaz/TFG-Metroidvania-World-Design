@@ -15,7 +15,7 @@ FlyingAxe::FlyingAxe(float _initial_y)
 }
 
 
-FlyingAxe::~FlyingAxe()
+void FlyingAxe::Destroy()
 {
 	Engine->GetModule<Particles>().AddParticleEmitter(&metal, collider->x, collider->y, 300);
 }
@@ -25,6 +25,8 @@ void FlyingAxe::Init()
 {
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	floating_axe = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/floating_axe.png");
+
+	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
 	r18metalfirst = { 48,24,12,12 };
 	r19metalsecond = { 48,36,12,12 };
@@ -255,7 +257,7 @@ bool FlyingAxe::Render()
 
 void FlyingAxe::RecieveDamage(int dmg, int direction)
 {
-	Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_HIT);
+	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{

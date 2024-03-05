@@ -1,6 +1,8 @@
 #include "Modules/Audio.h"
 #include "Application.h"
 #include "Utils/Logger.h"
+#include "Utils/Utils.h"
+
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
@@ -50,7 +52,7 @@ bool Audio::Init()
 		ret = false;
 	}
 
-	int flags = MIX_INIT_OGG;
+	int flags = MIX_INIT_OGG;// | MIX_INIT_MP3; TO DO
 	int init = Mix_Init(flags);
 
 	if ((init & flags) != flags)
@@ -81,28 +83,21 @@ bool Audio::Init()
 		Mix_Volume(i, real_fx_volume);
 	}
 
-	LoadMusic("Assets/Music/not-in-vain.ogg", "menu");
-	LoadMusic("Assets/Music/first-story.ogg", "first_castle");
-	LoadMusic("Assets/Music/underground-town.ogg", "second_castle");
-	LoadMusic("Assets/Music/in-the-city.ogg", "magic_area");
+	std::list<std::string> lSongs;
+	GetAllExtensionPathRecursive("", "ogg", lSongs);
 
-	LoadSFX("Assets/SFX/jump.wav","jump");
-	LoadSFX("Assets/SFX/player_hit.wav", "player_hit");
+	for (std::list<std::string>::iterator it = lSongs.begin(); it != lSongs.end(); it++)
+	{
+		LoadMusic((*it).c_str());
+	}
 
-	LoadSFX("Assets/SFX/fireball_small.wav", "fbig");
-	LoadSFX("Assets/SFX/fireball_big.wav", "fsmall");
-	LoadSFX("Assets/SFX/waterfall.wav", "firewaterfall");
-	LoadSFX("Assets/SFX/shield2.wav", "fireshield");
-	LoadSFX("Assets/SFX/rock_throw.wav", "rock_throw");
-	LoadSFX("Assets/SFX/groundpound.wav", "gpstart");
-	LoadSFX("Assets/SFX/shockwave.wav", "shockwave");
-		
-	LoadSFX("Assets/SFX/enemy_hit.wav", "enemy_hit");
-	LoadSFX("Assets/SFX/ping.wav", "ping");
-	LoadSFX("Assets/SFX/hit_floor.wav", "hit_floor");
+	std::list<std::string> lSFX;
+	GetAllExtensionPathRecursive("", "wav", lSFX);
 
-	LoadSFX("Assets/SFX/menu_change.wav", "menu_change");
-	LoadSFX("Assets/SFX/menu_choose2.wav", "menu_choose");
+	for (std::list<std::string>::iterator it = lSFX.begin(); it != lSFX.end(); it++)
+	{
+		LoadSFX((*it).c_str());
+	}
 
 	return ret;
 }
@@ -125,17 +120,17 @@ bool Audio::Loop(float dt)
 
 bool Audio::CleanUp()
 {
-	for (std::vector<SFX*>::iterator it = sfx_list.begin(); it != sfx_list.end(); it++)
+	for (std::map<AudioID,SFX*>::iterator it = sfx_list.begin(); it != sfx_list.end(); it++)
 	{
-		Mix_FreeChunk((*it)->sfx);
-		delete(*it);
+		Mix_FreeChunk((*it).second->sfx);
+		delete(*it).second;
 	}
 	sfx_list.clear();
 
-	for (std::vector<Music*>::iterator it = music_list.begin(); it != music_list.end(); it++)
+	for (std::map<AudioID,Music*>::iterator it = music_list.begin(); it != music_list.end(); it++)
 	{
-		Mix_FreeMusic((*it)->music);
-		delete(*it);
+		Mix_FreeMusic((*it).second->music);
+		delete(*it).second;
 	}
 	music_list.clear();
 
@@ -146,11 +141,19 @@ bool Audio::CleanUp()
 	return true;
 }
 
-uint Audio::LoadMusic(const char * file,const char*name, float fade,float volume)
+AudioID Audio::LoadMusic(const char * file, float fade,float volume)
 {
+	for (std::map<AudioID, Music*>::iterator it = music_list.begin(); it != music_list.end(); it++)
+	{
+		if (std::strcmp((*it).second->path.c_str(), file) == 0)
+		{
+			return (*it).first;
+		}
+	}
+
 	Music* new_music = new Music();
 	new_music->id = music_list.size();
-	new_music->name = name;
+	new_music->path = file;
 	new_music->fade = fade;
 	new_music->volume = volume;
 
@@ -163,18 +166,27 @@ uint Audio::LoadMusic(const char * file,const char*name, float fade,float volume
 	}
 	else
 	{
-		music_list.push_back(new_music);
+		uint lNextAudioID = music_list.size() + sfx_list.size();
+		music_list.insert(std::make_pair(lNextAudioID,new_music));
 		return new_music->id;
 	}
 
 }
 
-uint Audio::LoadSFX(const char * file, const char*name, float volume)
+AudioID Audio::LoadSFX(const char * file, float volume)
 {
+	for (std::map<AudioID, SFX*>::iterator it = sfx_list.begin(); it != sfx_list.end(); it++)
+	{
+		if (std::strcmp((*it).second->path.c_str(), file) == 0)
+		{
+			return (*it).first;
+		}
+	}
+
 	SFX* new_sfx = new SFX();
 	new_sfx->id = sfx_list.size();
 	new_sfx->volume = volume;
-	new_sfx->name = name;
+	new_sfx->path = file;
 
 	new_sfx->sfx = Mix_LoadWAV(file);
 	if (new_sfx->sfx == NULL)
@@ -185,12 +197,13 @@ uint Audio::LoadSFX(const char * file, const char*name, float volume)
 	}
 	else
 	{
-		sfx_list.push_back(new_sfx);
+		uint lNextAudioID = music_list.size() + sfx_list.size();
+		sfx_list.insert(std::make_pair(lNextAudioID,new_sfx));
 		return new_sfx->id;
 	}
 }
 
-void Audio::PlayMusic(uint music_id, float fade_in_ms)
+void Audio::PlayMusic(AudioID music_id, float fade_in_ms)
 {
 	Music* music_selected = music_list[music_id];
 	if (music_id != current_song)
@@ -218,7 +231,7 @@ void Audio::PlayMusic(uint music_id, float fade_in_ms)
 	}
 }
 
-uint Audio::PlaySFX(uint sfx_id, int repeat, uint channel)
+uint Audio::PlaySFX(AudioID sfx_id, int repeat, uint channel)
 {
 	SFX* sfx_selected = sfx_list[sfx_id];
 	
@@ -229,7 +242,7 @@ uint Audio::PlaySFX(uint sfx_id, int repeat, uint channel)
 	}
 	//Mix_Resume(chan);
 
-	int i = Mix_PlayChannel(chan, sfx_list[sfx_id]->sfx, repeat);
+	int i = Mix_PlayChannel(chan, sfx_selected->sfx, repeat);
 
 	//return chan;
 	return i;

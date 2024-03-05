@@ -12,11 +12,12 @@ class MaxManaPickup : public GameObject
 public:
 	MaxManaPickup();
 	MaxManaPickup(std::list<ObjectProperty*>& aProperties);
-	~MaxManaPickup();
+	~MaxManaPickup() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	SDL_Rect maxmanaplus;
 	int pickup_id;

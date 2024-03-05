@@ -13,7 +13,7 @@ CloudSummonerProjectile::CloudSummonerProjectile()
 {
 }
 
-CloudSummonerProjectile::~CloudSummonerProjectile()
+void CloudSummonerProjectile::Destroy()
 {
 	Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider->x, collider->y, 300);
 }
@@ -22,6 +22,8 @@ void CloudSummonerProjectile::Init()
 {
 	cloud_summoner = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cloud_summoner.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+
+	mSFXLand = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
 
 	r13magic = { 0,36,12,12 };
 	magic.area_in_texture.push_back(&r13magic);
@@ -56,7 +58,7 @@ bool CloudSummonerProjectile::Loop(float dt)
 		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
-			Engine->GetModule<Audio>().PlaySFX(SFX_GROUND_HIT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXLand);
 			Engine->GetModule<Camera>().CameraShake(7, 40);
 		}
 	}

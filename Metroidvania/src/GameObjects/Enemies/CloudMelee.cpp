@@ -18,7 +18,7 @@ CloudMelee::CloudMelee(float _initial_x, float _initial_y)
 }
 
 
-CloudMelee::~CloudMelee()
+void CloudMelee::Destroy()
 {
 	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider->x, collider->y, 300);
 }
@@ -35,6 +35,8 @@ void CloudMelee::Init()
 
 	cloud_melee = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cloud_melee.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+
+	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
 	r1exp = { 0,0,12,12 };
 	explosion.area_in_texture.push_back(&r1exp);
@@ -289,7 +291,7 @@ bool CloudMelee::Render()
 
 void CloudMelee::RecieveDamage(int dmg, int direction)
 {
-	Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_HIT);
+	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{

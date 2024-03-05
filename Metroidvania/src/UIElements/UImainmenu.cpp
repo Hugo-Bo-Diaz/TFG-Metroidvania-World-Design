@@ -18,6 +18,11 @@ void UIMainMenu::Init()
 	TexBase = Engine->GetModule<Textures>().Load_Texture("Assets/UI/mainmenu.png");
 	TexSelected = Engine->GetModule<Textures>().Load_Texture("Assets/UI/mainmenuselected.png");
 	TexDisabled = Engine->GetModule<Textures>().Load_Texture("Assets/UI/mainmenudisabled.png");
+
+	mMenuMusic = Engine->GetModule<Audio>().LoadSFX("Assets/Music/not-in-vain.ogg");
+	mSFXMenuSelect = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_choose2.wav");
+	mSFXPing = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/ping.wav");
+	mSFXMenuChange = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_change.wav");
 }
 
 void UIMainMenu::Loop()
@@ -26,7 +31,7 @@ void UIMainMenu::Loop()
 	if (first_update)
 	{
 		first_update = false;
-		Engine->GetModule<Audio>().PlayMusic(MUSIC_MENU, 500);
+		Engine->GetModule<Audio>().PlayMusic(mMenuMusic, 500);
 	}
 
 	if (Engine->GetModule<Input>().GetInput(BUTTON_1) == BUTTON_DOWN && ! MetroidVaniaSceneProcessor::GetInstance().is_settings_up)
@@ -37,27 +42,27 @@ void UIMainMenu::Loop()
 		case MAINMENU_NEWGAME:
 			MetroidVaniaSceneProcessor::GetInstance().should_start_game = true;
 			Engine->GetModule<UserInterface>().RemoveElement(this);
-			Engine->GetModule<Audio>().PlaySFX(SFX_MENU_SELECT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
 			break;
 		case MAINMENU_LOADGAME:
 			if (Engine->GetModule<ProgressTracker>().CanLoadGame("save_file.xml"))
 			{
 				MetroidVaniaSceneProcessor::GetInstance().start_load_game = true;
 				Engine->GetModule<UserInterface>().RemoveElement(this);
-				Engine->GetModule<Audio>().PlaySFX(SFX_MENU_SELECT);
+				Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
 			}
 			else
 			{
-				Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_PING);
+				Engine->GetModule<Audio>().PlaySFX(mSFXPing);
 			}
 			break;
 		case MAINMENU_SETTINGS:
 			//MetroidVaniaSceneProcessor::GetInstance().AddSettingsMenu(1);
-			Engine->GetModule<Audio>().PlaySFX(SFX_MENU_SELECT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
 			break;
 		case MAINMENU_CREDITS:
 			//design more UI :)
-			Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_PING);
+			Engine->GetModule<Audio>().PlaySFX(mSFXPing);
 			break;
 		case MAINMENU_EXIT:
 			//quit the game
@@ -90,7 +95,7 @@ void UIMainMenu::Loop()
 	if (abs(amount_of_movement)>0.6 && !stop_inputs && !MetroidVaniaSceneProcessor::GetInstance().is_settings_up)
 	{
 		CycleOption(amount_of_movement);
-		Engine->GetModule<Audio>().PlaySFX(SFX_MENU_CHANGE);
+		Engine->GetModule<Audio>().PlaySFX(mSFXMenuChange);
 		prev_joy_y.clear();
 		stop_inputs = true;
 	}

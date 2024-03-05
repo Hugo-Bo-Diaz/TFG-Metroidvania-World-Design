@@ -5,6 +5,7 @@
 #include "EngineElements/ParticleEmitter.h"
 #include "Utils/Timer.h"
 #include "EngineElements/UIelement.h"
+#include "Modules/Audio.h"
 
 enum SettingsParentType {
 	SETTINGS_PARENT_MAIN_MENU,
@@ -50,6 +51,9 @@ public:
 
 	TextureID lTextureBase;
 	TextureID lTextureOptions;
+
+	AudioID mSFXMenuSelect;
+	AudioID mSFXMenuChange;
 };
 
 #endif

@@ -12,7 +12,7 @@ FireSpellPickup::FireSpellPickup()
 
 }
 
-FireSpellPickup::~FireSpellPickup()
+void FireSpellPickup::Destroy()
 {
 	//Engine->GetModule<Particles>().to_delete.push_back(p);
 	Engine->GetModule<Particles>().RemoveParticleEmitter(p);

@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 enum CoalJumperState {
 	COALJUMPER_IDLE,
@@ -23,11 +24,12 @@ class CoalJumper : public Enemy
 public:
 	CoalJumper();
 	CoalJumper(std::list<ObjectProperty*>& aList) { new (this) CoalJumper; };
-	~CoalJumper();
+	~CoalJumper() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	float health=5;
 	SDL_Rect* nextpos = nullptr;
@@ -76,6 +78,8 @@ public:
 
 	TextureID particles;
 	TextureID coaljumper;
+
+	AudioID mSFXHit;
 };
 
 #endif

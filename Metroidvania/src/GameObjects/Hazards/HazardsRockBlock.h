@@ -11,12 +11,13 @@ class HazardRockBlock :
 public:
 	HazardRockBlock();
 	HazardRockBlock(std::list<ObjectProperty*>& aList) { new (this) HazardRockBlock; };
-	~HazardRockBlock();
+	~HazardRockBlock() {};
 	int wall_id;
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	SDL_Rect rockblock;
 	TextureID hazards;

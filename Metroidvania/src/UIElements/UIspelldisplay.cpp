@@ -46,6 +46,8 @@ void UIspelldisplay::Render()
 		current_spell = player->current_spell;
 		if (current_spell > 5)
 			current_spell = 0;
+		if (current_spell < 0)
+			current_spell = 0;
 
 		//render borders;
 		Engine->GetModule<::Render>().Blit(lTexture, x, y, &left_border, 50, RenderQueue::RENDER_UI);

@@ -27,7 +27,7 @@ FlyingElemental::FlyingElemental(float _initial_y)
 }
 
 
-FlyingElemental::~FlyingElemental()
+void FlyingElemental::Destroy()
 {
 	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider->x, collider->y, 300);
 }
@@ -46,6 +46,8 @@ void FlyingElemental::Init()
 
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	flyingelemental = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/flyingelemental.png");
+
+	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
 	r1exp = { 0,0,12,12 };
 	explosion.area_in_texture.push_back(&r1exp);
@@ -274,7 +276,7 @@ bool FlyingElemental::Render()
 
 void FlyingElemental::RecieveDamage(int dmg, int direction)
 {
-	Engine->GetModule<Audio>().PlaySFX(SFX_ENEMY_HIT);
+	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{

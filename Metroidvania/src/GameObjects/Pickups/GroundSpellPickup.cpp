@@ -12,7 +12,7 @@ GroundSpellPickup::GroundSpellPickup()
 
 }
 
-GroundSpellPickup::~GroundSpellPickup()
+void GroundSpellPickup::Destroy()
 {
 	//Engine->GetModule<Particles>().to_delete.push_back(p);
 	Engine->GetModule<Particles>().RemoveParticleEmitter(p);

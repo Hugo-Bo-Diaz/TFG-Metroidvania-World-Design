@@ -30,13 +30,15 @@ FireBall::FireBall()
 	explosion.minmax_lifespan = std::make_pair(200, 500);
 	explosion.minmax_frequency = std::make_pair(10, 50);
 	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
-	explosion.texture_name = particles;
 }
 
 void FireBall::Init()
 {
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	explosion.texture_name = particles;
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+
+	mSFXGroundHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
 }
 void FireBall::Destroy()
 {
@@ -58,7 +60,7 @@ bool FireBall::Loop(float dt)
 		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
-			Engine->GetModule<Audio>().PlaySFX(SFX_GROUND_HIT);
+			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
 		}
 	}
 

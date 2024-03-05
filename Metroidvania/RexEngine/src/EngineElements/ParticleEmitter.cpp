@@ -11,7 +11,7 @@ ParticleEmitter::ParticleEmitter(particle_preset* preset, float lifespan, float 
 	preset_for_emitter = new particle_preset(*preset);
 	total_lifespan = lifespan;
 	depth = aDepth;
-	
+
 	for (int i = 0; i < MAX_PARTICLES; ++i)
 	{
 		particles[i] == NULL;

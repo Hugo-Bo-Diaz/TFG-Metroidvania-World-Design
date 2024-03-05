@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Textures.h"
+#include "Modules/Audio.h"
 
 enum FlyingElementalColor
 {
@@ -24,11 +25,12 @@ public:
 	FlyingElemental();
 	FlyingElemental(std::list<ObjectProperty*>& aProperties);
 	FlyingElemental(float initial_y);
-	~FlyingElemental();
+	~FlyingElemental() {};
 
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	FlyingElementalState state = FE_PATROL;
 	FlyingElementalState last_state = FE_PATROL;
@@ -85,6 +87,8 @@ public:
 
 	TextureID flyingelemental;
 	TextureID particles;
+
+	AudioID mSFXHit;
 };
 
 #endif

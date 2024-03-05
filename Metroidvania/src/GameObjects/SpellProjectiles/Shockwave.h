@@ -2,6 +2,7 @@
 #define SHOCKWAVE__H
 
 #include "Modules/ObjectManager.h"
+#include "Modules/Audio.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
 
@@ -41,6 +42,8 @@ public:
 
 	TextureID spells;
 	TextureID particles;
+
+	AudioID mSFXGroundHit;
 };
 
 #endif // !PLAYER__REP__H

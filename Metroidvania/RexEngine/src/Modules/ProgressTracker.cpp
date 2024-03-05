@@ -143,7 +143,7 @@ Section* Section::RemoveChild(const char* aChildName)
 
 Section* Section::GetChild(const char* aChildName)
 {
-	if (Children.count(aChildName) > 0)
+	if (Children.size() > 0 && Children.count(aChildName) > 0)
 	{
 		return Children.find(aChildName)->second;
 	}
