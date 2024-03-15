@@ -3,6 +3,7 @@
 
 #include "PartImpl.h"
 #include "../include/Modules/Camera.h"
+#include "EngineElements/GameObject.h"
 
 class Camera::CameraImpl : public Part::Part_Impl
 {

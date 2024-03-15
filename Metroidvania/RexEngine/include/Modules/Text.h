@@ -25,9 +25,7 @@ public:
 	Text(EngineAPI& aAPI);
 
 	const std::string mSupportedChars = ":abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890/.,'";
-
 	FontID LoadFont(const char* path, const RXColor& aColor, int size = 15);
-
 	void GetTextSize(FontID aFontID, const char* string, int& w, int& y);
 
 	class TextImpl;

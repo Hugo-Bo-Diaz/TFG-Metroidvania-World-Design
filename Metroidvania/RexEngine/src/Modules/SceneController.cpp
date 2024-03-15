@@ -28,6 +28,8 @@ SceneController::SceneController(EngineAPI& aAPI):Part("SceneController",aAPI)
 	mPartFuncts = new SceneControllerImpl(this);
 }
 
+#pragma region IMPLEMENTATION
+
 bool SceneController::SceneControllerImpl::Init()
 {
 	mPartInst->LoadMap("Assets/maps/map0_entrance.tmx");
@@ -38,9 +40,6 @@ bool SceneController::SceneControllerImpl::Loop(float dt)
 {
 	bool ret = true;
 
-	//App->aud->PlayMusic(song_try,1000);
-
-//	RenderTiles();
 	if (SceneFunction != nullptr)
 	{
 		SceneFunction();
@@ -61,7 +60,6 @@ bool SceneController::SceneControllerImpl::Loop(float dt)
 	{
 		mPartInst->mApp.GetImplementation<Render,Render::RenderImpl>()->BlitMapLayer(*it);
 	}
-
 
 	return ret;
 }
@@ -90,7 +88,6 @@ bool SceneController::SceneControllerImpl::LoadTilesets(pugi::xml_node & node)
 
 	//load this texture
 	set->texture = mPartInst->mApp.GetModule<Textures>().Load_Texture(base_folder.c_str());
-
 	tilesets.push_back(set);
 
 	return true;
@@ -131,29 +128,9 @@ bool SceneController::SceneControllerImpl::LoadBackgroundImage(pugi::xml_node & 
 
 	//load this texture
 	back->texture = mPartInst->mApp.GetModule<Textures>().Load_Texture(base_folder.c_str());
-
-
 	active_backgrounds.push_back(back);
 
-	//backgrounds.push_back(back);
-
 	return true;
-}
-
-void SceneController::LoadMap(const char* filename)
-{
-	SceneControllerImpl* lImpl = dynamic_cast<SceneControllerImpl*>(mPartFuncts);
-	if (!lImpl)
-	{
-		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
-		return;
-	}
-
-	std::stringstream lStr;
-	lStr << "Change map to: " << filename;
-	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
-
-	lImpl->lMapToLoad = filename;
 }
 
 bool SceneController::SceneControllerImpl::LoadMapExecute(const char* filename)
@@ -249,7 +226,6 @@ void SceneController::SceneControllerImpl::LoadMapProperties(pugi::xml_node & no
 	}
 }
 
-
 bool SceneController::SceneControllerImpl::LoadBackground(pugi::xml_node& imagelayer_node)
 {
 	pugi::xml_node image_node = imagelayer_node.first_child();
@@ -288,7 +264,6 @@ bool SceneController::SceneControllerImpl::LoadObjects(pugi::xml_node& objectgro
 	pugi::xml_node object_iterator;
 	for (object_iterator = objectgroup_node.child("object"); object_iterator; object_iterator = object_iterator.next_sibling())
 	{
-	//	int newpos;
 		int x = object_iterator.attribute("x").as_int();
 		int y = object_iterator.attribute("y").as_int();// -object_iterator.attribute("height").as_int();//tile height inside tiled
 		int w = 0;
@@ -351,7 +326,6 @@ bool SceneController::SceneControllerImpl::LoadObjects(pugi::xml_node& objectgro
 			mPartInst->mApp.GetModule<ObjectManager>().AddObject(ret);
 		}
 	}
-
 
 	return true;
 }
@@ -418,7 +392,25 @@ bool SceneController::SceneControllerImpl::LoadTiles(pugi::xml_node & tile_node)
 	return true;
 }
 
+#pragma endregion
 
+#pragma region PUBLIC API
+
+void SceneController::LoadMap(const char* filename)
+{
+	SceneControllerImpl* lImpl = dynamic_cast<SceneControllerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	std::stringstream lStr;
+	lStr << "Change map to: " << filename;
+	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
+
+	lImpl->lMapToLoad = filename;
+}
 
 bool SceneController::AssignGameLoopFunction(std::function<void()> aSceneFunction)
 {
@@ -453,8 +445,6 @@ bool SceneController::AssignLoadFunction(std::function<void()> aLoadFunction)
 	}
 	return false;
 }
-
-
 
 void SceneController::CleanMap()
 {
@@ -501,3 +491,5 @@ void SceneController::GetRoomSize(int& x, int& y)
 	x = lImpl->room_w;
 	y = lImpl->room_h;
 }
+
+#pragma endregion

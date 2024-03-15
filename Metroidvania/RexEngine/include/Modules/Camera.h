@@ -4,8 +4,9 @@
 #include "PartsDef.h"
 #include "Part.h"
 #include<vector>
-
+#include "Utils/Timer.h"
 #include "RXRect.h"
+
 class GameObject;
 
 class DLL_EXPORT Camera : public Part

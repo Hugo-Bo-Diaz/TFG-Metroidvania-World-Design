@@ -18,6 +18,8 @@ Textures::Textures(EngineAPI& aAPI) :Part("Textures", aAPI)
 	mPartFuncts = new TexturesImpl(this);
 }
 
+#pragma region IMPLEMENTATION
+
 bool Textures::TexturesImpl::LoadConfig(pugi::xml_node& config_node)
 {
 	bool ret = true;
@@ -62,21 +64,52 @@ bool Textures::TexturesImpl::CreateConfig(pugi::xml_node& config_node)
 		Logger::Console_log(LogLevel::LOG_ERROR, lStr.c_str());
 		ret = false;
 	}
-
 	pugi::xml_node textures_node = config_node.append_child("textures");
 
-
-
 	return ret;
 }
 
-bool Textures::TexturesImpl::Init()
+SDL_Texture* Textures::TexturesImpl::Get_Texture(TextureID id)
 {
-	bool ret = true;
-
-
-	return ret;
+	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
+	{
+		if ((*it)->id == id)
+		{
+			return ((*it)->texture);
+		}
+	}
+	return nullptr;
 }
+
+TextureID Textures::TexturesImpl::AddTexture(SDL_Texture* aTextureToAdd, const char* aTextureName)
+{
+	Texture* new_tex = new Texture();
+	new_tex->texture = aTextureToAdd;
+	++number_of_textures;
+	new_tex->id = number_of_textures;
+	new_tex->name = aTextureName;
+
+	texture_list.push_back(new_tex);
+	return new_tex->id;
+}
+
+
+bool Textures::TexturesImpl::CleanUp()
+{
+	Logger::Console_log(LogLevel::LOG_ERROR, "Freeing textures and Image library");
+	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
+	{
+		delete(*it);
+
+	}
+	texture_list.clear();
+	IMG_Quit();
+	return true;
+}
+
+#pragma endregion
+
+#pragma region PUBLIC API
 
 TextureID Textures::Load_Texture(const char*path)
 {
@@ -126,31 +159,6 @@ TextureID Textures::Load_Texture(const char*path)
 	return lResult;
 }
 
-SDL_Texture* Textures::TexturesImpl::Get_Texture(TextureID id)
-{
-	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
-	{
-		if ((*it)->id==id)
-		{
-			return ((*it)->texture);
-		}
-	}
-	//std::vector<Texture*>::iterator it = std::find(texture_list.begin(), texture_list.end(), name);
-	return nullptr;
-}
-
-TextureID Textures::TexturesImpl::AddTexture(SDL_Texture* aTextureToAdd, const char* aTextureName)
-{
-	Texture* new_tex = new Texture();
-	new_tex->texture = aTextureToAdd;
-	++number_of_textures;
-	new_tex->id = number_of_textures;
-	new_tex->name = aTextureName;
-
-	texture_list.push_back(new_tex);
-	return new_tex->id;
-}
-
 void Textures::Destroy_Texture(const char* texture_to_destroy)
 {
 	TexturesImpl* lImpl = dynamic_cast<TexturesImpl*>(mPartFuncts);
@@ -169,21 +177,7 @@ void Textures::Destroy_Texture(const char* texture_to_destroy)
 			return;
 		}
 	}
-	//std::vector<Texture*>::iterator it = std::find(texture_list.begin(), texture_list.end(), texture_to_destroy);
-	//delete(*it);
-	//texture_list.erase(it);
 	return;
 }
 
-bool Textures::TexturesImpl::CleanUp()
-{
-	Logger::Console_log(LogLevel::LOG_ERROR, "Freeing textures and Image library");
-	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
-	{
-		delete(*it);
-		
-	}
-	texture_list.clear();
-	IMG_Quit();
-	return true;
-}
+#pragma endregion

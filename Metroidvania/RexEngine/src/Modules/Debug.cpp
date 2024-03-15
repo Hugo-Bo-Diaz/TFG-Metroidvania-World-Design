@@ -2,10 +2,7 @@
 #include "Modules/Render.h"
 #include "Modules/Input.h"
 #include "Modules/Debug.h"
-#include "Modules/ObjectManager.h"
-#include "Modules/Gui.h"
 #include <Psapi.h>
-#include "RXColor.h"
 
 #include "DebugImpl.h"
 #include "ObjectManagerImpl.h"
@@ -15,6 +12,8 @@ Debug::Debug(EngineAPI& aAPI) : Part("Debug",aAPI)
 {
 	mPartFuncts = new DebugImpl(this);
 }
+
+#pragma region IMPLEMENTATION
 
 bool Debug::DebugImpl::Init()
 {
@@ -126,6 +125,10 @@ bool Debug::DebugImpl::CreateConfig(pugi::xml_node& aNode)
 	return true;
 }
 
+#pragma endregion
+
+#pragma region PUBLIC API
+
 bool Debug::GetTotalMemoryUsage(float& virmem, float& physmem)
 {
 	PROCESS_MEMORY_COUNTERS_EX pmc;
@@ -190,3 +193,5 @@ bool Debug::IsDebugActive()
 
 	return lImpl->mIsDebugSceneActive;
 };
+
+#pragma endregion

@@ -35,7 +35,6 @@ public:
 	float base_window_height = 576;
 
 protected:
-	bool Init();
 	bool Loop(float dt);
 	bool CleanUp();
 

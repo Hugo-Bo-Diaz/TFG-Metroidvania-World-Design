@@ -20,6 +20,8 @@ Render::Render(EngineAPI& aAPI) :Part("Render",aAPI)
 	mPartFuncts = new RenderImpl(this);
 }
 
+#pragma region IMPLEMENTATION
+
 bool Render::RenderImpl::LoadConfig(pugi::xml_node& config_node)
 {
 	bool ret = true;
@@ -122,6 +124,57 @@ bool Render::RenderImpl::Loop(float dt)
 	return ret;
 }
 
+
+void Render::RenderImpl::BlitMapLayer(layer* layer)
+{
+	BlitLayer* it = new BlitLayer();
+	it->layer = layer;
+	it->depth = layer->depth;
+	it->tex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(layer->tileset_of_layer->texture);
+	allQueue.push(it);
+}
+
+void Render::RenderImpl::BlitParticleEmitter(ParticleEmitter* layer, RenderQueue aRenderQueue)
+{
+	BlitParticles* it = new BlitParticles();
+	it->lEmmitter = layer;
+	it->depth = layer->depth;
+	it->tex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(layer->preset_for_emitter->texture_name);
+	GetQueue(aRenderQueue)->push(it);
+}
+
+
+void Render::RenderImpl::BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x, float parallax_factor_y)
+{
+	BlitBackground* it = new BlitBackground();
+
+	it->tex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(aTexID);
+
+	it->repeat_y = repeat_y;
+	it->depth = depth;
+
+	//it->img_center = {center_x,center_y};
+	it->parallax_x = parallax_factor_x;
+	it->parallax_y = parallax_factor_y;
+
+	//order the elements
+	allQueue.push(it);
+}
+
+bool Render::RenderImpl::CleanUp()
+{
+	bool ret = true;
+
+	SDL_DestroyRenderer(renderer);
+
+	//SDL_QuitSubSystem(SDL_INIT_VIDEO);
+	return ret;
+}
+
+#pragma endregion
+
+#pragma region PUBLIC API
+
 long Render::GetDrawCallsLastFrame() 
 {
 	RenderImpl* lImpl = dynamic_cast<RenderImpl*>(mPartFuncts);
@@ -164,53 +217,11 @@ void Render::Blit(TextureID aTexID, int x, int y,const RXRect& rect_on_image, in
 	it->center_x = center_x;
 	it->center_y = center_y;
 
-	//it->img_center = {center_x,center_y};
 	it->angle = angle;
 	it->parallax_x = parallax_factor_x;
 	it->parallax_y = parallax_factor_y;
 
 	lImpl->GetQueue(aQueue)->push(it);
-	
-	//order the elements
-	
-
-
-}
-
-void Render::RenderImpl::BlitMapLayer(layer* layer)
-{
-	BlitLayer* it = new BlitLayer();
-	it->layer = layer;
-	it->depth = layer->depth;
-	it->tex = mPartInst->mApp.GetImplementation<Textures,Textures::TexturesImpl>()->Get_Texture(layer->tileset_of_layer->texture);
-	allQueue.push(it);
-}
-
-void Render::RenderImpl::BlitParticleEmitter(ParticleEmitter* layer,RenderQueue aRenderQueue)
-{
-	BlitParticles* it = new BlitParticles();
-	it->lEmmitter = layer;
-	it->depth = layer->depth;
-	it->tex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(layer->preset_for_emitter->texture_name);
-	GetQueue(aRenderQueue)->push(it);
-}
-
-
-void Render::RenderImpl::BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x, float parallax_factor_y)
-{
-	BlitBackground* it = new BlitBackground();
-
-	it->tex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(aTexID);
-
-	it->repeat_y = repeat_y;
-	it->depth = depth;
-
-	//it->img_center = {center_x,center_y};
-	it->parallax_x = parallax_factor_x;
-	it->parallax_y = parallax_factor_y;
-
-	//order the elements
-	allQueue.push(it);
 }
 
 void Render::BlitText(const char* text, FontID font, int x, int y, int depth, const RXColor& aColor, RenderQueue aQueue, bool ignore_camera)
@@ -235,7 +246,6 @@ void Render::BlitText(const char* text, FontID font, int x, int y, int depth, co
 
 	lImpl->GetQueue(aQueue)->push(it);
 }
-
 
 void Render::DrawRect(const RXRect& area, uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool filled, RenderQueue aQueue,int depth , bool ignore_camera)
 {
@@ -284,16 +294,6 @@ void Render::DrawTrail(RXPoint* point_array, int amount, RenderQueue aQueue,bool
 	it->color = RXColor{ r,g,b ,255};
 	it->ignore_camera = aQueue == RenderQueue::RENDER_UI || aIgnoreCamera;
 	lImpl->GetQueue(aQueue)->push(it);
-}
-
-bool Render::RenderImpl::CleanUp()
-{
-	bool ret = true;
-
-	SDL_DestroyRenderer(renderer);
-
-	//SDL_QuitSubSystem(SDL_INIT_VIDEO);
-	return ret;
 }
 
 void BlitTexture::Blit(Render& aRender, Camera& camera, Window& aWindow)
@@ -604,3 +604,5 @@ void BlitItemText::Blit(Render& aRender, Camera& camera, Window& aWindow)
 		}
 	}
 }
+
+#pragma endregion

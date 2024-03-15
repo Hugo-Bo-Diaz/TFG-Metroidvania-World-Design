@@ -9,23 +9,6 @@ struct Mix_Chunk;
 
 typedef int AudioID;
 
-struct Music
-{
-	std::string path;
-	uint id;
-	_Mix_Music* music;
-	float volume = 1.0f;
-	float fade;
-};
-
-struct SFX
-{
-	std::string path;
-	uint id;
-	Mix_Chunk* sfx;
-	float volume = 1.0f;
-};
-
 
 class DLL_EXPORT Audio : public Part
 {

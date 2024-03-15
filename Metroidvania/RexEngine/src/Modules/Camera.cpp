@@ -1,14 +1,11 @@
-#include "Application.h"
-#include "Modules/Camera.h"
 #include "Modules/Window.h"
-#include "Modules/ObjectManager.h"
-#include <stdlib.h>
-#include <time.h>
 #include "Modules/Input.h"
 #include "Modules/SceneController.h"
 #include "Modules/Render.h"
 #include "Utils/Logger.h"
 
+#include <stdlib.h>
+#include <time.h>
 #include <string>
 #include <sstream>
 #include "CameraImpl.h"
@@ -21,6 +18,8 @@ Camera::Camera(EngineAPI& aAPI) : Part("Camera", aAPI)
 	shaking.Pause();
 	shaking.Reset();
 }
+
+#pragma region IMPLEMENTATION
 
 bool Camera::CameraImpl::Init()
 {
@@ -119,6 +118,10 @@ bool Camera::CameraImpl::CleanUp()
 	return true;
 }
 
+#pragma endregion
+
+#pragma region PUBLIC API
+
 void Camera::FollowObject(GameObject* new_target)
 {
 	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
@@ -152,7 +155,6 @@ void Camera::CameraShake(int _amount, float _time)
 	total_shaking_time = _time;
 	amount = _amount;
 	srand(time(NULL));
-
 }
 
 void Camera::CoverScreen(float amount_in_ms, float falloff_in_ms, int _r, int _g, int _b)
@@ -173,7 +175,6 @@ void Camera::CoverScreen(float amount_in_ms, float falloff_in_ms, int _r, int _g
 
 int Camera::GetCoveragePercent()
 {
-
 	if (is_covered)
 	{
 		return (alpha / 255) * 100;
@@ -183,3 +184,5 @@ int Camera::GetCoveragePercent()
 		return 0;
 	}
 }
+
+#pragma endregion

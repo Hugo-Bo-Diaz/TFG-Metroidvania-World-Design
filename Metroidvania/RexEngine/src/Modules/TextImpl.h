@@ -35,9 +35,6 @@ public:
 
 	Font* GetFont(FontID aFontID);
 protected:
-	bool LoadConfig(pugi::xml_node&);
-	bool CreateConfig(pugi::xml_node&);
-
 	virtual bool Init();
 	virtual bool CleanUp();
 

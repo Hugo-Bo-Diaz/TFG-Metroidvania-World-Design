@@ -4,6 +4,23 @@
 #include "../include/Modules/Audio.h"
 #include "PartImpl.h"
 
+struct Music
+{
+	std::string path;
+	uint id;
+	_Mix_Music* music;
+	float volume = 1.0f;
+	float fade;
+};
+
+struct SFX
+{
+	std::string path;
+	uint id;
+	Mix_Chunk* sfx;
+	float volume = 1.0f;
+};
+
 class Audio::AudioImpl : public Part::Part_Impl
 {
 public:

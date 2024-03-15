@@ -20,8 +20,6 @@ public:
 	void SaveToNode(Section* aSector, pugi::xml_node& atr);
 	void LoadFromNode(Section* aSector, pugi::xml_node& atr);
 
-protected:
-	bool Init();
 private:
 	friend class ProgressTracker;
 

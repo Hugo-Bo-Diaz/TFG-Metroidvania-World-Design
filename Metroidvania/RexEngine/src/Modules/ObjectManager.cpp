@@ -9,11 +9,12 @@
 #include "SDL/include/SDL.h"
 #include "ObjectManagerImpl.h"
 
-
 ObjectManager::ObjectManager(EngineAPI& aAPI) : Part("ObjectManager",aAPI)
 {
 	mPartFuncts = new ObjectManagerImpl(this);
 }
+
+#pragma region IMPLEMENTATION
 
 bool ObjectManager::ObjectManagerImpl::Init()
 {
@@ -80,6 +81,44 @@ void ObjectManager::ObjectManagerImpl::RenderDebug()
 	}
 }
 
+FactoryBase* ObjectManager::ObjectManagerImpl::GetFactory(const char* aNameInMap)
+{
+	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
+	{
+		if (strcmp((*it)->GetObjectMapName().c_str(), aNameInMap) == 0)
+		{
+			return (*it);
+		}
+	}
+	return nullptr;
+}
+FactoryBase* ObjectManager::ObjectManagerImpl::GetFactory(std::type_index& aType)
+{
+	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
+	{
+		if ((*it)->GetObjectTypeIndex() == aType)
+		{
+			return (*it);
+		}
+	}
+	return nullptr;
+}
+
+bool ObjectManager::ObjectManagerImpl::CleanUp()
+{
+	mPartInst->Clearphysics();
+
+	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
+	{
+		delete* it;
+	}
+	return true;
+}
+
+#pragma endregion
+
+#pragma region PUBLIC API
+
 void ObjectManager::GetNearbyWalls(int x, int y, int pxls_range, std::vector<RXRect*>& colliders_near)
 {
 	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
@@ -91,8 +130,6 @@ void ObjectManager::GetNearbyWalls(int x, int y, int pxls_range, std::vector<RXR
 
 	RXRect* toleration_area = new RXRect();
 	*toleration_area = {x-pxls_range, y -pxls_range, pxls_range*2, pxls_range*2};
-
-	//App->ren->DrawRect(toleration_area, 255, 0, 0, 100, true);
 
 	for (int i = 0; i < MAX_WALLS; ++i)
 	{
@@ -137,9 +174,7 @@ void ObjectManager::GetCollisions(RXRect* obj, std::vector<collision*>& collisio
 		if (RXRectCollision((*it)->collider,obj))
 		{
 			collision* col = new collision();
-
 			col->object = *it;
-
 			collisions.push_back(col);
 		}
 	}
@@ -147,7 +182,6 @@ void ObjectManager::GetCollisions(RXRect* obj, std::vector<collision*>& collisio
 
 void ObjectManager::ClearCollisionArray(std::vector<collision*>& collisions)
 {
-
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
 		delete *it;
@@ -167,8 +201,6 @@ GameObject* ObjectManager::AddObject(int x, int y, int w_col, int h_col,std::typ
 	auto lID = lImpl->GetFactory(lType);
 
 	std::list<ObjectProperty*> lPropList;
-
-	//GameObject* r = (*lID).second(lPropList);
 
 	GameObject* r = (*lID).CreateInstace();
 	if (r != nullptr)
@@ -204,10 +236,8 @@ int ObjectManager::GetTotalObjectNumber()
 		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
 		return 0;
 	}
-
 	return lImpl->objects.size();
 }
-
 
 void ObjectManager::AddObject(GameObject* lToAdd)
 {
@@ -246,7 +276,6 @@ int ObjectManager::AddWall(RXRect& rect)
 			++i;
 		}
 	}
-
 	
 	RXRect* wall = new RXRect();
 	wall->x = rect.x;
@@ -282,40 +311,6 @@ bool ObjectManager::AddFactory(FactoryBase* aFactory)
 	}
 
 	lImpl->mFactories.push_back(aFactory);
-	return true;
-}
-
-FactoryBase* ObjectManager::ObjectManagerImpl::GetFactory(const char* aNameInMap)
-{
-	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
-	{
-		if (strcmp((*it)->GetObjectMapName().c_str(), aNameInMap) == 0)
-		{
-			return (*it);
-		}
-	}
-	return nullptr;
-}
-FactoryBase* ObjectManager::ObjectManagerImpl::GetFactory(std::type_index& aType)
-{
-	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
-	{
-		if ((*it)->GetObjectTypeIndex()== aType)
-		{
-			return (*it);
-		}
-	}
-	return nullptr;
-}
-
-bool ObjectManager::ObjectManagerImpl::CleanUp()
-{
-	mPartInst->Clearphysics();
-
-	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
-	{
-		delete *it;
-	}
 	return true;
 }
 
@@ -359,18 +354,7 @@ void ObjectManager::DeleteObject(GameObject* _to_delete)
 		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
 		return;
 	}
-	//std::list<physobj*>::iterator obj_to_del;
-
-	//for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
-	//{
-	//	if (to_delete == *it)
-	//	{
-	//		obj_to_del = it;
-	//	}
-	//}
-	//delete to_delete;
 	lImpl->to_delete.insert(_to_delete);
-
 }
 
 bool ObjectManager::isPaused()
@@ -408,3 +392,5 @@ void ObjectManager::UnPauseObjects()
 
 	lImpl->is_paused = false;
 }
+
+#pragma endregion

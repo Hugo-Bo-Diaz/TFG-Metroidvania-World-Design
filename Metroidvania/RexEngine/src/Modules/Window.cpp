@@ -11,6 +11,8 @@ Window::Window(EngineAPI& aAPI): Part("Window",aAPI)
 	mPartFuncts = new WindowImpl(this);
 }
 
+#pragma region IMPLEMENTATION
+
 bool Window::WindowImpl::LoadConfig(pugi::xml_node& config_node)
 {
 	Logger::Console_log(LogLevel::LOG_INFO,"Init SDL window & surface");
@@ -89,16 +91,31 @@ bool Window::WindowImpl::CreateConfig(pugi::xml_node& config_node)
 	return true;
 }
 
-bool Window::WindowImpl::Init()
+bool Window::WindowImpl::Loop(float dt)
+{
+	int window_x, window_y;
+	SDL_GetWindowSize(window, &width, &height);
+
+	scale = height / base_window_height;
+	return true;
+}
+
+bool Window::WindowImpl::CleanUp()
 {
 	bool ret = true;
-	
 
-	//SET THE ICON OF THE WINDOW HERE 
+	if (window != NULL)
+	{
+		SDL_DestroyWindow(window);
+	}
 
+	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return ret;
-
 }
+
+#pragma endregion
+
+#pragma region PUBLIC API
 
 float Window::GetScale()
 {
@@ -109,18 +126,6 @@ float Window::GetScale()
 	}
 
 	return lImpl->scale;
-}
-
-bool Window::WindowImpl::Loop(float dt)
-{
-	int window_x, window_y;
-	SDL_GetWindowSize(window, &width, &height);
-
-	scale = height / base_window_height;
-	
-	//SDL_SetWindowSize(window, height * 16 / 9, height);
-	//SDL_SetWindowSize(window, 1280, 720);
-	return true;
 }
 
 void Window::SetWindowTitle(const char* title)
@@ -155,7 +160,6 @@ void Window::ToggleFullScreen()
 		SDL_SetWindowFullscreen(lImpl->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 		lImpl->fullscreen = true;
 		lImpl->scale = 2;
-
 	}
 }
 
@@ -186,15 +190,4 @@ void Window::GetWindowSize(int& x, int& y)
 	y = lImpl->height;
 }
 
-bool Window::WindowImpl::CleanUp()
-{
-	bool ret = true;
-
-	if (window != NULL)
-	{
-		SDL_DestroyWindow(window);
-	}
-
-	SDL_QuitSubSystem(SDL_INIT_EVENTS);
-	return ret;
-}
+#pragma endregion

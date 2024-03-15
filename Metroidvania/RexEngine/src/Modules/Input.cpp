@@ -8,6 +8,8 @@ Input::Input(EngineAPI& aAPI): Part("Input",aAPI)
 	mPartFuncts = new InputImpl(this);
 }
 
+#pragma region IMPLEMENTATION
+
 bool Input::InputImpl::Init()
 {
 	bool ret = true;
@@ -265,6 +267,113 @@ bool Input::InputImpl::Loop(float dt)
 	return ret;
 }
 
+bool Input::InputImpl::CleanUp()
+{
+	bool ret = true;
+	delete[] keyboard;
+	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
+	if (controller_active)
+	{
+		SDL_GameControllerClose(SDLcontroller);
+	}
+
+	return ret;
+}
+
+bool Input::InputImpl::LoadConfig(pugi::xml_node& config_node)
+{
+	pugi::xml_node controller_sets = config_node.child("controllers");
+	pugi::xml_node set;
+	for (set = controller_sets.first_child(); set; set = set.next_sibling())
+	{
+		setup* new_setup = new setup();
+		new_setup->inputs[0] = set.child("b1").attribute("value").as_int();
+		new_setup->inputs[1] = set.child("b2").attribute("value").as_int();
+		new_setup->inputs[2] = set.child("b3").attribute("value").as_int();
+		new_setup->inputs[3] = set.child("b4").attribute("value").as_int();
+
+		new_setup->inputs[4] = set.child("start").attribute("value").as_int();
+		new_setup->inputs[5] = set.child("select").attribute("value").as_int();
+
+		new_setup->inputs[6] = set.child("sh_r").attribute("value").as_int();
+		new_setup->inputs[7] = set.child("sh_l").attribute("value").as_int();
+
+		new_setup->inputs[10] = set.child("dpad_l").attribute("value").as_int();
+		new_setup->inputs[11] = set.child("dpad_r").attribute("value").as_int();
+		new_setup->inputs[13] = set.child("dpad_d").attribute("value").as_int();
+		new_setup->inputs[12] = set.child("dpad_u").attribute("value").as_int();
+
+		new_setup->keyboard = set.child("keyboard").attribute("value").as_bool();
+
+		if (new_setup->keyboard)
+		{
+			new_setup->inputs[14] = set.child("left").attribute("value").as_int();
+			new_setup->inputs[15] = set.child("right").attribute("value").as_int();
+			new_setup->inputs[17] = set.child("down").attribute("value").as_int();
+			new_setup->inputs[16] = set.child("up").attribute("value").as_int();
+		}
+		mPartInst->controller_setups.push_back(new_setup);
+	}
+
+	return true;
+}
+
+bool Input::InputImpl::CreateConfig(pugi::xml_node& config_node)
+{
+	pugi::xml_node controller_sets = config_node.append_child("controllers");
+
+	pugi::xml_node set_key = controller_sets.append_child("set");
+
+	set_key.append_child("b1").append_attribute("value") = SDL_SCANCODE_Z;
+	set_key.append_child("b2").append_attribute("value") = SDL_SCANCODE_X;
+	set_key.append_child("b3").append_attribute("value") = SDL_SCANCODE_C;
+	set_key.append_child("b4").append_attribute("value") = SDL_SCANCODE_V;
+
+	set_key.append_child("start").append_attribute("value") = SDL_SCANCODE_ESCAPE;
+	set_key.append_child("select").append_attribute("value") = SDL_SCANCODE_TAB;
+
+	set_key.append_child("sh_l").append_attribute("value") = SDL_SCANCODE_A;
+	set_key.append_child("sh_r").append_attribute("value") = SDL_SCANCODE_S;
+
+	set_key.append_child("dpad_l").append_attribute("value") = SDL_SCANCODE_O;
+	set_key.append_child("dpad_r").append_attribute("value") = SDL_SCANCODE_P;
+	set_key.append_child("dpad_d").append_attribute("value") = SDL_SCANCODE_K;
+	set_key.append_child("dpad_u").append_attribute("value") = SDL_SCANCODE_J;
+
+	set_key.append_child("keyboard").append_attribute("value") = true;
+
+	set_key.append_child("left").append_attribute("value") = SDL_SCANCODE_LEFT;
+	set_key.append_child("right").append_attribute("value") = SDL_SCANCODE_RIGHT;
+	set_key.append_child("down").append_attribute("value") = SDL_SCANCODE_DOWN;
+	set_key.append_child("up").append_attribute("value") = SDL_SCANCODE_UP;
+
+	pugi::xml_node set_con = controller_sets.append_child("set");
+
+	set_con.append_child("b1").append_attribute("value") = SDL_CONTROLLER_BUTTON_A;
+	set_con.append_child("b2").append_attribute("value") = SDL_CONTROLLER_BUTTON_B;
+	set_con.append_child("b3").append_attribute("value") = SDL_CONTROLLER_BUTTON_Y;
+	set_con.append_child("b4").append_attribute("value") = SDL_CONTROLLER_BUTTON_X;
+
+	set_con.append_child("start").append_attribute("value") = SDL_CONTROLLER_BUTTON_START;
+	set_con.append_child("select").append_attribute("value") = SDL_CONTROLLER_BUTTON_BACK;
+
+	set_con.append_child("sh_r").append_attribute("value") = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
+	set_con.append_child("sh_l").append_attribute("value") = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
+
+	set_con.append_child("dpad_l").append_attribute("value") = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
+	set_con.append_child("dpad_r").append_attribute("value") = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+	set_con.append_child("dpad_d").append_attribute("value") = SDL_CONTROLLER_BUTTON_DPAD_DOWN;
+	set_con.append_child("dpad_u").append_attribute("value") = SDL_CONTROLLER_BUTTON_DPAD_UP;
+
+	set_con.append_child("keyboard").append_attribute("value") = false;
+
+	return true;
+}
+
+#pragma endregion
+
+#pragma region PUBLIC API
 
 void Input::GetJoystick(bool left, float& x, float& y)
 {
@@ -412,108 +521,4 @@ Keystate Input::GetKey(int id)
 	return lImpl->keyboard[id];
 };
 
-
-bool Input::InputImpl::LoadConfig(pugi::xml_node& config_node)
-{
-	pugi::xml_node controller_sets = config_node.child("controllers");
-	pugi::xml_node set;
-	for (set = controller_sets.first_child(); set; set = set.next_sibling())
-	{
-		setup* new_setup = new setup();
-		new_setup->inputs[0] = set.child("b1").attribute("value").as_int();
-		new_setup->inputs[1] = set.child("b2").attribute("value").as_int();
-		new_setup->inputs[2] = set.child("b3").attribute("value").as_int();
-		new_setup->inputs[3] = set.child("b4").attribute("value").as_int();
-
-		new_setup->inputs[4] = set.child("start").attribute("value").as_int();
-		new_setup->inputs[5] = set.child("select").attribute("value").as_int();
-
-		new_setup->inputs[6] = set.child("sh_r").attribute("value").as_int();
-		new_setup->inputs[7] = set.child("sh_l").attribute("value").as_int();
-
-		new_setup->inputs[10] = set.child("dpad_l").attribute("value").as_int();
-		new_setup->inputs[11] = set.child("dpad_r").attribute("value").as_int();
-		new_setup->inputs[13] = set.child("dpad_d").attribute("value").as_int();
-		new_setup->inputs[12] = set.child("dpad_u").attribute("value").as_int();
-
-		new_setup->keyboard = set.child("keyboard").attribute("value").as_bool();
-
-		if (new_setup->keyboard)
-		{
-			new_setup->inputs[14] = set.child("left").attribute("value").as_int();
-			new_setup->inputs[15] = set.child("right").attribute("value").as_int();
-			new_setup->inputs[17] = set.child("down").attribute("value").as_int();
-			new_setup->inputs[16] = set.child("up").attribute("value").as_int();
-		}
-		mPartInst->controller_setups.push_back(new_setup);
-	}
-
-	return true;
-}
-
-bool Input::InputImpl::CreateConfig(pugi::xml_node& config_node)
-{
-	pugi::xml_node controller_sets = config_node.append_child("controllers");
-
-	pugi::xml_node set_key = controller_sets.append_child("set");
-
-	set_key.append_child("b1").append_attribute("value") = SDL_SCANCODE_Z;
-	set_key.append_child("b2").append_attribute("value") = SDL_SCANCODE_X;
-	set_key.append_child("b3").append_attribute("value") = SDL_SCANCODE_C;
-	set_key.append_child("b4").append_attribute("value") = SDL_SCANCODE_V;
-
-	set_key.append_child("start").append_attribute("value") = SDL_SCANCODE_ESCAPE;
-	set_key.append_child("select").append_attribute("value") = SDL_SCANCODE_TAB;
-		
-	set_key.append_child("sh_l").append_attribute("value") = SDL_SCANCODE_A;
-	set_key.append_child("sh_r").append_attribute("value") = SDL_SCANCODE_S;
-
-	set_key.append_child("dpad_l").append_attribute("value") = SDL_SCANCODE_O;
-	set_key.append_child("dpad_r").append_attribute("value") = SDL_SCANCODE_P;
-	set_key.append_child("dpad_d").append_attribute("value") = SDL_SCANCODE_K;
-	set_key.append_child("dpad_u").append_attribute("value") = SDL_SCANCODE_J;
-
-	set_key.append_child("keyboard").append_attribute("value") = true;
-
-	set_key.append_child("left").append_attribute("value") = SDL_SCANCODE_LEFT;
-	set_key.append_child("right").append_attribute("value") = SDL_SCANCODE_RIGHT;
-	set_key.append_child("down").append_attribute("value") = SDL_SCANCODE_DOWN;
-	set_key.append_child("up").append_attribute("value") = SDL_SCANCODE_UP;
-		
-	pugi::xml_node set_con = controller_sets.append_child("set");
-
-	set_con.append_child("b1").append_attribute("value") = SDL_CONTROLLER_BUTTON_A;
-	set_con.append_child("b2").append_attribute("value") = SDL_CONTROLLER_BUTTON_B;
-	set_con.append_child("b3").append_attribute("value") = SDL_CONTROLLER_BUTTON_Y;
-	set_con.append_child("b4").append_attribute("value") = SDL_CONTROLLER_BUTTON_X;
-		
-	set_con.append_child("start").append_attribute("value") = SDL_CONTROLLER_BUTTON_START;
-	set_con.append_child("select").append_attribute("value") = SDL_CONTROLLER_BUTTON_BACK;
-
-	set_con.append_child("sh_r").append_attribute("value") = SDL_CONTROLLER_BUTTON_RIGHTSHOULDER;
-	set_con.append_child("sh_l").append_attribute("value") = SDL_CONTROLLER_BUTTON_LEFTSHOULDER;
-
-	set_con.append_child("dpad_l").append_attribute("value") = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
-	set_con.append_child("dpad_r").append_attribute("value") = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
-	set_con.append_child("dpad_d").append_attribute("value") = SDL_CONTROLLER_BUTTON_DPAD_DOWN;
-	set_con.append_child("dpad_u").append_attribute("value") = SDL_CONTROLLER_BUTTON_DPAD_UP;
-
-	set_con.append_child("keyboard").append_attribute("value") = false;
-
-	return true;
-	
-}
-
-bool Input::InputImpl::CleanUp()
-{
-	bool ret = true;
-	delete[] keyboard;
-	SDL_QuitSubSystem(SDL_INIT_EVENTS);
-	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
-	if (controller_active)
-	{
-		SDL_GameControllerClose(SDLcontroller);
-	}
-
-	return ret;
-}
+#pragma endregion

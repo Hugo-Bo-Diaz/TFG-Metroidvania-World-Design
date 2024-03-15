@@ -11,11 +11,7 @@ Particles::Particles(EngineAPI& aAPI) : Part("Particles",aAPI)
 	mPartFuncts = new ParticlesImpl(this);
 }
 
-bool Particles::ParticlesImpl::Init()
-{
-
-	return true;
-}
+#pragma region IMPLEMENTATION
 
 bool Particles::ParticlesImpl::Loop(float dt)
 {
@@ -53,6 +49,19 @@ bool Particles::ParticlesImpl::CleanUp()
 	return true;
 }
 
+void Particles::ParticlesImpl::ClearParticles()
+{
+	Logger::Console_log(LogLevel::LOG_INFO, "Clearing Particles");
+	for (std::list<ParticleEmitter*>::iterator it = particles.begin(); it != particles.end(); it++)
+	{
+		to_delete.insert(*it);
+	}
+}
+
+#pragma endregion
+
+#pragma region PUBLIC API
+
 ParticleEmitter* Particles::AddParticleEmitter(particle_preset * particle_preset, float x, float y, float lifespan,int depth)
 {
 	ParticlesImpl* lImpl = dynamic_cast<ParticlesImpl*>(mPartFuncts);
@@ -79,11 +88,4 @@ void Particles::RemoveParticleEmitter(ParticleEmitter * _to_delete)
 	lImpl->to_delete.insert(_to_delete);
 }
 
-void Particles::ParticlesImpl::ClearParticles()
-{
-	Logger::Console_log(LogLevel::LOG_INFO, "Clearing Particles");
-	for (std::list<ParticleEmitter*>::iterator it = particles.begin(); it != particles.end(); it++)
-	{
-		to_delete.insert(*it);
-	}
-}
+#pragma endregion

@@ -10,7 +10,12 @@
 ProgressTracker::ProgressTracker(EngineAPI& aAPI) : Part("ProgressTracker",aAPI)
 {
 	mPartFuncts = new ProgressTrackerImpl(this);
+
+	BaseSaveSection = new Section();
+	BaseSettingsSection = new Section();
 }
+
+#pragma region IMPLEMENTATION
 
 void ProgressTracker::ProgressTrackerImpl::SaveToNode(Section* aSector, pugi::xml_node& aNode)
 {
@@ -53,13 +58,9 @@ void ProgressTracker::ProgressTrackerImpl::LoadFromNode(Section* aSector, pugi::
 
 }
 
-bool ProgressTracker::ProgressTrackerImpl::Init()
-{
-	mPartInst->BaseSaveSection = new Section();
-	mPartInst->BaseSettingsSection = new Section();
+#pragma endregion
 
-	return true;
-}
+#pragma region PUBLIC API
 
 bool ProgressTracker::LoadFile(const char* save_loc)
 {
@@ -117,7 +118,6 @@ bool ProgressTracker::SaveFile(const char* save_loc)
 	return true;
 }
 
-
 bool ProgressTracker::CanLoadGame(const char * file)
 {
 	pugi::xml_document	file_to_check;
@@ -133,6 +133,7 @@ bool ProgressTracker::CanLoadGame(const char * file)
 	}
 
 }
+#pragma endregion
 
 #pragma region Section
 

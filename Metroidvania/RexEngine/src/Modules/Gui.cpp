@@ -10,10 +10,7 @@ UserInterface::UserInterface(EngineAPI& aAPI):Part("UserInterface",aAPI)
 	mPartFuncts = new GuiImpl(this);
 }
 
-bool UserInterface::GuiImpl::Init()
-{
-	return true;
-}
+#pragma region IMPLEMENTATION
 
 bool UserInterface::GuiImpl::Loop(float dt)
 {
@@ -77,6 +74,10 @@ void UserInterface::GuiImpl::Clearelements()
 	elements.clear();
 }
 
+#pragma endregion
+
+#pragma region PUBLIC API
+
 void UserInterface::RemoveElement(UIelement * _to_delete)
 {
 	GuiImpl* lImpl = dynamic_cast<GuiImpl*>(mPartFuncts);
@@ -134,3 +135,5 @@ bool UserInterface::AddElement(UIelement* uiElement)
 		return false;
 	}
 }
+
+#pragma endregion

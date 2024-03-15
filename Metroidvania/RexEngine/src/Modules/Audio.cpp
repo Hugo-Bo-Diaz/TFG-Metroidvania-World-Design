@@ -1,6 +1,6 @@
-#include "Application.h"
 #include "Utils/Logger.h"
 #include "Utils/Utils.h"
+#include "AudioImpl.h"
 
 #include "SDL/include/SDL.h"
 #include "SDL_mixer\include\SDL_mixer.h"
@@ -10,13 +10,12 @@
 #include <functional>
 #include<iostream>
 
-#include "AudioImpl.h"
-
-
 Audio::Audio(EngineAPI& aAPI) : Part("Audio",aAPI)
 {
 	mPartFuncts = new AudioImpl(this);
 }
+
+#pragma region IMPLEMENTATION
 
 bool Audio::AudioImpl::LoadConfig(pugi::xml_node& config_node)
 {
@@ -38,7 +37,6 @@ bool Audio::AudioImpl::CreateConfig(pugi::xml_node& config_node)
 	volume_node.append_attribute("general") = 100;
 	volume_node.append_attribute("music") = 100;
 	volume_node.append_attribute("sfx") = 100;
-
 
 	return ret;
 }
@@ -117,7 +115,6 @@ bool Audio::AudioImpl::Loop(float dt)
 		mPartInst->prev_mus_volume = mPartInst->music_volume;
 		mPartInst->prev_sfx_volume = mPartInst->sfx_volume;
 	}
-
 	return true;
 }
 
@@ -143,6 +140,10 @@ bool Audio::AudioImpl::CleanUp()
 
 	return true;
 }
+
+#pragma endregion
+
+#pragma region PUBLIC API
 
 AudioID Audio::LoadMusic(const char * file, float fade,float volume)
 {
@@ -180,7 +181,6 @@ AudioID Audio::LoadMusic(const char * file, float fade,float volume)
 		lImpl->music_list.insert(std::make_pair(lNextAudioID,new_music));
 		return new_music->id;
 	}
-
 }
 
 AudioID Audio::LoadSFX(const char * file, float volume)
@@ -249,10 +249,6 @@ void Audio::PlayMusic(AudioID music_id, float fade_in_ms)
 			current_fade_out = music_selected->fade;
 		}
 	}
-	else
-	{
-
-	}
 }
 
 uint Audio::PlaySFX(AudioID sfx_id, int repeat, uint channel)
@@ -271,11 +267,8 @@ uint Audio::PlaySFX(AudioID sfx_id, int repeat, uint channel)
 	{
 		chan = GetFirstFreeChannel();
 	}
-	//Mix_Resume(chan);
 
 	int i = Mix_PlayChannel(chan, sfx_selected->sfx, repeat);
-
-	//return chan;
 	return i;
 }
 
@@ -286,8 +279,6 @@ void Audio::StopMusic()
 
 void Audio::StopChannel(uint channel)
 {
-	//Mix_HaltChannel(channel);
-	//Mix_PlayChannel(channel, sfx_list[SFX_ENEMY_HIT]->sfx,1);
 	Mix_Pause(channel);
 }
 
@@ -300,7 +291,6 @@ void Audio::RecalculateVolume()
 
 	float sfxvol = setvol * (sfx_volume * (MIX_MAX_VOLUME / 100));
 	Mix_Volume(-1,sfxvol);
-
 }
 
 int Audio::GetFirstFreeChannel()
@@ -315,6 +305,7 @@ int Audio::GetFirstFreeChannel()
 	return -1;
 }
 
+#pragma endregion
 //void Audio::StartNextSongAfterFadeOut()
 //{
 //	Mix_FadeInMusic(next_song_after_fade_out, -1, next_song_after_fade_out_fade_time);

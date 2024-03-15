@@ -18,7 +18,6 @@ public:
 	void RenderDebug();
 
 protected:
-	bool Init();
 	bool Loop(float dt);
 	bool CleanUp();
 	void Clearelements();

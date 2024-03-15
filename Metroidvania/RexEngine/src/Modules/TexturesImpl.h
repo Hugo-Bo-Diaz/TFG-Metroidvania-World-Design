@@ -57,11 +57,9 @@ public:
 	SDL_Texture* Get_Texture(TextureID name);
 	TextureID AddTexture(SDL_Texture* aTextureToAdd,const char* aTextureName);
 protected:
-	bool Init();
-	bool CleanUp();
-
 	bool LoadConfig(pugi::xml_node& config_node);
 	bool CreateConfig(pugi::xml_node& config_node);
+	bool CleanUp();
 
 private:
 	int number_of_textures = 0;
