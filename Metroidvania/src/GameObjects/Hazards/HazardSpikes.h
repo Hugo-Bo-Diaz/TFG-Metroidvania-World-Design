@@ -16,7 +16,7 @@ public:
 	bool Loop(float dt);
 	bool Render();
 
-	SDL_Rect spikes;
+	RXRect spikes;
 	TextureID hazards;
 };
 

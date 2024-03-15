@@ -27,11 +27,11 @@ public:
 
 	SettingsMenuOption current_option = SETTINGS_VOLUME_SFX;
 
-	SDL_Rect volume_music_bar_rect;
-	SDL_Rect volume_sfx_bar_rect;
-	SDL_Rect blue_mid_rect;
-	SDL_Rect blue_big_rect;
-	SDL_Rect blue_small_rect;
+	RXRect volume_music_bar_rect;
+	RXRect volume_sfx_bar_rect;
+	RXRect blue_mid_rect;
+	RXRect blue_big_rect;
+	RXRect blue_small_rect;
 
 	std::list<float> prev_joy_y;
 	float last_joy_y = 0;

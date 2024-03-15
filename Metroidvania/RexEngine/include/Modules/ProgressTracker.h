@@ -4,7 +4,6 @@
 #include "PartsDef.h"
 #include <vector>
 #include <map>
-#include "SDL/include/SDL.h"
 #include "Part.h"
 
 #define MAX_EXPANSIONS 32
@@ -45,10 +44,6 @@ public:
 		}
 		return valueList;
 	}
-
-
-	void SaveToNode(pugi::xml_node&);
-	void LoadFromNode(pugi::xml_node&);
 };
 
 class DLL_EXPORT ProgressTracker : public Part
@@ -56,23 +51,14 @@ class DLL_EXPORT ProgressTracker : public Part
 public:
 	ProgressTracker(EngineAPI& aAPI);
 
-	bool Init();
-	bool Loop(float dt);
-	bool CleanUp();
-
-	void SaveGame(const char* file);
-	void LoadGame(const char* file);
-	bool CanLoadGame(const char* file);
-
 	Section* BaseSaveSection;
 	Section* BaseSettingsSection;
 
-	bool LoadConfig(pugi::xml_node&);
-	bool CreateConfig(pugi::xml_node&);
-
+	bool CanLoadGame(const char* file);
 	bool LoadFile(const char* save_loc);
 	bool SaveFile(const char* save_loc);
-
+private:
+	class ProgressTrackerImpl;
 };
 
 #endif // !CAMERA__H

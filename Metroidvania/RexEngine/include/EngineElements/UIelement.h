@@ -1,7 +1,7 @@
 #ifndef UI__ELEMENT
 #define UI__ELEMENT
 
-#include "SDL/include/SDL.h"
+#include "RXRect.h"
 #include <list>
 
 #define DLL_EXPORT __declspec(dllexport)
@@ -35,7 +35,7 @@ public:
 
 	float depth;
 
-	SDL_Rect screenspace;
+	RXRect screenspace;
 
 	virtual void Init();
 	virtual void Loop();

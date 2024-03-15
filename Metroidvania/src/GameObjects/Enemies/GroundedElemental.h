@@ -41,10 +41,10 @@ public:
 	Animation walking_right;
 	particle_preset fire_ge_death;
 	particle_preset stone_death;
-	SDL_Rect r14firegedeath;
-	SDL_Rect r15firegedeath;
-	SDL_Rect r16sandfirst;
-	SDL_Rect r17sandsecond;
+	RXRect r14firegedeath;
+	RXRect r15firegedeath;
+	RXRect r16sandfirst;
+	RXRect r17sandsecond;
 
 	void SetAnimations(GroundedElementalColor c);
 	bool knocked_up = false;

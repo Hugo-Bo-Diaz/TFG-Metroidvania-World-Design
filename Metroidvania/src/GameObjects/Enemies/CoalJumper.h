@@ -32,7 +32,7 @@ public:
 	void Destroy();
 
 	float health=5;
-	SDL_Rect* nextpos = nullptr;
+	RXRect* nextpos = nullptr;
 	void RecieveDamage(int dmg, int direction);
 
 	//Idle
@@ -72,9 +72,9 @@ public:
 
 	particle_preset fireshield;
 	particle_preset smoke;
-	SDL_Rect r2shield;
-	SDL_Rect r7buff;
-	SDL_Rect r12shield;
+	RXRect r2shield;
+	RXRect r7buff;
+	RXRect r12shield;
 
 	TextureID particles;
 	TextureID coaljumper;

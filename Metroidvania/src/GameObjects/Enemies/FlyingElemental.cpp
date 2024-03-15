@@ -38,7 +38,7 @@ void FlyingElemental::Init()
 {
 	initial_y = collider->y;
 
-	nextpos = new SDL_Rect();
+	nextpos = new RXRect();
 	nextpos->x = collider->x;
 	nextpos->y = collider->y;
 	nextpos->w = collider->w;
@@ -75,14 +75,14 @@ bool FlyingElemental::Loop(float dt)
 	nextpos->x += speed_x;
 	nextpos->y += speed_y;
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)
+		RXRect result;
+		if (RXRectCollision(colliders[i], nextpos, &result) == true)
 		{
 			if (result.h < result.w)
 			{
@@ -248,12 +248,12 @@ bool FlyingElemental::Render()
 		if (speed_x < 0)
 		{
 			flying_left.NextFrame();
-			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, flying_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, *flying_left.GetCurrentFrame(), 0);
 		}
 		else
 		{
 			flying_right.NextFrame();
-			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, flying_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, *flying_right.GetCurrentFrame(), 0);
 		}
 	}
 
@@ -262,12 +262,12 @@ bool FlyingElemental::Render()
 		if (speed_x > 0)
 		{
 			flying_left.NextFrame();
-			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, flying_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, *flying_left.GetCurrentFrame(), 0);
 		}
 		else
 		{
 			flying_right.NextFrame();
-			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, flying_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, *flying_right.GetCurrentFrame(), 0);
 		}
 	}
 

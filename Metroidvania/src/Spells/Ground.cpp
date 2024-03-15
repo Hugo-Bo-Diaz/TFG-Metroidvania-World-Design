@@ -72,7 +72,7 @@ void Ground::Loop(float dt)
 
 	//rock throw--------------------------------------------------------------------------------------------------------------------------
 	//if (App->inp->GetButton(X) == BUTTON_DOWN && ! is_rock_on_cooldown)
-	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_DOWN && !is_rock_on_cooldown && player->manaCost(manacost_rock) && !Engine->GetModule<ObjectManager>().is_paused)
+	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_DOWN && !is_rock_on_cooldown && player->manaCost(manacost_rock) && !Engine->GetModule<ObjectManager>().isPaused())
 	{
 			((Rock*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x+player->collider->w/2, player->collider->y+player->collider->h / 2, 32, 32, GetTypeIndex<Rock>()))->Fire(player->is_right,45,15,1);
 			is_rock_on_cooldown = true;
@@ -90,7 +90,7 @@ void Ground::Loop(float dt)
 	
 	//groundpound------------------------------------------------------------------------------------------------------------------
 	//if (App->inp->GetButton(Y) == BUTTON_DOWN && !groundpounding)
-	if (Engine->GetModule<Input>().GetInput(BUTTON_3) == KEY_DOWN && !groundpounding&& player->manaCost(manacost_groundpound) && !Engine->GetModule<ObjectManager>().is_paused)
+	if (Engine->GetModule<Input>().GetInput(BUTTON_3) == KEY_DOWN && !groundpounding&& player->manaCost(manacost_groundpound) && !Engine->GetModule<ObjectManager>().isPaused())
 	{
 		current_yspeed = initial_yspeed;
 		groundpounding = true;
@@ -136,14 +136,14 @@ void Ground::Loop(float dt)
 			current_yspeed += gravity;
 		}
 		//check for floor and stop once on it
-		std::vector<SDL_Rect*> colliders;
+		std::vector<RXRect*> colliders;
 		Engine->GetModule<ObjectManager>().GetNearbyWalls(player->nextpos->x + player->nextpos->w / 2, player->nextpos->y + player->nextpos->h / 2, 300, colliders);
 
 		for (int i = 0; i < colliders.size(); ++i)
 		{
-			SDL_Rect hitbox = {player->nextpos->x,player->nextpos->y+player->nextpos->h,player->nextpos->w,32};
-			SDL_Rect result;
-			if (current_yspeed > 0 &&!is_on_gp_lag && SDL_IntersectRect(colliders[i], &hitbox, &result) == SDL_TRUE)// he goin crash!
+			RXRect hitbox = {player->nextpos->x,player->nextpos->y+player->nextpos->h,player->nextpos->w,32};
+			RXRect result;
+			if (current_yspeed > 0 &&!is_on_gp_lag && RXRectCollision(colliders[i], &hitbox, &result) == true)// he goin crash!
 			{
 				player->nextpos->y -= result.h;
 				is_on_gp_lag = true;
@@ -170,7 +170,7 @@ void Ground::Loop(float dt)
 	
 	//earthquake--------------------------------------------------------------------------------------------------------------------
 	//if (App->inp->GetButton(B) == BUTTON_DOWN && player->grounded && !is_eq_on_cooldown)
-	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && player->grounded && !is_eq_on_cooldown && player->manaCost(manacost_earthquake) && !Engine->GetModule<ObjectManager>().is_paused)
+	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && player->grounded && !is_eq_on_cooldown && player->manaCost(manacost_earthquake) && !Engine->GetModule<ObjectManager>().isPaused())
 	{
 		((Shockwave*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(true, 8);
 		((Shockwave*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(false, 8);
@@ -198,7 +198,7 @@ void Ground::Render()
 	if (groundpounding)
 	{
 		//add graphic
-		Engine->GetModule<::Render>().Blit(spells, player->collider->x, player->collider->y + player->collider->h, &groundpound, -2);
+		Engine->GetModule<::Render>().Blit(spells, player->collider->x, player->collider->y + player->collider->h, groundpound, -2);
 	}
 }
 

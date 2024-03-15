@@ -46,7 +46,7 @@ void UIcheckpointIndicator::Loop()
 void UIcheckpointIndicator::Render()
 {
 	Engine->GetModule<::Render>().BlitText("CHECKPOINT REACHED", mFont, text_x, text_y, -1000, {0,0,0,0}, RenderQueue::RENDER_UI);
-	Engine->GetModule<::Render>().Blit(Texture, on_screen.x,on_screen.y,NULL,-40, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().Blit(Texture, on_screen.x, on_screen.y, {0,0,168,28}, -40, RenderQueue::RENDER_UI);
 }
 
 UIcheckpointIndicator::~UIcheckpointIndicator()

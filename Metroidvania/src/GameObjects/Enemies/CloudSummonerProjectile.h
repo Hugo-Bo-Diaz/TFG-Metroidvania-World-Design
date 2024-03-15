@@ -30,7 +30,7 @@ public:
 	int damage = 2;
 
 	particle_preset magic;
-	SDL_Rect r13magic;
+	RXRect r13magic;
 
 	TextureID cloud_summoner;
 	TextureID particles;

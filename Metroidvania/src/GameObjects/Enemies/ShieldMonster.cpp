@@ -46,7 +46,7 @@ void ShieldMonster::Destroy()
 
 void ShieldMonster::Init()
 {
-	nextpos = new SDL_Rect();
+	nextpos = new RXRect();
 	nextpos->x = collider->x;
 	nextpos->y = collider->y;
 	nextpos->w = collider->w;
@@ -279,9 +279,9 @@ bool ShieldMonster::Loop(float dt)
 		arm_angle = dir * (windupTimer.Read() / winduptime)*max_windupangle;
 
 		if(gdirection<0)
-			shield.h = (1 - sin((M_PI / 180)* arm_angle))*max_shield_height;
+			shield.h = (1 - sin((3.14 / 180)* arm_angle))*max_shield_height;
 		else
-			shield.h = (1 + sin((M_PI / 180)* arm_angle))*max_shield_height;
+			shield.h = (1 + sin((3.14 / 180)* arm_angle))*max_shield_height;
 
 
 		if (windupTimer.Read() > winduptime)
@@ -297,7 +297,7 @@ bool ShieldMonster::Loop(float dt)
 	{
 		int dir = -gdirection;
 
-		shield.h = sin((M_PI / 180)* arm_angle)*max_shield_height;
+		shield.h = sin((3.14 / 180)* arm_angle)*max_shield_height;
 
 		if (gdirection < 0)//facing_left
 		{
@@ -305,7 +305,7 @@ bool ShieldMonster::Loop(float dt)
 			if (arm_angle < 0)
 				arm_angle = 0;
 
-			shield.h =(1- sin((M_PI / 180)* arm_angle))*max_shield_height;
+			shield.h =(1- sin((3.14 / 180)* arm_angle))*max_shield_height;
 
 		}
 		else//facing_right
@@ -314,7 +314,7 @@ bool ShieldMonster::Loop(float dt)
 			if (arm_angle > 0)
 				arm_angle = 0;
 
-			shield.h = (1+ sin((M_PI / 180)* arm_angle))*max_shield_height;
+			shield.h = (1+ sin((3.14 / 180)* arm_angle))*max_shield_height;
 		}
 		
 		if (attackTimer.Read() > attacktime+50 && hashitground == false)
@@ -371,7 +371,7 @@ bool ShieldMonster::Loop(float dt)
 	}
 
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
 
 	bool change_direction = false;
@@ -383,8 +383,8 @@ bool ShieldMonster::Loop(float dt)
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Point p1;//left(should not collide)
-		SDL_Point p2;//down(should collide)
+		RXPoint p1;//left(should not collide)
+		RXPoint p2;//down(should collide)
 		if (speed_x < 0)//left
 		{
 			p1.x = collider->x - abs(speed_x);
@@ -403,8 +403,8 @@ bool ShieldMonster::Loop(float dt)
 			p2.y = collider->y + collider->h + 10;
 		}
 
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE && collider->y < colliders[i]->y)// he goin crash!
+		RXRect result;
+		if (RXRectCollision(colliders[i], nextpos, &result) == true && collider->y < colliders[i]->y)// he goin crash!
 		{
 			if (result.h < result.w)
 			{
@@ -419,12 +419,12 @@ bool ShieldMonster::Loop(float dt)
 			}
 		}
 
-		if (SDL_PointInRect(&p2, colliders[i]) == SDL_TRUE)
+		if (RXPointInRect(&p2, colliders[i]) == true)
 		{
 			floor_below = true;
 		}
 
-		if (SDL_PointInRect(&p1, colliders[i]) == SDL_TRUE)
+		if (RXPointInRect(&p1, colliders[i]) == true)
 		{
 			change_direction = true;
 		}
@@ -454,7 +454,7 @@ bool ShieldMonster::Render()
 
 	if (gdirection < 0)
 	{
-		Engine->GetModule<::Render>().Blit(shield_monster, collider->x, collider->y, left.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().Blit(shield_monster, collider->x, collider->y, *left.GetCurrentFrame(), 0);
 		if (left.current_frame+1 > left.amount_of_frames / 2)
 		{
 			offset_y += 10;
@@ -462,7 +462,7 @@ bool ShieldMonster::Render()
 	}
 	else
 	{
-		Engine->GetModule<::Render>().Blit(shield_monster, collider->x, collider->y, right.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().Blit(shield_monster, collider->x, collider->y, *right.GetCurrentFrame(), 0);
 		if (right.current_frame+1 > right.amount_of_frames / 2)
 		{
 			offset_y += 10;
@@ -470,9 +470,9 @@ bool ShieldMonster::Render()
 	}
 
 	if (gdirection < 0)
-		Engine->GetModule<::Render>().Blit(shield_monster_arm, collider->x-50, collider->y+8+offset_y, &arm_left, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,98,16);
+		Engine->GetModule<::Render>().Blit(shield_monster_arm, collider->x-50, collider->y+8+offset_y, arm_left, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,98,16);
 	else
-		Engine->GetModule<::Render>().Blit(shield_monster_arm, collider->x+42, collider->y+8+offset_y, &arm_right, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,14,16);
+		Engine->GetModule<::Render>().Blit(shield_monster_arm, collider->x+42, collider->y+8+offset_y, arm_right, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,14,16);
 
 	return true;
 }

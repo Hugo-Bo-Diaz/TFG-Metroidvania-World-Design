@@ -121,7 +121,7 @@ void Fire::Loop(float dt)
 		charge += 2;
 	}
 	//Fireslash/breath------------------------------------------------------------------------------------------------------------------
-	if (Engine->GetModule<Input>().GetInput(BUTTON_3) == KEY_DOWN && player->grounded && !Engine->GetModule<ObjectManager>().is_paused)
+	if (Engine->GetModule<Input>().GetInput(BUTTON_3) == KEY_DOWN && player->grounded && !Engine->GetModule<ObjectManager>().isPaused())
 	{
 		player->LockMovement();
 		lavaspawner.Start();
@@ -197,7 +197,7 @@ void Fire::Loop(float dt)
 	}
 
 	//Fireshield--------------------------------------------------------------------------------------------------------------------
-	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && !is_fireshield_on_cooldown && player->manaCost(manacost_shield) && !Engine->GetModule<ObjectManager>().is_paused)
+	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && !is_fireshield_on_cooldown && player->manaCost(manacost_shield) && !Engine->GetModule<ObjectManager>().isPaused())
 	{
 		//player->LockMovement(shield_activation_time);
 		is_fireshield_on_cooldown = true;
@@ -228,7 +228,7 @@ void Fire::Loop(float dt)
 	{
 		player->AddMana(-manacost_shield_over_time);
 
-		SDL_Rect fireshield = {player->collider->x-16,player->collider->y-16,96,96};
+		RXRect fireshield = {player->collider->x-16,player->collider->y-16,96,96};
 		std::vector<collision*> collisions;
 		Engine->GetModule<ObjectManager>().GetCollisions(&fireshield, collisions);
 
@@ -260,7 +260,7 @@ void Fire::Render()
 {
 	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_REPEAT)
 	{
-		if (!Engine->GetModule<ObjectManager>().is_paused)
+		if (!Engine->GetModule<ObjectManager>().isPaused())
 		{
 			if (charge > 100)
 			{
@@ -269,14 +269,14 @@ void Fire::Render()
 					Engine->GetModule<::Render>().Blit(spells,
 						player->collider->x + player->collider->w - 5,
 						player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
-						&fireball_big, -2);
+						fireball_big, -2);
 				}
 				else
 				{
 					Engine->GetModule<::Render>().Blit(spells,
 						player->collider->x - fireball_big.w + 5,
 						player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
-						&fireball_big, -2);
+						fireball_big, -2);
 				}
 			}
 			else
@@ -286,14 +286,14 @@ void Fire::Render()
 					Engine->GetModule<::Render>().Blit(spells,
 						player->collider->x + player->collider->w - 15,
 						player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
-						&fireball_small, -2);
+						fireball_small, -2);
 				}
 				else
 				{
 					Engine->GetModule<::Render>().Blit(spells,
 						player->collider->x - fireball_small.w + 15,
 						player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
-						&fireball_small, -2);
+						fireball_small, -2);
 				}
 			}
 		}
@@ -309,7 +309,7 @@ void Fire::Render()
 		Engine->GetModule<::Render>().Blit(spells,
 			player->collider->x + (player->collider->w - fireshield.GetCurrentFrame()->w) / 2,
 			player->collider->y + (player->collider->h - fireshield.GetCurrentFrame()->h) / 2,
-			fireshield.GetCurrentFrame(), -2);
+			*fireshield.GetCurrentFrame(), -2);
 
 		to_follow->position_x = player->x;
 		to_follow->position_y = player->y;

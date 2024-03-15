@@ -126,7 +126,7 @@ void UISelectMenu::Render()
 {
 
 	//render base
-	Engine->GetModule<::Render>().Blit(selectMenuBack, x, y, nullptr, -2, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().Blit(selectMenuBack, x, y, {0,0,812,456}, -2, RenderQueue::RENDER_UI);
 
 	//render highlighted option
 	//switch (current_option)

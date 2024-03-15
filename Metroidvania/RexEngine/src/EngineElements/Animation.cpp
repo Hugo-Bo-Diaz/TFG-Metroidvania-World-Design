@@ -3,14 +3,14 @@
 
 Animation::Animation()
 {
-	SDL_Rect zero = { 0,0,0,0 };
+	RXRect zero = { 0,0,0,0 };
 	for (int i = 0; i < MAXFRAMES; ++i)
 	{
 		frames[i] = zero;
 	}
 }
 
-void Animation::AddFrame(SDL_Rect frame)
+void Animation::AddFrame(RXRect frame)
 {
 	frames[amount_of_frames] = frame;
 	++amount_of_frames;
@@ -25,12 +25,12 @@ void Animation::NextFrame()
 	}
 }
 
-SDL_Rect* Animation::GetCurrentFrame()
+RXRect* Animation::GetCurrentFrame()
 {
 	return &frames[current_frame];
 }
 
-SDL_Rect* Animation::GetFrame(int ind)
+RXRect* Animation::GetFrame(int ind)
 {
 	return &frames[ind];
 }

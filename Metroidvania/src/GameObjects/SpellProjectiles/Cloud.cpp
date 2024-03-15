@@ -6,7 +6,7 @@
 
 Cloud::Cloud()
 {
-	SDL_Rect wall = { collider->x,collider->y,collider->w,collider->h };
+	RXRect wall = { collider->x,collider->y,collider->w,collider->h };
 
 	blitrect = {96,96,64,32};
 }
@@ -20,7 +20,7 @@ bool Cloud::Loop(float dt)
 {
 	bool ret = true;
 
-	Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, &blitrect, -2);
+	Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, blitrect, -2);
 
 	if (timer.Read()>life_expectancy)
 	{

@@ -2,7 +2,7 @@
 #define PARTICLE_EMITTER__H
 
 #include <vector>
-#include "SDL/include/SDL.h"
+#include "RXRect.h"
 #include "Utils/Timer.h"
 
 #include "Application.h"
@@ -22,7 +22,7 @@ public:
 	std::string name;
 	TextureID texture_name;
 
-	std::vector<SDL_Rect*> area_in_texture;
+	std::vector<RXRect*> area_in_texture;
 
 	std::pair<float, float> minmax_angle = std::make_pair(0.0f, 0.0f);
 	std::pair<float, float> minmax_angle_speed = std::make_pair(0.0f, 0.0f);
@@ -70,7 +70,7 @@ public:
 
 		for(int i = 0; i<old_obj.area_in_texture.size();++i)
 		{
-			SDL_Rect* lRect = new SDL_Rect();
+			RXRect* lRect = new RXRect();
 			lRect->x = old_obj.area_in_texture[i]->x;
 			lRect->y = old_obj.area_in_texture[i]->y;
 			lRect->w = old_obj.area_in_texture[i]->w;
@@ -86,7 +86,7 @@ public:
 
 	~particle_preset()
 	{
-		for (std::vector<SDL_Rect*>::iterator it = area_in_texture.begin(); it != area_in_texture.end(); ++it)
+		for (std::vector<RXRect*>::iterator it = area_in_texture.begin(); it != area_in_texture.end(); ++it)
 		{
 			if (*it != nullptr)
 				delete *it;
@@ -96,11 +96,11 @@ public:
 
 struct particle
 {
-	SDL_Rect* area_in_texture;
+	RXRect* area_in_texture;
 
 	float angle;
 	float angle_speed;
-	SDL_Rect target_on_screen;
+	RXRect target_on_screen;
 	float scale_speed;
 	float current_scale;
 	Timer life;
@@ -167,7 +167,7 @@ public:
 
 	particle* particles [MAX_PARTICLES];
 
-	SDL_Rect r = { 0,0,100,100 };
+	RXRect r = { 0,0,100,100 };
 };
 
 

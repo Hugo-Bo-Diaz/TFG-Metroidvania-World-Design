@@ -6,6 +6,7 @@
 #include "../Spells/Spell.h"
 #include "Modules/Textures.h"
 #include "Modules/Audio.h"
+#include "RXPoint.h"
 
 enum state
 {
@@ -56,7 +57,7 @@ public:
 
 	float speed_x = 0;
 	float speed_y = -10;
-	SDL_Rect* nextpos = nullptr;
+	RXRect* nextpos = nullptr;
 
 	float speed_y_cap = 30;
 	
@@ -104,7 +105,7 @@ public:
 	bool jump;
 	bool stop;
 
-	SDL_Point trail[30];
+	RXPoint trail[30];
 
 	spell_type current_spell = NONE_UNLOCKED;//=FIRE;
 	//spell_type current_spell =FIRE;

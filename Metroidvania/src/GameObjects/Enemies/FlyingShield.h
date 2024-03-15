@@ -29,13 +29,13 @@ public:
 	float y;
 
 	float initial_y;
-	SDL_Rect* nextpos;
+	RXRect* nextpos;
 
 	//graphics
 	Animation flying_left;
 	Animation flying_right;
 
-	SDL_Rect r1exp;
+	RXRect r1exp;
 	particle_preset explosion;
 
 	//patrol

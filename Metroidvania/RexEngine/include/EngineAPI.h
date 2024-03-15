@@ -3,9 +3,8 @@
 
 #include "Application.h"
 #include "Utils/Logger.h"
-#include "Modules/Part.h"
-
 #include <unordered_set>
+#include "Modules/Part.h"
 
 class DLL_EXPORT EngineAPI
 {
@@ -34,6 +33,26 @@ public:
 		}
 
 		Logger::Console_log(LogLevel::LOG_ERROR, "Could not get module since type was not registered as one");
+	}
+
+	template<class T1,class T2>
+	T2* GetImplementation()
+	{
+		T1& lPart = GetModule<T1>();
+		//for (std::list<Part*>::iterator it = mApplication->parts.begin(); it != mApplication->parts.end(); it++)
+		//{
+		//	if (static_cast<T1*>(*it) != nullptr && mDisabledModules.count(*it) == 0)
+		//	{
+		//		lMod = ((T1*)(*it));
+		//		break;
+		//	}
+		//}
+		//if (lPart != nullptr)
+		{
+			Part::Part_Impl* lImpl = lPart.mPartFuncts;
+			return ((T2*)(lImpl));
+		}
+
 	}
 
 	template<class T>

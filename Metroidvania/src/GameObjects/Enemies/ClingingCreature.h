@@ -33,10 +33,10 @@ public:
 	float angle;
 	particle_preset stone_death;
 	particle_preset metal_and_sand;
-	SDL_Rect r7buff;
-	SDL_Rect r16sandfirst;
-	SDL_Rect r17sandsecond;
-	SDL_Rect r18metalfirst;
+	RXRect r7buff;
+	RXRect r16sandfirst;
+	RXRect r17sandsecond;
+	RXRect r18metalfirst;
 
 	float speed_param = 1;
 
@@ -44,8 +44,8 @@ public:
 	Timer animation_timer;
 
 	void TurnCorner(bool clockwise);
-	SDL_Rect check_down;
-	SDL_Rect check_front;
+	RXRect check_down;
+	RXRect check_front;
 
 	void RecieveDamage(int dmg, int direction);
 	int health = 3;

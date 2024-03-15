@@ -20,7 +20,7 @@ public:
 	bool Loop(float dt);
 	bool Render();
 
-	SDL_Rect spr_on_img = { 160, 64,64,64};
+	RXRect spr_on_img = { 160, 64,64,64};
 
 	Timer timer;
 	float life_expectancy = 5000;

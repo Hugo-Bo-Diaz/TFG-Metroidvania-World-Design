@@ -73,7 +73,7 @@ void ClingCreature::Init()
 bool ClingCreature::Loop(float dt)
 {
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x, collider->y, 50, colliders);
 
 	bool thereisfloor = false;
@@ -153,8 +153,8 @@ bool ClingCreature::Loop(float dt)
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], &check_down, &result) == SDL_TRUE)// he goin crash!
+		RXRect result;
+		if (RXRectCollision(colliders[i], &check_down, &result) == true)// he goin crash!
 		{
 			thereisfloor = true;
 		}
@@ -163,8 +163,8 @@ bool ClingCreature::Loop(float dt)
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], &check_front, &result) == SDL_TRUE)// he goin crash!
+		RXRect result;
+		if (RXRectCollision(colliders[i], &check_front, &result) == true)// he goin crash!
 		{
 			//turn up
 			if (thereisfloor)
@@ -181,8 +181,8 @@ bool ClingCreature::Loop(float dt)
 		collider->y += speed_y;
 		for (int i = 0; i < colliders.size(); ++i)
 		{
-			SDL_Rect result;
-			if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
+			RXRect result;
+			if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
 			{
 				//turn up
 				shouldfall = false;
@@ -225,7 +225,7 @@ bool ClingCreature::Render()
 		animation_timer.Reset();
 	}
 
-	Engine->GetModule<::Render>().Blit(cling_enemy, collider->x, collider->y, animation.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
+	Engine->GetModule<::Render>().Blit(cling_enemy, collider->x, collider->y, *animation.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
 
 
 	return true;

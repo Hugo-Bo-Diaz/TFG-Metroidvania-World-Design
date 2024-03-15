@@ -11,109 +11,122 @@
 
 #include <string>
 #include <sstream>
+#include "CameraImpl.h"
+
 
 Camera::Camera(EngineAPI& aAPI) : Part("Camera", aAPI)
 {
+	mPartFuncts = new CameraImpl(this);
+
 	shaking.Pause();
 	shaking.Reset();
 }
 
-bool Camera::Init()
+bool Camera::CameraImpl::Init()
 {
-	width = 1024;//App->win->width;
-	height = 576;//App->win->height;
+	mPartInst->width = 1024;//App->win->width;
+	mPartInst->height = 576;//App->win->height;
 
-	screenarea = { 0,0,width,height };
+	mPartInst->screenarea = { 0,0,mPartInst->width,mPartInst->height };
 
 	return true;
 }
 
-bool Camera::Loop(float dt)//camera can't go offbounds
+bool Camera::CameraImpl::Loop(float dt)//camera can't go offbounds
 {
-	screenarea.w = mApp.GetModule<Window>().width;
-	screenarea.h = mApp.GetModule<Window>().height;
+	int window_w, window_h;
+	mPartInst->mApp.GetModule<Window>().GetWindowSize(window_w, window_h);
+	mPartInst->screenarea.w = window_w;
+	mPartInst->screenarea.h = window_h;
 	
 	if (target != nullptr)
 	{
-		position_x = (target->collider->x + target->collider->w / 2) - width / 2;
-		position_y = (target->collider->y + target->collider->h / 2) - height / 2;
+		mPartInst->position_x = (target->collider->x + target->collider->w / 2) - mPartInst->width / 2;
+		mPartInst->position_y = (target->collider->y + target->collider->h / 2) - mPartInst->height / 2;
 
-		if (position_y > mApp.GetModule<SceneController>().room_h * 48 - height)
+		int room_w, room_h;
+		mPartInst->mApp.GetModule<SceneController>().GetRoomSize(room_w, room_h);
+		if (mPartInst->position_y > room_h * 48 - mPartInst->height)
 		{
-			position_y = mApp.GetModule<SceneController>().room_h * 48 - height;
+			mPartInst->position_y = room_h * 48 - mPartInst->height;
 		}
-		else if (position_y < 0)
+		else if (mPartInst->position_y < 0)
 		{
-			position_y = 0;
+			mPartInst->position_y = 0;
 		}
 		
-		if (position_x > mApp.GetModule<SceneController>().room_w * 48 - width)
+		if (mPartInst->position_x > room_w * 48 - mPartInst->width)
 		{
-			position_x = mApp.GetModule<SceneController>().room_w * 48 - width;
+			mPartInst->position_x = room_w * 48 - mPartInst->width;
 		}
-		else if (position_x < 0)
+		else if (mPartInst->position_x < 0)
 		{
-			position_x = 0;
+			mPartInst->position_x = 0;
 		}
-		position_x *= mApp.GetModule<Window>().GetScale();
-		position_y *= mApp.GetModule<Window>().GetScale();
-		if (is_shaking)
+		mPartInst->position_x *= mPartInst->mApp.GetModule<Window>().GetScale();
+		mPartInst->position_y *= mPartInst->mApp.GetModule<Window>().GetScale();
+		if (mPartInst->is_shaking)
 		{
-			position_x += rand() % amount + 1;
-			position_y += rand() % amount + 1;
+			mPartInst->position_x += rand() % mPartInst->amount + 1;
+			mPartInst->position_y += rand() % mPartInst->amount + 1;
 
-			std::string s = std::to_string(position_x);
+			std::string s = std::to_string(mPartInst->position_x);
 			s += " ";
-			s += std::to_string(position_y);
+			s += std::to_string(mPartInst->position_y);
 			//App->con->Console_log((char*)s.c_str());
 		}
 	}
 	
-	if(is_shaking)
+	if(mPartInst->is_shaking)
 	{
-		if (shaking.Read() > total_shaking_time)
+		if (mPartInst->shaking.Read() > mPartInst->total_shaking_time)
 		{
-			is_shaking = false;
-			alpha = 0;
+			mPartInst->is_shaking = false;
+			mPartInst->alpha = 0;
 		}
 	}
 
-	if (is_covered)
+	if (mPartInst->is_covered)
 	{
-		if(screencover.Read()>total_cover_time)
+		if (mPartInst->screencover.Read() > mPartInst->total_cover_time)
 		{
-			is_covered = false;
+			mPartInst->is_covered = false;
 		}
-		alpha = 255;
+		mPartInst->alpha = 255;
 
-		if (screencover.Read() <= falloff)
+		if (mPartInst->screencover.Read() <= mPartInst->falloff)
 		{
-			alpha = (screencover.Read() / falloff) * 255;
+			mPartInst->alpha = (mPartInst->screencover.Read() / mPartInst->falloff) * 255;
 		}
-		else if (screencover.Read() > total_cover_time - falloff)
+		else if (mPartInst->screencover.Read() > mPartInst->total_cover_time - mPartInst->falloff)
 		{
-			alpha = ((total_cover_time-screencover.Read()) / falloff) * 255;
+			mPartInst->alpha = ((mPartInst->total_cover_time - mPartInst->screencover.Read()) / mPartInst->falloff) * 255;
 		}
 		else
 		{
-			alpha = 255;
+			mPartInst->alpha = 255;
 		}
 
-		mApp.GetModule<Render>().DrawRect(screenarea,r,g,b,alpha,true,RenderQueue::RENDER_DEBUG,-1000);
+		mPartInst->mApp.GetModule<Render>().DrawRect(mPartInst->screenarea, mPartInst->r, mPartInst->g, mPartInst->b, mPartInst->alpha,true,RenderQueue::RENDER_DEBUG,-1000);
 	}
-	else { alpha = 0; }
+	else { mPartInst->alpha = 0; }
 
 	return true;
 }
 
-bool Camera::CleanUp()
+bool Camera::CameraImpl::CleanUp()
 {
 	return true;
 }
 
 void Camera::FollowObject(GameObject* new_target)
 {
-	target = new_target;
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+	lImpl->target = new_target;
 	Logger::Console_log(LogLevel::LOG_INFO,"New camera follow target!");
 }
 
@@ -127,7 +140,7 @@ float Camera::GetCameraYoffset()
 	return -position_y;
 }
 
-bool Camera::isOnScreen(SDL_Rect rectangle)
+bool Camera::isOnScreen(RXRect& rectangle)
 {
 	return false;
 }

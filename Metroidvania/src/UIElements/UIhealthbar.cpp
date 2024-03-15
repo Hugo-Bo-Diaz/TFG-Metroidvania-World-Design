@@ -64,23 +64,23 @@ void UIhealthbar::Render()
 	if (player == nullptr)
 		return;
 
-	Engine->GetModule<::Render>().Blit(TextureHB, x, y, &begin, 30, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().Blit(TextureHB, x, y, begin, 30, RenderQueue::RENDER_UI);
 	//middle sections
 	int offset = size_in_image;
 	for (int i = 0; i < max_res; ++i)
 	{
-		Engine->GetModule<::Render>().Blit(TextureHB, x+offset, y, &middle, 30, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().Blit(TextureHB, x+offset, y, middle, 30, RenderQueue::RENDER_UI);
 		offset += size_in_image;
 	}
 
 	//final sections
-	Engine->GetModule<::Render>().Blit(TextureHB, x+offset, y, &end, 30, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().Blit(TextureHB, x+offset, y, end, 30, RenderQueue::RENDER_UI);
 
 	//bars
 	offset = size_in_image;
 	for (int i = 0; i < curr_res; ++i)
 	{
-		Engine->GetModule<::Render>().Blit(TextureHB, x + offset, y, &bar, 25, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().Blit(TextureHB, x + offset, y, bar, 25, RenderQueue::RENDER_UI);
 		offset += size_in_image;
 	}
 	
@@ -90,7 +90,7 @@ void UIhealthbar::Render()
 		//player.mana- curr res = 
 		float realw = (player->mana - curr_res) * bar.w;
 		last_bar.w = realw;//gives a value from 0 to 1 because of the size of the fragments
-		Engine->GetModule<::Render>().Blit(TextureHB, x + offset, y, &last_bar, 25, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().Blit(TextureHB, x + offset, y, last_bar, 25, RenderQueue::RENDER_UI);
 	}
 }
 

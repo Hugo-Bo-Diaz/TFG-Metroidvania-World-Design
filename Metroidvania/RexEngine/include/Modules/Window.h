@@ -3,42 +3,22 @@
 
 #include"PartsDef.h"
 #include "Part.h"
+#include <Windows.h>
+
 struct SDL_Window;
 struct SDL_Surface;
 
 class DLL_EXPORT Window : public Part
 {
 public:
-
 	Window(EngineAPI& aAPI);
-	bool Init();
-	bool Loop(float dt);
-	bool CleanUp();
-
 	void SetWindowTitle(const char* title);
-	float GetScale() { return (float)scale; }
+	float GetScale();
 	void ToggleFullScreen();
+	HWND GetSDLWindowHandle();
+	void GetWindowSize(int& x, int& y);
 
-	int		width;
-	int		height;
-	float	scale;
-
-	bool fullscreen = false;
-	bool borderless = false;
-	bool resizable = false;
-	bool fullscreen_window = false;
-	
-	float base_window_width = 1024;
-	float base_window_height = 576;
-
-	bool LoadConfig(pugi::xml_node&);
-	bool CreateConfig(pugi::xml_node&);
-
-public:
-
-	SDL_Window* window;
-	SDL_Surface* screen_surface;
-
+	class WindowImpl;
 };
 
 #endif // !WINDOW__H

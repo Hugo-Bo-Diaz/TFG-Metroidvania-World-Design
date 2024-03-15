@@ -42,16 +42,16 @@ bool CloudTrampoline::Render()
 	int tilesy = collider->h / 48;
 
 
-	Engine->GetModule<::Render>().Blit(hazards, collider->x , collider->y, &cloudLeft, -20);
+	Engine->GetModule<::Render>().Blit(hazards, collider->x , collider->y, cloudLeft, -20);
 
 	//top
 	for (int i = 1; i < tilesx-1; ++i)
 	{
-		Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y, &cloudLoop, -20);
+		Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y, cloudLoop, -20);
 	}
 
 
-	Engine->GetModule<::Render>().Blit(hazards, collider->x + collider->w - 48 , collider->y, &cloudRight, -20);
+	Engine->GetModule<::Render>().Blit(hazards, collider->x + collider->w - 48 , collider->y, cloudRight, -20);
 
 	return true;
 }

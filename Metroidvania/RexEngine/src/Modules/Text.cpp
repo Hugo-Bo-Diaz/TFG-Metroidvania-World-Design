@@ -4,18 +4,23 @@
 #include "Modules/Render.h"
 #include "Utils/Logger.h"
 #include "Utils/Utils.h"
+#include "EngineAPI.h"
 
+#include "TexturesImpl.h"
 #include <sstream>
+#include "TextImpl.h"
 
+#include "SDL_image/include/SDL_image.h"
 #include "SDL\include\SDL.h"
 #include "SDL_ttf\include\SDL_ttf.h"
 #pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib" )
 
 Text::Text(EngineAPI& aAPI) :Part("Text",aAPI)
 {
+	mPartFuncts = new TextImpl(this);
 }
 
-bool Text::LoadConfig(pugi::xml_node & config_node)
+bool Text::TextImpl::LoadConfig(pugi::xml_node & config_node)
 {
 	if (TTF_Init() == -1)
 	{
@@ -32,28 +37,35 @@ bool Text::LoadConfig(pugi::xml_node & config_node)
 	return true;
 }
 
-bool Text::CreateConfig(pugi::xml_node & config_node)
+bool Text::TextImpl::CreateConfig(pugi::xml_node & config_node)
 {
 
 
 	return true;
 }
 
-bool Text::Init()
+bool Text::TextImpl::Init()
 {
 	return true;
 }
 
-bool Text::CleanUp()
+bool Text::TextImpl::CleanUp()
 {
 
 
 	return true;
 }
 
-FontID Text::LoadFont(const char * path, SDL_Color aColor, int size)
+FontID Text::LoadFont(const char * path, const RXColor& aColor, int size)
 {
-	for (std::map<FontID,Font*>::iterator it = fonts.begin(); it != fonts.end(); it++)
+	TextImpl* lImpl = dynamic_cast<TextImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	for (std::map<FontID,Font*>::iterator it = lImpl->fonts.begin(); it != lImpl->fonts.end(); it++)
 	{
 		if (std::strcmp((*it).second->name.c_str(), path) == 0 && (*it).second->size == size)
 		{
@@ -67,10 +79,10 @@ FontID Text::LoadFont(const char * path, SDL_Color aColor, int size)
 	FontID lResult = -1;
 
 	if (strcmp(lExtension.c_str(), XMLFONTEXTENSION) == 0) {
-		lResult = LoadFontXML(path,aColor,size);
+		lResult = lImpl->LoadFontXML(path,aColor,size);
 	}
 	else if (strcmp(lExtension.c_str(), TTFFONTEXTENSION) == 0) {
-		lResult = LoadFontTTF(path,aColor,size);
+		lResult = lImpl->LoadFontTTF(path,aColor,size);
 	}
 	else
 	{
@@ -82,7 +94,38 @@ FontID Text::LoadFont(const char * path, SDL_Color aColor, int size)
 	return lResult;
 }
 
-FontID Text::LoadFontXML(const char* path, SDL_Color aColor, int size)
+void Text::GetTextSize(FontID aFontID, const char* string, int& w, int& y)
+{
+	TextImpl* lImpl = dynamic_cast<TextImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	Font* lFont = lImpl->GetFont(aFontID);
+
+	if (lFont == nullptr)
+		return;
+
+	w = 0;
+	y = 0;
+	for (size_t i = 0;string[i] != '\0'; i++)
+	{
+		SDL_Rect* lMap = lFont->lMapping[string[i]];
+		if (lMap == nullptr)
+		{
+			continue;
+		}
+
+		y = max(lMap->h, y);
+		w += lMap->w;
+	}
+
+	
+}
+
+FontID Text::TextImpl::LoadFontXML(const char* path, const RXColor& aColor, int size)
 {
 	pugi::xml_document	font_file;
 	pugi::xml_node font_node;
@@ -121,7 +164,7 @@ FontID Text::LoadFontXML(const char* path, SDL_Color aColor, int size)
 		return -1;
 	}
 
-	texture = SDL_CreateTextureFromSurface(mApp.GetModule<Render>().renderer, surface);
+	texture = SDL_CreateTextureFromSurface(mPartInst->mApp.GetModule<Render>().GetSDL_Renderer(), surface);
 	if (texture == NULL)
 	{
 		Logger::Console_log(LogLevel::LOG_ERROR, "couldn't make texture from surface");
@@ -131,7 +174,9 @@ FontID Text::LoadFontXML(const char* path, SDL_Color aColor, int size)
 	pugi::xml_node properties_node = font_node.child("rectangles");
 
 	pugi::xml_node iterator;
-	Font* lfont = new Font(path,texture,aColor,size);
+	TextureID lTex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->AddTexture(texture, path);
+
+	Font* lfont = new Font(path,lTex,aColor,size);
 
 	for (iterator = properties_node.first_child(); iterator; iterator = iterator.next_sibling())
 	{
@@ -155,7 +200,7 @@ FontID Text::LoadFontXML(const char* path, SDL_Color aColor, int size)
 	return lID;
 }
 
-FontID Text::LoadFontTTF(const char* aPath, SDL_Color aColor, int size)
+FontID Text::TextImpl::LoadFontTTF(const char* aPath, const RXColor& aColor, int size)
 {
 	TTF_Font* lFont = TTF_OpenFont(aPath,size);
 
@@ -169,14 +214,14 @@ FontID Text::LoadFontTTF(const char* aPath, SDL_Color aColor, int size)
 
 	SDL_Surface* totalSurface = SDL_CreateRGBSurface(0, 512, 512, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
 
-	Font* lResult = new Font(aPath, nullptr, aColor, size);
+	Font* lResult = new Font(aPath, NULL, aColor, size);
 
 	int cursor_x = 0,cursor_y = 0;
-	for (int i = 0; i < mSupportedChars.size(); i++)
+	for (int i = 0; i < mPartInst->mSupportedChars.size(); i++)
 	{
 		int size_char_x,size_char_y;
 		std::string lChar;
-		lChar += mSupportedChars[i];
+		lChar += mPartInst->mSupportedChars[i];
 		TTF_SizeText(lFont, lChar.c_str(), &size_char_x, &size_char_y);
 
 		SDL_Rect* lCharMapping = new SDL_Rect();
@@ -185,7 +230,7 @@ FontID Text::LoadFontTTF(const char* aPath, SDL_Color aColor, int size)
 		lCharMapping->w = size_char_x;
 		lCharMapping->h = size_char_y;
 
-		SDL_Surface* lCharSurf = TTF_RenderText_Solid(lFont,lChar.c_str(),aColor);
+		SDL_Surface* lCharSurf = TTF_RenderText_Solid(lFont, lChar.c_str(), { aColor.r,aColor.g,aColor.b,aColor.a });
 
 		cursor_x += size_char_x;
 
@@ -198,18 +243,19 @@ FontID Text::LoadFontTTF(const char* aPath, SDL_Color aColor, int size)
 		if(lCharSurf == NULL)
 		{
 			std::stringstream lStream;
-			lStream << "Could not create the font character for font: " << aPath << " character: " << mSupportedChars[i];
+			lStream << "Could not create the font character for font: " << aPath << " character: " << mPartInst->mSupportedChars[i];
 			Logger::Console_log(LogLevel::LOG_ERROR, lStream.str().c_str());
 		}
 
-		lResult->lMapping.insert(std::make_pair(mSupportedChars[i], lCharMapping));
+		lResult->lMapping.insert(std::make_pair(mPartInst->mSupportedChars[i], lCharMapping));
 		
 		SDL_Rect forBlit = { lCharMapping->x,lCharMapping->y,lCharMapping->w,lCharMapping->h };
 		SDL_UpperBlit(lCharSurf, new SDL_Rect{0,0,size_char_x,size_char_y},totalSurface,&forBlit);
 		SDL_FreeSurface(lCharSurf);
 	}
 
-	lResult->font_texture = SDL_CreateTextureFromSurface(mApp.GetModule<Render>().renderer, totalSurface);
+	SDL_Texture* lSDLTexture = SDL_CreateTextureFromSurface(mPartInst->mApp.GetModule<Render>().GetSDL_Renderer(), totalSurface);
+	lResult->font_texture = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->AddTexture(lSDLTexture, aPath);
 
 	if (lResult->font_texture == NULL)
 	{
@@ -223,7 +269,7 @@ FontID Text::LoadFontTTF(const char* aPath, SDL_Color aColor, int size)
 	return lID;
 }
 
-Font* Text::GetFont(FontID aFontID)
+Font* Text::TextImpl::GetFont(FontID aFontID)
 {
 	return fonts[aFontID];
 }

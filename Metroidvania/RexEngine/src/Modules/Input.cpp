@@ -1,10 +1,14 @@
 #include "Modules/Input.h"
 #include "Utils/Logger.h"
+#include "InputImpl.h"
+#include "SDL\include\SDL.h"
 
 Input::Input(EngineAPI& aAPI): Part("Input",aAPI)
-{}
+{
+	mPartFuncts = new InputImpl(this);
+}
 
-bool Input::Init()
+bool Input::InputImpl::Init()
 {
 	bool ret = true;
 	keyboard = new Keystate[MAX_KEYS];
@@ -49,7 +53,7 @@ bool Input::Init()
 	return ret;
 
 }
-bool Input::Loop(float dt)
+bool Input::InputImpl::Loop(float dt)
 {
 	bool ret = true;
 
@@ -59,7 +63,7 @@ bool Input::Loop(float dt)
 	{
 		if (keys[i] == 1)
 		{
-			current_setup = 0;
+			mPartInst->current_setup = 0;
 
 			if (keyboard[i] == KEY_IDLE)
 				keyboard[i] = KEY_DOWN;
@@ -87,7 +91,7 @@ bool Input::Loop(float dt)
 		{
 			if (buttons[i] == 1)
 			{
-				current_setup = 1;
+				mPartInst->current_setup = 1;
 				if (controller[i] == KEY_IDLE)
 					controller[i] = KEY_DOWN;
 				else
@@ -264,6 +268,12 @@ bool Input::Loop(float dt)
 
 void Input::GetJoystick(bool left, float& x, float& y)
 {
+	InputImpl* lImpl = dynamic_cast<InputImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
 	x = 0;
 	y = 0;
 	if(controller_setups[current_setup]->keyboard)
@@ -281,61 +291,85 @@ void Input::GetJoystick(bool left, float& x, float& y)
 	{
 		if (left)
 		{
-			x = left_joystick->x_axis;
-			y = left_joystick->y_axis;
+			x = lImpl->left_joystick->x_axis;
+			y = lImpl->left_joystick->y_axis;
 		}
 		else
 		{
-			x = right_joystick->x_axis;
-			y = right_joystick->y_axis;
+			x = lImpl->right_joystick->x_axis;
+			y = lImpl->right_joystick->y_axis;
 		}
 	}
 };
 
 float Input::GetTrigger(bool left)
 {
+	InputImpl* lImpl = dynamic_cast<InputImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
 	if (left)
 	{
-		return left_trigger->axis;
+		return lImpl->left_trigger->axis;
 	}
 	else
 	{
-		return right_trigger->axis;
+		return lImpl->right_trigger->axis;
 	}
 }
 bool Input::GetTriggerPressed(bool left)
 {
+	InputImpl* lImpl = dynamic_cast<InputImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
 	if (left)
 	{
-		return left_trigger->is_pressed;
+		return lImpl->left_trigger->is_pressed;
 	}
 	else
 	{
-		return right_trigger->is_pressed;
+		return lImpl->right_trigger->is_pressed;
 	}
 }
 
 bool Input::GetTriggerDown(bool left)
 {
+	InputImpl* lImpl = dynamic_cast<InputImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
 	if (left)
 	{
-		return left_trigger->is_down;
+		return lImpl->left_trigger->is_down;
 	}
 	else
 	{
-		return right_trigger->is_down;
+		return lImpl->right_trigger->is_down;
 	}
 }
 
 bool Input::GetTriggerReleased(bool left)
 {
+	InputImpl* lImpl = dynamic_cast<InputImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
 	if (left)
 	{
-		return left_trigger->is_released;
+		return lImpl->left_trigger->is_released;
 	}
 	else
 	{
-		return right_trigger->is_released;
+		return lImpl->right_trigger->is_released;
 	}
 }
 
@@ -356,9 +390,30 @@ Keystate Input::GetInput(Gameplay_buttons id)
 
 }
 
+Keystate Input::GetButton(int id)
+{
+	InputImpl* lImpl = dynamic_cast<InputImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	return lImpl->controller[id]; 
+};
+
+Keystate Input::GetKey(int id)
+{
+	InputImpl* lImpl = dynamic_cast<InputImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	return lImpl->keyboard[id];
+};
 
 
-bool Input::LoadConfig(pugi::xml_node& config_node)
+bool Input::InputImpl::LoadConfig(pugi::xml_node& config_node)
 {
 	pugi::xml_node controller_sets = config_node.child("controllers");
 	pugi::xml_node set;
@@ -390,13 +445,13 @@ bool Input::LoadConfig(pugi::xml_node& config_node)
 			new_setup->inputs[17] = set.child("down").attribute("value").as_int();
 			new_setup->inputs[16] = set.child("up").attribute("value").as_int();
 		}
-		controller_setups.push_back(new_setup);
+		mPartInst->controller_setups.push_back(new_setup);
 	}
 
 	return true;
 }
 
-bool Input::CreateConfig(pugi::xml_node& config_node)
+bool Input::InputImpl::CreateConfig(pugi::xml_node& config_node)
 {
 	pugi::xml_node controller_sets = config_node.append_child("controllers");
 
@@ -449,7 +504,7 @@ bool Input::CreateConfig(pugi::xml_node& config_node)
 	
 }
 
-bool Input::CleanUp()
+bool Input::InputImpl::CleanUp()
 {
 	bool ret = true;
 	delete[] keyboard;

@@ -21,11 +21,11 @@ public:
 	bool Render();
 	void Destroy();
 
-	SDL_Rect firespellbook;
+	RXRect firespellbook;
 
 	particle_preset fireshield;
-	SDL_Rect r2shield;
-	SDL_Rect r12shield;
+	RXRect r2shield;
+	RXRect r12shield;
 	ParticleEmitter* p;
 
 	TextureID particles;

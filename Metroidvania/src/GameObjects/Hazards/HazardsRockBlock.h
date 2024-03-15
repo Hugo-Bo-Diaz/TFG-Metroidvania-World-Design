@@ -19,7 +19,7 @@ public:
 	bool Render();
 	void Destroy();
 
-	SDL_Rect rockblock;
+	RXRect rockblock;
 	TextureID hazards;
 };
 

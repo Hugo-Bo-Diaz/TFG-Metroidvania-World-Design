@@ -29,7 +29,7 @@ Shockwave::~Shockwave()
 
 void Shockwave::Init()
 {
-	nextpos = new SDL_Rect();
+	nextpos = new RXRect();
 	nextpos->x = collider->x;
 	nextpos->y = collider->y;
 	nextpos->w = collider->w;
@@ -113,7 +113,7 @@ bool Shockwave::Loop(float dt)
 	p->position_x = collider->x+collider->w/2;
 	p->position_y = collider->y+collider->h/2;
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	
 	bool should_delete = true;
 
@@ -121,16 +121,16 @@ bool Shockwave::Loop(float dt)
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
+		RXRect result;
 
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
+		if (RXRectCollision(colliders[i], nextpos, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			//Engine->GetModule<Particles>().to_delete.push_back(p);
 			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
 			Engine->GetModule<Particles>().RemoveParticleEmitter(p);
 		}
-		if (SDL_PointInRect(&floor_check, colliders[i]) == SDL_TRUE)
+		if (RXPointInRect(&floor_check, colliders[i]) == true)
 		{
 			should_delete = false;
 		}
@@ -151,11 +151,11 @@ bool Shockwave::Render()
 {
 	if (x_speed > 0)
 	{
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, shockwave_right.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *shockwave_right.GetCurrentFrame(), -2);
 	}
 	else
 	{
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, shockwave_left.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *shockwave_left.GetCurrentFrame(), -2);
 	}
 	return true;
 }

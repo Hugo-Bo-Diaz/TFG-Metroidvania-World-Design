@@ -1,19 +1,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <functional>
-#include "SceneProcessing.h"
-#include "UIelementFunctions.h"
 #include "Modules/Input.h"
 #include "Modules/SceneController.h"
+#include "Modules/Gui.h"
+#include "SceneProcessing.h"
+#include "UIelementFunctions.h"
 #include "Application.h"
 #include "UIElements/UISettingsMenu.h"
 #include "UIElements/UIPauseMenu.h"
 #include "UIElements/UISelectMenu.h"
-#include "Modules/Gui.h"
 #include "GameObjects/Portal.h"
 #include "Modules/ProgressTracker.h"
 #include "Utils/Logger.h"
 #include "Utils/Utils.h"
+#include "RXRect.h"
 
 MetroidVaniaSceneProcessor* Instance = nullptr;
 
@@ -104,7 +105,7 @@ void MetroidVaniaSceneProcessor::SceneProcessingInGame()
 	int intersection_d;
 	for (std::vector<GameObject*>::iterator it = portals.begin(); it != portals.end(); it++)
 	{
-		if(pl != nullptr && SDL_HasIntersection(pl->nextpos,(*it)->collider))
+		if(pl != nullptr && RXRectCollision(pl->nextpos,(*it)->collider))
 		{
 			to_use = (Portal*)*it;
 			if (to_use->horizontal)
@@ -156,11 +157,11 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 
 
 	//ON NEW MAP
-	int newplayer_x = 0;
-	int newplayer_y = 0;
+	int newplayer_x = 87;
+	int newplayer_y = 200;
 
-	int spawnpoint_x = 0;
-	int spawnpoint_y = 0;
+	int spawnpoint_x = 87;
+	int spawnpoint_y = 200;
 
 	portals = *App->phy->GetAllObjectsOfType(GetTypeIndex<Portal>());
 	spawnpoints = *App->phy->GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
@@ -266,7 +267,7 @@ void MetroidVaniaSceneProcessor::UsePortal(Portal* p, int offset)
 	//CHANGES ALL MAP
 	inGameUI->SetPlayer(nullptr);
 
-	App->scn->ChangeMap(map_to_change.c_str());
+	App->scn->LoadMap(map_to_change.c_str());
 
 	//ON NEW MAP
 	//int newplayer_x = 0;

@@ -19,7 +19,7 @@ public:
 	bool Render();
 	void Destroy();
 
-	SDL_Rect maxmanaplus;
+	RXRect maxmanaplus;
 	int pickup_id;
 
 	ParticleEmitter* p;
@@ -28,7 +28,7 @@ public:
 	int lore_unlock = -1;
 
 	particle_preset magic;
-	SDL_Rect r13magic;
+	RXRect r13magic;
 
 	TextureID particles;
 	TextureID items;

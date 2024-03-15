@@ -23,12 +23,12 @@ public:
 	bool Render();
 
 	float x_speed = 0;
-	SDL_Rect* nextpos = nullptr;
+	RXRect* nextpos = nullptr;
 
 	Animation shockwave_left;
 	Animation shockwave_right;
 
-	SDL_Point floor_check;
+	RXPoint floor_check;
 
 	ParticleEmitter* p;
 
@@ -37,8 +37,8 @@ public:
 
 	particle_preset groundcontact;
 	particle_preset rockblockexplosion;
-	SDL_Rect r8ground;
-	SDL_Rect r9ground;
+	RXRect r8ground;
+	RXRect r9ground;
 
 	TextureID spells;
 	TextureID particles;

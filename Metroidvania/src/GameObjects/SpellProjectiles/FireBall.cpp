@@ -51,13 +51,13 @@ bool FireBall::Loop(float dt)
 
 	collider->x += direction * speed;
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
+		RXRect result;
+		if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
@@ -90,9 +90,9 @@ bool FireBall::Loop(float dt)
 bool FireBall::Render()
 {
 	if (is_big)
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, fireball_big.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *fireball_big.GetCurrentFrame(), -2);
 	else
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, fireball_small.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *fireball_small.GetCurrentFrame(), -2);
 
 	return true;
 }

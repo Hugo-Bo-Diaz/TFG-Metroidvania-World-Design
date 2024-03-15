@@ -40,7 +40,7 @@ public:
 	
 	float x;
 	float y;
-	SDL_Rect* nextpos;
+	RXRect* nextpos;
 
 	float initial_y = -1;
 
@@ -48,7 +48,7 @@ public:
 	Animation flying_left;
 	Animation flying_right;
 
-	SDL_Rect r1exp;
+	RXRect r1exp;
 	particle_preset explosion;
 
 	void SetAnimations(FlyingElementalColor c);
@@ -62,7 +62,7 @@ public:
 	float bounce_strength = 5;
 	float patrol_speed=2;
 
-	SDL_Rect aggro = {0,0,300,384};
+	RXRect aggro = {0,0,300,384};
 
 	//starting
 

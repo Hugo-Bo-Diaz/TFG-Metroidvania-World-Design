@@ -2,20 +2,14 @@
 #define CAMERA__H
 
 #include "PartsDef.h"
+#include "Part.h"
 #include<vector>
 
-#include "SDL/include/SDL.h"
-#include "Part.h"
+#include "RXRect.h"
 class GameObject;
 
 class DLL_EXPORT Camera : public Part
 {
-private:
-
-	bool Init();
-	bool Loop(float dt);
-	bool CleanUp();
-	GameObject* target = nullptr;
 
 public:
 	Camera(EngineAPI& aAPI);
@@ -25,7 +19,7 @@ public:
 	float GetCameraXoffset();
 	float GetCameraYoffset();
 
-	bool isOnScreen(SDL_Rect rectangle);
+	bool isOnScreen(RXRect& rectangle);
 
 	float position_x;
 	float position_y;
@@ -45,9 +39,12 @@ public:
 	float total_cover_time;
 	float falloff;
 	int r, g, b;
-	SDL_Rect screenarea;
+	RXRect screenarea;
 	int GetCoveragePercent();
 	int alpha=0;
+private:
+
+	class CameraImpl;
 };
 
 #endif // !CAMERA__H

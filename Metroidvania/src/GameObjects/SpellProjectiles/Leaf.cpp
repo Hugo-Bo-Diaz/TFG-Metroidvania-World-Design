@@ -46,13 +46,13 @@ bool Leaf::Loop(float dt)
 	p->position_y = collider->y+collider->h/2;
 
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
+		RXRect result;
+		if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			//Engine->GetModule<Particles>().to_delete.push_back(p);
@@ -68,12 +68,12 @@ bool Leaf::Render()
 {
 	if (direction == 1)
 	{
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, leaf_right.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
+		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *leaf_right.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
 		leaf_right.NextFrame();
 	}
 	else
 	{
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, leaf_left.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
+		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *leaf_left.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
 		leaf_left.NextFrame();
 	}
 	return true;

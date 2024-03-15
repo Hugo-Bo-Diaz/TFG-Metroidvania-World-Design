@@ -1,8 +1,6 @@
 #ifndef AUDIO__H
 #define AUDIO__H
 
-#include <map>
-#include <string>
 #include "Part.h"
 #include "PartsDef.h"
 
@@ -31,18 +29,6 @@ struct SFX
 
 class DLL_EXPORT Audio : public Part
 {
-private:
-	bool Init();
-	bool Loop(float dt);
-	bool CleanUp();
-
-	bool LoadConfig(pugi::xml_node& config_node);
-	bool CreateConfig(pugi::xml_node& config_node);
-
-	std::map<AudioID,Music*> music_list;
-	std::map<AudioID,SFX*> sfx_list;
-
-	//static Audio* thisInst;
 public:
 	Audio(EngineAPI& aAPI);
 	~Audio() {};
@@ -69,10 +55,12 @@ public:
 
 	float current_fade_out;
 
-	_Mix_Music* next_song_after_fade_out;
 	float next_song_after_fade_out_fade_time;
 
 	uint current_song = -1;
-	void StartNextSongAfterFadeOut();
+	void StartNextSongAfterFadeOut() {};
+
+private:
+	class AudioImpl;
 };
 #endif

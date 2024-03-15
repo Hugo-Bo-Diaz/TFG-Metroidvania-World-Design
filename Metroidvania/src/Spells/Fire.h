@@ -56,11 +56,11 @@ public:
 	
 	ParticleEmitter*to_follow;
 	particle_preset fireshield_part;
-	SDL_Rect r2shield;
-	SDL_Rect r12shield;
+	RXRect r2shield;
+	RXRect r12shield;
 
 	particle_preset lava;
-	SDL_Rect r3lava;
+	RXRect r3lava;
 
 
 	int audiochannel_shield = 0;
@@ -68,8 +68,8 @@ public:
 	float manacost_shield_over_time = 0.005;
 
 	//sprites
-	SDL_Rect fireball_big;
-	SDL_Rect fireball_small;
+	RXRect fireball_big;
+	RXRect fireball_small;
 
 	Animation firebreath_right;
 	Animation firebreath_left;

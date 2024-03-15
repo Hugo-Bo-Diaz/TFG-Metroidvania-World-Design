@@ -16,13 +16,13 @@ public:
 	bool Loop(float dt);
 	bool Render();
 
-	SDL_Rect lava_top1;
-	SDL_Rect lava_top2;
+	RXRect lava_top1;
+	RXRect lava_top2;
 	Timer lava_animation;
 	float iteration_time=1000;
 	bool offset_cycle=true;
 
-	SDL_Rect lava;
+	RXRect lava;
 	TextureID hazards;
 };
 

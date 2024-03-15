@@ -28,7 +28,7 @@ public:
 
 	ParticleEmitter* p;
 	particle_preset windslash_part;
-	SDL_Rect r5slash;
+	RXRect r5slash;
 
 	TextureID spells;
 	TextureID particles;

@@ -32,8 +32,8 @@ public:
 	bool textboxexists = false;
 	int playerbooks = 0;
 
-	SDL_Rect rectanglekeyboard;
-	SDL_Rect rectanglecontroller;
+	RXRect rectanglekeyboard;
+	RXRect rectanglecontroller;
 
 	TextureID indicator;
 	TextureID particles;

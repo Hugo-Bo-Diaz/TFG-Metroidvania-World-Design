@@ -27,12 +27,12 @@ public:
 	//curr_res = number of bars to draw
 	
 	playerresource res;
-	SDL_Rect begin;
-	SDL_Rect middle;
-	SDL_Rect end;
-	SDL_Rect bar;
+	RXRect begin;
+	RXRect middle;
+	RXRect end;
+	RXRect bar;
 
-	SDL_Rect last_bar;
+	RXRect last_bar;
 
 	void Init();
 	void Loop();

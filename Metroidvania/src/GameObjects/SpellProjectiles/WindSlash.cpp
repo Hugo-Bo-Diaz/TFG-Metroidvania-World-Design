@@ -45,13 +45,13 @@ bool WindSlash::Loop(float dt)
 	p->position_x = collider->x;
 	p->position_y = collider->y;
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
+		RXRect result;
+		if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			//Engine->GetModule<Particles>().to_delete.push_back(p);
@@ -65,7 +65,7 @@ bool WindSlash::Loop(float dt)
 
 bool WindSlash::Render()
 {
-	Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, windslash.GetCurrentFrame(), -2);
+	Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *windslash.GetCurrentFrame(), -2);
 	return true;
 }
 

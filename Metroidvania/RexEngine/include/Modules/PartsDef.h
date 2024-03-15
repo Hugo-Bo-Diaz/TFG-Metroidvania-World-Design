@@ -9,6 +9,7 @@ typedef unsigned __int64 uint64;
 typedef unsigned char uchar;
 
 class Part;
+class Part_Impl;
 
 class Input;
 class Window;

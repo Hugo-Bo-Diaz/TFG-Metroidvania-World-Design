@@ -14,7 +14,7 @@ public:
 
 	FontID mFont;
 
-	SDL_Rect on_screen;
+	RXRect on_screen;
 	float text_x;
 	float text_y;
 

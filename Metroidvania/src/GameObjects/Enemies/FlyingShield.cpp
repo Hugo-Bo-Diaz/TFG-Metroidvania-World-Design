@@ -21,7 +21,7 @@ void FlyingShield::Destroy()
 void FlyingShield::Init()
 {
 	initial_y = collider->x;
-	nextpos = new SDL_Rect();
+	nextpos = new RXRect();
 	nextpos->x = collider->x;
 	nextpos->y = collider->y;
 	nextpos->w = collider->w;
@@ -64,14 +64,14 @@ bool FlyingShield::Loop(float dt)
 
 	nextpos->x += speed_x;
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)
+		RXRect result;
+		if (RXRectCollision(colliders[i], nextpos, &result) == true)
 		{
 			if (result.h < result.w)
 			{
@@ -122,11 +122,11 @@ bool FlyingShield::Render()
 
 	if (speed_x < 0)
 	{
-		Engine->GetModule<::Render>().Blit(floating_shield, collider->x, collider->y, flying_left.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().Blit(floating_shield, collider->x, collider->y, *flying_left.GetCurrentFrame(), 0);
 	}
 	else
 	{
-		Engine->GetModule<::Render>().Blit(floating_shield, collider->x, collider->y, flying_right.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().Blit(floating_shield, collider->x, collider->y, *flying_right.GetCurrentFrame(), 0);
 	}
 	return true;
 }

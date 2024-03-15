@@ -67,7 +67,7 @@ bool EndDemoObject::Loop(float dt)
 			//END DEMO HERE :D
 			Engine->GetModule<ObjectManager>().UnPauseObjects();
 			//App->trk->go_to_main_menu = true;
-			Engine->GetModule<ProgressTracker>().SaveGame("save_file.xml");
+			Engine->GetModule<ProgressTracker>().SaveFile("save_file.xml");
 			Engine->GetModule<Camera>().CoverScreen(1000, 300, 0, 0, 0);
 		}
 	}
@@ -80,9 +80,9 @@ bool EndDemoObject::Render()
 	if (player_contact == true)
 	{
 		if (Engine->GetModule<Input>().using_controller)
-			Engine->GetModule<::Render>().Blit(indicator, collider->x + collider->w / 2 - 24, collider->y - 48, &rectanglecontroller, -5);
+			Engine->GetModule<::Render>().Blit(indicator, collider->x + collider->w / 2 - 24, collider->y - 48, rectanglecontroller, -5);
 		else
-			Engine->GetModule<::Render>().Blit(indicator, collider->x + collider->w / 2 - 24, collider->y - 48, &rectanglekeyboard, -5);
+			Engine->GetModule<::Render>().Blit(indicator, collider->x + collider->w / 2 - 24, collider->y - 48, rectanglekeyboard, -5);
 	}
 
 	return true;

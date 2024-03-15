@@ -42,8 +42,8 @@ public:
 
 	ParticleEmitter* p;
 	particle_preset windbuff;
-	SDL_Rect r6buff;
-	SDL_Rect r7buff;
+	RXRect r6buff;
+	RXRect r7buff;
 
 	TextureID particle;
 };

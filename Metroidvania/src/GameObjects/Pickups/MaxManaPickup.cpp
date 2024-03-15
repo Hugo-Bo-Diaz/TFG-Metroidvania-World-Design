@@ -134,7 +134,7 @@ bool MaxManaPickup::Loop(float dt)
 
 bool MaxManaPickup::Render()
 {
-	Engine->GetModule<::Render>().Blit(items, collider->x, collider->y, &maxmanaplus, 10);
+	Engine->GetModule<::Render>().Blit(items, collider->x, collider->y, maxmanaplus, 10);
 
 	return true;
 }

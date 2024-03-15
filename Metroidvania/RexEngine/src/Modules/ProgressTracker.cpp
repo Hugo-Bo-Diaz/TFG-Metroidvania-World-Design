@@ -1,9 +1,7 @@
 #include "Modules/ProgressTracker.h"
 #include "Application.h"
-#include "Modules/SceneController.h"
-#include "Modules/ObjectManager.h"
-#include "Modules/Gui.h"
-#include "Modules/Camera.h"
+
+#include "ProgressTrackerImpl.h"
 
 #include <string>
 #include <sstream>
@@ -11,37 +9,67 @@
 
 ProgressTracker::ProgressTracker(EngineAPI& aAPI) : Part("ProgressTracker",aAPI)
 {
+	mPartFuncts = new ProgressTrackerImpl(this);
 }
 
-bool ProgressTracker::Init()
+void ProgressTracker::ProgressTrackerImpl::SaveToNode(Section* aSector, pugi::xml_node& aNode)
 {
-	BaseSaveSection = new Section();
-	BaseSettingsSection = new Section();
+	pugi::xml_node lValsNode = aNode.append_child("ValuesNode");
 
-	return true;
+	for (auto i = aSector->Values.begin(); i != aSector->Values.end(); i++)
+	{
+		//add values to node
+		pugi::xml_node lNode = lValsNode.append_child(i->first.c_str());
+		lNode.text().set(std::to_string(i->second).c_str());
+	}
+
+	pugi::xml_node lNode = aNode.append_child("ChildrenNode");
+
+	for (auto i = aSector->Children.begin(); i != aSector->Children.end(); i++)
+	{
+		//add children to node
+		pugi::xml_node lChildNode = lNode.append_child(i->first.c_str());
+		SaveToNode(i->second,lChildNode);
+	}
 }
 
-bool ProgressTracker::LoadConfig(pugi::xml_node & node)
+void ProgressTracker::ProgressTrackerImpl::LoadFromNode(Section* aSector, pugi::xml_node& aNode)
 {
-	//pugi::xml_node lore_location = node.child("lore_file");
+	pugi::xml_node lValsNode = aNode.child("ValuesNode");
 
-	//LoadLogs(lore_location.attribute("path").as_string());
+	for (pugi::xml_node iterator = lValsNode.first_child(); iterator; iterator = iterator.next_sibling())
+	{
+		aSector->Values.insert(std::make_pair(iterator.name(), std::stof(iterator.value())));
+	}
 
-	return true;
+	pugi::xml_node lChildrenNode = aNode.child("ChildrenNode");
+
+	for (pugi::xml_node iterator = lChildrenNode.first_child(); iterator; iterator = iterator.next_sibling())
+	{
+		Section* lSection = new Section();
+		LoadFromNode(lSection,iterator);
+		lSection->Children.insert(std::make_pair(iterator.name(), lSection));
+	}
+
 }
 
-bool ProgressTracker::CreateConfig(pugi::xml_node & node)
+bool ProgressTracker::ProgressTrackerImpl::Init()
 {
-	//pugi::xml_node lore_location = node.append_child("lore_file");
-
-	//lore_location.append_attribute("path") = "lore.xml";
-	//LoadLogs("lore.xml");
+	mPartInst->BaseSaveSection = new Section();
+	mPartInst->BaseSettingsSection = new Section();
 
 	return true;
 }
 
 bool ProgressTracker::LoadFile(const char* save_loc)
 {
+	ProgressTrackerImpl* lImpl = dynamic_cast<ProgressTrackerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
 	std::stringstream lStr;
 	lStr << "Loading variables from: " << save_loc;
 	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
@@ -51,7 +79,11 @@ bool ProgressTracker::LoadFile(const char* save_loc)
 
 	save_file_node = config_file.child("save_state");
 
-	BaseSaveSection->LoadFromNode(save_file_node);
+	if (BaseSaveSection != nullptr)
+		delete BaseSaveSection;
+
+	BaseSaveSection = new Section();
+	lImpl->LoadFromNode(BaseSaveSection,save_file_node);
 
 
 	return true;
@@ -59,6 +91,13 @@ bool ProgressTracker::LoadFile(const char* save_loc)
 
 bool ProgressTracker::SaveFile(const char* save_loc)
 {
+	ProgressTrackerImpl* lImpl = dynamic_cast<ProgressTrackerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
 	std::stringstream lStr;
 	lStr << "Saving variables to: " << save_loc;
 	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
@@ -68,43 +107,16 @@ bool ProgressTracker::SaveFile(const char* save_loc)
 
 	save_file_node = config_file.append_child("save_state");
 
-	BaseSaveSection->SaveToNode(save_file_node);
+	if (BaseSaveSection != nullptr)
+		delete BaseSaveSection;
+
+	lImpl->SaveToNode(BaseSaveSection, save_file_node);
 
 	config_file.save_file(save_loc);
 
 	return true;
 }
 
-bool ProgressTracker::Loop(float dt)
-{
-
-	return true;
-}
-
-bool ProgressTracker::CleanUp()
-{
-	return true;
-}
-
-void ProgressTracker::SaveGame(const char * file)
-{
-	bool create_file = false;
-	pugi::xml_document	config_file;
-	pugi::xml_node save_file_node;
-
-	save_file_node = config_file.append_child("save_state");
-
-	
-
-	config_file.save_file(file);
-	
-}
-
-void ProgressTracker::LoadGame(const char * file)
-{
-	if (!CanLoadGame(file))
-		return;
-}
 
 bool ProgressTracker::CanLoadGame(const char * file)
 {
@@ -185,43 +197,4 @@ float Section::GetValue(const char* aValueName)
 	return 0.0f;
 }
 
-void Section::SaveToNode(pugi::xml_node& aNode)
-{
-	pugi::xml_node lValsNode = aNode.append_child("ValuesNode");
-
-	for (auto i = Values.begin(); i != Values.end(); i++)
-	{
-		//add values to node
-		pugi::xml_node lNode = lValsNode.append_child(i->first.c_str());
-		lNode.text().set(std::to_string(i->second).c_str());
-	}
-
-	pugi::xml_node lNode = aNode.append_child("ChildrenNode");
-
-	for (auto i = Children.begin(); i != Children.end(); i++)
-	{
-		//add children to node
-		pugi::xml_node lChildNode = lNode.append_child(i->first.c_str());
-		i->second->SaveToNode(lChildNode);
-	}
-}
-
-void Section::LoadFromNode(pugi::xml_node& aNode)
-{
-	pugi::xml_node lValsNode = aNode.child("ValuesNode");
-
-	for (pugi::xml_node iterator = lValsNode.first_child(); iterator; iterator = iterator.next_sibling())
-	{
-		Values.insert(std::make_pair(iterator.name(), std::stof( iterator.value())));
-	}
-
-	pugi::xml_node lChildrenNode = aNode.child("ChildrenNode");
-
-	for (pugi::xml_node iterator = lChildrenNode.first_child(); iterator; iterator = iterator.next_sibling())
-	{
-		Section* lSection = new Section();
-		lSection->LoadFromNode(iterator);
-		Children.insert(std::make_pair(iterator.name(),lSection));
-	}
-}
 #pragma endregion

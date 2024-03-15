@@ -14,14 +14,14 @@ void Rain::Loop()
 {
 	hitbox.y += speed;
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(hitbox.x + hitbox.w / 2, hitbox.y + hitbox.h / 2, 50, colliders);
 
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], &hitbox, &result) == SDL_TRUE)// he goin crash!
+		RXRect result;
+		if (RXRectCollision(colliders[i], &hitbox, &result))// he goin crash!
 		{
 			parent->DeleteRainDrop(this);
 		}
@@ -31,5 +31,5 @@ void Rain::Loop()
 
 void Rain::Render()
 {
-	Engine->GetModule<::Render>().Blit(spells, hitbox.x, hitbox.y, &blitrect, -2);
+	Engine->GetModule<::Render>().Blit(spells, hitbox.x, hitbox.y, blitrect, -2);
 }

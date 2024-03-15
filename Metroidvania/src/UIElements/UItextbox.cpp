@@ -39,7 +39,7 @@ UItextbox::UItextbox(const char * _author,const char* first_text, TextBoxColor c
 	text_speed = speed;
 	text_size = size;
 
-	SDL_Color Black = { 1,1,1,1 };
+	RXColor Black = { 1,1,1,1 };
 	AddPanelToTextBox(first_text);
 }
 
@@ -56,7 +56,7 @@ UItextbox::~UItextbox()
 void UItextbox::Init()
 {
 	//mFont = App->txt->LoadFont("Assets/Fonts/font1.xml", SDL_Color{0,0,0,255},25);
-	mFont = Engine->GetModule<Text>().LoadFont("Assets/Fonts/Bebas-Regular.ttf", SDL_Color{ 0,0,0,255 }, 25);
+	mFont = Engine->GetModule<Text>().LoadFont("Assets/Fonts/Bebas-Regular.ttf", { 0,0,0,255 }, 25);
 
 	TexTextBox = Engine->GetModule<Textures>().Load_Texture("Assets/UI/textboxes.png");
 	Engine->GetModule<ObjectManager>().PauseObjects();
@@ -96,7 +96,7 @@ void UItextbox::Render()
 	{
 		for (int j = 0; j < tile_height; ++j)
 		{
-			SDL_Rect* r = nullptr;
+			RXRect* r = nullptr;
 			if (i == 0 && j == 0)
 			{
 				r = &up_left;
@@ -137,22 +137,24 @@ void UItextbox::Render()
 			int real_x = position_x + i*32;
 			int real_y = position_y + j*32;
 
-			Engine->GetModule<::Render>().Blit(TexTextBox,real_x,real_y,r,10, RenderQueue::RENDER_UI);
+			Engine->GetModule<::Render>().Blit(TexTextBox,real_x,real_y,*r,10, RenderQueue::RENDER_UI);
 		}
 		
 	}
 	//BLIT TEXT 12 12
-	Engine->GetModule<::Render>().BlitText(texts[current_text].substr(0, current_letter).c_str(), mFont, position_x + 12, position_y + 12, -10001, SDL_Color{0,0,0,255}, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().BlitText(texts[current_text].substr(0, current_letter).c_str(), mFont, position_x + 12, position_y + 12, -10001, RXColor{0,0,0,255}, RenderQueue::RENDER_UI);
 	//Engine->GetModule<::Render>().BlitText(texts[current_text].substr(0, current_letter).c_str(), mFont, position_x + 12, position_y + 12 + text_size * App->txt->GetFont(mFont)->size, -10001, SDL_Color{0,0,0,255});
 
 	if (author != "")
 	{
+		int size_x,size_y;
+		Engine->GetModule<Text>().GetTextSize(mFont,author.c_str(), size_x, size_y);
 		//SMALL SQUARE
-		float author_size = 1 + (author.size() * Engine->GetModule<Text>().GetFont(mFont)->size) / 32;
+		float author_size = 1 + (size_x) / 32;
 
 		for (int i = 0; i < author_size; ++i)
 		{
-			SDL_Rect* r = nullptr;
+			RXRect* r = nullptr;
 			if (i == 0)
 			{
 				r = &small_left;
@@ -169,10 +171,10 @@ void UItextbox::Render()
 			int real_x = position_x + i * 32;
 			int real_y = position_y - 40;
 
-			Engine->GetModule<::Render>().Blit(TexTextBox, real_x, real_y, r, 9, RenderQueue::RENDER_UI);
+			Engine->GetModule<::Render>().Blit(TexTextBox, real_x, real_y, *r, 9, RenderQueue::RENDER_UI);
 		}
 
-		Engine->GetModule<::Render>().BlitText(author.c_str(), mFont, position_x + 12, position_y - 8, -10001, SDL_Color{0,0,0,255}, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().BlitText(author.c_str(), mFont, position_x + 12, position_y - 8, -10001, RXColor{0,0,0,255}, RenderQueue::RENDER_UI);
 	}
 
 }

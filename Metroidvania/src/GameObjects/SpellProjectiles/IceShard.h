@@ -28,7 +28,7 @@ public:
 
 	ParticleEmitter* p;
 	particle_preset ice;
-	SDL_Rect r4ice;
+	RXRect r4ice;
 
 	TextureID spells;
 	TextureID particles;

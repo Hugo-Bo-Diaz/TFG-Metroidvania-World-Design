@@ -38,7 +38,7 @@ public:
 
 	float initial_y;
 	float initial_x;
-	SDL_Rect* nextpos = nullptr;
+	RXRect* nextpos = nullptr;
 
 	//graphics
 	Animation facing_left;
@@ -46,13 +46,13 @@ public:
 	Animation facing_front;
 	Animation book;
 
-	SDL_Rect r1exp;
+	RXRect r1exp;
 	particle_preset explosion;
 
 	//patrol
 	float patrol_speed = 2.5;
 
-	SDL_Rect aggro = { 0,0,600,600 };
+	RXRect aggro = { 0,0,600,600 };
 
 	//follow
 	float min_distance_to_player = 200;

@@ -3,13 +3,15 @@
 #include "Utils/Logger.h"
 #include "SDL/include/SDL.h"
 
+#include "WindowImpl.h"
+#include "SDL/include/SDL_syswm.h"
+
 Window::Window(EngineAPI& aAPI): Part("Window",aAPI)
 {
-	window = NULL;
-	screen_surface = NULL;
+	mPartFuncts = new WindowImpl(this);
 }
 
-bool Window::LoadConfig(pugi::xml_node& config_node)
+bool Window::WindowImpl::LoadConfig(pugi::xml_node& config_node)
 {
 	Logger::Console_log(LogLevel::LOG_INFO,"Init SDL window & surface");
 
@@ -69,7 +71,7 @@ bool Window::LoadConfig(pugi::xml_node& config_node)
 	}
 	return true;
 }
-bool Window::CreateConfig(pugi::xml_node& config_node)
+bool Window::WindowImpl::CreateConfig(pugi::xml_node& config_node)
 {
 	pugi::xml_node dimensions = config_node.append_child("dimensions");
 
@@ -87,7 +89,7 @@ bool Window::CreateConfig(pugi::xml_node& config_node)
 	return true;
 }
 
-bool Window::Init()
+bool Window::WindowImpl::Init()
 {
 	bool ret = true;
 	
@@ -97,7 +99,19 @@ bool Window::Init()
 	return ret;
 
 }
-bool Window::Loop(float dt)
+
+float Window::GetScale()
+{
+	WindowImpl* lImpl = dynamic_cast<WindowImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	return lImpl->scale;
+}
+
+bool Window::WindowImpl::Loop(float dt)
 {
 	int window_x, window_y;
 	SDL_GetWindowSize(window, &width, &height);
@@ -111,29 +125,68 @@ bool Window::Loop(float dt)
 
 void Window::SetWindowTitle(const char* title)
 {
-	SDL_SetWindowTitle(window, title);
+	WindowImpl* lImpl = dynamic_cast<WindowImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	SDL_SetWindowTitle(lImpl->window, title);
 }
 
 void Window::ToggleFullScreen()
 {
-	if(fullscreen)
+	WindowImpl* lImpl = dynamic_cast<WindowImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	if(lImpl->fullscreen)
 	{
 		Logger::Console_log(LogLevel::LOG_INFO, "Exit fullscreen");
-		SDL_SetWindowFullscreen(window,0);
-		fullscreen = false;
-		scale = 1;
+		SDL_SetWindowFullscreen(lImpl->window,0);
+		lImpl->fullscreen = false;
+		lImpl->scale = 1;
 	}
 	else
 	{
 		Logger::Console_log(LogLevel::LOG_INFO, "Enter fullscreen");
-		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-		fullscreen = true;
-		scale = 2;
+		SDL_SetWindowFullscreen(lImpl->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+		lImpl->fullscreen = true;
+		lImpl->scale = 2;
 
 	}
 }
 
-bool Window::CleanUp()
+HWND Window::GetSDLWindowHandle()
+{
+	WindowImpl* lImpl = dynamic_cast<WindowImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	SDL_SysWMinfo wmInfo;
+	SDL_VERSION(&wmInfo.version);
+	SDL_GetWindowWMInfo(lImpl->window, &wmInfo);
+	HWND hwnd = wmInfo.info.win.window;
+	return hwnd;
+}
+
+void Window::GetWindowSize(int& x, int& y)
+{
+	WindowImpl* lImpl = dynamic_cast<WindowImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	x = lImpl->width;
+	y = lImpl->height;
+}
+
+bool Window::WindowImpl::CleanUp()
 {
 	bool ret = true;
 

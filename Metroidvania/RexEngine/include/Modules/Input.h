@@ -3,7 +3,6 @@
 
 #include "PartsDef.h"
 #include "Part.h"
-#include "SDL\include\SDL.h"
 #include <vector>
 
 #define MAX_KEYS 300
@@ -93,13 +92,10 @@ class DLL_EXPORT Input : public Part
 public:
 	Input(EngineAPI& aAPI);
 	~Input() {};
-	bool Init();
-	bool Loop(float dt);
-	bool CleanUp();
 
-	Keystate GetKey(int id) const { return keyboard[id]; }
+	Keystate GetKey(int id);
 	
-	Keystate GetButton(int id) { return controller[id]; };
+	Keystate GetButton(int id);
 
 	Keystate GetInput(Gameplay_buttons id);
 
@@ -113,27 +109,14 @@ public:
 
 	//0 horizontal 1 vertical
 
-	bool using_controller=false;
+	bool using_controller = false;
 
 	int current_setup = 1;
 	std::vector<setup*> controller_setups;
 
-	bool LoadConfig(pugi::xml_node&);
-	bool CreateConfig(pugi::xml_node&);
-
 private:
-	Keystate* keyboard;
 
-	Keystate* controller;
-	joystick* left_joystick;
-	joystick* right_joystick;
-
-	trigger* left_trigger;
-	trigger* right_trigger;
-
-	SDL_GameController* SDLcontroller = nullptr;
-	int controller_id = 0;
-	bool controller_active = false;
+	class InputImpl;
 };
 
 #endif // !INPUT__H

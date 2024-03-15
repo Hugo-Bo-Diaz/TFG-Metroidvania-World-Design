@@ -6,6 +6,7 @@
 #include "UIElements/UIingameUI.h"
 
 #include "GameObjects/Portal.h"
+#include "pugixml.hpp"
 
 struct room
 {

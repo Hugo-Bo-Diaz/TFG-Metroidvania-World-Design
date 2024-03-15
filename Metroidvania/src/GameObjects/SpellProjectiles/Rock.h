@@ -31,8 +31,8 @@ public:
 
 	particle_preset groundcontact;
 	particle_preset rockblockexplosion;
-	SDL_Rect r8ground;
-	SDL_Rect r9ground;
+	RXRect r8ground;
+	RXRect r9ground;
 
 	TextureID spells;
 	TextureID particles;

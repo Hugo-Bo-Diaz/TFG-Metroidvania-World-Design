@@ -30,7 +30,7 @@ public:
 	Animation fireball_small;
 	Animation fireball_big;
 
-	SDL_Rect r1exp;
+	RXRect r1exp;
 	particle_preset explosion;
 
 	int damage = 2;

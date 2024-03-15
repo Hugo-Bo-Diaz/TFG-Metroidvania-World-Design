@@ -6,7 +6,7 @@
 class Portal : public GameObject
 {
 public:
-	SDL_Rect area;
+	RXRect area;
 	int id_destination_room;
 	int id_destination_point;
 	bool horizontal;

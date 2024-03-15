@@ -1,7 +1,7 @@
 #ifndef RAIN__H
 #define RAIN__H
 
-#include "SDL/include/SDL.h"
+#include "RXRect.h"
 #include "Modules/Textures.h"
 
 class EngineAPI;
@@ -10,8 +10,8 @@ class Cloud;
 class Rain
 {
 public:
-	SDL_Rect blitrect;
-	SDL_Rect hitbox;
+	RXRect blitrect;
+	RXRect hitbox;
 
 	float speed;
 	Rain(EngineAPI* aAPI) ;

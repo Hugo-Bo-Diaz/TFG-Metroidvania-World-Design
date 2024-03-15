@@ -132,7 +132,7 @@ void Player::Init()
 	{
 		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("Stats");
 	}
-	nextpos = new SDL_Rect();
+	nextpos = new RXRect();
 	nextpos->x = collider->x;
 	nextpos->y = collider->y;
 	nextpos->w = collider->w;
@@ -213,13 +213,13 @@ bool Player::Loop(float dt)
 	}
 
 	//STEP 3 oh boi
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)// he goin crash!
+		RXRect result;
+		if (RXRectCollision(colliders[i], nextpos, &result))// he goin crash!
 		{
 
 			if (result.h > result.w)
@@ -415,10 +415,10 @@ bool Player::Loop(float dt)
 		}
 	}
 	
-	if (Engine->GetModule<Input>().GetKey(SDL_SCANCODE_D) == KEY_DOWN)
-	{
-		unlock_spell(FIRE);
-	}
+	//if (Engine->GetModule<Input>().GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+	//{
+	//	unlock_spell(FIRE);
+	//}
 
 	//RENDER
 
@@ -665,43 +665,43 @@ bool Player::Render()
 		{
 			if (is_right)
 			{
-				Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, idle_right.GetCurrentFrame(), 0);
+				Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *idle_right.GetCurrentFrame(), 0);
 				idle_right.NextFrame();
 			}
 			else
 			{
-				Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, idle_left.GetCurrentFrame(), 0);
+				Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *idle_left.GetCurrentFrame(), 0);
 				idle_left.NextFrame();
 			}
 		}
 		break;
 		case WALKING_LEFT:
 		{
-			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, walking_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *walking_left.GetCurrentFrame(), 0);
 			walking_left.NextFrame();
 		}
 		break;
 		case WALKING_RIGHT:
 		{
-			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, walking_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *walking_right.GetCurrentFrame(), 0);
 			walking_right.NextFrame();
 		}
 		break;
 		case AIRBORNE_LEFT:
 		{
-			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, air_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *air_left.GetCurrentFrame(), 0);
 			air_left.NextFrame();
 		}
 		break;
 		case AIRBORNE_RIGHT:
 		{
-			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, air_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *air_right.GetCurrentFrame(), 0);
 			air_right.NextFrame();
 		}
 		break;
 		default:
 		{
-			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, idle_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *idle_right.GetCurrentFrame(), 0);
 			idle_right.NextFrame();
 		}
 		break;

@@ -75,6 +75,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -152,6 +153,7 @@
     <ClInclude Include="include\Application.h" />
     <ClInclude Include="include\EngineAPI.h" />
     <ClInclude Include="include\EngineElements\Animation.h" />
+    <ClInclude Include="include\EngineElements\GameObject.h" />
     <ClInclude Include="include\EngineElements\ParticleEmitter.h" />
     <ClInclude Include="include\EngineElements\UIelement.h" />
     <ClInclude Include="include\Modules\Audio.h" />
@@ -169,12 +171,30 @@
     <ClInclude Include="include\Modules\Text.h" />
     <ClInclude Include="include\Modules\Textures.h" />
     <ClInclude Include="include\Modules\Window.h" />
+    <ClInclude Include="include\RXColor.h" />
+    <ClInclude Include="include\RXPoint.h" />
+    <ClInclude Include="include\RXRect.h" />
     <ClInclude Include="include\Utils\Logger.h" />
     <ClInclude Include="include\Utils\MathHelp.h" />
     <ClInclude Include="include\Utils\Timer.h" />
     <ClInclude Include="include\Utils\Utils.h" />
     <ClInclude Include="lib\pugiXML\src\pugiconfig.hpp" />
     <ClInclude Include="lib\pugiXML\src\pugixml.hpp" />
+    <ClInclude Include="src\Modules\AudioImpl.h" />
+    <ClInclude Include="src\Modules\CameraImpl.h" />
+    <ClInclude Include="src\Modules\DebugImpl.h" />
+    <ClInclude Include="src\Modules\GuiImpl.h" />
+    <ClInclude Include="src\Modules\InputImpl.h" />
+    <ClInclude Include="src\Modules\ObjectManagerImpl.h" />
+    <ClInclude Include="src\Modules\ParticlesImpl.h" />
+    <ClInclude Include="src\Modules\PartImpl.h" />
+    <ClInclude Include="src\Modules\PartsDef.h" />
+    <ClInclude Include="src\Modules\ProgressTrackerImpl.h" />
+    <ClInclude Include="src\Modules\RenderImpl.h" />
+    <ClInclude Include="src\Modules\SceneControllerImpl.h" />
+    <ClInclude Include="src\Modules\TextImpl.h" />
+    <ClInclude Include="src\Modules\TexturesImpl.h" />
+    <ClInclude Include="src\Modules\WindowImpl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

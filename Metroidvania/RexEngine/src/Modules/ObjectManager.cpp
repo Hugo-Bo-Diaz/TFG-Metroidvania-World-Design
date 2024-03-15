@@ -1,27 +1,33 @@
 #include "Modules/ObjectManager.h"
 #include "Utils/Logger.h"
 #include "Modules/Debug.h"
+#include "Modules/Render.h"
+#include "EngineElements/GameObject.h"
 
 #include <sstream>
 #include <typeindex>
+#include "SDL/include/SDL.h"
+#include "ObjectManagerImpl.h"
+
 
 ObjectManager::ObjectManager(EngineAPI& aAPI) : Part("ObjectManager",aAPI)
 {
+	mPartFuncts = new ObjectManagerImpl(this);
+}
+
+bool ObjectManager::ObjectManagerImpl::Init()
+{
+	bool ret = true;
+
 	for (int i = 0; i < MAX_WALLS; ++i)
 	{
 		walls[i] = nullptr;
 	}
-}
-
-bool ObjectManager::Init()
-{
-	bool ret = true;
-
 
 	return ret;
 }
 
-bool ObjectManager::Loop(float dt)
+bool ObjectManager::ObjectManagerImpl::Loop(float dt)
 {
 	bool ret = true;
 
@@ -56,41 +62,58 @@ bool ObjectManager::Loop(float dt)
 	return ret;
 }
 
-void ObjectManager::RenderDebug()
+void ObjectManager::ObjectManagerImpl::RenderDebug()
 {
 	for (int i = 0; i < MAX_WALLS; ++i)
 	{
 		if (walls[i] != nullptr)
-			mApp.GetModule<Render>().DrawRect(*walls[i], 0, 0, 255, 75, true, RenderQueue::RENDER_DEBUG, 0);
+		{
+			RXRect lRect = { walls[i]->x,walls[i]->y,walls[i]->w,walls[i]->h };
+			mPartInst->mApp.GetModule<Render>().DrawRect(lRect, 0, 0, 255, 75, true, RenderQueue::RENDER_DEBUG, 0);
+		}
 	}
 
 	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
 		(*it)->RenderDebug();
-		mApp.GetModule<Render>().DrawRect(*(*it)->collider, 0, 255, 0, 75, true, RenderQueue::RENDER_DEBUG, 0);
+		mPartInst->mApp.GetModule<Render>().DrawRect(*(*it)->collider, 0, 255, 0, 75, true, RenderQueue::RENDER_DEBUG, 0);
 	}
 }
 
-void ObjectManager::GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*>& colliders_near)
+void ObjectManager::GetNearbyWalls(int x, int y, int pxls_range, std::vector<RXRect*>& colliders_near)
 {
-	SDL_Rect* toleration_area = new SDL_Rect();
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	RXRect* toleration_area = new RXRect();
 	*toleration_area = {x-pxls_range, y -pxls_range, pxls_range*2, pxls_range*2};
 
 	//App->ren->DrawRect(toleration_area, 255, 0, 0, 100, true);
 
 	for (int i = 0; i < MAX_WALLS; ++i)
 	{
-		if (SDL_HasIntersection(walls[i], toleration_area))
+		if (RXRectCollision(lImpl->walls[i], toleration_area))
 		{
-			colliders_near.push_back(walls[i]);
+			colliders_near.push_back(lImpl->walls[i]);
 		}
 	}
 }
 std::vector<GameObject*>* ObjectManager::GetAllObjectsOfType(std::type_index info)
 {
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return nullptr;
+	}
+
 	std::vector<GameObject*>* ret = new std::vector<GameObject*>();
 
-	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
+	for (std::list<GameObject*>::iterator it = lImpl->objects.begin(); it != lImpl->objects.end(); it++)
 	{
 		if ((*it)->mType == info)
 		{
@@ -100,11 +123,18 @@ std::vector<GameObject*>* ObjectManager::GetAllObjectsOfType(std::type_index inf
 	return ret;
 }
 
-void ObjectManager::GetCollisions(SDL_Rect* obj, std::vector<collision*>& collisions)
+void ObjectManager::GetCollisions(RXRect* obj, std::vector<collision*>& collisions)
 {
-	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
 	{
-		if (SDL_HasIntersection((*it)->collider,obj))
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	for (std::list<GameObject*>::iterator it = lImpl->objects.begin(); it != lImpl->objects.end(); it++)
+	{
+		if (RXRectCollision((*it)->collider,obj))
 		{
 			collision* col = new collision();
 
@@ -127,7 +157,14 @@ void ObjectManager::ClearCollisionArray(std::vector<collision*>& collisions)
 
 GameObject* ObjectManager::AddObject(int x, int y, int w_col, int h_col,std::type_index lType)
 {
-	auto lID = GetFactory(lType);
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return nullptr;
+	}
+
+	auto lID = lImpl->GetFactory(lType);
 
 	std::list<ObjectProperty*> lPropList;
 
@@ -137,7 +174,7 @@ GameObject* ObjectManager::AddObject(int x, int y, int w_col, int h_col,std::typ
 	if (r != nullptr)
 	{
 		r->mType = lID->GetObjectTypeIndex();
-		r->collider = new SDL_Rect();
+		r->collider = new RXRect();
 
 		r->Engine = new EngineAPI(mApp);
 		r->collider->x = x;
@@ -147,7 +184,7 @@ GameObject* ObjectManager::AddObject(int x, int y, int w_col, int h_col,std::typ
 
 		r->Init();
 
-		objects.push_back(r);
+		lImpl->objects.push_back(r);
 	}
 	else
 	{
@@ -159,20 +196,47 @@ GameObject* ObjectManager::AddObject(int x, int y, int w_col, int h_col,std::typ
 	return r;
 }
 
-void ObjectManager::AddObject(GameObject* lToAdd)
+int ObjectManager::GetTotalObjectNumber()
 {
-	if(lToAdd != nullptr)
-		objects.push_back(lToAdd);
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	return lImpl->objects.size();
 }
 
-int ObjectManager::AddWall(SDL_Rect rect)
+
+void ObjectManager::AddObject(GameObject* lToAdd)
 {
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	if(lToAdd != nullptr)
+		lImpl->objects.push_back(lToAdd);
+}
+
+int ObjectManager::AddWall(RXRect& rect)
+{
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return -1;
+	}
+
 	int i = 0;
 	bool exit = false;
 
 	while (i < MAX_WALLS && !exit)
 	{
-		if (walls[i] == nullptr)
+		if (lImpl->walls[i] == nullptr)
 		{
 			exit = true;
 
@@ -184,34 +248,44 @@ int ObjectManager::AddWall(SDL_Rect rect)
 	}
 
 	
-	SDL_Rect* wall = new SDL_Rect();
+	RXRect* wall = new RXRect();
 	wall->x = rect.x;
 	wall->y = rect.y;
 	wall->w = rect.w;
 	wall->h = rect.h;
 
-
-
-	walls[i] = wall;
+	lImpl->walls[i] = wall;
 
 	return i;
 }
 
 void ObjectManager::DeleteWall(int id)
 {
-	delete walls[id];
-	walls[id] = nullptr;
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
 
-	
+	delete lImpl->walls[id];
+	lImpl->walls[id] = nullptr;
 }
 
 bool ObjectManager::AddFactory(FactoryBase* aFactory)
 {
-	mFactories.push_back(aFactory);
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return false;
+	}
+
+	lImpl->mFactories.push_back(aFactory);
 	return true;
 }
 
-FactoryBase* ObjectManager::GetFactory(const char* aNameInMap)
+FactoryBase* ObjectManager::ObjectManagerImpl::GetFactory(const char* aNameInMap)
 {
 	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
 	{
@@ -222,7 +296,7 @@ FactoryBase* ObjectManager::GetFactory(const char* aNameInMap)
 	}
 	return nullptr;
 }
-FactoryBase* ObjectManager::GetFactory(std::type_index& aType)
+FactoryBase* ObjectManager::ObjectManagerImpl::GetFactory(std::type_index& aType)
 {
 	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
 	{
@@ -234,47 +308,57 @@ FactoryBase* ObjectManager::GetFactory(std::type_index& aType)
 	return nullptr;
 }
 
-bool ObjectManager::CleanUp()
+bool ObjectManager::ObjectManagerImpl::CleanUp()
 {
-	bool ret = true;
-
-	Clearphysics();
+	mPartInst->Clearphysics();
 
 	for (std::list<FactoryBase*>::iterator it = mFactories.begin(); it != mFactories.end(); it++)
 	{
 		delete *it;
 	}
-	return ret;
+	return true;
 }
 
 bool ObjectManager::Clearphysics()
 {
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return false;
+	}
+
 	Logger::Console_log(LogLevel::LOG_INFO, "Clearing UI physics");
 	bool ret = true;
 
 	for (int i = 0; i < MAX_WALLS; ++i)
 	{
-		if (walls[i] != nullptr)
+		if (lImpl->walls[i] != nullptr)
 		{
-			delete walls[i];
-			walls[i] = nullptr;
+			delete lImpl->walls[i];
+			lImpl->walls[i] = nullptr;
 		}
 	}
 
-	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
+	for (std::list<GameObject*>::iterator it = lImpl->objects.begin(); it != lImpl->objects.end(); it++)
 	{
 		(*it)->Destroy();
 		delete (*it)->Engine;
 		delete *it;
 	}
-	objects.clear();
+	lImpl->objects.clear();
 
 	return ret;
 }
 
 void ObjectManager::DeleteObject(GameObject* _to_delete)
 {
-
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
 	//std::list<physobj*>::iterator obj_to_del;
 
 	//for (std::list<physobj*>::iterator it = objects.begin(); it != objects.end(); it++)
@@ -285,6 +369,42 @@ void ObjectManager::DeleteObject(GameObject* _to_delete)
 	//	}
 	//}
 	//delete to_delete;
-		to_delete.insert(_to_delete);
+	lImpl->to_delete.insert(_to_delete);
 
+}
+
+bool ObjectManager::isPaused()
+{
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return true;
+	}
+
+	return lImpl->is_paused;
+}
+
+void ObjectManager::PauseObjects()
+{
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	lImpl->is_paused = true;
+}
+
+void ObjectManager::UnPauseObjects()
+{
+	ObjectManagerImpl* lImpl = dynamic_cast<ObjectManagerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	lImpl->is_paused = false;
 }

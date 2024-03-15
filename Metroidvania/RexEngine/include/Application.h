@@ -1,11 +1,10 @@
 #ifndef APPLICATION__H
 #define APPLICATION__H
 
-
+#include <string>
 #include <list>
 #include "Modules/PartsDef.h"
 #include "Utils/Timer.h"
-#include "pugiXML\src\pugixml.hpp"
 
 #define BASEFPS 60
 

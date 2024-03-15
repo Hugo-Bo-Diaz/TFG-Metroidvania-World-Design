@@ -89,7 +89,7 @@ bool GroundedElemental::Loop(float dt)
 	//STEP 2
 	speed_y += acceleration_y;
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
 
 	bool change_direction = false;
@@ -101,8 +101,8 @@ bool GroundedElemental::Loop(float dt)
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Point p1;//left(should not collide)
-		SDL_Point p2;//down(should collide)
+		RXPoint p1;//left(should not collide)
+		RXPoint p2;//down(should collide)
 		if (speed_x < 0)//left
 		{
 			p1.x = collider->x - abs(speed_x);
@@ -121,8 +121,8 @@ bool GroundedElemental::Loop(float dt)
 			p2.y = collider->y + collider->h + 10;
 		}
 
-		SDL_Rect result;
-			if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE && collider->y < colliders[i]->y)// he goin crash!
+		RXRect result;
+			if (RXRectCollision(colliders[i], collider, &result) == true && collider->y < colliders[i]->y)// he goin crash!
 			{
 				speed_y = 0;
 				collider -= result.h;
@@ -134,12 +134,12 @@ bool GroundedElemental::Loop(float dt)
 				}
 			}
 
-			if (SDL_PointInRect(&p2, colliders[i]) == SDL_TRUE)
+			if (RXPointInRect(&p2, colliders[i]) == true)
 			{
 				floor_below = true;
 			}
 
-			if (SDL_PointInRect(&p1, colliders[i]) == SDL_TRUE)
+			if (RXPointInRect(&p1, colliders[i]) == true)
 			{
 				change_direction=true;
 			}
@@ -170,9 +170,9 @@ bool GroundedElemental::Render()
 	
 
 	if (speed_x < 0)
-		Engine->GetModule<::Render>().Blit(groundelemental, collider->x, collider->y, walking_left.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().Blit(groundelemental, collider->x, collider->y, *walking_left.GetCurrentFrame(), 0);
 	else
-		Engine->GetModule<::Render>().Blit(groundelemental, collider->x, collider->y, walking_right.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().Blit(groundelemental, collider->x, collider->y, *walking_right.GetCurrentFrame(), 0);
 
 	return true;
 }

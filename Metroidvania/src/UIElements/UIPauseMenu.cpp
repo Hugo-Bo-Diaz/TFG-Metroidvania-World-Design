@@ -57,7 +57,7 @@ void UIPauseMenu::Loop()
 			MetroidVaniaSceneProcessor::GetInstance().is_pause_menu_up = false;
 			MetroidVaniaSceneProcessor::GetInstance().should_go_to_main_menu = true;
 			Engine->GetModule<UserInterface>().RemoveElement(this);
-			Engine->GetModule<ProgressTracker>().SaveGame("save_file.xml");
+			Engine->GetModule<ProgressTracker>().SaveFile("save_file.xml");
 			Engine->GetModule<Camera>().CoverScreen(1000, 300, 0, 0, 0);
 			Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
 			break;
@@ -109,19 +109,19 @@ void UIPauseMenu::Render()
 {
 
 	//render base
-	Engine->GetModule<::Render>().Blit(TexMenuBase, x, y, nullptr, -2, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().Blit(TexMenuBase, x, y, {0,0,452,456}, -2, RenderQueue::RENDER_UI);
 
 	//render highlighted option
 	switch (current_option)
 	{
 	case PAUSE_RESUME:
-		Engine->GetModule<::Render>().Blit(TexMenuOptions, x+90, y+164, &resume_rect, -2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().Blit(TexMenuOptions, x+90, y+164, resume_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case PAUSE_SETTINGS:
-		Engine->GetModule<::Render>().Blit(TexMenuOptions, x + 90, y + 260, &settings_rect, -2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().Blit(TexMenuOptions, x + 90, y + 260, settings_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case PAUSE_EXIT:
-		Engine->GetModule<::Render>().Blit(TexMenuOptions, x + 90, y + 356, &exit_rect, -2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().Blit(TexMenuOptions, x + 90, y + 356, exit_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	default:
 		break;

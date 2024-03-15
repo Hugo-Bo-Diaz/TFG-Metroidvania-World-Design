@@ -39,7 +39,7 @@ public:
 
 	FontID lFont;
 
-	SDL_Rect selectquad;
+	RXRect selectquad;
 
 	void UpdateTexts();
 	void CycleText(float direction);

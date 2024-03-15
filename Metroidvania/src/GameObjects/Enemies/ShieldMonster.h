@@ -30,11 +30,11 @@ public:
 	void RenderDebug();
 	void Destroy();
 
-	SDL_Rect* nextpos = nullptr;
+	RXRect* nextpos = nullptr;
 
 	//patrol
 	float partrol_speed = 1;
-	SDL_Rect aggro;
+	RXRect aggro;
 	bool isplayernearby;
 	float animation_interval_patrol = 200;
 	float patrol_range = 100;
@@ -43,7 +43,7 @@ public:
 
 	//chase
 	float chase_speed = 2;
-	SDL_Rect range;
+	RXRect range;
 	bool isplayeronrange;
 	float animation_interval_chase = 100;
 
@@ -65,16 +65,16 @@ public:
 
 	void RecieveDamage(int dmg, int direction);
 
-	SDL_Rect shield;
+	RXRect shield;
 	float max_shield_height = 140;
 
-	SDL_Rect HitBox;
+	RXRect HitBox;
 	bool hashitground = false;
 
 	Animation left;
 	Animation right;
-	SDL_Rect arm_left;
-	SDL_Rect arm_right;
+	RXRect arm_left;
+	RXRect arm_right;
 	float arm_angle = 0;
 	int gdirection = 0;
 
@@ -82,12 +82,12 @@ public:
 	particle_preset shield_monster_death;
 	particle_preset stone_death;
 	particle_preset metal;
-	SDL_Rect r8ground;
-	SDL_Rect r9ground;
-	SDL_Rect r16sandfirst;
-	SDL_Rect r17sandsecond;
-	SDL_Rect r18metalfirst;
-	SDL_Rect r19metalsecond;
+	RXRect r8ground;
+	RXRect r9ground;
+	RXRect r16sandfirst;
+	RXRect r17sandsecond;
+	RXRect r18metalfirst;
+	RXRect r19metalsecond;
 	
 	TextureID shield_monster;
 	TextureID shield_monster_arm;

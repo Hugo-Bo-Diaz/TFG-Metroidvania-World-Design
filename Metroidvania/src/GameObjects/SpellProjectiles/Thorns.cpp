@@ -48,13 +48,13 @@ bool Thorns::Loop(float dt)
 		p->position_y = collider->y + collider->h / 2;
 
 
-		std::vector<SDL_Rect*> colliders;
+		std::vector<RXRect*> colliders;
 		Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
 
 		for (int i = 0; i < colliders.size(); ++i)
 		{
-			SDL_Rect result;
-			if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
+			RXRect result;
+			if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
 			{
 				state = THORNS_ON_FLOOR;
 				int tile_x = collider->x / 32;
@@ -78,7 +78,7 @@ bool Thorns::Loop(float dt)
 //		Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
 
 
-		std::vector<SDL_Rect*> colliders;
+		std::vector<RXRect*> colliders;
 
 		if (direction == -1)
 		{
@@ -95,30 +95,30 @@ bool Thorns::Loop(float dt)
 		{
 			if (direction == -1)
 			{
-				SDL_Point p = { collider->x + collider->w + 4, collider->y + collider->h + 8 };
+				RXPoint p = { collider->x + collider->w + 4, collider->y + collider->h + 8 };
 
-				if (SDL_PointInRect(&p, colliders[i]) == SDL_FALSE)
+				if (RXPointInRect(&p, colliders[i]) == false)
 				{
 					expand = false;
 				}
-				SDL_Point p_f = { collider->x + collider->w + 4, collider->y +8};
+				RXPoint p_f = { collider->x + collider->w + 4, collider->y +8};
 
-				if (SDL_PointInRect(&p_f, colliders[i]) == SDL_TRUE)
+				if (RXPointInRect(&p_f, colliders[i]) == true)
 				{
 					expand = false;
 				}
 			}
 			else
 			{
-				SDL_Point p = { collider->x - 4, collider->y + collider->h + 8 };
+				RXPoint p = { collider->x - 4, collider->y + collider->h + 8 };
 
-				if (SDL_PointInRect(&p, colliders[i]) == SDL_FALSE)
+				if (RXPointInRect(&p, colliders[i]) == false)
 				{
 					expand = false;
 				}
-				SDL_Point p_f = { collider->x - 4, collider->y + 8};
+				RXPoint p_f = { collider->x - 4, collider->y + 8};
 
-				if (SDL_PointInRect(&p_f, colliders[i]) == SDL_TRUE)
+				if (RXPointInRect(&p_f, colliders[i]) == true)
 				{
 					expand = false;
 				}
@@ -166,7 +166,7 @@ bool Thorns::Render()
 	case SEED:
 	{
 
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, &seed, -1);
+		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, seed, -1);
 	}
 	break;
 	case THORNS_ON_FLOOR:
@@ -179,16 +179,16 @@ bool Thorns::Render()
 			if (i % 2 == 0)
 			{
 				//draw thorns 1
-				Engine->GetModule<::Render>().Blit(spells, collider->x + i * 32, collider->y, &thorn_first, -2);
+				Engine->GetModule<::Render>().Blit(spells, collider->x + i * 32, collider->y, thorn_first, -2);
 			}
 			else
 			{
 				//draw thorns 2
-				Engine->GetModule<::Render>().Blit(spells, collider->x + i * 32, collider->y, &thorn_second, -2);
+				Engine->GetModule<::Render>().Blit(spells, collider->x + i * 32, collider->y, thorn_second, -2);
 			}
 		}
 		last_thorn_segment.w = extra_distance;
-		Engine->GetModule<::Render>().Blit(spells, collider->x + i * 32, collider->y, &last_thorn_segment, -2);
+		Engine->GetModule<::Render>().Blit(spells, collider->x + i * 32, collider->y, last_thorn_segment, -2);
 
 	}
 	}

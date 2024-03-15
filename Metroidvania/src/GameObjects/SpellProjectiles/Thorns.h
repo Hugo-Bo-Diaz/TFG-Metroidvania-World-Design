@@ -38,15 +38,15 @@ public:
 
 	ThornsState state = SEED;
 
-	SDL_Rect thorn_first = {128,0,32,32};
-	SDL_Rect thorn_second = {160,0,32,32};
-	SDL_Rect seed = {192,0,32,32};
-	SDL_Rect last_thorn_segment = { 128,0,8,32 };
+	RXRect thorn_first = {128,0,32,32};
+	RXRect thorn_second = {160,0,32,32};
+	RXRect seed = {192,0,32,32};
+	RXRect last_thorn_segment = { 128,0,8,32 };
 	
 	ParticleEmitter* p;
 	particle_preset grass;
-	SDL_Rect r10grass;
-	SDL_Rect r11grass;
+	RXRect r10grass;
+	RXRect r11grass;
 
 	TextureID spells;
 	TextureID particles;

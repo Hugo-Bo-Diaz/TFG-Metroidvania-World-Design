@@ -125,7 +125,7 @@ void Grass::Loop(float dt)
 
 
 		//now we look for a wall within range
-		std::vector<SDL_Rect*> colliders;
+		std::vector<RXRect*> colliders;
 		Engine->GetModule<ObjectManager>().GetNearbyWalls(hook_position_x, hook_position_y, 100, colliders);
 		for (int i = 0; i < colliders.size(); ++i)
 		{
@@ -144,8 +144,8 @@ void Grass::Loop(float dt)
 					}
 				*/
 
-			SDL_Point p = { hook_position_x,hook_position_y };
-			if (SDL_PointInRect(&p, colliders[i]) == SDL_TRUE)
+			RXPoint p = { hook_position_x,hook_position_y };
+			if (RXPointInRect(&p, colliders[i]) == true)
 			{
 				hooked = true;
 				hook_out = false;
@@ -169,12 +169,12 @@ void Grass::Loop(float dt)
 		
 		bool stay_hooked = false;
 
-		std::vector<SDL_Rect*> colliders;
+		std::vector<RXRect*> colliders;
 		Engine->GetModule<ObjectManager>().GetNearbyWalls(hook_position_x, hook_position_y, 100, colliders);
 		for (int i = 0; i < colliders.size(); ++i)
 		{
-			SDL_Point p = { hook_position_x,hook_position_y };
-			if (SDL_PointInRect(&p, colliders[i]) == SDL_TRUE)
+			RXPoint p = { hook_position_x,hook_position_y };
+			if (RXPointInRect(&p, colliders[i]) == true)
 			{
 				stay_hooked = true;
 			}
@@ -212,7 +212,7 @@ void Grass::Render()
 {
 	if (hooked || hook_out)
 	{
-		Engine->GetModule<::Render>().Blit(spells, hook_position_x - hook.w / 2, hook_position_y - hook.h / 2, &hook, -2, RenderQueue::RENDER_GAME, 0);
+		Engine->GetModule<::Render>().Blit(spells, hook_position_x - hook.w / 2, hook_position_y - hook.h / 2, hook, -2, RenderQueue::RENDER_GAME, 0);
 		debug.x = hook_position_x - 5;
 		debug.y = hook_position_y - 5;
 		Engine->GetModule<::Render>().DrawRect(debug, 0, 0, 0, 255, true, RenderQueue::RENDER_GAME,0);
@@ -225,7 +225,7 @@ void Grass::Render()
 			Engine->GetModule<::Render>().Blit(spells,
 				player->x + player->collider->w / 2 + cos(draw_angle)*i * 32 - vine.w / 2,
 				player->y + player->collider->h / 2 + sin(draw_angle)*i * 32 - vine.h / 2,
-				&vine, -1, RenderQueue::RENDER_GAME, draw_angle * 180 / 3.1428);
+				vine, -1, RenderQueue::RENDER_GAME, draw_angle * 180 / 3.1428);
 		}
 	}
 }

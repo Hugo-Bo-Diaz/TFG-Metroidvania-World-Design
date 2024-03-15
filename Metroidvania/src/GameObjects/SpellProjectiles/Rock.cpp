@@ -100,13 +100,13 @@ bool Rock::Loop(float dt)
 	}
 
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], collider, &result) == SDL_TRUE)// he goin crash!
+		RXRect result;
+		if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
@@ -120,7 +120,7 @@ bool Rock::Loop(float dt)
 
 bool Rock::Render()
 {
-	Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, rock_sprite.GetCurrentFrame(), -2);
+	Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *rock_sprite.GetCurrentFrame(), -2);
 
 	return true;
 }

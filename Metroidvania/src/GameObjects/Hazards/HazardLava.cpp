@@ -57,11 +57,11 @@ bool HazardLava::Render()
 
 		if (cycle % 2 == 0)
 		{
-			Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y - 48, &lava_top1, -20);
+			Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y - 48, lava_top1, -20);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y - 48, &lava_top2, -20);
+			Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y - 48, lava_top2, -20);
 		}
 	}
 
@@ -70,7 +70,7 @@ bool HazardLava::Render()
 	{
 		for (int j = 0; j < tilesy; ++j)
 		{
-			Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y + 48 * j, &lava, -20);
+			Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y + 48 * j, lava, -20);
 		}
 	}
 

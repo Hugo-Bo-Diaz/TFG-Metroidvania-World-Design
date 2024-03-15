@@ -1,4 +1,3 @@
-#include "Modules/Audio.h"
 #include "Application.h"
 #include "Utils/Logger.h"
 #include "Utils/Utils.h"
@@ -9,23 +8,29 @@
 
 #include <string.h>
 #include <functional>
+#include<iostream>
+
+#include "AudioImpl.h"
+
 
 Audio::Audio(EngineAPI& aAPI) : Part("Audio",aAPI)
-{}
+{
+	mPartFuncts = new AudioImpl(this);
+}
 
-bool Audio::LoadConfig(pugi::xml_node& config_node)
+bool Audio::AudioImpl::LoadConfig(pugi::xml_node& config_node)
 {
 	bool ret = true;
 
 	pugi::xml_node& volume_node = config_node.child("volume");
-	settings_volume = volume_node.attribute("general").as_float(100);
-	music_volume = volume_node.attribute("music").as_float(100);
-	sfx_volume = volume_node.attribute("sfx").as_float(100);
+	mPartInst->settings_volume = volume_node.attribute("general").as_float(100);
+	mPartInst->music_volume = volume_node.attribute("music").as_float(100);
+	mPartInst->sfx_volume = volume_node.attribute("sfx").as_float(100);
 
 	return ret;
 }
 
-bool Audio::CreateConfig(pugi::xml_node& config_node)
+bool Audio::AudioImpl::CreateConfig(pugi::xml_node& config_node)
 {
 	bool ret = true;
 
@@ -38,7 +43,7 @@ bool Audio::CreateConfig(pugi::xml_node& config_node)
 	return ret;
 }
 
-bool Audio::Init()
+bool Audio::AudioImpl::Init()
 {
 	//thisInst = this;
 	Logger::Console_log(LogLevel::LOG_INFO,"Initializing SDL audio");
@@ -71,10 +76,10 @@ bool Audio::Init()
 
 	Mix_AllocateChannels(16);
 
-	float real_music_volume = (music_volume * 128 / 100)*(settings_volume / 100);
+	float real_music_volume = (mPartInst->music_volume * 128 / 100)*(mPartInst->settings_volume / 100);
 	Mix_VolumeMusic(real_music_volume);
 
-	float real_fx_volume = (sfx_volume * 128 / 100)*(settings_volume / 100);
+	float real_fx_volume = (mPartInst->sfx_volume * 128 / 100)*(mPartInst->settings_volume / 100);
 	if (real_fx_volume < 0)
 		real_fx_volume = 0;
 	
@@ -88,7 +93,7 @@ bool Audio::Init()
 
 	for (std::list<std::string>::iterator it = lSongs.begin(); it != lSongs.end(); it++)
 	{
-		LoadMusic((*it).c_str());
+		mPartInst->LoadMusic((*it).c_str());
 	}
 
 	std::list<std::string> lSFX;
@@ -96,29 +101,27 @@ bool Audio::Init()
 
 	for (std::list<std::string>::iterator it = lSFX.begin(); it != lSFX.end(); it++)
 	{
-		LoadSFX((*it).c_str());
+		mPartInst->LoadSFX((*it).c_str());
 	}
 
 	return ret;
 }
 
-bool Audio::Loop(float dt)
+bool Audio::AudioImpl::Loop(float dt)
 {
-
-	if(prev_sett_volume != settings_volume || prev_mus_volume != music_volume || prev_sfx_volume != sfx_volume)
+	if(mPartInst->prev_sett_volume != mPartInst->settings_volume || mPartInst->prev_mus_volume != mPartInst->music_volume || mPartInst->prev_sfx_volume != mPartInst->sfx_volume)
 	{
+		mPartInst->RecalculateVolume();
 
-		RecalculateVolume();
-
-		prev_sett_volume = settings_volume;
-		prev_mus_volume = music_volume;
-		prev_sfx_volume = sfx_volume;
+		mPartInst->prev_sett_volume = mPartInst->settings_volume;
+		mPartInst->prev_mus_volume = mPartInst->music_volume;
+		mPartInst->prev_sfx_volume = mPartInst->sfx_volume;
 	}
 
 	return true;
 }
 
-bool Audio::CleanUp()
+bool Audio::AudioImpl::CleanUp()
 {
 	for (std::map<AudioID,SFX*>::iterator it = sfx_list.begin(); it != sfx_list.end(); it++)
 	{
@@ -143,7 +146,14 @@ bool Audio::CleanUp()
 
 AudioID Audio::LoadMusic(const char * file, float fade,float volume)
 {
-	for (std::map<AudioID, Music*>::iterator it = music_list.begin(); it != music_list.end(); it++)
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	for (std::map<AudioID, Music*>::iterator it = lImpl->music_list.begin(); it != lImpl->music_list.end(); it++)
 	{
 		if (std::strcmp((*it).second->path.c_str(), file) == 0)
 		{
@@ -152,7 +162,7 @@ AudioID Audio::LoadMusic(const char * file, float fade,float volume)
 	}
 
 	Music* new_music = new Music();
-	new_music->id = music_list.size();
+	new_music->id = lImpl->music_list.size();
 	new_music->path = file;
 	new_music->fade = fade;
 	new_music->volume = volume;
@@ -166,8 +176,8 @@ AudioID Audio::LoadMusic(const char * file, float fade,float volume)
 	}
 	else
 	{
-		uint lNextAudioID = music_list.size() + sfx_list.size();
-		music_list.insert(std::make_pair(lNextAudioID,new_music));
+		uint lNextAudioID = lImpl->music_list.size() + lImpl->sfx_list.size();
+		lImpl->music_list.insert(std::make_pair(lNextAudioID,new_music));
 		return new_music->id;
 	}
 
@@ -175,7 +185,14 @@ AudioID Audio::LoadMusic(const char * file, float fade,float volume)
 
 AudioID Audio::LoadSFX(const char * file, float volume)
 {
-	for (std::map<AudioID, SFX*>::iterator it = sfx_list.begin(); it != sfx_list.end(); it++)
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	for (std::map<AudioID, SFX*>::iterator it = lImpl->sfx_list.begin(); it != lImpl->sfx_list.end(); it++)
 	{
 		if (std::strcmp((*it).second->path.c_str(), file) == 0)
 		{
@@ -184,7 +201,7 @@ AudioID Audio::LoadSFX(const char * file, float volume)
 	}
 
 	SFX* new_sfx = new SFX();
-	new_sfx->id = sfx_list.size();
+	new_sfx->id = lImpl->sfx_list.size();
 	new_sfx->volume = volume;
 	new_sfx->path = file;
 
@@ -197,15 +214,22 @@ AudioID Audio::LoadSFX(const char * file, float volume)
 	}
 	else
 	{
-		uint lNextAudioID = music_list.size() + sfx_list.size();
-		sfx_list.insert(std::make_pair(lNextAudioID,new_sfx));
+		uint lNextAudioID = lImpl->music_list.size() + lImpl->sfx_list.size();
+		lImpl->sfx_list.insert(std::make_pair(lNextAudioID,new_sfx));
 		return new_sfx->id;
 	}
 }
 
 void Audio::PlayMusic(AudioID music_id, float fade_in_ms)
 {
-	Music* music_selected = music_list[music_id];
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	Music* music_selected = lImpl->music_list[music_id];
 	if (music_id != current_song)
 	{
 		current_song = music_id;
@@ -214,7 +238,7 @@ void Audio::PlayMusic(AudioID music_id, float fade_in_ms)
 		{
 			//fade out music
 			Mix_FadeOutMusic(current_fade_out);
-			next_song_after_fade_out = music_selected->music;
+			lImpl->next_song_after_fade_out = music_selected->music;
 			next_song_after_fade_out_fade_time = music_selected->fade;
 			//Mix_HookMusicFinished([]() {thisInst->StartNextSongAfterFadeOut(); });
 			current_fade_out = music_selected->fade;
@@ -233,7 +257,14 @@ void Audio::PlayMusic(AudioID music_id, float fade_in_ms)
 
 uint Audio::PlaySFX(AudioID sfx_id, int repeat, uint channel)
 {
-	SFX* sfx_selected = sfx_list[sfx_id];
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	SFX* sfx_selected = lImpl->sfx_list[sfx_id];
 	
 	int chan = channel;
 	if (channel == -1)
@@ -284,8 +315,8 @@ int Audio::GetFirstFreeChannel()
 	return -1;
 }
 
-void Audio::StartNextSongAfterFadeOut()
-{
-	Mix_FadeInMusic(next_song_after_fade_out, -1, next_song_after_fade_out_fade_time);
-
-}
+//void Audio::StartNextSongAfterFadeOut()
+//{
+//	Mix_FadeInMusic(next_song_after_fade_out, -1, next_song_after_fade_out_fade_time);
+//
+//}

@@ -33,7 +33,7 @@ bool FirstDialogue::Loop(float dt)
 
 bool FirstDialogue::Render()
 {
-	Engine->GetModule<::Render>().Blit(texture, 0,0, nullptr,10, RenderQueue::RENDER_UI);
+	//Engine->GetModule<::Render>().Blit(texture, 0,0, nullptr,10, RenderQueue::RENDER_UI);
 
 	return true;
 }

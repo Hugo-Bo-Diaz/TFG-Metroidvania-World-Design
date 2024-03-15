@@ -38,7 +38,7 @@ public:
 	float y;
 
 	float initial_y;
-	SDL_Rect* nextpos = nullptr;
+	RXRect* nextpos = nullptr;
 
 	Timer animation_timer;
 
@@ -47,11 +47,11 @@ public:
 	Animation rotate_right;
 
 	particle_preset metal;
-	SDL_Rect r18metalfirst;
-	SDL_Rect r19metalsecond;
+	RXRect r18metalfirst;
+	RXRect r19metalsecond;
 
-	SDL_Rect facing_left;
-	SDL_Rect facing_right;
+	RXRect facing_left;
+	RXRect facing_right;
 
 	float animation_frequency = 100;
 
@@ -60,7 +60,7 @@ public:
 	float current_distance = 0;
 	float patrol_speed = 2;
 
-	SDL_Rect aggro = {0,0,300,384};
+	RXRect aggro = {0,0,300,384};
 
 	//starting
 

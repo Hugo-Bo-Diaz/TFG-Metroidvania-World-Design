@@ -111,14 +111,14 @@ void UIMainMenu::Loop()
 
 void UIMainMenu::Render()
 {
-	Engine->GetModule<::Render>().Blit(TexBase,0,0,NULL,0, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().Blit(TexBase, 0, 0, {0,0,1024,576}, 0, RenderQueue::RENDER_UI);
 
-	Engine->GetModule<::Render>().Blit(TexSelected, offset_option_x, offset_option_y+current_option*interval_y, NULL, 0, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().Blit(TexSelected, offset_option_x, offset_option_y + current_option * interval_y, {0,0,408,72}, 0, RenderQueue::RENDER_UI);
 
 
 	if (!Engine->GetModule<ProgressTracker>().CanLoadGame("save_file.xml"))
 	{
-		Engine->GetModule<::Render>().Blit(TexDisabled,516,312,NULL,-2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().Blit(TexDisabled, 516, 312, {0,0,368,48}, -2, RenderQueue::RENDER_UI);
 	}
 
 }

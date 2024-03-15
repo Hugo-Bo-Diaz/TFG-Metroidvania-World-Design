@@ -42,19 +42,19 @@ public:
 
 	float current_letter;
 
-	SDL_Rect up_left =		{ 0, 0, 32,32 };
-	SDL_Rect left =			{ 0, 32,32,32 };
-	SDL_Rect down_left =	{ 0, 64,32,32 };
-	SDL_Rect down =			{ 32,64,32,32 };
-	SDL_Rect down_right =	{ 64,64,32,32 };
-	SDL_Rect right =		{ 64,32,32,32 };
-	SDL_Rect up_right =		{ 64, 0,32,32 };
-	SDL_Rect up =			{ 32, 0,32,32 };
-	SDL_Rect center =		{ 32,32,32,32 };
+	RXRect up_left =		{ 0, 0, 32,32 };
+	RXRect left =			{ 0, 32,32,32 };
+	RXRect down_left =	{ 0, 64,32,32 };
+	RXRect down =			{ 32,64,32,32 };
+	RXRect down_right =	{ 64,64,32,32 };
+	RXRect right =		{ 64,32,32,32 };
+	RXRect up_right =		{ 64, 0,32,32 };
+	RXRect up =			{ 32, 0,32,32 };
+	RXRect center =		{ 32,32,32,32 };
 
-	SDL_Rect small_left =	{ 96, 0,32,48 };
-	SDL_Rect small_center =	{ 128,0,32,48 };
-	SDL_Rect small_right =	{ 160,0,32,48 };
+	RXRect small_left =	{ 96, 0,32,48 };
+	RXRect small_center =	{ 128,0,32,48 };
+	RXRect small_right =	{ 160,0,32,48 };
 
 	TextureID TexTextBox;
 };

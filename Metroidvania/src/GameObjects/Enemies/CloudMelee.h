@@ -40,14 +40,14 @@ public:
 
 	float initial_y;
 	float initial_x;
-	SDL_Rect* nextpos;
+	RXRect* nextpos;
 
 	//graphics
 	Animation facing_left;
 	Animation facing_right;
 	Animation facing_front;
 
-	SDL_Rect r1exp;
+	RXRect r1exp;
 	particle_preset explosion;
 
 	//patrol
@@ -58,7 +58,7 @@ public:
 	float bounce_strength = 5;
 	float patrol_speed = 2;
 
-	SDL_Rect aggro = { 0,-200,300,400 };
+	RXRect aggro = { 0,-200,300,400 };
 
 	//starting
 

@@ -2,7 +2,7 @@
 #define ANIMATION__H
 
 #include <vector>
-#include "SDL/include/SDL.h"
+#include "RXRect.h"
 
 #define DLL_EXPORT __declspec(dllexport)
 
@@ -24,15 +24,15 @@ public:
 	int current_frame = 0;
 	int amount_of_frames=0;
 	
-	void AddFrame(SDL_Rect frame);
+	void AddFrame(RXRect frame);
 
 	void NextFrame();
 
-	SDL_Rect* GetCurrentFrame();
+	RXRect* GetCurrentFrame();
 	
-	SDL_Rect* GetFrame(int ind);
+	RXRect* GetFrame(int ind);
 
-	SDL_Rect frames[MAXFRAMES];
+	RXRect frames[MAXFRAMES];
 
 	//implement a callback when the animation is done
 };

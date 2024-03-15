@@ -2,34 +2,26 @@
 #define PART__H
 
 #include<string>
-#include "EngineAPI.h"
+#include <memory>
 
 #define DLL_EXPORT __declspec(dllexport)
 
-#include "pugiXML\src\pugixml.hpp"
+class EngineAPI;
 
 class Part
 {
 protected:
-	Part(const char* aName, EngineAPI& aApi):name(aName),mApp(aApi)
+	Part(const char* aName, EngineAPI& aApi) :name(aName), mApp(aApi)
 	{ };
-	~Part() {};
+	virtual ~Part() {};
+
 	std::string name;
-
-	virtual bool LoadConfig(pugi::xml_node&) { return true; };
-	virtual bool CreateConfig(pugi::xml_node&) { return true; };
-
-	virtual bool Init() { return true; }
-	virtual bool Loop(float dt) { return true; };
-	virtual bool CleanUp() { return true; };
-
 	EngineAPI& mApp;
 
-	friend class Application;
+	class Part_Impl;
+	Part_Impl* mPartFuncts;
 
-private:
-	bool active=true;
-	void activate() { active = true; }
-	void deactivate() { active = false; }
+	friend class Application;
+	friend class EngineAPI;
 };
 #endif

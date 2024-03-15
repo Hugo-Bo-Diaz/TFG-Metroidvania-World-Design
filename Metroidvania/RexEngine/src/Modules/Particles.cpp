@@ -1,20 +1,23 @@
 #include "Modules/Particles.h"
 #include "Utils/Logger.h"
+#include "EngineAPI.h"
 
-
+#include "ParticlesImpl.h"
+#include "RenderImpl.h"
 #include <sstream>
 
 Particles::Particles(EngineAPI& aAPI) : Part("Particles",aAPI)
 {
+	mPartFuncts = new ParticlesImpl(this);
 }
 
-bool Particles::Init()
+bool Particles::ParticlesImpl::Init()
 {
 
 	return true;
 }
 
-bool Particles::Loop(float dt)
+bool Particles::ParticlesImpl::Loop(float dt)
 {
 	for (std::list<ParticleEmitter*>::iterator it = particles.begin(); it != particles.end(); it++)
 	{
@@ -33,13 +36,13 @@ bool Particles::Loop(float dt)
 
 	for (std::list<ParticleEmitter*>::iterator it = particles.begin(); it != particles.end(); it++)
 	{
-		mApp.GetModule<Render>().BlitParticleEmitter(*it, RenderQueue::RENDER_GAME);
+		mPartInst->mApp.GetImplementation<Render,Render::RenderImpl>()->BlitParticleEmitter(*it, RenderQueue::RENDER_GAME);
 	}
 
 	return true;
 }
 
-bool Particles::CleanUp()
+bool Particles::ParticlesImpl::CleanUp()
 {
 	for (std::list<ParticleEmitter*>::iterator it = particles.begin(); it != particles.end(); it++)
 	{
@@ -52,17 +55,31 @@ bool Particles::CleanUp()
 
 ParticleEmitter* Particles::AddParticleEmitter(particle_preset * particle_preset, float x, float y, float lifespan,int depth)
 {
+	ParticlesImpl* lImpl = dynamic_cast<ParticlesImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
 	ParticleEmitter* emit = new ParticleEmitter(particle_preset, lifespan, x, y, depth);
-	particles.push_back(emit);
+	lImpl->particles.push_back(emit);
 	return emit;
 }
 
 void Particles::RemoveParticleEmitter(ParticleEmitter * _to_delete)
 {
-	to_delete.insert(_to_delete);
+	ParticlesImpl* lImpl = dynamic_cast<ParticlesImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	lImpl->to_delete.insert(_to_delete);
 }
 
-void Particles::ClearParticles()
+void Particles::ParticlesImpl::ClearParticles()
 {
 	Logger::Console_log(LogLevel::LOG_INFO, "Clearing Particles");
 	for (std::list<ParticleEmitter*>::iterator it = particles.begin(); it != particles.end(); it++)

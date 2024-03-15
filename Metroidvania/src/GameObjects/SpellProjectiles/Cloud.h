@@ -27,9 +27,9 @@ public:
 
 	void DeleteRainDrop(Rain* drop);
 
-	SDL_Rect hitbox;
+	RXRect hitbox;
 
-	SDL_Rect blitrect;
+	RXRect blitrect;
 
 	std::vector<Rain*> rain_vector;
 	std::vector<Rain*> rain_to_delete;

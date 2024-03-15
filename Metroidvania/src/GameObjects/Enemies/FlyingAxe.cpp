@@ -72,14 +72,14 @@ bool FlyingAxe::Loop(float dt)
 	nextpos->x += speed_x;
 	nextpos->y += speed_y;
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE)
+		RXRect result;
+		if (RXRectCollision(colliders[i], nextpos, &result) == true)
 		{
 			if (state = AXE_CHARGE)
 			{
@@ -225,11 +225,11 @@ bool FlyingAxe::Render()
 	{
 		if (speed_x < 0)
 		{
-			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, rotate_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, *rotate_left.GetCurrentFrame(), 0);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, rotate_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, *rotate_right.GetCurrentFrame(), 0);
 		}
 	}
 
@@ -237,11 +237,11 @@ bool FlyingAxe::Render()
 	{
 		if (speed_x > 0)
 		{
-			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, rotate_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, *rotate_left.GetCurrentFrame(), 0);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, rotate_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, *rotate_right.GetCurrentFrame(), 0);
 		}
 	}
 

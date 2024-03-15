@@ -50,18 +50,18 @@ public:
 	bool is_eq_on_cooldown = false;
 	Timer earthquake_timer;
 
-	SDL_Rect groundpoundhitbox;
+	RXRect groundpoundhitbox;
 	bool hashitsomething;
 
 	float manacost_earthquake = 0.5;
 
 	//sprites
-	SDL_Rect groundpound = { 128,160,64,32 };
+	RXRect groundpound = { 128,160,64,32 };
 
 	particle_preset groundcontact;
 	particle_preset rockblockexplosion;
-	SDL_Rect r8ground;
-	SDL_Rect r9ground;
+	RXRect r8ground;
+	RXRect r9ground;
 
 	TextureID spells;
 	TextureID particles;

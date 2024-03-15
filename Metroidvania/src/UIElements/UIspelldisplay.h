@@ -17,12 +17,12 @@ public:
 
 	UIspelldisplay();
 
-	SDL_Rect left_border;
-	SDL_Rect right_border;
-	SDL_Rect left_cover;
-	SDL_Rect right_cover;
-	SDL_Rect square;
-	std::vector<SDL_Rect> books;
+	RXRect left_border;
+	RXRect right_border;
+	RXRect left_cover;
+	RXRect right_cover;
+	RXRect square;
+	std::vector<RXRect> books;
 	
 	Player* player;
 	

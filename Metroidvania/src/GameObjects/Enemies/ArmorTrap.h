@@ -7,7 +7,7 @@
 #include "Modules/Textures.h"
 #include "Modules/Audio.h"
 #include "Enemy.h"
-
+#include "RXRect.h"
 class Player;
 
 typedef int AudioID;
@@ -47,13 +47,13 @@ public:
 
 	Animation left;
 	Animation right;
-	SDL_Rect idle;
+	RXRect idle;
 	particle_preset fire_ge_death;
 	particle_preset metal;
-	SDL_Rect r14firegedeath;
-	SDL_Rect r15firegedeath;
-	SDL_Rect r18metalfirst;
-	SDL_Rect r19metalsecond;
+	RXRect r14firegedeath;
+	RXRect r15firegedeath;
+	RXRect r18metalfirst;
+	RXRect r19metalsecond;
 
 	Timer animation_timer;
 
@@ -63,7 +63,7 @@ public:
 
 	ArmorTrapState current_state = ArmorTrap_IDLE;
 
-	SDL_Rect aggro;
+	RXRect aggro;
 
 	bool isplayernearby;
 

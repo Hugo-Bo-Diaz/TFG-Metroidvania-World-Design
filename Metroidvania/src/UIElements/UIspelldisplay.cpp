@@ -6,11 +6,11 @@
 
 UIspelldisplay::UIspelldisplay()
 {
-	SDL_Rect fire = SDL_Rect{ 0,0,52,64 };
-	SDL_Rect wind = SDL_Rect{ 54,0,52,64 };
-	SDL_Rect water = SDL_Rect{ 108,0,52,64 };
-	SDL_Rect grass = SDL_Rect{ 162,0,52,64 };
-	SDL_Rect ground = SDL_Rect{ 216,0,52,64 };
+	RXRect fire = RXRect{ 0,0,52,64 };
+	RXRect wind = RXRect{ 54,0,52,64 };
+	RXRect water = RXRect{ 108,0,52,64 };
+	RXRect grass = RXRect{ 162,0,52,64 };
+	RXRect ground = RXRect{ 216,0,52,64 };
 
 	books.push_back(fire);
 	books.push_back(wind);
@@ -50,18 +50,18 @@ void UIspelldisplay::Render()
 			current_spell = 0;
 
 		//render borders;
-		Engine->GetModule<::Render>().Blit(lTexture, x, y, &left_border, 50, RenderQueue::RENDER_UI);
-		Engine->GetModule<::Render>().Blit(lTexture, x + 160, y, &right_border, 50, RenderQueue::RENDER_UI);//(32+8+31+8)*2
+		Engine->GetModule<::Render>().Blit(lTexture, x, y, left_border, 50, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().Blit(lTexture, x + 160, y, right_border, 50, RenderQueue::RENDER_UI);//(32+8+31+8)*2
 
-		Engine->GetModule<::Render>().Blit(lTexture, x, y, &left_cover, 40, RenderQueue::RENDER_UI);
-		Engine->GetModule<::Render>().Blit(lTexture, x + 160, y, &right_cover, 40, RenderQueue::RENDER_UI);//(32+8+31+8)*2
+		Engine->GetModule<::Render>().Blit(lTexture, x, y, left_cover, 40, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().Blit(lTexture, x + 160, y, right_cover, 40, RenderQueue::RENDER_UI);//(32+8+31+8)*2
 
-		Engine->GetModule<::Render>().Blit(lTexture, x + 78, y, &square, 40, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().Blit(lTexture, x + 78, y, square, 40, RenderQueue::RENDER_UI);
 
 
 		//render book;
 
-		Engine->GetModule<::Render>().Blit(lBooksTex, x + 84, y + 8, &books[current_spell], 45, RenderQueue::RENDER_UI);//(32+8)*2
+		Engine->GetModule<::Render>().Blit(lBooksTex, x + 84, y + 8, books[current_spell], 45, RenderQueue::RENDER_UI);//(32+8)*2
 	}
 
 }

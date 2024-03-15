@@ -49,6 +49,6 @@ void LavaSpell::Loop()
 
 void LavaSpell::Render()
 {
-	Engine->GetModule<::Render>().Blit(spells, hitbox.x, hitbox.y, &blitrect, -2);
+	Engine->GetModule<::Render>().Blit(spells, hitbox.x, hitbox.y, blitrect, -2);
 	//Engine->GetModule<::Render>().DrawRect(&hitbox, 255, 255, 255, 255, true);
 }

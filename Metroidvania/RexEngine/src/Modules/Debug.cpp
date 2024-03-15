@@ -5,13 +5,18 @@
 #include "Modules/ObjectManager.h"
 #include "Modules/Gui.h"
 #include <Psapi.h>
+#include "RXColor.h"
+
+#include "DebugImpl.h"
+#include "ObjectManagerImpl.h"
+#include "GuiImpl.h"
 
 Debug::Debug(EngineAPI& aAPI) : Part("Debug",aAPI)
 {
-
+	mPartFuncts = new DebugImpl(this);
 }
 
-bool Debug::Init()
+bool Debug::DebugImpl::Init()
 {
 	//https://stackoverflow.com/questions/63166/how-to-determine-cpu-and-memory-consumption-from-inside-a-process
 	SYSTEM_INFO sysInfo;
@@ -33,87 +38,87 @@ bool Debug::Init()
 	return true;
 }
 
-bool Debug::Loop(float dt)
+bool Debug::DebugImpl::Loop(float dt)
 {
-	if (mApp.GetModule<Input>().GetKey(mKeyTogglePanel) == Keystate::KEY_DOWN)
+	if (mPartInst->mApp.GetModule<Input>().GetKey(mKeyTogglePanel) == Keystate::KEY_DOWN)
 	{
 		mIsDebugPanelActive = !mIsDebugPanelActive;
 	}
 
-	if (mApp.GetModule<Input>().GetKey(mKeyToggleScene) == Keystate::KEY_DOWN)
+	if (mPartInst->mApp.GetModule<Input>().GetKey(mKeyToggleScene) == Keystate::KEY_DOWN)
 	{
 		mIsDebugSceneActive = !mIsDebugSceneActive;
 	}
 
 	if (mIsDebugPanelActive)
 	{
-		mApp.GetModule<Render>().DrawRect(mPanel,0,0,0,220,true,RenderQueue::RENDER_DEBUG,1,true);
+		mPartInst->mApp.GetModule<Render>().DrawRect(mPanel,0,0,0,220,true,RenderQueue::RENDER_DEBUG,1,true);
 		std::string lString;
 
 		lString = "FPS: ";
-		mUpdateTimesQueue.push(mApp.GetLastUpdateTime());
+		mUpdateTimesQueue.push(mPartInst->mApp.GetLastUpdateTime());
 		if (mUpdateTimesQueue.size() > MAX_DEBUG_QUEUE_DATA_SAMPLE)
 		{
 			mUpdateTimesQueue.pop();
 		}
 		
-		float averageDT = GetQueueMedianNumber(mUpdateTimesQueue);
+		float averageDT = mPartInst->GetQueueMedianNumber(mUpdateTimesQueue);
 		float FPS = (1.0f / averageDT) * 1000;
 
 		lString += std::to_string(averageDT);
-		mApp.GetModule<Render>().BlitText(lString.c_str(), mDebugPanelFont, 10, 20, 0, SDL_Color{255,255,255,255},RenderQueue::RENDER_DEBUG,true);
+		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 20, 0, {255,255,255,255},RenderQueue::RENDER_DEBUG,true);
 		
 		float virmem,physmem;
-		GetTotalMemoryUsage(virmem,physmem);
+		mPartInst->GetTotalMemoryUsage(virmem,physmem);
 
 		lString = "Virt Mem: ";
 		lString += std::to_string(virmem);
-		mApp.GetModule<Render>().BlitText(lString.c_str(), mDebugPanelFont, 10, 45, 0, SDL_Color{ 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
+		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 45, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
 
 		lString = "Phys Mem: ";
 		lString += std::to_string(physmem);
-		mApp.GetModule<Render>().BlitText(lString.c_str(), mDebugPanelFont, 10, 70, 0, SDL_Color{ 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
+		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 70, 0, {255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
 
 		lString = "CPU Usage: ";
 
-		mCPUUsageQueue.push(GetPercentCPUUsage());
+		mCPUUsageQueue.push(mPartInst->GetPercentCPUUsage());
 		if (mCPUUsageQueue.size() > MAX_DEBUG_QUEUE_DATA_SAMPLE)
 		{
 			mCPUUsageQueue.pop();
 		}
 
-		float averageCPU = GetQueueMedianNumber(mCPUUsageQueue);
+		float averageCPU = mPartInst->GetQueueMedianNumber(mCPUUsageQueue);
 
 		lString += std::to_string(averageCPU);
-		mApp.GetModule<Render>().BlitText(lString.c_str(), mDebugPanelFont, 10, 95, 0, SDL_Color{ 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
+		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 95, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
 
 		lString = "Draw Calls: ";
-		lString += std::to_string(mApp.GetModule<Render>().GetDrawCallsLastFrame());
-		mApp.GetModule<Render>().BlitText(lString.c_str(), mDebugPanelFont, 10, 120, 0, SDL_Color{ 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
+		lString += std::to_string(mPartInst->mApp.GetModule<Render>().GetDrawCallsLastFrame());
+		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 120, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
 
 		lString = "Total Objects: ";
-		lString += std::to_string(mApp.GetModule<ObjectManager>().GetTotalObjectNumber());
-		mApp.GetModule<Render>().BlitText(lString.c_str(), mDebugPanelFont, 10, 145, 0, SDL_Color{ 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
+		lString += std::to_string(mPartInst->mApp.GetModule<ObjectManager>().GetTotalObjectNumber());
+		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 145, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
 	}
 
 	if (mIsDebugSceneActive)
 	{
-		mApp.GetModule<ObjectManager>().RenderDebug();
-		mApp.GetModule<UserInterface>().RenderDebug();
+		mPartInst->mApp.GetImplementation<ObjectManager,ObjectManager::ObjectManagerImpl>()->RenderDebug();
+		mPartInst->mApp.GetImplementation<UserInterface,UserInterface::GuiImpl>()->RenderDebug();
 	}
 
 	return true;
 }
 
-bool Debug::LoadConfig(pugi::xml_node& lNode)
+bool Debug::DebugImpl::LoadConfig(pugi::xml_node& lNode)
 {
 	std::string lFont = lNode.child("debug_font").first_child().value();
 
-	mDebugPanelFont = mApp.GetModule<Text>().LoadFont(lFont.c_str(), SDL_Color{ 255,255,255,255 }, 18);
+	mPartInst->mDebugPanelFont = mPartInst->mApp.GetModule<Text>().LoadFont(lFont.c_str(), { 255,255,255,255 }, 18);
 	return true;
 }
 
-bool Debug::CreateConfig(pugi::xml_node& aNode)
+bool Debug::DebugImpl::CreateConfig(pugi::xml_node& aNode)
 {
 	pugi::xml_node lNode = aNode.append_child("debug_node");
 	lNode.text().set("Assets/Fonts/Lato-Regular.ttf");
@@ -133,6 +138,13 @@ bool Debug::GetTotalMemoryUsage(float& virmem, float& physmem)
 
 float Debug::GetPercentCPUUsage()
 {
+	DebugImpl* lImpl = dynamic_cast<DebugImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
 	FILETIME ftime, fsys, fuser;
 	ULARGE_INTEGER now, sys, user;
 	double percent;
@@ -140,16 +152,16 @@ float Debug::GetPercentCPUUsage()
 	GetSystemTimeAsFileTime(&ftime);
 	memcpy(&now, &ftime, sizeof(FILETIME));
 
-	GetProcessTimes(self, &ftime, &ftime, &fsys, &fuser);
+	GetProcessTimes(lImpl->self, &ftime, &ftime, &fsys, &fuser);
 	memcpy(&sys, &fsys, sizeof(FILETIME));
 	memcpy(&user, &fuser, sizeof(FILETIME));
-	percent = (sys.QuadPart - lastSysCPU.QuadPart) +
-		(user.QuadPart - lastUserCPU.QuadPart);
-	percent /= (now.QuadPart - lastCPU.QuadPart);
-	percent /= numProcessors;
-	lastCPU = now;
-	lastUserCPU = user;
-	lastSysCPU = sys;
+	percent = (sys.QuadPart - lImpl->lastSysCPU.QuadPart) +
+		(user.QuadPart - lImpl->lastUserCPU.QuadPart);
+	percent /= (now.QuadPart - lImpl->lastCPU.QuadPart);
+	percent /= lImpl->numProcessors;
+	lImpl->lastCPU = now;
+	lImpl->lastUserCPU = user;
+	lImpl->lastSysCPU = sys;
 
 	return percent * 100;
 }
@@ -166,3 +178,15 @@ float Debug::GetQueueMedianNumber(std::queue<float> lQueue)
 
 	return lSumOfallTimes / (float)lTotalTimes;
 }
+
+bool Debug::IsDebugActive()
+{
+	DebugImpl* lImpl = dynamic_cast<DebugImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	return lImpl->mIsDebugSceneActive;
+};

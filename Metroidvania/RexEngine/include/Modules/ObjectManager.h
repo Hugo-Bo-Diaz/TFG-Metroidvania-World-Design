@@ -1,31 +1,18 @@
-#ifndef PHYSICS__H
-#define PHYSICS__H
+#ifndef OBJECT_MANAGER__H
+#define OBJECT_MANAGER__H
 
 #include "PartsDef.h"
-#include "Textures.h"
-#include "Application.h"
-#include "Render.h"
 #include "Part.h"
 #include <list>
 #include <vector>
 #include <map>
 #include <unordered_set>
 
-#include "SDL/include/SDL.h"
 #include <functional>
 #include <typeindex>
+#include "../EngineElements/GameObject.h"
 
 #define MAX_WALLS 500
-
-struct SDL_Texture;
-
-
-enum texture_type
-{
-	PLAYER_TEX,
-	NUMBER_OF_TEXTURES
-};
-
 
 struct ObjectProperty
 {
@@ -35,49 +22,6 @@ struct ObjectProperty
 	bool bool_value;
 };
 
-class ObjectManager;
-class SceneController;
-class DLL_EXPORT GameObject
-{
-public:
-	SDL_Rect* collider;
-	std::type_index mType = std::type_index(typeid(*this));
-
-	virtual void Init() {};
-	virtual bool Loop(float dt) { return true; };
-	virtual bool Render() { return true; };
-	virtual void RenderDebug() {};
-	virtual void Destroy() {};
-
-	GameObject()
-	{
-		collider = new SDL_Rect({ 0,0,0,0 });
-	}
-	//visuals
-	~GameObject()
-	{
-		if (collider != nullptr)
-		{
-			delete collider;
-			collider = nullptr;
-		}
-	}
-
-	bool IsSameTypeAs(GameObject* lG)
-	{
-		return (typeid(lG) == typeid(this));
-	}
-
-	template<typename T>
-	bool IsSameTypeAs() {
-		return (dynamic_cast<T*>(this) != NULL);
-	}
-
-	friend class ObjectManager;
-	friend class SceneController;
-protected:
-	EngineAPI* Engine = nullptr;
-};
 
 class DLL_EXPORT FactoryBase
 {
@@ -91,6 +35,7 @@ public:
 	virtual std::string GetObjectMapName() { return "ERRORTYPE"; };
 	virtual std::type_index GetObjectTypeIndex() { return std::type_index(typeid(this)); };
 };
+
 template<typename T> 
 class DLL_EXPORT Factory : public FactoryBase
 {
@@ -118,48 +63,35 @@ struct collision
 
 class DLL_EXPORT ObjectManager : public Part
 {
-private:
-
-	std::list<GameObject*> objects;
-	std::unordered_set<GameObject*> to_delete;
 public:
 
 	ObjectManager(EngineAPI& aAPI);
 
-	bool Init();
-	bool Loop(float dt);
-	void RenderDebug();
-	bool CleanUp();
 	bool Clearphysics();
 	void DeleteObject(GameObject*);
-	void GetNearbyWalls(int x, int y, int pxls_range, std::vector<SDL_Rect*>& colliders_near);
+	void GetNearbyWalls(int x, int y, int pxls_range, std::vector<RXRect*>& colliders_near);
 
 	std::vector<GameObject*>* GetAllObjectsOfType(std::type_index);
 
-	void GetCollisions(SDL_Rect* rect,std::vector<collision*>&collisions);
+	void GetCollisions(RXRect* rect,std::vector<collision*>&collisions);
 	void ClearCollisionArray(std::vector<collision*>&collisions);
 
-	int AddWall(SDL_Rect rect);
+	int AddWall(RXRect& rect);
 	void DeleteWall(int id);
 
-	bool is_paused = false;
-	void PauseObjects() { is_paused = true; };
-	void UnPauseObjects() { is_paused = false; };
+	void PauseObjects();
+	void UnPauseObjects();
+	bool isPaused();
 
 	GameObject* AddObject(int x, int y, int w_col, int h_col,std::type_index lType);
 	void AddObject(GameObject*);
 
-	int GetTotalObjectNumber() { return objects.size(); };
-
-	SDL_Rect* walls[MAX_WALLS];
-
-	std::list<FactoryBase*> mFactories;
-
-	FactoryBase* GetFactory(const char* aNameInMap);
-	FactoryBase* GetFactory(std::type_index& aType);
+	int GetTotalObjectNumber();
 
 	bool AddFactory(FactoryBase* lFactory);
 
+	class ObjectManagerImpl;
+	friend class SceneManager;
 };
 
 #endif // !PHYSICS__H

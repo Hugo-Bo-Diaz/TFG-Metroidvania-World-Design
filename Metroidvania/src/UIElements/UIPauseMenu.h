@@ -22,9 +22,9 @@ public:
 
 	PauseMenuOption current_option =PAUSE_RESUME;
 
-	SDL_Rect resume_rect;
-	SDL_Rect settings_rect;
-	SDL_Rect exit_rect;
+	RXRect resume_rect;
+	RXRect settings_rect;
+	RXRect exit_rect;
 
 	std::list<float> prev_joy_y;
 	float last_joy_y = 0;

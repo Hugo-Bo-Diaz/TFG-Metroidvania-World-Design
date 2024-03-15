@@ -34,7 +34,7 @@ bool CheckPoint::Loop(float dt)
 					Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Checkpoint")->GetValue("last_checkpoint_y") != spawn_pos_y)
 				{
 					//show checkpoint indicator
-					Engine->GetModule<ProgressTracker>().SaveGame("save_file.xml");
+					Engine->GetModule<ProgressTracker>().SaveFile("save_file.xml");
 					UIcheckpointIndicator* indicator = new  UIcheckpointIndicator();
 					Engine->GetModule<UserInterface>().AddElement(indicator);
 					Player* p = ((Player*)((*it)->object));

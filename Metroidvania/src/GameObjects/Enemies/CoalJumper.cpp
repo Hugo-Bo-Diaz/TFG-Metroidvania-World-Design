@@ -31,7 +31,7 @@ void CoalJumper::Destroy()
 
 void CoalJumper::Init()
 {
-	nextpos = new SDL_Rect();
+	nextpos = new RXRect();
 	nextpos->x = collider->x;
 	nextpos->y = collider->y;
 	nextpos->w = collider->w;
@@ -112,7 +112,7 @@ bool CoalJumper::Loop(float dt)
 	collider->x = nextpos->x;
 	collider->y = nextpos->y;
 
-	std::vector<SDL_Rect*> colliders;
+	std::vector<RXRect*> colliders;
 	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
 
 	speed_y += acceleration_y;
@@ -122,8 +122,8 @@ bool CoalJumper::Loop(float dt)
 	
 	for (int i = 0; i < colliders.size(); ++i)
 	{
-		SDL_Rect result;
-		if (SDL_IntersectRect(colliders[i], nextpos, &result) == SDL_TRUE && collider->y < colliders[i]->y)// he goin crash!
+		RXRect result;
+		if (RXRectCollision(colliders[i], nextpos, &result) == true && collider->y < colliders[i]->y)// he goin crash!
 		{
 			if (result.h > result.w)
 			{
@@ -274,7 +274,7 @@ bool CoalJumper::Loop(float dt)
 
 bool CoalJumper::Render()
 {
-	Engine->GetModule<::Render>().Blit(coaljumper, collider->x, collider->y, animations[state].GetCurrentFrame(), -1);
+	Engine->GetModule<::Render>().Blit(coaljumper, collider->x, collider->y, *animations[state].GetCurrentFrame(), -1);
 
 	return true;
 }

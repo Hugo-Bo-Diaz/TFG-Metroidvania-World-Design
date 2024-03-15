@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Modules/Render.h"
 #include "Modules/Textures.h"
+#include "EngineAPI.h"
 
 UIimage::UIimage(float _x, float _y, float _w, float _h, float _depth, const char * texture)
 {
@@ -32,7 +33,7 @@ void UIimage::Loop()
 
 void UIimage::Render()
 {
-	Engine->GetModule<::Render>().Blit(Tex, global_x, global_y, &screenspace, depth, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().Blit(Tex, global_x, global_y, screenspace, depth, RenderQueue::RENDER_UI);
 
 	UIelement::Render();
 }

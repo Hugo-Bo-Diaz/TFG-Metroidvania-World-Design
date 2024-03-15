@@ -32,8 +32,8 @@ public:
 
 	int lore_unlock = -1;
 
-	SDL_Rect rectanglekeyboard;
-	SDL_Rect rectanglecontroller;
+	RXRect rectanglekeyboard;
+	RXRect rectanglecontroller;
 
 	TextureID texture;
 };

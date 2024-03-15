@@ -44,9 +44,9 @@ public:
 	float hook_position_y = 0;
 	float current_angle = 0;
 	float draw_angle = 0;
-	SDL_Rect t = { 64,0,64,32 };
+	RXRect t = { 64,0,64,32 };
 
-	SDL_Rect debug = { 0,0,10,10 };
+	RXRect debug = { 0,0,10,10 };
 	
 	//thorns terrain
 	bool is_thorns_on_cooldown = false;
@@ -55,14 +55,14 @@ public:
 	Timer thorns_timer;
 
 	//sprites
-	SDL_Rect leaf = { 0,0,64,32 };
-	SDL_Rect vine = {160,32,32,32};
-	SDL_Rect hook = {192,32,32,32};
+	RXRect leaf = { 0,0,64,32 };
+	RXRect vine = {160,32,32,32};
+	RXRect hook = {192,32,32,32};
 	ParticleEmitter*p;
 
 	particle_preset grass;
-	SDL_Rect r10grass;
-	SDL_Rect r11grass;
+	RXRect r10grass;
+	RXRect r11grass;
 
 	TextureID spells;
 	TextureID particles;

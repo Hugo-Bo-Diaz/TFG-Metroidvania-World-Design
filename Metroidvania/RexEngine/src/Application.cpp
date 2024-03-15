@@ -14,12 +14,15 @@
 #include "Modules/ProgressTracker.h"
 #include "Modules/Debug.h"
 
+#include "../src/Modules/PartImpl.h"
+
 #include <exception>
 #include <signal.h>
 #include <iostream>
 #include <string>
 #include <sstream>
 #include "SDL/include/SDL.h"
+#include "pugiXML\src\pugixml.hpp"
 
 void ExceptionHandler(int signal_hand)
 {
@@ -144,12 +147,12 @@ bool Application::Init()
 	Logger::Console_log(LogLevel::LOG_INFO, "Initializing engine");
 	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
 	{
-		if ((*it)->active)
+		if ((*it)->mPartFuncts->active)
 		{
 			std::ostringstream lStr;
 			lStr << "Initializing" << (*it)->name;
 			Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
-			if (!(*it)->Init())
+			if (!(*it)->mPartFuncts->Init())
 			{
 				return false;
 			}
@@ -166,9 +169,9 @@ bool Application::Loop()
 	bool ret = true;
 	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
 	{
-		if ((*it)->active)
+		if ((*it)->mPartFuncts->active)
 		{
-			if (!(*it)->Loop(dt))
+			if (!(*it)->mPartFuncts->Loop(dt))
 			{
 				ret = false;
 			}
@@ -201,7 +204,7 @@ bool Application::CleanUp()
 		std::ostringstream lStr;
 		lStr << "Cleaning up" << (*it)->name;
 		Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
-		if (!(*it)->CleanUp())
+		if (!(*it)->mPartFuncts->CleanUp())
 		{
 			ret = false;
 		}
@@ -228,7 +231,7 @@ void Application::LoadConfig(const char* filename)
 		for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
 		{
 			pugi::xml_node part_node = config_node.append_child((*it)->name.c_str());
-			(*it)->CreateConfig(part_node);
+			(*it)->mPartFuncts->CreateConfig(part_node);
 		}
 		config_file.save_file(filename);
 	}
@@ -243,6 +246,6 @@ void Application::LoadConfig(const char* filename)
 	for (std::list<Part*>::iterator it = parts.begin(); it != parts.end(); it++)
 	{
 			pugi::xml_node part_node = config_node.child((*it)->name.c_str());
-			(*it)->LoadConfig(part_node);
+			(*it)->mPartFuncts->LoadConfig(part_node);
 	}
 }

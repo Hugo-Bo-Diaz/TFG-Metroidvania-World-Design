@@ -16,9 +16,9 @@ public:
 	bool Loop(float dt);
 	bool Render();
 
-	SDL_Rect cloudLeft;
-	SDL_Rect cloudLoop;
-	SDL_Rect cloudRight;
+	RXRect cloudLeft;
+	RXRect cloudLoop;
+	RXRect cloudRight;
 
 	TextureID hazards;
 };

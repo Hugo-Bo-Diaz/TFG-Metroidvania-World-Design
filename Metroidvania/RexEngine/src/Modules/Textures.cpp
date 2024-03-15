@@ -3,6 +3,8 @@
 #include "Modules/Render.h"
 #include "Utils/Logger.h"
 #include "Utils/Utils.h"
+#include "TexturesImpl.h"
+#include "EngineAPI.h"
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
@@ -12,9 +14,11 @@
 #include <sstream>
 
 Textures::Textures(EngineAPI& aAPI) :Part("Textures", aAPI)
-{}
+{
+	mPartFuncts = new TexturesImpl(this);
+}
 
-bool Textures::LoadConfig(pugi::xml_node& config_node)
+bool Textures::TexturesImpl::LoadConfig(pugi::xml_node& config_node)
 {
 	bool ret = true;
 
@@ -36,13 +40,13 @@ bool Textures::LoadConfig(pugi::xml_node& config_node)
 	
 	for (std::list<std::string>::iterator it = lFiles.begin(); it != lFiles.end(); it++)
 	{
-		Load_Texture((*it).c_str());
+		mPartInst->Load_Texture((*it).c_str());
 	}
 
 	return ret;
 }
 
-bool Textures::CreateConfig(pugi::xml_node& config_node)
+bool Textures::TexturesImpl::CreateConfig(pugi::xml_node& config_node)
 {
 	bool ret = true;
 
@@ -66,7 +70,7 @@ bool Textures::CreateConfig(pugi::xml_node& config_node)
 	return ret;
 }
 
-bool Textures::Init()
+bool Textures::TexturesImpl::Init()
 {
 	bool ret = true;
 
@@ -76,7 +80,14 @@ bool Textures::Init()
 
 TextureID Textures::Load_Texture(const char*path)
 {
-	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
+	TexturesImpl* lImpl = dynamic_cast<TexturesImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	for (std::vector<Texture*>::iterator it = lImpl->texture_list.begin(); it != lImpl->texture_list.end(); it++)
 	{
 		if (std::strcmp((*it)->name.c_str(), path) == 0)
 		{
@@ -91,6 +102,8 @@ TextureID Textures::Load_Texture(const char*path)
 	SDL_Texture* texture = NULL;
 	SDL_Surface* surface = IMG_Load(path);
 
+	TextureID lResult = 0;
+
 	if (surface == NULL)
 	{
 		std::string lStr = "Could not load surface with path: ";
@@ -101,26 +114,19 @@ TextureID Textures::Load_Texture(const char*path)
 	}
 	else
 	{
-		texture = SDL_CreateTextureFromSurface(mApp.GetModule<Render>().renderer,surface);
+		texture = SDL_CreateTextureFromSurface(mApp.GetModule<Render>().GetSDL_Renderer(),surface);
 		if (texture == NULL)
 		{
 			Logger::Console_log(LogLevel::LOG_ERROR, "couldn't make texture from surface");
 		}
 		SDL_FreeSurface(surface);
 		
-		Texture* new_tex = new Texture();
-		new_tex->texture = texture;
-		++number_of_textures;
-		new_tex->id = number_of_textures;
-		new_tex->name = path;
-
-		texture_list.push_back(new_tex);
-		return new_tex->id;
+		lResult = lImpl->AddTexture(texture, path);
 	}
-	return 0;
+	return lResult;
 }
 
-SDL_Texture* Textures::Get_Texture(TextureID id)
+SDL_Texture* Textures::TexturesImpl::Get_Texture(TextureID id)
 {
 	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
 	{
@@ -133,14 +139,33 @@ SDL_Texture* Textures::Get_Texture(TextureID id)
 	return nullptr;
 }
 
+TextureID Textures::TexturesImpl::AddTexture(SDL_Texture* aTextureToAdd, const char* aTextureName)
+{
+	Texture* new_tex = new Texture();
+	new_tex->texture = aTextureToAdd;
+	++number_of_textures;
+	new_tex->id = number_of_textures;
+	new_tex->name = aTextureName;
+
+	texture_list.push_back(new_tex);
+	return new_tex->id;
+}
+
 void Textures::Destroy_Texture(const char* texture_to_destroy)
 {
-	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)
+	TexturesImpl* lImpl = dynamic_cast<TexturesImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	for (std::vector<Texture*>::iterator it = lImpl->texture_list.begin(); it != lImpl->texture_list.end(); it++)
 	{
 		if ((*it)->name==texture_to_destroy)
 		{
 			delete(*it);
-			texture_list.erase(it);
+			lImpl->texture_list.erase(it);
 			return;
 		}
 	}
@@ -150,7 +175,7 @@ void Textures::Destroy_Texture(const char* texture_to_destroy)
 	return;
 }
 
-bool Textures::CleanUp()
+bool Textures::TexturesImpl::CleanUp()
 {
 	Logger::Console_log(LogLevel::LOG_ERROR, "Freeing textures and Image library");
 	for (std::vector<Texture*>::iterator it = texture_list.begin(); it != texture_list.end(); it++)

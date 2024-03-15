@@ -58,7 +58,7 @@ bool HazardLavaWaterfall::Render()
 	{
 		for (int j = 0; j < tilesy; ++j)
 		{
-			Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y + 48 * j, anim.GetCurrentFrame(), 50);
+			Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y + 48 * j, *anim.GetCurrentFrame(), 50);
 		}
 	}
 	return true;

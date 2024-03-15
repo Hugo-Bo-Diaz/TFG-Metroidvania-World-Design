@@ -21,7 +21,7 @@ void HazardRockBlock::Destroy()
 
 void HazardRockBlock::Init()
 {
-	//wall_id = Engine->GetModule<ObjectManager>().AddWall(SDL_Rect{ collider->x + 1,collider->y + 1,46,46 });
+	//wall_id = Engine->GetModule<ObjectManager>().AddWall(RXRect{ collider->x + 1,collider->y + 1,46,46 });
 
 	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
 	//wall_id = Engine->GetModule<ObjectManager>().AddWall(*collider);
@@ -31,7 +31,8 @@ bool HazardRockBlock::Loop(float dt)
 {
 	if (wall_id == -1)
 	{
-		wall_id = Engine->GetModule<ObjectManager>().AddWall(SDL_Rect{ collider->x,collider->y,48,48 });
+		RXRect lRect = { collider->x,collider->y,48,48 };
+		wall_id = Engine->GetModule<ObjectManager>().AddWall(lRect);
 		collider->y -= 5;
 		collider->h += 5;
 	}
@@ -71,7 +72,7 @@ bool HazardRockBlock::Loop(float dt)
 bool HazardRockBlock::Render()
 {
 
-	Engine->GetModule<::Render>().Blit(hazards, collider->x, collider->y+5, &rockblock, -20);
+	Engine->GetModule<::Render>().Blit(hazards, collider->x, collider->y+5, rockblock, -20);
 	
 
 	return true;
