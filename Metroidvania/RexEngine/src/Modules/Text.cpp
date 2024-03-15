@@ -18,19 +18,13 @@
 Text::Text(EngineAPI& aAPI) :Part("Text",aAPI)
 {
 	mPartFuncts = new TextImpl(this);
-}
-
-#pragma region IMPLEMENTATION
-
-bool Text::TextImpl::Init()
-{
 	if (TTF_Init() == -1)
 	{
 		printf("SDL_ttf could not initialize! SDL_ttf Error: %s", TTF_GetError());
 	}
-
-	return true;
 }
+
+#pragma region IMPLEMENTATION
 
 bool Text::TextImpl::CleanUp()
 {

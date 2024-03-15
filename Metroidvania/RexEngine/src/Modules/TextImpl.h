@@ -35,7 +35,6 @@ public:
 
 	Font* GetFont(FontID aFontID);
 protected:
-	virtual bool Init();
 	virtual bool CleanUp();
 
 private:

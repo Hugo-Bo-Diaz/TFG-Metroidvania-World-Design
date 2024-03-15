@@ -240,11 +240,15 @@ void Render::BlitText(const char* text, FontID font, int x, int y, int depth, co
 	it->y = y;
 	it->color = { aColor.r, aColor.g, aColor.b, aColor.a };
 	it->font_used = mApp.GetImplementation<Text, Text::TextImpl>()->GetFont(font);
-	it->lFontTexture = mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(it->font_used->font_texture);
-	it->mText = text;
-	it->depth = depth;
+	if (it->font_used != nullptr)
+	{
+		it->lFontTexture = mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(it->font_used->font_texture);
+		it->mText = text;
+		it->depth = depth;
 
-	lImpl->GetQueue(aQueue)->push(it);
+		lImpl->GetQueue(aQueue)->push(it);
+	}
+
 }
 
 void Render::DrawRect(const RXRect& area, uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool filled, RenderQueue aQueue,int depth , bool ignore_camera)
@@ -317,6 +321,10 @@ void BlitTexture::Blit(Render& aRender, Camera& camera, Window& aWindow)
 	rect.h = on_image.h * scale;
 
 	SDL_Point p = { center_x,center_y };
+	
+	RXRect lRect = { rect.x,rect.y,rect.w,rect.h };
+	if (!camera.isOnScreen(lRect, false))
+		return;
 
 	aRender.CountDrawCall();
 	if (SDL_RenderCopyEx(aRender.GetSDL_Renderer(), tex, &on_image, &rect, angle, &p, SDL_FLIP_NONE) != 0)
@@ -354,6 +362,10 @@ void BlitLayer::Blit(Render& aRender, Camera& camera, Window& aWindow)
 			on_scn.y = worldcoords_y;
 			on_scn.w = 48 * scale;
 			on_scn.h = 48 * scale;
+
+			RXRect lRect = { on_scn.x,on_scn.y,on_scn.w,on_scn.h };
+			if (!camera.isOnScreen(lRect, false))
+				continue;
 
 			aRender.CountDrawCall();
 			if (SDL_RenderCopyEx(aRender.GetSDL_Renderer(), tex, &GetImageRectFromId(layer->tileset_of_layer, layer->data[i]), &on_scn, 0, NULL, SDL_FLIP_NONE) != 0)
@@ -477,6 +489,11 @@ void BlitRect::Blit(Render& aRender, Camera& camera, Window& aWindow)
 	temp.y *= scale;
 	temp.w *= scale;
 	temp.h *= scale;
+
+	RXRect lRect = { temp.x,temp.y,temp.w,temp.h };
+	if (!camera.isOnScreen(lRect, false))
+
+
 	SDL_SetRenderDrawBlendMode(aRender.GetSDL_Renderer(), SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(aRender.GetSDL_Renderer(), color.r, color.g, color.b, color.a);
 	//SDL_SetRenderDrawColor(lRender->renderer, color.r, color.g, color.b, 255);
@@ -527,11 +544,9 @@ void BlitParticles::Blit(Render& aRender, Camera& camera, Window& aWindow)
 	{
 		if (lEmmitter->particles[i] != nullptr)
 		{
-
 			SDL_Rect rect;
 			rect.x = lEmmitter->particles[i]->target_on_screen.x * scale + camera.GetCameraXoffset();
 			rect.y = lEmmitter->particles[i]->target_on_screen.y * scale + camera.GetCameraYoffset();
-
 
 			rect.w = lEmmitter->particles[i]->target_on_screen.w * lEmmitter->particles[i]->current_scale;
 			rect.h = lEmmitter->particles[i]->target_on_screen.h * lEmmitter->particles[i]->current_scale;
@@ -544,6 +559,10 @@ void BlitParticles::Blit(Render& aRender, Camera& camera, Window& aWindow)
 
 			RXRect* lRecFromEmitter = lEmmitter->particles[i]->area_in_texture;
 			SDL_Rect lRectInText = {lRecFromEmitter->x, lRecFromEmitter->y, lRecFromEmitter->w, lRecFromEmitter->h};
+
+			RXRect lRect = { rect.x,rect.y,rect.w,rect.h };
+			if (!camera.isOnScreen(lRect, false))
+				continue;
 
 			aRender.CountDrawCall();
 			if (SDL_RenderCopyEx(aRender.GetSDL_Renderer(), tex, &lRectInText, &rect, lEmmitter->particles[i]->angle, NULL, SDL_FLIP_NONE) != 0)
@@ -593,6 +612,10 @@ void BlitItemText::Blit(Render& aRender, Camera& camera, Window& aWindow)
 			SDL_Rect on_screen = SDL_Rect{ x + length_so_far,y + yLevel, mappedRect->w, mappedRect->h };
 
 			length_so_far += on_screen.w;
+
+			RXRect lRect = { on_screen.x,on_screen.y,on_screen.w,on_screen.h };
+			if (!camera.isOnScreen(lRect,false))
+				continue;
 
 			aRender.CountDrawCall();
 			if (SDL_RenderCopyEx(aRender.GetSDL_Renderer(), lFontTexture, mappedRect, &on_screen, 0, NULL, SDL_FLIP_NONE) != 0)

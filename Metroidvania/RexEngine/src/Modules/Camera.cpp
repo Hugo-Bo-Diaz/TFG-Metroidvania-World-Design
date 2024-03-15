@@ -143,9 +143,15 @@ float Camera::GetCameraYoffset()
 	return -position_y;
 }
 
-bool Camera::isOnScreen(RXRect& rectangle)
+bool Camera::isOnScreen(RXRect& rectangle,bool aMapCoords)
 {
-	return false;
+	if(aMapCoords)
+		return RXRectDoesCollide(&screenarea, &rectangle);
+	else
+	{
+		RXRect lScreenAtZero = { 0, 0, screenarea.w, screenarea.h };
+		return RXRectDoesCollide(&lScreenAtZero, &rectangle);
+	}
 }
 
 void Camera::CameraShake(int _amount, float _time)

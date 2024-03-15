@@ -20,7 +20,7 @@ public:
 	float GetCameraXoffset();
 	float GetCameraYoffset();
 
-	bool isOnScreen(RXRect& rectangle);
+	bool isOnScreen(RXRect& rectangle,bool aMapCoords = true);
 
 	float position_x;
 	float position_y;
