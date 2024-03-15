@@ -11,7 +11,6 @@
 #include <list>
 #include <vector>
 #include <utility>
-#include <unordered_set>
 
 
 class DLL_EXPORT Particles : public Part

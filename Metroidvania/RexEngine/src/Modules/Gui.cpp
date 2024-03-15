@@ -18,8 +18,9 @@ bool UserInterface::GuiImpl::Init()
 bool UserInterface::GuiImpl::Loop(float dt)
 {
 	//delete elements
-	for (std::vector<UIelement*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
+	for (std::unordered_set<UIelement*>::iterator it = to_delete.begin(); it != to_delete.end(); it++)
 	{
+		(*it)->Destroy();
 		delete(*it)->Engine;
 		delete (*it);
 		elements.erase(std::find(elements.begin(), elements.end(), *it));
@@ -53,7 +54,8 @@ bool UserInterface::GuiImpl::CleanUp()
 {
 	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
 	{
-		//delete(*it)->Engine;
+		(*it)->Destroy();
+		delete(*it)->Engine;
 		delete (*it);
 	}
 
@@ -67,6 +69,7 @@ void UserInterface::GuiImpl::Clearelements()
 	Logger::Console_log(LogLevel::LOG_INFO, "Clearing UI elements");
 	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
 	{
+		(*it)->Destroy();
 		delete(*it)->Engine;
 		delete (*it);
 	}
@@ -83,16 +86,7 @@ void UserInterface::RemoveElement(UIelement * _to_delete)
 		return;
 	}
 
-	bool is_in_array = false;
-
-	for (std::vector<UIelement*>::iterator it = lImpl->to_delete.begin(); it != lImpl->to_delete.end(); it++)
-	{
-		if ((*it) == _to_delete)
-			is_in_array = true;
-	}
-
-	if(!is_in_array)
-		lImpl->to_delete.push_back(_to_delete);
+	lImpl->to_delete.insert(_to_delete);
 }
 
 bool UserInterface::ElementExists(UIelement * to_check)
@@ -129,6 +123,14 @@ bool UserInterface::AddElement(UIelement* uiElement)
 
 	uiElement->Engine = new EngineAPI(mApp);
 	uiElement->Init();
-	lImpl->elements.push_back(uiElement);
-	return true;
+
+	if (std::find(lImpl->elements.begin(), lImpl->elements.end(), uiElement) == lImpl->elements.end())
+	{
+		lImpl->elements.push_back(uiElement);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

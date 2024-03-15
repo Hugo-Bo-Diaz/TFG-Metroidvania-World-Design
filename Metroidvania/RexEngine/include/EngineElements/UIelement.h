@@ -41,6 +41,7 @@ public:
 	virtual void Loop();
 	virtual void Render();
 	virtual void RenderDebug() {};
+	virtual void Destroy() {};
 
 	UIelement* parent;
 

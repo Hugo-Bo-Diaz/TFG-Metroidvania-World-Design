@@ -34,11 +34,11 @@ public:
 	UItextbox(const char* author,const char* first_text, TextBoxColor color, int tiles_x, int tiles_y, int x, int y, float size = 1, float speed = 1);
 	void AddPanelToTextBox(const char* text);
 
-	~UItextbox();
 
 	void Init();
 	void Loop();
 	void Render();
+	void Destroy();
 
 	float current_letter;
 

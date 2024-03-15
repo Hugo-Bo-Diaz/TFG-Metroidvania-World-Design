@@ -3,6 +3,7 @@
 
 #include "PartImpl.h"
 #include "../include/Modules/Gui.h"
+#include <unordered_set>
 
 class UserInterface::GuiImpl : public Part::Part_Impl
 {
@@ -23,7 +24,7 @@ protected:
 	void Clearelements();
 
 	std::vector<UIelement*> elements;
-	std::vector<UIelement*> to_delete;
+	std::unordered_set<UIelement*> to_delete;
 
 private:
 	friend class UserInterface;

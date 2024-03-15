@@ -48,7 +48,7 @@ void UItextbox::AddPanelToTextBox(const char * text)
 	texts.push_back(text);
 }
 
-UItextbox::~UItextbox()
+void UItextbox::Destroy()
 {
 	Engine->GetModule<ObjectManager>().UnPauseObjects();
 }
