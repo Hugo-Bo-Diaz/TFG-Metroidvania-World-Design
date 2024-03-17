@@ -14,107 +14,102 @@
 Camera::Camera(EngineAPI& aAPI) : Part("Camera", aAPI)
 {
 	mPartFuncts = new CameraImpl(this);
-
-	shaking.Pause();
-	shaking.Reset();
 }
 
 #pragma region IMPLEMENTATION
 
 bool Camera::CameraImpl::Init()
 {
-	mPartInst->width = 1024;//App->win->width;
-	mPartInst->height = 576;//App->win->height;
+	width = 1024;//App->win->width;
+	height = 576;//App->win->height;
 
-	mPartInst->screenarea = { 0,0,mPartInst->width,mPartInst->height };
+	screenarea = { 0,0,width,height };
 
 	return true;
 }
 
 bool Camera::CameraImpl::Loop(float dt)//camera can't go offbounds
 {
+	screenarea.x = position_x;
+	screenarea.y = position_y;
+
 	int window_w, window_h;
 	mPartInst->mApp.GetModule<Window>().GetWindowSize(window_w, window_h);
-	mPartInst->screenarea.w = window_w;
-	mPartInst->screenarea.h = window_h;
+	screenarea.w = window_w;
+	screenarea.h = window_h;
 	
 	if (target != nullptr)
 	{
-		mPartInst->position_x = (target->collider->x + target->collider->w / 2) - mPartInst->width / 2;
-		mPartInst->position_y = (target->collider->y + target->collider->h / 2) - mPartInst->height / 2;
+		position_x = (target->collider->x + target->collider->w / 2) - width / 2;
+		position_y = (target->collider->y + target->collider->h / 2) - height / 2;
 
 		int room_w, room_h;
 		mPartInst->mApp.GetModule<SceneController>().GetRoomSize(room_w, room_h);
-		if (mPartInst->position_y > room_h * 48 - mPartInst->height)
+		if (position_y > room_h * 48 - height)
 		{
-			mPartInst->position_y = room_h * 48 - mPartInst->height;
+			position_y = room_h * 48 - height;
 		}
-		else if (mPartInst->position_y < 0)
+		else if (position_y < 0)
 		{
-			mPartInst->position_y = 0;
+			position_y = 0;
 		}
 		
-		if (mPartInst->position_x > room_w * 48 - mPartInst->width)
+		if (position_x > room_w * 48 - width)
 		{
-			mPartInst->position_x = room_w * 48 - mPartInst->width;
+			position_x = room_w * 48 - width;
 		}
-		else if (mPartInst->position_x < 0)
+		else if (position_x < 0)
 		{
-			mPartInst->position_x = 0;
+			position_x = 0;
 		}
-		mPartInst->position_x *= mPartInst->mApp.GetModule<Window>().GetScale();
-		mPartInst->position_y *= mPartInst->mApp.GetModule<Window>().GetScale();
-		if (mPartInst->is_shaking)
+		position_x *= mPartInst->mApp.GetModule<Window>().GetScale();
+		position_y *= mPartInst->mApp.GetModule<Window>().GetScale();
+		if (is_shaking)
 		{
-			mPartInst->position_x += rand() % mPartInst->amount + 1;
-			mPartInst->position_y += rand() % mPartInst->amount + 1;
+			position_x += rand() % amount + 1;
+			position_y += rand() % amount + 1;
 
-			std::string s = std::to_string(mPartInst->position_x);
+			std::string s = std::to_string(position_x);
 			s += " ";
-			s += std::to_string(mPartInst->position_y);
+			s += std::to_string(position_y);
 			//App->con->Console_log((char*)s.c_str());
 		}
 	}
 	
-	if(mPartInst->is_shaking)
+	if(is_shaking)
 	{
-		if (mPartInst->shaking.Read() > mPartInst->total_shaking_time)
+		if (shaking.Read() > total_shaking_time)
 		{
-			mPartInst->is_shaking = false;
-			mPartInst->alpha = 0;
+			is_shaking = false;
+			alpha = 0;
 		}
 	}
 
-	if (mPartInst->is_covered)
+	if (is_covered)
 	{
-		if (mPartInst->screencover.Read() > mPartInst->total_cover_time)
+		if (screencover.Read() > total_cover_time)
 		{
-			mPartInst->is_covered = false;
+			is_covered = false;
 		}
-		mPartInst->alpha = 255;
+		alpha = 255;
 
-		if (mPartInst->screencover.Read() <= mPartInst->falloff)
+		if (screencover.Read() <= falloff)
 		{
-			mPartInst->alpha = (mPartInst->screencover.Read() / mPartInst->falloff) * 255;
+			alpha = (screencover.Read() / falloff) * 255;
 		}
-		else if (mPartInst->screencover.Read() > mPartInst->total_cover_time - mPartInst->falloff)
+		else if (screencover.Read() > total_cover_time - falloff)
 		{
-			mPartInst->alpha = ((mPartInst->total_cover_time - mPartInst->screencover.Read()) / mPartInst->falloff) * 255;
+			alpha = ((total_cover_time - screencover.Read()) / falloff) * 255;
 		}
 		else
 		{
-			mPartInst->alpha = 255;
+			alpha = 255;
 		}
 
-		mPartInst->mApp.GetModule<Render>().DrawRect(mPartInst->screenarea, mPartInst->r, mPartInst->g, mPartInst->b, mPartInst->alpha,true,RenderQueue::RENDER_DEBUG,-1000);
+		//mPartInst->mApp.GetModule<Render>().DrawRect(mPartInst->screenarea, mPartInst->r, mPartInst->g, mPartInst->b, mPartInst->alpha,true,RenderQueue::RENDER_DEBUG,-1000);
 	}
-	else { mPartInst->alpha = 0; }
+	else { alpha = 0; }
 
-	return true;
-}
-
-bool Camera::CameraImpl::CleanUp()
-{
 	return true;
 }
 
@@ -135,31 +130,91 @@ void Camera::FollowObject(GameObject* new_target)
 
 float Camera::GetCameraXoffset()
 {
-	return -position_x;
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	return -lImpl->position_x;
 }
 
 float Camera::GetCameraYoffset()
 {
-	return -position_y;
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	return -lImpl->position_y;
 }
 
 bool Camera::isOnScreen(RXRect& rectangle,bool aMapCoords)
 {
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
 	if(aMapCoords)
-		return RXRectDoesCollide(&screenarea, &rectangle);
+		return RXRectDoesCollide(&lImpl->screenarea, &rectangle);
 	else
 	{
-		RXRect lScreenAtZero = { 0, 0, screenarea.w, screenarea.h };
+		RXRect lScreenAtZero = { 0, 0, lImpl->screenarea.w, lImpl->screenarea.h };
 		return RXRectDoesCollide(&lScreenAtZero, &rectangle);
 	}
 }
 
+void Camera::SetCameraPosition(float x, float y)
+{
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	lImpl->position_x = x;
+	lImpl->position_y = y;
+}
+
+void Camera::GetCameraPosition(float& x, float& y)
+{
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	x = lImpl->position_x;
+	y = lImpl->position_y;
+}
+
+void Camera::GetCameraSize(float& w, float& h)
+{
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	w = lImpl->width;
+	h = lImpl->height;
+}
+
 void Camera::CameraShake(int _amount, float _time)
 {
-	is_shaking = true;
-	shaking.Start();
-	total_shaking_time = _time;
-	amount = _amount;
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	lImpl->is_shaking = true;
+	lImpl->shaking.Start();
+	lImpl->total_shaking_time = _time;
+	lImpl->amount = _amount;
 	srand(time(NULL));
 }
 
@@ -169,26 +224,46 @@ void Camera::CoverScreen(float amount_in_ms, float falloff_in_ms, int _r, int _g
 	lStr << "Starting coverscreen for: " << amount_in_ms << "ms, with colors: r" << _r << " g" << _g << " b" << _b;
 	Logger::Console_log(LogLevel::LOG_INFO, lStr.str().c_str());
 
-	total_cover_time = amount_in_ms;
-	falloff = falloff_in_ms;
-	r = _r;
-	g = _g;
-	b = _b;
-	is_covered = true;
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
 
-	screencover.Start();
+	lImpl->total_cover_time = amount_in_ms;
+	lImpl->falloff = falloff_in_ms;
+	lImpl->is_covered = true;
+
+	lImpl->screencover.Start();
 }
 
 int Camera::GetCoveragePercent()
 {
-	if (is_covered)
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
 	{
-		return (alpha / 255) * 100;
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	if (lImpl->is_covered)
+	{
+		return (lImpl->alpha / 255) * 100;
 	}
 	else
 	{
 		return 0;
 	}
+}
+
+RXRect Camera::GetScreenArea()
+{
+	CameraImpl* lImpl = dynamic_cast<CameraImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	return lImpl->screenarea;
 }
 
 #pragma endregion

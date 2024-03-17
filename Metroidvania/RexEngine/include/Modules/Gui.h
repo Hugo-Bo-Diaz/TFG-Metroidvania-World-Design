@@ -26,7 +26,6 @@ public:
 
 	bool AddElement(UIelement* uiElement);
 
-
 	//TEXT WORKS WITH A REFERENCE TO A STRUCT THAT CAN GIVE AN SDL_TEXTURE
 	class GuiImpl;
 };

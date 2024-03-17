@@ -61,15 +61,15 @@ void MaxHealthPickup::Init()
 	magic.texture_name = particles;
 
 	p = Engine->GetModule<Particles>().AddParticleEmitter(&magic, 0, 0);
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups") == nullptr)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups") == nullptr)
 	{
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("pickups");
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("pickups");
 	}
 }
 
 bool MaxHealthPickup::Loop(float dt)
 {
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->GetValue(std::to_string(pickup_id).c_str()) != 0.0f)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue(std::to_string(pickup_id).c_str()) != 0.0f)
 	{
 		Engine->GetModule<ObjectManager>().DeleteObject(this);
 	}
@@ -91,10 +91,10 @@ bool MaxHealthPickup::Loop(float dt)
 				Player* pl = (Player*)((*it)->object);
 				pl->AddHealth(1);
 
-				Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->SetValue(std::to_string(pickup_id).c_str(),1.0f);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue(std::to_string(pickup_id).c_str(),1.0f);
 				
-				int charges_for_hp = Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->GetValue("CurrentFragmentsHP");
-				int max_charges_for_hp = Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->GetValue("MaxFragmentsHP");
+				int charges_for_hp = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue("CurrentFragmentsHP");
+				int max_charges_for_hp = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue("MaxFragmentsHP");
 
 				Engine->GetModule<ObjectManager>().DeleteObject(this);
 
@@ -105,8 +105,8 @@ bool MaxHealthPickup::Loop(float dt)
 				{
 					pl->max_health += 1;
 					pl->health += 1;
-					int charges_for_hp = Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->SetValue("CurrentFragmentsHP",0);
-					Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->SetValue("MaxHP",pl->max_health);
+					int charges_for_hp = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue("CurrentFragmentsHP",0);
+					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue("MaxHP",pl->max_health);
 				}
 
 				UItextbox* textbox= new UItextbox("", s.c_str(), TextBoxColor::GREY, 15, 4, 272, 420, 2, 0.2);
@@ -116,12 +116,11 @@ bool MaxHealthPickup::Loop(float dt)
 				{
 					textbox->AddPanelToTextBox(text.c_str());
 				}
-				if (lore_unlock != -1 && Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs")->GetValue(std::to_string(lore_unlock).c_str()) == 0.0f)
+				if (lore_unlock != -1 && Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->GetValue(std::to_string(lore_unlock).c_str()) == 0.0f)
 				{
-					Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs")->SetValue(std::to_string(lore_unlock).c_str(), 1.0f);
+					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue(std::to_string(lore_unlock).c_str(), 1.0f);
 					textbox->AddPanelToTextBox("New lore entry unlocked");
 				}
-				//Engine->GetModule<Particles>().to_delete.push_back(p);
 				Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider->x, collider->y, 1500);
 			}
 		}

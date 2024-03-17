@@ -12,7 +12,6 @@
 #include "RXPoint.h"
 #include "Part.h"
 
-class ParticleEmitter;
 
 enum RenderQueue
 {
@@ -49,6 +48,7 @@ public:
 		return rhs.depth > depth;
 	}
 };
+
 class Comparer
 {
 public:
@@ -57,7 +57,6 @@ public:
 		return itemB->depth > itemA->depth;
 	}
 };
-
 
 struct SDL_Renderer;
 
@@ -79,8 +78,6 @@ public:
 	SDL_Renderer* GetSDL_Renderer();
 
 	class RenderImpl;
-private:
-
 };
 
 #endif // !RENDER__H

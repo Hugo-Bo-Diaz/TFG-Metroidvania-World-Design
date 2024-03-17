@@ -12,7 +12,6 @@ class Font;
 class Render::RenderImpl : public Part::Part_Impl
 {
 public:
-
 	Render::RenderImpl(Render* aRender) :mPartInst(aRender){};
 
 	void SetRenderInst(Render* aRender)
@@ -47,7 +46,6 @@ private:
 	SDL_Color		background;
 
 	friend class Render;
-private:
 	Render* mPartInst;
 };
 
@@ -122,7 +120,5 @@ public:
 	int amount;
 	void Blit(Render& aRender, Camera& camera, Window& aWindow);
 };
-
-
 
 #endif

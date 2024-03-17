@@ -22,27 +22,15 @@ public:
 
 	bool isOnScreen(RXRect& rectangle,bool aMapCoords = true);
 
-	float position_x;
-	float position_y;
-
-	int width;
-	int height;
+	void SetCameraPosition(float x, float y);
+	void GetCameraPosition(float& x, float& y);
+	void GetCameraSize(float& x, float& y);
 
 	void CameraShake(int amount, float time);
-	bool is_shaking = false;
-	Timer shaking;
-	float total_shaking_time;
-	int amount;
 
-	Timer screencover;
-	bool is_covered = false;
 	void CoverScreen(float amount_in_ms,float falloff_in_ms, int r, int g, int b);
-	float total_cover_time;
-	float falloff;
-	int r, g, b;
-	RXRect screenarea;
+	RXRect GetScreenArea();
 	int GetCoveragePercent();
-	int alpha=0;
 private:
 
 	class CameraImpl;

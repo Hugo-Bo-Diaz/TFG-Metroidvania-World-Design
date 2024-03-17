@@ -69,9 +69,9 @@ void UISelectMenu::Loop()
 		}
 		last_joy_y = joyy;
 
-		if (abs(amount_of_movement) > 0.6 && !stop_inputs && Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Logs")->GetSectionValues().size() > 1)
+		if (abs(amount_of_movement) > 0.6 && !stop_inputs && Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Logs")->GetSectionValues().size() > 1)
 		{
-			if (amount_of_movement > 0 && current_lore < Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Logs")->GetSectionValues().size() -1)
+			if (amount_of_movement > 0 && current_lore < Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Logs")->GetSectionValues().size() -1)
 			{
 				current_lore += 1;
 				if (current_lore-cam_y_coord > MAX_LORE_CAPACITY_MENU-1)

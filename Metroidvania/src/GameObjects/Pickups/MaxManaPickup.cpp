@@ -33,9 +33,9 @@ void MaxManaPickup::Init()
 
 	p = Engine->GetModule<Particles>().AddParticleEmitter(&magic, 0, 0);
 
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs") == nullptr)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs") == nullptr)
 	{
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("LoreLogs");
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("LoreLogs");
 	}
 }
 
@@ -68,7 +68,7 @@ void MaxManaPickup::Destroy()
 
 bool MaxManaPickup::Loop(float dt)
 {
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->GetValue(std::to_string(pickup_id).c_str()) != 0.0f)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue(std::to_string(pickup_id).c_str()) != 0.0f)
 	{
 		Engine->GetModule<ObjectManager>().DeleteObject(this);
 	}
@@ -89,10 +89,10 @@ bool MaxManaPickup::Loop(float dt)
 				Player* pl = (Player*)((*it)->object);
 				pl->AddMana(1);
 
-				Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->SetValue(std::to_string(pickup_id).c_str(), 1.0f);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue(std::to_string(pickup_id).c_str(), 1.0f);
 
-				int charges_for_mana = Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->GetValue("CurrentFragmentsMana");
-				int max_charges_for_mana = Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->GetValue("MaxFragmentsMana");
+				int charges_for_mana = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue("CurrentFragmentsMana");
+				int max_charges_for_mana = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue("MaxFragmentsMana");
 
 				Engine->GetModule<ObjectManager>().DeleteObject(this);
 
@@ -105,10 +105,10 @@ bool MaxManaPickup::Loop(float dt)
 					pl->max_mana += 1;
 					pl->mana += 1;
 					charges_for_mana = 0;
-					Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->SetValue("MaxMana", pl->max_mana);
+					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue("MaxMana", pl->max_mana);
 				}
 
-				Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("pickups")->SetValue("CurrentFragmentsMana", charges_for_mana);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue("CurrentFragmentsMana", charges_for_mana);
 
 				UItextbox* textbox = new UItextbox("", s.c_str(), TextBoxColor::GREY, 15, 4, 272, 420, 2, 0.2);
 				Engine->GetModule<UserInterface>().AddElement(textbox);
@@ -117,9 +117,9 @@ bool MaxManaPickup::Loop(float dt)
 				{
 					textbox->AddPanelToTextBox(text.c_str());
 				}
-				if (lore_unlock != -1 && Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs")->GetValue(std::to_string(lore_unlock).c_str()) == 0.0f)
+				if (lore_unlock != -1 && Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->GetValue(std::to_string(lore_unlock).c_str()) == 0.0f)
 				{
-					Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs")->SetValue(std::to_string(lore_unlock).c_str(), 1.0f);
+					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue(std::to_string(lore_unlock).c_str(), 1.0f);
 					textbox->AddPanelToTextBox("New lore entry unlocked");
 				}
 				//Engine->GetModule<Particles>().to_delete.push_back(p);

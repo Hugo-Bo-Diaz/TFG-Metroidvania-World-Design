@@ -91,6 +91,9 @@
     <ClCompile Include="src\Utils\Timer.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utils\Utils.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\pugiXML\src\pugiconfig.hpp">

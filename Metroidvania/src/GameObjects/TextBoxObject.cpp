@@ -17,9 +17,9 @@ void TextBoxObject::Init()
 
 	rectanglekeyboard = {0,0,48,48};
 	rectanglecontroller = { 48,0,48,48 };
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs") == nullptr)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs") == nullptr)
 	{
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("LoreLogs");
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("LoreLogs");
 	}
 }
 
@@ -75,9 +75,9 @@ bool TextBoxObject::Loop(float dt)
 					}
 					textboxexists = true;
 
-					if (lore_unlock != -1 && Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs")->GetValue(std::to_string(lore_unlock).c_str()) == 0.0f)
+					if (lore_unlock != -1 && Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->GetValue(std::to_string(lore_unlock).c_str()) == 0.0f)
 					{
-						Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs")->SetValue(std::to_string(lore_unlock).c_str(), 1.0f);
+						Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue(std::to_string(lore_unlock).c_str(), 1.0f);
 						textbox->AddPanelToTextBox("New lore entry unlocked");
 					}
 				}
@@ -102,7 +102,7 @@ bool TextBoxObject::Render()
 {
 	if (player_contact == true)
 	{
-		if(Engine->GetModule<Input>().using_controller)
+		if(Engine->GetModule<Input>().IsUsingController())
 			Engine->GetModule<::Render>().Blit(texture, collider->x + collider->w/2 - 24, collider->y - 48, rectanglecontroller,-5);
 		else
 			Engine->GetModule<::Render>().Blit(texture, collider->x + collider->w / 2 - 24, collider->y - 48, rectanglekeyboard, -5);

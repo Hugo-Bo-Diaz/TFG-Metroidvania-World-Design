@@ -148,6 +148,7 @@
     <ClCompile Include="src\Modules\Window.cpp" />
     <ClCompile Include="src\Utils\Logger.cpp" />
     <ClCompile Include="src\Utils\Timer.cpp" />
+    <ClCompile Include="src\Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Application.h" />

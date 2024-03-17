@@ -25,22 +25,18 @@ public:
 	void StopMusic();
 	void StopChannel(uint channel);
 
-	float settings_volume = 100;
-	float music_volume = 100;
-	float sfx_volume = 100;
+	/*from 100 to 0*/
+	void SetGeneralVolume(float aVolume);
+	float GetGeneralVolume();
+	void SetMusicVolume(float aVolume);
+	float GetMusicVolume();
+	void SetSFXVolume(float aVolume);
+	float GetSFXVolume();
 
-	float prev_sett_volume = 100;
-	float prev_mus_volume = 100;
-	float prev_sfx_volume = 100;
-	void RecalculateVolume();
+	void SetFadeOut(float aFade);
+	AudioID GetCurrentSong();
+	void SetNextSongAfterFadeOut(AudioID aNextSong);
 
-	int GetFirstFreeChannel();
-
-	float current_fade_out;
-
-	float next_song_after_fade_out_fade_time;
-
-	uint current_song = -1;
 	void StartNextSongAfterFadeOut() {};
 
 private:

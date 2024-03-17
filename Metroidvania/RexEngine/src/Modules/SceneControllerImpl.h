@@ -51,7 +51,6 @@ struct background_texture
 class SceneController::SceneControllerImpl : public Part::Part_Impl
 {
 public:
-
 	SceneController::SceneControllerImpl(SceneController* aSceneController) :mPartInst(aSceneController) {};
 
 	void SetSceneControllerInst(SceneController* aSceneController)

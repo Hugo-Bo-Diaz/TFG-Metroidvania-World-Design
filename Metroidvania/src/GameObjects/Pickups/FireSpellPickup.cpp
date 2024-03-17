@@ -25,13 +25,13 @@ void FireSpellPickup::Init()
 
 	firespellbook = { 0,0,52,64 };
 
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("SpellsUnlock") == nullptr)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("SpellsUnlock") == nullptr)
 	{
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("SpellsUnlock");
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("SpellsUnlock");
 	}
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs") == nullptr)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs") == nullptr)
 	{
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("LoreLogs");
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("LoreLogs");
 	}
 
 	r2shield = { 12,0,12,12 };
@@ -56,7 +56,7 @@ void FireSpellPickup::Init()
 
 bool FireSpellPickup::Loop(float dt)
 {
-	if(Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("SpellsUnlock")->GetValue("Fire"))
+	if(Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("SpellsUnlock")->GetValue("Fire"))
 	{
 		Engine->GetModule<ObjectManager>().DeleteObject(this);
 	}
@@ -74,14 +74,14 @@ bool FireSpellPickup::Loop(float dt)
 			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				((Player*)((*it)->object))->unlock_spell(FIRE);
-				Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("SpellsUnlock")->SetValue("Fire", 1);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("SpellsUnlock")->SetValue("Fire", 1);
 				Engine->GetModule<ObjectManager>().DeleteObject(this);
 				UItextbox* textbox= new UItextbox("","congratulations you unlocked fire!",TextBoxColor::RED, 15, 4, 272, 420, 2, 0.2);
 				textbox->AddPanelToTextBox("remember your past      we need you");
 				Engine->GetModule<UserInterface>().AddElement(textbox);
 				//Engine->GetModule<Particles>().to_delete.push_back(p);
 				Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider->x, collider->y,1500);
-				Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs")->SetValue("4",1.0f);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue("4",1.0f);
 			}
 		}
 	}

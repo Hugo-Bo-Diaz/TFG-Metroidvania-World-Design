@@ -59,15 +59,10 @@ void UISettingsMenu::Loop()
 		{
 			is_volume_on_cooldown = true;
 			cooldown_timer.Reset();
-			Engine->GetModule<Audio>().sfx_volume -= 5*factor;
+			int lCurrVol = Engine->GetModule<Audio>().GetSFXVolume();
+			Engine->GetModule<Audio>().SetSFXVolume(lCurrVol- 5*factor);
 
 			Engine->GetModule<Audio>().PlaySFX(mSFXMenuChange);
-
-			if (Engine->GetModule<Audio>().sfx_volume > 100)
-				Engine->GetModule<Audio>().sfx_volume = 100;
-
-			if (Engine->GetModule<Audio>().sfx_volume < 0)
-				Engine->GetModule<Audio>().sfx_volume = 0;
 		}
 	}
 		break;
@@ -86,15 +81,10 @@ void UISettingsMenu::Loop()
 		{
 			is_volume_on_cooldown = true;
 			cooldown_timer.Reset();
-			Engine->GetModule<Audio>().music_volume -= 5 * factor;
+			int lCurrVol = Engine->GetModule<Audio>().GetMusicVolume();
+			Engine->GetModule<Audio>().SetMusicVolume(lCurrVol - 5 * factor);
 
 			Engine->GetModule<Audio>().PlaySFX(mSFXMenuChange);
-
-			if (Engine->GetModule<Audio>().music_volume > 100)
-				Engine->GetModule<Audio>().music_volume = 100;
-
-			if (Engine->GetModule<Audio>().music_volume < 0)
-				Engine->GetModule<Audio>().music_volume = 0;
 		}
 	}
 		break;
@@ -177,8 +167,8 @@ void UISettingsMenu::Loop()
 
 void UISettingsMenu::Render()
 {
-	float volume_sfx = Engine->GetModule<Audio>().sfx_volume;
-	float volume_music= Engine->GetModule<Audio>().music_volume;
+	float volume_sfx = Engine->GetModule<Audio>().GetSFXVolume();
+	float volume_music= Engine->GetModule<Audio>().GetMusicVolume();
 
 	volume_music_bar_rect.w = 208 * (volume_music / 100);
 	volume_sfx_bar_rect.w = 208 * (volume_sfx / 100);

@@ -79,7 +79,7 @@ bool EndDemoObject::Render()
 {
 	if (player_contact == true)
 	{
-		if (Engine->GetModule<Input>().using_controller)
+		if (Engine->GetModule<Input>().IsUsingController())
 			Engine->GetModule<::Render>().Blit(indicator, collider->x + collider->w / 2 - 24, collider->y - 48, rectanglecontroller, -5);
 		else
 			Engine->GetModule<::Render>().Blit(indicator, collider->x + collider->w / 2 - 24, collider->y - 48, rectanglekeyboard, -5);

@@ -3,6 +3,7 @@
 #include "Modules/Input.h"
 #include "Modules/Debug.h"
 #include <Psapi.h>
+#include "Utils/Utils.h"
 
 #include "DebugImpl.h"
 #include "ObjectManagerImpl.h"
@@ -61,7 +62,7 @@ bool Debug::DebugImpl::Loop(float dt)
 			mUpdateTimesQueue.pop();
 		}
 		
-		float averageDT = mPartInst->GetQueueMedianNumber(mUpdateTimesQueue);
+		float averageDT = GetQueueMedianNumber(mUpdateTimesQueue);
 		float FPS = (1.0f / averageDT) * 1000;
 
 		lString += std::to_string(averageDT);
@@ -86,7 +87,7 @@ bool Debug::DebugImpl::Loop(float dt)
 			mCPUUsageQueue.pop();
 		}
 
-		float averageCPU = mPartInst->GetQueueMedianNumber(mCPUUsageQueue);
+		float averageCPU = GetQueueMedianNumber(mCPUUsageQueue);
 
 		lString += std::to_string(averageCPU);
 		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 95, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
@@ -167,19 +168,6 @@ float Debug::GetPercentCPUUsage()
 	lImpl->lastSysCPU = sys;
 
 	return percent * 100;
-}
-
-float Debug::GetQueueMedianNumber(std::queue<float> lQueue)
-{
-	float lSumOfallTimes = 0;
-	int lTotalTimes = lQueue.size();
-	while (!lQueue.empty()) 
-	{
-		lSumOfallTimes += lQueue.front();
-		lQueue.pop();
-	}
-
-	return lSumOfallTimes / (float)lTotalTimes;
 }
 
 bool Debug::IsDebugActive()

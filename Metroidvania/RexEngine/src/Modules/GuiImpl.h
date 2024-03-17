@@ -22,11 +22,11 @@ protected:
 	bool CleanUp();
 	void Clearelements();
 
-	std::vector<UIelement*> elements;
-	std::unordered_set<UIelement*> to_delete;
-
 private:
 	friend class UserInterface;
 	UserInterface* mPartInst;
+
+	std::vector<UIelement*> elements;
+	std::unordered_set<UIelement*> to_delete;
 };
 #endif

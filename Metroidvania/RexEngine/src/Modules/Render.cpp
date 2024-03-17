@@ -99,9 +99,6 @@ bool Render::RenderImpl::Loop(float dt)
 	bool ret = true;
 	SDL_RenderClear(renderer);
 
-	mPartInst->mApp.GetModule<Camera>().screenarea.x = mPartInst->mApp.GetModule<Camera>().position_x;
-	mPartInst->mApp.GetModule<Camera>().screenarea.y = mPartInst->mApp.GetModule<Camera>().position_y;
-
 	mDrawCallsLastFrame = 0;
 
 	for (int i = 0; i < RenderQueue::RENDER_MAX; i++)
@@ -117,7 +114,6 @@ bool Render::RenderImpl::Loop(float dt)
 			delete lNextItem;
 		}
 	}
-
 
 	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
@@ -404,9 +400,12 @@ void BlitBackground::Blit(Render& aRender, Camera& camera, Window& aWindow)
 	int cam_tile_y;
 	int j = 0;
 	bool exit = false;
+
+	float cam_posx, cam_posy;
+	camera.GetCameraPosition(cam_posx, cam_posy);
 	while (!exit)
 	{
-		if (camera.position_x * parallax_x >= (j - 1) * back_w && camera.position_x * parallax_x < j * back_w)
+		if (cam_posx * parallax_x >= (j - 1) * back_w && cam_posx * parallax_x < j * back_w)
 		{
 			exit = true;
 			cam_tile_x = j;
@@ -417,7 +416,7 @@ void BlitBackground::Blit(Render& aRender, Camera& camera, Window& aWindow)
 	exit = false;
 	while (!exit)
 	{
-		if (camera.position_y * parallax_y >= (j - 1) * back_h && camera.position_y * parallax_y < j * back_h)
+		if (cam_posy * parallax_y >= (j - 1) * back_h && cam_posy * parallax_y < j * back_h)
 		{
 			exit = true;
 			cam_tile_y = j;
@@ -425,11 +424,14 @@ void BlitBackground::Blit(Render& aRender, Camera& camera, Window& aWindow)
 		j++;
 	}
 
-	int rel_x = camera.position_x - cam_tile_x * back_w;
-	int rel_y = camera.position_y - cam_tile_y * back_h;
+	int rel_x = cam_posx - cam_tile_x * back_w;
+	int rel_y = cam_posy - cam_tile_y * back_h;
 
-	float images_that_fit_in_cam_x = camera.width / back_w;
-	float images_that_fit_in_cam_y = camera.height / back_h;
+	float cam_w, cam_h;
+	camera.GetCameraSize(cam_w, cam_h);
+
+	float images_that_fit_in_cam_x = cam_w / back_w;
+	float images_that_fit_in_cam_y = cam_h / back_h;
 
 	for (int i = 0; i <= images_that_fit_in_cam_x; ++i)
 	{

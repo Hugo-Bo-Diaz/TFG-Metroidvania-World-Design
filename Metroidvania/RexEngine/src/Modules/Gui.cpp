@@ -44,20 +44,11 @@ void UserInterface::GuiImpl::RenderDebug()
 	{
 		(*it)->RenderDebug();
 	}
-
 }
 
 bool UserInterface::GuiImpl::CleanUp()
 {
-	for (std::vector<UIelement*>::iterator it = elements.begin(); it != elements.end(); it++)
-	{
-		(*it)->Destroy();
-		delete(*it)->Engine;
-		delete (*it);
-	}
-
-	elements.clear();
-
+	Clearelements();
 	return true;
 }
 
@@ -100,14 +91,7 @@ bool UserInterface::ElementExists(UIelement * to_check)
 	}
 
 	bool is_in_array = false;
-
-	for (std::vector<UIelement*>::iterator it = lImpl->elements.begin(); it != lImpl->elements.end(); it++)
-	{
-		if ((*it) == to_check)
-			return true;
-	}
-	
-	return false;
+	return (std::find(lImpl->elements.begin(), lImpl->elements.end(), to_check) != lImpl->elements.end());
 }
 
 bool UserInterface::AddElement(UIelement* uiElement)
@@ -125,7 +109,7 @@ bool UserInterface::AddElement(UIelement* uiElement)
 	uiElement->Engine = new EngineAPI(mApp);
 	uiElement->Init();
 
-	if (std::find(lImpl->elements.begin(), lImpl->elements.end(), uiElement) == lImpl->elements.end())
+	if (!ElementExists(uiElement))
 	{
 		lImpl->elements.push_back(uiElement);
 		return true;

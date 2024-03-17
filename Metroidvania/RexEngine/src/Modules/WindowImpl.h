@@ -12,15 +12,6 @@ private:
 	SDL_Window* window;
 	SDL_Surface* screen_surface;
 	Window* mPartInst;
-public:
-	Window::WindowImpl(Window* aWindow) :mPartInst(){};
-
-	void SetWindowInst(Window* aAudio)
-	{
-		mPartInst = aAudio;
-	}
-
-	SDL_Window* GetSDLWindow() { return window; };
 
 	int		width;
 	int		height;
@@ -33,6 +24,15 @@ public:
 
 	float base_window_width = 1024;
 	float base_window_height = 576;
+public:
+	Window::WindowImpl(Window* aWindow) :mPartInst(){};
+
+	void SetWindowInst(Window* aAudio)
+	{
+		mPartInst = aAudio;
+	}
+
+	SDL_Window* GetSDLWindow() { return window; };
 
 protected:
 	bool Loop(float dt);

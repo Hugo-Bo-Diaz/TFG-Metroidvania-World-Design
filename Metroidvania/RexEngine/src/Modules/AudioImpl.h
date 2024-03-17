@@ -34,17 +34,27 @@ public:
 
 protected:
 	bool Init();
-	bool Loop(float dt);
 	bool CleanUp();
 
 	bool LoadConfig(pugi::xml_node& config_node);
 	bool CreateConfig(pugi::xml_node& config_node);
 
 private:
+	int mAudioCount = 0;
 	std::map<AudioID, Music*> music_list;
 	std::map<AudioID, SFX*> sfx_list;
-	_Mix_Music* next_song_after_fade_out;
 	friend class Audio;
+
+	float settings_volume = 100;
+	float music_volume = 100;
+	float sfx_volume = 100;
+
+	AudioID next_song_after_fade_out;
+	float current_fade_out;
+	float next_song_after_fade_out_fade_time;
+	AudioID current_song = -1;
+
+	int GetFirstFreeChannel();
 
 	Audio* mPartInst;
 };

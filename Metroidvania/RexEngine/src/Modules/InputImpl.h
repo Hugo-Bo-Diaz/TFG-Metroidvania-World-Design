@@ -15,6 +15,15 @@ public:
 		mPartInst = aInput;
 	}
 
+protected:
+	bool Init();
+	bool Loop(float dt);
+	bool CleanUp();
+
+	bool LoadConfig(pugi::xml_node& config_node);
+	bool CreateConfig(pugi::xml_node& config_node);
+
+private:
 	Keystate* keyboard;
 
 	Keystate* controller;
@@ -28,15 +37,10 @@ public:
 	int controller_id = 0;
 	bool controller_active = false;
 
-protected:
-	bool Init();
-	bool Loop(float dt);
-	bool CleanUp();
-
-	bool LoadConfig(pugi::xml_node& config_node);
-	bool CreateConfig(pugi::xml_node& config_node);
-
-private:
+	friend Input;
 	Input* mPartInst;
+	std::vector<setup*> controller_setups;
+	int current_setup = 1;
+	bool using_controller = false;
 };
 #endif

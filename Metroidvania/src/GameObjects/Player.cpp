@@ -128,9 +128,9 @@ void Player::Init()
 	unlocked.push_back(true);
 	unlocked.push_back(true);
 	*/
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Stats") == nullptr)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats") == nullptr)
 	{
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("Stats");
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("Stats");
 	}
 	nextpos = new RXRect();
 	nextpos->x = collider->x;
@@ -473,13 +473,13 @@ bool Player::Loop(float dt)
 	if (mana < max_mana && time_since_mana_use.Read() > time_to_start_regen)
 	{
 		mana += base_mana_regen + ( mana / max_mana )*scaling_mana_regen;
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Stats")->SetValue("CurrentMana",mana);
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->SetValue("CurrentMana",mana);
 	}
 
 	if (mana > max_mana)
 	{
 		mana = max_mana;
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Stats")->SetValue("CurrentMana", mana);
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->SetValue("CurrentMana", mana);
 	}
 
 
@@ -613,7 +613,7 @@ void Player::AddHealth(int amount, int knockbackdirection)
 			}
 		}
 	}
-	Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Stats")->SetValue("CurrentHP", health);
+	Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->SetValue("CurrentHP", health);
 
 
 	if (amount < 0 && !is_invincible)
@@ -635,7 +635,7 @@ void Player::AddHealth(int amount, int knockbackdirection)
 void Player::AddMana(float amount)
 {
 	mana += amount;
-	Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Stats")->SetValue("CurrentMana", mana);
+	Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->SetValue("CurrentMana", mana);
 	time_since_mana_use.Reset();
 	if(mana<0)
 	{
@@ -645,14 +645,14 @@ void Player::AddMana(float amount)
 
 void Player::AddMaxHealth()
 {
-	int currentHPfrag = Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Stats")->GetValue("CurrentFragmentsHP");
-	Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Stats")->SetValue("CurrentFragmentsHP", currentHPfrag + 1);
+	int currentHPfrag = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("CurrentFragmentsHP");
+	Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->SetValue("CurrentFragmentsHP", currentHPfrag + 1);
 }
 
 void Player::AddMaxMana()
 {
-	int currentHPfrag = Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Stats")->GetValue("CurrentFragmentsMana");
-	Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Stats")->SetValue("CurrentFragmentsMana", currentHPfrag);
+	int currentHPfrag = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("CurrentFragmentsMana");
+	Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->SetValue("CurrentFragmentsMana", currentHPfrag);
 }
 
 bool Player::Render()

@@ -8,22 +8,6 @@
 
 #define MAX_EXPANSIONS 32
 
-struct DLL_EXPORT LoreLog
-{
-	std::string title;
-	std::string text;
-	int id;
-
-	bool operator<(const LoreLog& rhs) const
-	{
-		if (id < rhs.id)
-			return true;
-		else
-			return false;
-	}
-};
-
-
 class DLL_EXPORT Section
 {
 public:
@@ -51,8 +35,8 @@ class DLL_EXPORT ProgressTracker : public Part
 public:
 	ProgressTracker(EngineAPI& aAPI);
 
-	Section* BaseSaveSection;
-	Section* BaseSettingsSection;
+	Section* GetBaseSaveSection();
+	Section* GetBaseSettingsSection();
 
 	bool CanLoadGame(const char* file);
 	bool LoadFile(const char* save_loc);

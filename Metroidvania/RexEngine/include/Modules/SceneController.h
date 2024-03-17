@@ -12,17 +12,13 @@
 #define ROOMS_MAX_X 10
 #define ROOMS_MAX_Y 10
 
-
-
 class DLL_EXPORT SceneController : public Part
 {
 public:
 	SceneController(EngineAPI&);
 
 	void LoadMap(const char* filename);
-
 	void CleanMap();
-
 	void GetRoomSize(int& x, int& y);
 
 	bool AssignGameLoopFunction(std::function<void()> SceneFunction);

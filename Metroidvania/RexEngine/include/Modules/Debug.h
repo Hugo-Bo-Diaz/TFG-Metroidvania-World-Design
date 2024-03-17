@@ -22,8 +22,6 @@ public:
 
 	bool GetTotalMemoryUsage(float& virtualmem,float& physicalmem);
 	float GetPercentCPUUsage();
-
-	float GetQueueMedianNumber(std::queue<float> lQueue);
 	
 	FontID mDebugPanelFont;
 };

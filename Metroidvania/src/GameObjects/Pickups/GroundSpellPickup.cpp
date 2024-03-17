@@ -61,19 +61,19 @@ void GroundSpellPickup::Init()
 	p = Engine->GetModule<Particles>().AddParticleEmitter(&sand_left, collider->x, collider->y);
 	q = Engine->GetModule<Particles>().AddParticleEmitter(&sand_right, collider->x, collider->y);
 
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("SpellsUnlock") == nullptr)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("SpellsUnlock") == nullptr)
 	{
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("SpellsUnlock");
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("SpellsUnlock");
 	}
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs") == nullptr)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs") == nullptr)
 	{
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("LoreLogs");
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("LoreLogs");
 	}
 }
 
 bool GroundSpellPickup::Loop(float dt)
 {
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("SpellsUnlock")->GetValue("Ground"))
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("SpellsUnlock")->GetValue("Ground"))
 	{
 		Engine->GetModule<ObjectManager>().DeleteObject(this);
 	}
@@ -94,7 +94,7 @@ bool GroundSpellPickup::Loop(float dt)
 			if ((*it)->object->IsSameTypeAs<Player>())
 			{
 				((Player*)((*it)->object))->unlock_spell(GROUND);
-				Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("SpellsUnlock")->SetValue("Ground", 1);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("SpellsUnlock")->SetValue("Ground", 1);
 				Engine->GetModule<ObjectManager>().DeleteObject(this);
 				UItextbox* textbox = new UItextbox("", "congratulations you unlocked ground!", TextBoxColor::GREY, 15, 4, 272, 420, 2, 0.2);
 				textbox->AddPanelToTextBox("this castle is still alive, just broken");
@@ -102,7 +102,7 @@ bool GroundSpellPickup::Loop(float dt)
 				//Engine->GetModule<Particles>().to_delete.push_back(p);
 				Engine->GetModule<Particles>().AddParticleEmitter(&sand_left, collider->x, collider->y, 1500);
 				Engine->GetModule<Particles>().AddParticleEmitter(&sand_right, collider->x, collider->y, 1500);
-				Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("LoreLogs")->SetValue("16", 1.0f);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue("16", 1.0f);
 
 			}
 		}

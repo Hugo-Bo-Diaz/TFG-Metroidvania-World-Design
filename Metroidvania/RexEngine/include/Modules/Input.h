@@ -94,25 +94,21 @@ public:
 	~Input() {};
 
 	Keystate GetKey(int id);
-	
 	Keystate GetButton(int id);
-
 	Keystate GetInput(Gameplay_buttons id);
 
 	void GetJoystick(bool left, float& x, float& y);
-
 	float GetTrigger(bool left);
 
 	bool GetTriggerPressed(bool left);
 	bool GetTriggerDown(bool left);
 	bool GetTriggerReleased(bool left);
 
+	bool IsUsingController();
+
 	//0 horizontal 1 vertical
-
-	bool using_controller = false;
-
-	int current_setup = 1;
-	std::vector<setup*> controller_setups;
+	void AddControllerSetup(setup*);
+	void RemoveControllerSetup(setup*);
 
 private:
 

@@ -65,7 +65,7 @@ bool Input::InputImpl::Loop(float dt)
 	{
 		if (keys[i] == 1)
 		{
-			mPartInst->current_setup = 0;
+			current_setup = 0;
 
 			if (keyboard[i] == KEY_IDLE)
 				keyboard[i] = KEY_DOWN;
@@ -93,7 +93,7 @@ bool Input::InputImpl::Loop(float dt)
 		{
 			if (buttons[i] == 1)
 			{
-				mPartInst->current_setup = 1;
+				current_setup = 1;
 				if (controller[i] == KEY_IDLE)
 					controller[i] = KEY_DOWN;
 				else
@@ -313,7 +313,7 @@ bool Input::InputImpl::LoadConfig(pugi::xml_node& config_node)
 			new_setup->inputs[17] = set.child("down").attribute("value").as_int();
 			new_setup->inputs[16] = set.child("up").attribute("value").as_int();
 		}
-		mPartInst->controller_setups.push_back(new_setup);
+		controller_setups.push_back(new_setup);
 	}
 
 	return true;
@@ -385,15 +385,15 @@ void Input::GetJoystick(bool left, float& x, float& y)
 
 	x = 0;
 	y = 0;
-	if(controller_setups[current_setup]->keyboard)
+	if(lImpl->controller_setups[lImpl->current_setup]->keyboard)
 	{
-		if (GetKey(controller_setups[current_setup]->inputs[LEFT]))
+		if (GetKey(lImpl->controller_setups[lImpl->current_setup]->inputs[LEFT]))
 			x -= 1;
-		if (GetKey(controller_setups[current_setup]->inputs[RIGHT]))
+		if (GetKey(lImpl->controller_setups[lImpl->current_setup]->inputs[RIGHT]))
 			x += 1;
-		if (GetKey(controller_setups[current_setup]->inputs[DOWN]))
+		if (GetKey(lImpl->controller_setups[lImpl->current_setup]->inputs[DOWN]))
 			y += 1;
-		if (GetKey(controller_setups[current_setup]->inputs[UP]))
+		if (GetKey(lImpl->controller_setups[lImpl->current_setup]->inputs[UP]))
 			y -= 1;
 	}
 	else
@@ -484,9 +484,14 @@ bool Input::GetTriggerReleased(bool left)
 
 Keystate Input::GetInput(Gameplay_buttons id)
 {
+	InputImpl* lImpl = dynamic_cast<InputImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return Keystate::KEY_IDLE;
+	}
 
-	setup* current = controller_setups[current_setup];
-	
+	setup* current = lImpl->controller_setups[lImpl->current_setup];
 
 	if (current->keyboard)
 	{
@@ -520,5 +525,27 @@ Keystate Input::GetKey(int id)
 
 	return lImpl->keyboard[id];
 };
+
+
+bool Input::IsUsingController()
+{
+	InputImpl* lImpl = dynamic_cast<InputImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+	}
+
+	return lImpl->controller_active;
+}
+
+//0 horizontal 1 vertical
+void Input::AddControllerSetup(setup* aSetup)
+{
+
+}
+void Input::RemoveControllerSetup(setup*)
+{
+
+}
 
 #pragma endregion

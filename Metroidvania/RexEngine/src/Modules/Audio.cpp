@@ -8,8 +8,8 @@
 
 #include <string.h>
 #include <functional>
-#include<iostream>
-
+#include <iostream>
+#include <algorithm>
 Audio::Audio(EngineAPI& aAPI) : Part("Audio",aAPI)
 {
 	mPartFuncts = new AudioImpl(this);
@@ -22,9 +22,9 @@ bool Audio::AudioImpl::LoadConfig(pugi::xml_node& config_node)
 	bool ret = true;
 
 	pugi::xml_node& volume_node = config_node.child("volume");
-	mPartInst->settings_volume = volume_node.attribute("general").as_float(100);
-	mPartInst->music_volume = volume_node.attribute("music").as_float(100);
-	mPartInst->sfx_volume = volume_node.attribute("sfx").as_float(100);
+	settings_volume = volume_node.attribute("general").as_float(100);
+	music_volume = volume_node.attribute("music").as_float(100);
+	sfx_volume = volume_node.attribute("sfx").as_float(100);
 
 	return ret;
 }
@@ -74,10 +74,10 @@ bool Audio::AudioImpl::Init()
 
 	Mix_AllocateChannels(16);
 
-	float real_music_volume = (mPartInst->music_volume * 128 / 100)*(mPartInst->settings_volume / 100);
+	float real_music_volume = (music_volume * 128 / 100)*(settings_volume / 100);
 	Mix_VolumeMusic(real_music_volume);
 
-	float real_fx_volume = (mPartInst->sfx_volume * 128 / 100)*(mPartInst->settings_volume / 100);
+	float real_fx_volume = (sfx_volume * 128 / 100)*(settings_volume / 100);
 	if (real_fx_volume < 0)
 		real_fx_volume = 0;
 	
@@ -103,19 +103,6 @@ bool Audio::AudioImpl::Init()
 	}
 
 	return ret;
-}
-
-bool Audio::AudioImpl::Loop(float dt)
-{
-	if(mPartInst->prev_sett_volume != mPartInst->settings_volume || mPartInst->prev_mus_volume != mPartInst->music_volume || mPartInst->prev_sfx_volume != mPartInst->sfx_volume)
-	{
-		mPartInst->RecalculateVolume();
-
-		mPartInst->prev_sett_volume = mPartInst->settings_volume;
-		mPartInst->prev_mus_volume = mPartInst->music_volume;
-		mPartInst->prev_sfx_volume = mPartInst->sfx_volume;
-	}
-	return true;
 }
 
 bool Audio::AudioImpl::CleanUp()
@@ -162,23 +149,23 @@ AudioID Audio::LoadMusic(const char * file, float fade,float volume)
 		}
 	}
 
-	Music* new_music = new Music();
-	new_music->id = lImpl->music_list.size();
-	new_music->path = file;
-	new_music->fade = fade;
-	new_music->volume = volume;
 
-	new_music->music = Mix_LoadMUS(file);
-	if (new_music->music == NULL)
+	Mix_Music* lMusic= Mix_LoadMUS(file);
+	if (lMusic == NULL)
 	{
 		Logger::Console_log(LogLevel::LOG_ERROR,"Can't load music");
-		delete new_music;
 		return -1;
 	}
 	else
 	{
-		uint lNextAudioID = lImpl->music_list.size() + lImpl->sfx_list.size();
-		lImpl->music_list.insert(std::make_pair(lNextAudioID,new_music));
+		Music* new_music = new Music();
+		lImpl->mAudioCount++;
+		new_music->id = lImpl->mAudioCount;
+		new_music->path = file;
+		new_music->fade = fade;
+		new_music->volume = volume;
+		new_music->music = lMusic;
+		lImpl->music_list.insert(std::make_pair(lImpl->mAudioCount,new_music));
 		return new_music->id;
 	}
 }
@@ -200,22 +187,21 @@ AudioID Audio::LoadSFX(const char * file, float volume)
 		}
 	}
 
-	SFX* new_sfx = new SFX();
-	new_sfx->id = lImpl->sfx_list.size();
-	new_sfx->volume = volume;
-	new_sfx->path = file;
-
-	new_sfx->sfx = Mix_LoadWAV(file);
-	if (new_sfx->sfx == NULL)
+	Mix_Chunk* lChunk = Mix_LoadWAV(file);
+	if (lChunk == NULL)
 	{
 		Logger::Console_log(LogLevel::LOG_ERROR,"Can't load sfx");
-		delete new_sfx;
 		return -1;
 	}
 	else
 	{
-		uint lNextAudioID = lImpl->music_list.size() + lImpl->sfx_list.size();
-		lImpl->sfx_list.insert(std::make_pair(lNextAudioID,new_sfx));
+		SFX* new_sfx = new SFX();
+		lImpl->mAudioCount++;
+		new_sfx->id = lImpl->mAudioCount;
+		new_sfx->volume = volume;
+		new_sfx->path = file;
+		new_sfx->sfx = lChunk;
+		lImpl->sfx_list.insert(std::make_pair(lImpl->mAudioCount, new_sfx));
 		return new_sfx->id;
 	}
 }
@@ -230,23 +216,23 @@ void Audio::PlayMusic(AudioID music_id, float fade_in_ms)
 	}
 
 	Music* music_selected = lImpl->music_list[music_id];
-	if (music_id != current_song)
+	if (music_id != lImpl->current_song)
 	{
-		current_song = music_id;
+		lImpl->current_song = music_id;
 
 		if (Mix_PlayingMusic() == 1)
 		{
 			//fade out music
-			Mix_FadeOutMusic(current_fade_out);
-			lImpl->next_song_after_fade_out = music_selected->music;
-			next_song_after_fade_out_fade_time = music_selected->fade;
+			Mix_FadeOutMusic(lImpl->current_fade_out);
+			lImpl->next_song_after_fade_out = music_selected->id;
+			lImpl->next_song_after_fade_out_fade_time = music_selected->fade;
 			//Mix_HookMusicFinished([]() {thisInst->StartNextSongAfterFadeOut(); });
-			current_fade_out = music_selected->fade;
+			lImpl->current_fade_out = music_selected->fade;
 		}
 		else
 		{
 			Mix_PlayMusic(music_selected->music, -1);
-			current_fade_out = music_selected->fade;
+			lImpl->current_fade_out = music_selected->fade;
 		}
 	}
 }
@@ -261,11 +247,16 @@ uint Audio::PlaySFX(AudioID sfx_id, int repeat, uint channel)
 	}
 
 	SFX* sfx_selected = lImpl->sfx_list[sfx_id];
+
+	if (sfx_selected == nullptr)
+	{
+		return 0;
+	}
 	
 	int chan = channel;
 	if (channel == -1)
 	{
-		chan = GetFirstFreeChannel();
+		chan = lImpl->GetFirstFreeChannel();
 	}
 
 	int i = Mix_PlayChannel(chan, sfx_selected->sfx, repeat);
@@ -282,18 +273,7 @@ void Audio::StopChannel(uint channel)
 	Mix_Pause(channel);
 }
 
-void Audio::RecalculateVolume()
-{
-	float setvol = settings_volume / 100;
-
-	float musvol = setvol * (music_volume * (MIX_MAX_VOLUME / 100));
-	Mix_VolumeMusic(musvol);
-
-	float sfxvol = setvol * (sfx_volume * (MIX_MAX_VOLUME / 100));
-	Mix_Volume(-1,sfxvol);
-}
-
-int Audio::GetFirstFreeChannel()
+int Audio::AudioImpl::GetFirstFreeChannel()
 {
 	for (int i = 0; i < 8; ++i)
 	{
@@ -303,6 +283,127 @@ int Audio::GetFirstFreeChannel()
 		}
 	}
 	return -1;
+}
+
+void Audio::SetGeneralVolume(float aNewVolume)
+{
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+	lImpl->settings_volume = aNewVolume;
+}
+
+float Audio::GetGeneralVolume()
+{
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	return lImpl->settings_volume;
+}
+
+void Audio::SetMusicVolume(float aNewVolume)
+{
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	float setvol = lImpl->settings_volume / 100;
+	//keep volume val between 0 and 100
+	aNewVolume = min(max(aNewVolume, 0), 100);
+
+	lImpl->music_volume = aNewVolume;
+
+	float musvol = setvol * (lImpl->music_volume * (MIX_MAX_VOLUME / 100));
+	Mix_VolumeMusic(musvol);
+}
+
+float Audio::GetMusicVolume()
+{
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	return lImpl->music_volume;
+}
+
+void Audio::SetSFXVolume(float aNewVolume)
+{
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	float setvol = lImpl->settings_volume / 100;
+	//keep volume val between 0 and 100
+	aNewVolume = min(max(aNewVolume, 0), 100);
+
+	lImpl->sfx_volume = aNewVolume;
+
+	float musvol = setvol * (lImpl->sfx_volume * (MIX_MAX_VOLUME / 100));
+	Mix_VolumeMusic(musvol);
+}
+
+float Audio::GetSFXVolume()
+{
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	return lImpl->sfx_volume;
+}
+
+AudioID Audio::GetCurrentSong()
+{
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	return lImpl->current_song;
+}
+
+void Audio::SetFadeOut(float aNewFadeOut)
+{
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	lImpl->current_fade_out = aNewFadeOut;
+}
+
+void Audio::SetNextSongAfterFadeOut(AudioID aSongAfterFade)
+{
+	AudioImpl* lImpl = dynamic_cast<AudioImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	lImpl->next_song_after_fade_out = aSongAfterFade;
 }
 
 #pragma endregion

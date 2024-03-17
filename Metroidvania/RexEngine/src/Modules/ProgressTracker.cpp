@@ -10,9 +10,6 @@
 ProgressTracker::ProgressTracker(EngineAPI& aAPI) : Part("ProgressTracker",aAPI)
 {
 	mPartFuncts = new ProgressTrackerImpl(this);
-
-	BaseSaveSection = new Section();
-	BaseSettingsSection = new Section();
 }
 
 #pragma region IMPLEMENTATION
@@ -80,11 +77,11 @@ bool ProgressTracker::LoadFile(const char* save_loc)
 
 	save_file_node = config_file.child("save_state");
 
-	if (BaseSaveSection != nullptr)
-		delete BaseSaveSection;
+	if (lImpl->BaseSaveSection != nullptr)
+		delete lImpl->BaseSaveSection;
 
-	BaseSaveSection = new Section();
-	lImpl->LoadFromNode(BaseSaveSection,save_file_node);
+	lImpl->BaseSaveSection = new Section();
+	lImpl->LoadFromNode(lImpl->BaseSaveSection,save_file_node);
 
 
 	return true;
@@ -108,10 +105,10 @@ bool ProgressTracker::SaveFile(const char* save_loc)
 
 	save_file_node = config_file.append_child("save_state");
 
-	if (BaseSaveSection != nullptr)
-		delete BaseSaveSection;
+	if (lImpl->BaseSaveSection != nullptr)
+		delete lImpl->BaseSaveSection;
 
-	lImpl->SaveToNode(BaseSaveSection, save_file_node);
+	lImpl->SaveToNode(lImpl->BaseSaveSection, save_file_node);
 
 	config_file.save_file(save_loc);
 
@@ -131,8 +128,32 @@ bool ProgressTracker::CanLoadGame(const char * file)
 	{
 		return true;
 	}
-
 }
+
+Section* ProgressTracker::GetBaseSaveSection()
+{
+	ProgressTrackerImpl* lImpl = dynamic_cast<ProgressTrackerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	return lImpl->BaseSaveSection;
+}
+
+Section* ProgressTracker::GetBaseSettingsSection()
+{
+	ProgressTrackerImpl* lImpl = dynamic_cast<ProgressTrackerImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return 0;
+	}
+
+	return lImpl->BaseSettingsSection;
+}
+
 #pragma endregion
 
 #pragma region Section
