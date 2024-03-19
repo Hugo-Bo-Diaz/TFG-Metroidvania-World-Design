@@ -2,7 +2,7 @@
 #define PART_IMPL__H
 
 #include "../include/Modules/Part.h"
-
+#include "RXpch.h"
 #include "pugiXML\src\pugixml.hpp"
 
 class Part::Part_Impl

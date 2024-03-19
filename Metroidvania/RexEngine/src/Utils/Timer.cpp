@@ -1,5 +1,6 @@
 #include "Utils/Timer.h"
 #include "SDL\include\SDL_timer.h"
+#include "../src/Modules/RXpch.h"
 
 Timer::Timer()
 {

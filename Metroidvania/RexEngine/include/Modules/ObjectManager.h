@@ -3,10 +3,6 @@
 
 #include "PartsDef.h"
 #include "Part.h"
-#include <list>
-#include <vector>
-#include <map>
-#include <unordered_set>
 
 #include <functional>
 #include <typeindex>

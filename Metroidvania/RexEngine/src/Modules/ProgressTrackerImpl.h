@@ -1,7 +1,6 @@
 #ifndef PROGRESSTRACKER_IMPL__H
 #define PROGRESSTRACKER_IMPL__H
 
-
 #include "PartImpl.h"
 #include "../include/Modules/ProgressTracker.h"
 #include "pugiXML/src/pugixml.hpp"

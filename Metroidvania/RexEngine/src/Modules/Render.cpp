@@ -1,3 +1,4 @@
+#include "RXpch.h"
 #include "Modules/Render.h"
 #include "Application.h"
 #include "Modules/Window.h"
@@ -6,9 +7,7 @@
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Text.h"
 #include "Utils/Logger.h"
-#include "TextImpl.h"
-#include <stdio.h>
-#include <sstream>
+
 #include "RenderImpl.h"
 #include "TexturesImpl.h"
 #include "TextImpl.h"

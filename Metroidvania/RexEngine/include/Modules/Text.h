@@ -3,9 +3,7 @@
 
 #include "PartsDef.h"
 #include "Part.h"
-#include <vector>
 #include <string>
-#include <map>
 
 #include "Textures.h"
 #include "RXColor.h"

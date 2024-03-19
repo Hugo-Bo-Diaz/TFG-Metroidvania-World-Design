@@ -1,9 +1,5 @@
 #include "Utils/Logger.h"
-#include <ctime>
-#include <thread>
-#include <sstream>
-#include <iostream>
-#include <fstream>
+#include "../src/Modules/RXpch.h"
 
 Logger::Logger()
 {

@@ -1,3 +1,4 @@
+#include "RXpch.h"
 #include "Utils/Logger.h"
 #include "Utils/Utils.h"
 #include "AudioImpl.h"
@@ -6,10 +7,6 @@
 #include "SDL_mixer\include\SDL_mixer.h"
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
-#include <string.h>
-#include <functional>
-#include <iostream>
-#include <algorithm>
 Audio::Audio(EngineAPI& aAPI) : Part("Audio",aAPI)
 {
 	mPartFuncts = new AudioImpl(this);

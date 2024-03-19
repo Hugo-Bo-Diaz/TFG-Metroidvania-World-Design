@@ -1,12 +1,8 @@
 #ifndef LOGGER__H
 #define LOGGER__H
 
-#include <list>
 #include <string>
 #include <chrono>
-#include <time.h>
-#include <map>
-#include <fstream>
 
 #define MAX_TIME_LOG 2 // seconds
 #define DLL_EXPORT __declspec(dllexport)

@@ -1,3 +1,4 @@
+#include "RXpch.h"
 #include "Application.h"
 #include "Modules/Textures.h"
 #include "Modules/Render.h"
@@ -8,10 +9,6 @@
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
-
-#include <algorithm>
-#include <direct.h>
-#include <sstream>
 
 Textures::Textures(EngineAPI& aAPI) :Part("Textures", aAPI)
 {

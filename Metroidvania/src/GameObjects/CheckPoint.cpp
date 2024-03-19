@@ -7,9 +7,9 @@
 
 void CheckPoint::Init()
 {
-	if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Checkpoint") == nullptr)
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint") == nullptr)
 	{
-		Engine->GetModule<ProgressTracker>().BaseSaveSection->AddNewChild("Checkpoint");
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("Checkpoint");
 	}
 }
 
@@ -29,9 +29,9 @@ bool CheckPoint::Loop(float dt)
 		{
 			if ((*it)->object->IsSameTypeAs<Player>())
 			{
-				if (Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Checkpoint")->GetValue("last_checkpoint_id") != room_id ||
-					Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Checkpoint")->GetValue("last_checkpoint_x") != spawn_pos_x ||
-					Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Checkpoint")->GetValue("last_checkpoint_y") != spawn_pos_y)
+				if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->GetValue("last_checkpoint_id") != room_id ||
+					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->GetValue("last_checkpoint_x") != spawn_pos_x ||
+					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->GetValue("last_checkpoint_y") != spawn_pos_y)
 				{
 					//show checkpoint indicator
 					Engine->GetModule<ProgressTracker>().SaveFile("save_file.xml");
@@ -44,9 +44,9 @@ bool CheckPoint::Loop(float dt)
 					}
 				}
 
-				Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Checkpoint")->SetValue("last_checkpoint_id", room_id);
-				Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Checkpoint")->SetValue("last_checkpoint_id", spawn_pos_x);
-				Engine->GetModule<ProgressTracker>().BaseSaveSection->GetChild("Checkpoint")->SetValue("last_checkpoint_id", spawn_pos_y);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->SetValue("last_checkpoint_id", room_id);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->SetValue("last_checkpoint_id", spawn_pos_x);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->SetValue("last_checkpoint_id", spawn_pos_y);
 			}
 		}
 	}

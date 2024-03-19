@@ -16,11 +16,6 @@
 
 #include "../src/Modules/PartImpl.h"
 
-#include <exception>
-#include <signal.h>
-#include <iostream>
-#include <string>
-#include <sstream>
 #include "SDL/include/SDL.h"
 #include "pugiXML\src\pugixml.hpp"
 

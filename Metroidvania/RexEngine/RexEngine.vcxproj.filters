@@ -94,6 +94,9 @@
     <ClCompile Include="src\Utils\Utils.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\Modules\RXpch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\pugiXML\src\pugiconfig.hpp">
@@ -230,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="src\Modules\WindowImpl.h">
       <Filter>Source Files\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\RXpch.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

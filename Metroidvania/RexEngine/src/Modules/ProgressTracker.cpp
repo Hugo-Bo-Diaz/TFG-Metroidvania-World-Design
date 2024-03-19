@@ -1,10 +1,9 @@
+#include "RXpch.h"
 #include "Modules/ProgressTracker.h"
 #include "Application.h"
 
 #include "ProgressTrackerImpl.h"
 
-#include <string>
-#include <sstream>
 #include "Utils/Logger.h"
 
 ProgressTracker::ProgressTracker(EngineAPI& aAPI) : Part("ProgressTracker",aAPI)

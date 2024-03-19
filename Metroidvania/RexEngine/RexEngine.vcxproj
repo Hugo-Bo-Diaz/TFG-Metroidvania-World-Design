@@ -84,6 +84,8 @@
       <SDLCheck>true</SDLCheck>
       <LanguageStandard>Default</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)lib;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>RXpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(ProjectDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -128,27 +130,73 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lib\pugiXML\src\pugixml.cpp" />
-    <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\EngineElements\Animation.cpp" />
-    <ClCompile Include="src\EngineElements\ParticleEmitter.cpp" />
-    <ClCompile Include="src\EngineElements\UIelement.cpp" />
-    <ClCompile Include="src\Modules\Audio.cpp" />
-    <ClCompile Include="src\Modules\Camera.cpp" />
-    <ClCompile Include="src\Modules\Debug.cpp" />
-    <ClCompile Include="src\Modules\Gui.cpp" />
-    <ClCompile Include="src\Modules\Input.cpp" />
-    <ClCompile Include="src\Modules\ObjectManager.cpp" />
-    <ClCompile Include="src\Modules\Particles.cpp" />
-    <ClCompile Include="src\Modules\ProgressTracker.cpp" />
-    <ClCompile Include="src\Modules\Render.cpp" />
-    <ClCompile Include="src\Modules\SceneController.cpp" />
-    <ClCompile Include="src\Modules\Text.cpp" />
-    <ClCompile Include="src\Modules\Textures.cpp" />
-    <ClCompile Include="src\Modules\Window.cpp" />
-    <ClCompile Include="src\Utils\Logger.cpp" />
-    <ClCompile Include="src\Utils\Timer.cpp" />
-    <ClCompile Include="src\Utils\Utils.cpp" />
+    <ClCompile Include="lib\pugiXML\src\pugixml.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Application.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\EngineElements\Animation.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\EngineElements\ParticleEmitter.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\EngineElements\UIelement.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Audio.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Camera.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Debug.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Gui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Input.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ObjectManager.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Particles.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\ProgressTracker.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Render.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\RXpch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RXpch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\Modules\SceneController.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Text.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Textures.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Window.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Logger.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Timer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Utils.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Application.h" />
@@ -192,6 +240,7 @@
     <ClInclude Include="src\Modules\PartsDef.h" />
     <ClInclude Include="src\Modules\ProgressTrackerImpl.h" />
     <ClInclude Include="src\Modules\RenderImpl.h" />
+    <ClInclude Include="src\Modules\RXpch.h" />
     <ClInclude Include="src\Modules\SceneControllerImpl.h" />
     <ClInclude Include="src\Modules\TextImpl.h" />
     <ClInclude Include="src\Modules\TexturesImpl.h" />

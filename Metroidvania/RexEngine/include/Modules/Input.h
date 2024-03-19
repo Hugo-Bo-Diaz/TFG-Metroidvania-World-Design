@@ -3,7 +3,6 @@
 
 #include "PartsDef.h"
 #include "Part.h"
-#include <vector>
 
 #define MAX_KEYS 300
 //xbox style

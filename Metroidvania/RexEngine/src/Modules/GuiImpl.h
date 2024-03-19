@@ -3,7 +3,6 @@
 
 #include "PartImpl.h"
 #include "../include/Modules/Gui.h"
-#include <unordered_set>
 
 class UserInterface::GuiImpl : public Part::Part_Impl
 {

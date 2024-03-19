@@ -3,7 +3,6 @@
 
 #include "../include/Modules/Particles.h"
 #include "PartImpl.h"
-#include <unordered_set>
 
 class Particles::ParticlesImpl : public Part::Part_Impl
 {

@@ -1,13 +1,10 @@
+#include "RXpch.h"
 #include "Modules/Window.h"
 #include "Modules/Input.h"
 #include "Modules/SceneController.h"
 #include "Modules/Render.h"
 #include "Utils/Logger.h"
 
-#include <stdlib.h>
-#include <time.h>
-#include <string>
-#include <sstream>
 #include "CameraImpl.h"
 
 

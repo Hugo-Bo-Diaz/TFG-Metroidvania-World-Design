@@ -1,11 +1,10 @@
+#include "RXpch.h"
 #include "Modules/ObjectManager.h"
 #include "Utils/Logger.h"
 #include "Modules/Debug.h"
 #include "Modules/Render.h"
 #include "EngineElements/GameObject.h"
 
-#include <sstream>
-#include <typeindex>
 #include "SDL/include/SDL.h"
 #include "ObjectManagerImpl.h"
 

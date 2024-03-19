@@ -8,11 +8,6 @@
 #include "Part.h"
 #include "EngineElements/ParticleEmitter.h"
 
-#include <list>
-#include <vector>
-#include <utility>
-
-
 class DLL_EXPORT Particles : public Part
 {
 public:

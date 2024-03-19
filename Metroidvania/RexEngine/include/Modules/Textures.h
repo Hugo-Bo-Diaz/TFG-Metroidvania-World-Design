@@ -2,9 +2,6 @@
 #define TEXTURES__H
 
 #include "PartsDef.h"
-#include <vector>
-#include <map>
-#include <list>
 #include "Part.h"
 
 

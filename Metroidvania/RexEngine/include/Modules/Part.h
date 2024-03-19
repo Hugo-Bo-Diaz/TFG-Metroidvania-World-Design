@@ -1,8 +1,7 @@
 #ifndef PART__H
 #define PART__H
 
-#include<string>
-#include <memory>
+#include <string>
 
 #define DLL_EXPORT __declspec(dllexport)
 

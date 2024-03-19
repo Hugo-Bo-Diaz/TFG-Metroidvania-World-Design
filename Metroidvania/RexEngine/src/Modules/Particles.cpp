@@ -1,10 +1,10 @@
+#include "RXpch.h"
 #include "Modules/Particles.h"
 #include "Utils/Logger.h"
 #include "EngineAPI.h"
 
 #include "ParticlesImpl.h"
 #include "RenderImpl.h"
-#include <sstream>
 
 Particles::Particles(EngineAPI& aAPI) : Part("Particles",aAPI)
 {

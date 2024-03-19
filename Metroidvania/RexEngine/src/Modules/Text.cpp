@@ -1,3 +1,4 @@
+#include "RXpch.h"
 #include "Modules/Text.h"
 #include "Modules/Textures.h"
 #include "Application.h"
@@ -7,7 +8,6 @@
 #include "EngineAPI.h"
 
 #include "TexturesImpl.h"
-#include <sstream>
 #include "TextImpl.h"
 
 #include "SDL_image/include/SDL_image.h"

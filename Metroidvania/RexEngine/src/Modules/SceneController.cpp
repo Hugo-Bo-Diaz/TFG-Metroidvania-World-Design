@@ -1,3 +1,4 @@
+#include "RXpch.h"
 #include "Application.h"
 
 #include "Modules/SceneController.h"
@@ -15,8 +16,6 @@
 
 #include "Modules/Gui.h"
 #include "Modules/Text.h"
-#include <sstream>
-#include <map>
 
 #include "SceneControllerImpl.h"
 #include "RenderImpl.h"

@@ -3,7 +3,6 @@
 
 #include "PartImpl.h"
 #include "../include/Modules/Debug.h"
-
 #include "SDL/include/SDL.h"
 
 

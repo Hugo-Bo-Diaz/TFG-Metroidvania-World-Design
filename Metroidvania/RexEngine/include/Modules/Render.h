@@ -2,7 +2,6 @@
 #define RENDER__H
 
 #include"PartsDef.h"
-#include <queue>
 #include "Textures.h"
 #include "Text.h"
 #include "SceneController.h"
