@@ -6,6 +6,9 @@
 
 struct tileset
 {
+	tileset(int aFirstgid, int aTile_width, int aTile_height, int aColumns, int aTotal_tiles) 
+		: firstgid(aFirstgid), tile_width(aTile_width), tile_height(aTile_height), columns(aColumns), total_tiles(aTotal_tiles) {};
+
 	int firstgid;
 
 	int tile_width;
@@ -18,7 +21,7 @@ struct tileset
 };
 
 
-struct DLL_EXPORT layer
+struct layer
 {
 	uint* data;
 	int width;
@@ -30,6 +33,9 @@ struct DLL_EXPORT layer
 
 	tileset* tileset_of_layer;
 
+	layer(tileset* aTileset,uint* aData, int aWidth, int aHeight, float aParallax_x, float aParallax_y, int aDepth, int aSize)
+		: tileset_of_layer(aTileset), data(aData), width(aWidth), height(aHeight), parallax_x(aParallax_x), parallax_y(aParallax_y), depth(aDepth), size(aSize) {}
+
 	~layer()
 	{
 		delete data;
@@ -38,6 +44,9 @@ struct DLL_EXPORT layer
 
 struct background_texture
 {
+	background_texture(TextureID aTexID, float aParallax_x, float aParallax_y, int aDepth, const char* aPath, bool aRepeat_y)
+		: texture(aTexID), parallax_x(aParallax_x), parallax_y(aParallax_y), depth(aDepth), path(aPath), repeat_y(aRepeat_y) {};
+
 	TextureID texture;
 	float parallax_x;
 	float parallax_y;
@@ -70,8 +79,8 @@ private:
 	bool LoadObjects(pugi::xml_node&);
 	bool LoadTiles(pugi::xml_node&);
 
-	bool LoadTilesets(pugi::xml_node&);
-	bool LoadBackgroundImage(pugi::xml_node&);
+	bool LoadTilesets(pugi::xml_node&, const char* aMapFolder);
+	bool LoadBackgroundImage(pugi::xml_node&, const char* aMapFolder);
 
 	bool LoadMapExecute(const char* filename);
 	void LoadMapProperties(pugi::xml_node&);

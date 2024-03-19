@@ -53,6 +53,9 @@ private:
 class BlitItemText : public BlitItem
 {
 public:
+	BlitItemText(const char* aText, Font* aFontUsed, SDL_Texture* aTexture) 
+		: mText(std::string(aText)), font_used(aFontUsed), lFontTexture(aTexture) {};
+
 	std::string mText;
 	Font* font_used;
 	SDL_Texture* lFontTexture;
@@ -62,6 +65,9 @@ public:
 class BlitTexture : public BlitItem
 {
 public:
+	BlitTexture(SDL_Texture* aTex, SDL_Rect& aOnImage, float aParallax_x, float aParallax_y) 
+		: tex(aTex), on_image(aOnImage), parallax_x(aParallax_x), parallax_y(aParallax_y) {};
+
 	SDL_Texture* tex;
 	SDL_Rect on_image;
 	float parallax_x;
@@ -73,8 +79,9 @@ public:
 class BlitLayer : public BlitItem
 {
 public:
+	BlitLayer(SDL_Texture* aTexture, layer* aLayer) : tex(aTexture), mLayer(aLayer) {};
 
-	layer* layer;
+	layer* mLayer;
 	SDL_Texture* tex;
 
 	void Blit(Render& aRender, Camera& camera, Window& aWindow);
@@ -87,14 +94,19 @@ public:
 class BlitBackground : public BlitTexture
 {
 public:
-
+	BlitBackground(SDL_Texture* aTexID, int aDepth, bool aRepeat_y, float aParallax_factor_x, float aParallax_factor_y) 
+		: BlitTexture(aTexID, SDL_Rect{ 0,0,0,0 }, aParallax_factor_x, aParallax_factor_y), repeat_y(aRepeat_y) {
+		depth = aDepth;
+	};
 	bool repeat_y;
 	void Blit(Render& aRender, Camera& camera, Window& aWindow);
 };
 
-class BlitParticles : public BlitTexture
+class BlitParticles : public BlitItem
 {
 public:
+	BlitParticles(SDL_Texture* aTexture, ParticleEmitter* aEmmitter) : tex(aTexture), lEmmitter(aEmmitter) {};
+
 	ParticleEmitter* lEmmitter;
 	SDL_Texture* tex;
 
@@ -104,6 +116,10 @@ public:
 class BlitRect : public BlitItem
 {
 public:
+	BlitRect(const RXRect& aRect, bool aFilled) : w(aRect.w), h(aRect.h), filled(aFilled) {
+		x = aRect.x;
+		y = aRect.y;
+	}
 
 	int w;
 	int h;
@@ -115,6 +131,7 @@ public:
 class BlitTrail : public BlitItem
 {
 public:
+	BlitTrail(SDL_Point* aPoint, int aAmount, int aDepth) : points(aPoint), amount(aAmount) { depth = aDepth; }
 
 	SDL_Point* points;
 	int amount;

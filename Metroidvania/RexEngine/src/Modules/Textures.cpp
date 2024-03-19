@@ -83,11 +83,8 @@ SDL_Texture* Textures::TexturesImpl::Get_Texture(TextureID id)
 
 TextureID Textures::TexturesImpl::AddTexture(SDL_Texture* aTextureToAdd, const char* aTextureName)
 {
-	Texture* new_tex = new Texture();
-	new_tex->texture = aTextureToAdd;
 	++number_of_textures;
-	new_tex->id = number_of_textures;
-	new_tex->name = aTextureName;
+	Texture* new_tex = new Texture(number_of_textures, aTextureName, aTextureToAdd);
 
 	texture_list.push_back(new_tex);
 	return new_tex->id;

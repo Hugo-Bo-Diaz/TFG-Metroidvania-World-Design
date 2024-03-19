@@ -52,7 +52,7 @@ bool Debug::DebugImpl::Loop(float dt)
 
 	if (mIsDebugPanelActive)
 	{
-		mPartInst->mApp.GetModule<Render>().DrawRect(mPanel,0,0,0,220,true,RenderQueue::RENDER_DEBUG,1,true);
+		mPartInst->mApp.GetModule<Render>().DrawRect(mPanel, RXColor{ 0,0,0,220 }, true, RenderQueue::RENDER_DEBUG, 1, true);
 		std::string lString;
 
 		lString = "FPS: ";

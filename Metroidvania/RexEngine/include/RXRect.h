@@ -3,11 +3,13 @@
 
 #include <minmax.h>
 
-struct RXRect {
+#define DLL_EXPORT __declspec(dllexport)
+
+struct  RXRect {
 	int x = 0, y = 0, w = 0, h = 0;
 };
 
-inline bool RXRectDoesCollide(const RXRect* A, const RXRect* B)
+inline bool DLL_EXPORT RXRectDoesCollide(const RXRect* A, const RXRect* B)
 {
 	int Amin, Amax, Bmin, Bmax;
 
@@ -49,7 +51,7 @@ inline bool RXRectDoesCollide(const RXRect* A, const RXRect* B)
 }
 
 
-inline bool RXRectCollision(const RXRect* a, const RXRect* b, RXRect* result = 0) {
+inline bool DLL_EXPORT RXRectCollision(const RXRect* a, const RXRect* b, RXRect* result = 0) {
 	if (a == nullptr || b == nullptr)
 	{
 		return false;

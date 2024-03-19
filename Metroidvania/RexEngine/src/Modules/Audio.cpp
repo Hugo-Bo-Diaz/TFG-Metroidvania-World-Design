@@ -158,13 +158,8 @@ AudioID Audio::LoadMusic(const char * file, float fade,float volume)
 	}
 	else
 	{
-		Music* new_music = new Music();
 		lImpl->mAudioCount++;
-		new_music->id = lImpl->mAudioCount;
-		new_music->path = file;
-		new_music->fade = fade;
-		new_music->volume = volume;
-		new_music->music = lMusic;
+		Music* new_music = new Music(file, lImpl->mAudioCount, lMusic, volume, fade);
 		lImpl->music_list.insert(std::make_pair(lImpl->mAudioCount,new_music));
 		return new_music->id;
 	}
@@ -195,12 +190,8 @@ AudioID Audio::LoadSFX(const char * file, float volume)
 	}
 	else
 	{
-		SFX* new_sfx = new SFX();
 		lImpl->mAudioCount++;
-		new_sfx->id = lImpl->mAudioCount;
-		new_sfx->volume = volume;
-		new_sfx->path = file;
-		new_sfx->sfx = lChunk;
+		SFX* new_sfx = new SFX(file, lImpl->mAudioCount, lChunk, volume);
 		lImpl->sfx_list.insert(std::make_pair(lImpl->mAudioCount, new_sfx));
 		return new_sfx->id;
 	}

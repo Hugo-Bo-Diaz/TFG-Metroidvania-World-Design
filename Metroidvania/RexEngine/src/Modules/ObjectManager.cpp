@@ -70,14 +70,14 @@ void ObjectManager::ObjectManagerImpl::RenderDebug()
 		if (walls[i] != nullptr)
 		{
 			RXRect lRect = { walls[i]->x,walls[i]->y,walls[i]->w,walls[i]->h };
-			mPartInst->mApp.GetModule<Render>().DrawRect(lRect, 0, 0, 255, 75, true, RenderQueue::RENDER_DEBUG, 0);
+			mPartInst->mApp.GetModule<Render>().DrawRect(lRect, RXColor{ 0, 0, 255, 75 }, true, RenderQueue::RENDER_DEBUG, 0);
 		}
 	}
 
 	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++)
 	{
 		(*it)->RenderDebug();
-		mPartInst->mApp.GetModule<Render>().DrawRect(*(*it)->collider, 0, 255, 0, 75, true, RenderQueue::RENDER_DEBUG, 0);
+		mPartInst->mApp.GetModule<Render>().DrawRect(*(*it)->collider, RXColor { 0, 255, 0, 75 }, true, RenderQueue::RENDER_DEBUG, 0);
 	}
 }
 

@@ -9,7 +9,6 @@ struct Mix_Chunk;
 
 typedef int AudioID;
 
-
 class DLL_EXPORT Audio : public Part
 {
 public:

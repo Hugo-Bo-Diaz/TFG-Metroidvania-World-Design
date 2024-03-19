@@ -123,36 +123,40 @@ bool Render::RenderImpl::Loop(float dt)
 
 void Render::RenderImpl::BlitMapLayer(layer* layer)
 {
-	BlitLayer* it = new BlitLayer();
-	it->layer = layer;
+	SDL_Texture* lTex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(layer->tileset_of_layer->texture);
+	if (lTex == nullptr)
+	{
+		return;
+	}
+
+	BlitLayer* it = new BlitLayer(lTex,layer);
 	it->depth = layer->depth;
-	it->tex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(layer->tileset_of_layer->texture);
 	allQueue.push(it);
 }
 
 void Render::RenderImpl::BlitParticleEmitter(ParticleEmitter* layer, RenderQueue aRenderQueue)
 {
-	BlitParticles* it = new BlitParticles();
-	it->lEmmitter = layer;
+	SDL_Texture* lTex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(layer->preset_for_emitter->texture_name);
+	if (lTex == nullptr)
+	{
+		return;
+	}
+
+	BlitParticles* it = new BlitParticles(lTex,layer);
 	it->depth = layer->depth;
-	it->tex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(layer->preset_for_emitter->texture_name);
 	GetQueue(aRenderQueue)->push(it);
 }
 
 
 void Render::RenderImpl::BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x, float parallax_factor_y)
 {
-	BlitBackground* it = new BlitBackground();
+	SDL_Texture* lTex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(aTexID);
+	if (lTex == nullptr)
+	{
+		return;
+	}
 
-	it->tex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(aTexID);
-
-	it->repeat_y = repeat_y;
-	it->depth = depth;
-
-	//it->img_center = {center_x,center_y};
-	it->parallax_x = parallax_factor_x;
-	it->parallax_y = parallax_factor_y;
-
+	BlitBackground* it = new BlitBackground(lTex,depth,repeat_y, parallax_factor_x, parallax_factor_y);
 	//order the elements
 	allQueue.push(it);
 }
@@ -201,21 +205,18 @@ void Render::Blit(TextureID aTexID, int x, int y,const RXRect& rect_on_image, in
 		return;
 	}
 
-	BlitTexture* it = new BlitTexture();
+	SDL_Texture* lTex = mApp.GetImplementation<Textures,Textures::TexturesImpl>()->Get_Texture(aTexID);
+	if (lTex == nullptr)
+	{
+		return;
+	}
+
+	BlitTexture* it = new BlitTexture(lTex, SDL_Rect{ rect_on_image.x,rect_on_image.y,rect_on_image.w,rect_on_image.h }, parallax_factor_x, parallax_factor_y);
+	it->SetPosition(x, y);
+	it->SetCenter(center_x, center_y);
 	it->depth = depth;
-	it->on_image = { rect_on_image.x,rect_on_image.y,rect_on_image.w,rect_on_image.h };
-	it->x = x;
-	it->y = y;
-	it->tex = mApp.GetImplementation<Textures,Textures::TexturesImpl>()->Get_Texture(aTexID);
-
 	it->ignore_camera = aQueue == RenderQueue::RENDER_UI;
-
-	it->center_x = center_x;
-	it->center_y = center_y;
-
 	it->angle = angle;
-	it->parallax_x = parallax_factor_x;
-	it->parallax_y = parallax_factor_y;
 
 	lImpl->GetQueue(aQueue)->push(it);
 }
@@ -228,26 +229,27 @@ void Render::BlitText(const char* text, FontID font, int x, int y, int depth, co
 		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
 		return;
 	}
-
-	BlitItemText* it = new BlitItemText();
-
-	it->ignore_camera = aQueue == RenderQueue::RENDER_UI || ignore_camera;
-	it->x = x;
-	it->y = y;
-	it->color = { aColor.r, aColor.g, aColor.b, aColor.a };
-	it->font_used = mApp.GetImplementation<Text, Text::TextImpl>()->GetFont(font);
-	if (it->font_used != nullptr)
+	Font* lFont = mApp.GetImplementation<Text, Text::TextImpl>()->GetFont(font);
+	if(lFont == nullptr)
 	{
-		it->lFontTexture = mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(it->font_used->font_texture);
-		it->mText = text;
-		it->depth = depth;
-
-		lImpl->GetQueue(aQueue)->push(it);
+		return;
 	}
 
+	SDL_Texture* lTexture = mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(lFont->font_texture);
+	if (lTexture == nullptr)
+	{
+		return;
+	}
+
+	BlitItemText* it = new BlitItemText(text, lFont, lTexture);
+	it->ignore_camera = aQueue == RenderQueue::RENDER_UI || ignore_camera;
+	it->SetPosition(x, y);
+	it->color = { aColor.r, aColor.g, aColor.b, aColor.a };
+	it->depth = depth;
+	lImpl->GetQueue(aQueue)->push(it);
 }
 
-void Render::DrawRect(const RXRect& area, uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool filled, RenderQueue aQueue,int depth , bool ignore_camera)
+void Render::DrawRect(const RXRect& area, const RXColor& aColor, bool filled, RenderQueue aQueue,int depth , bool ignore_camera)
 {
 	RenderImpl* lImpl = dynamic_cast<RenderImpl*>(mPartFuncts);
 	if (!lImpl)
@@ -256,13 +258,8 @@ void Render::DrawRect(const RXRect& area, uint8_t r, uint8_t g, uint8_t b, uint8
 		return;
 	}
 
-	BlitRect* it = new BlitRect();
-	it->x = area.x;
-	it->y = area.y;
-	it->w = area.w;
-	it->h = area.h;
-	it->color = RXColor{ r,g,b,a };
-	it->filled = filled;
+	BlitRect* it = new BlitRect(area, filled);
+	it->color = aColor;
 	it->ignore_camera = aQueue == RenderQueue::RENDER_UI || ignore_camera;
 	it->depth = depth;
 
@@ -278,8 +275,6 @@ void Render::DrawTrail(RXPoint* point_array, int amount, RenderQueue aQueue,bool
 		return;
 	}
 
-	BlitTrail* it = new BlitTrail();
-
 	SDL_Point* lPoints = new SDL_Point[amount];
 
 	for (int i = 0; i < amount; ++i)
@@ -288,9 +283,7 @@ void Render::DrawTrail(RXPoint* point_array, int amount, RenderQueue aQueue,bool
 		lPoints[i].y = point_array[i].y;
 	}
 
-	it->points = lPoints;
-	it->amount = amount;
-	it->depth = depth;
+	BlitTrail* it = new BlitTrail(lPoints,amount,depth);
 	it->color = RXColor{ r,g,b ,255};
 	it->ignore_camera = aQueue == RenderQueue::RENDER_UI || aIgnoreCamera;
 	lImpl->GetQueue(aQueue)->push(it);
@@ -336,17 +329,17 @@ void BlitLayer::Blit(Render& aRender, Camera& camera, Window& aWindow)
 {
 	float scale = aWindow.GetScale();
 
-	float para_x = layer->parallax_x;
-	float para_y = layer->parallax_y;
-	int depth = layer->depth;
+	float para_x = mLayer->parallax_x;
+	float para_y = mLayer->parallax_y;
+	int depth = mLayer->depth;
 
-	tileset* t = layer->tileset_of_layer;//(*tilesets.begin());
+	tileset* t = mLayer->tileset_of_layer;//(*tilesets.begin());
 
-	for (int _y = 0; _y < layer->height; ++_y)
+	for (int _y = 0; _y < mLayer->height; ++_y)
 	{
-		for (int _x = 0; _x < layer->width; ++_x)
+		for (int _x = 0; _x < mLayer->width; ++_x)
 		{
-			int i = _y * layer->width + _x;
+			int i = _y * mLayer->width + _x;
 			//tileset* t = GetTilesetFromId((*it)->data[i]);
 			float worldcoords_x = scale * _x * t->tile_width + camera.GetCameraXoffset();
 			float worldcoords_y = scale * _y * t->tile_height + camera.GetCameraYoffset();
@@ -364,7 +357,7 @@ void BlitLayer::Blit(Render& aRender, Camera& camera, Window& aWindow)
 				continue;
 
 			aRender.CountDrawCall();
-			if (SDL_RenderCopyEx(aRender.GetSDL_Renderer(), tex, &GetImageRectFromId(layer->tileset_of_layer, layer->data[i]), &on_scn, 0, NULL, SDL_FLIP_NONE) != 0)
+			if (SDL_RenderCopyEx(aRender.GetSDL_Renderer(), tex, &GetImageRectFromId(mLayer->tileset_of_layer, mLayer->data[i]), &on_scn, 0, NULL, SDL_FLIP_NONE) != 0)
 			{
 				std::string errstr = "Cannot blit to screen. SDL_RenderCopy error: ";
 				errstr += SDL_GetError();

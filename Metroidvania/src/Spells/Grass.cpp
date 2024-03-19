@@ -215,7 +215,7 @@ void Grass::Render()
 		Engine->GetModule<::Render>().Blit(spells, hook_position_x - hook.w / 2, hook_position_y - hook.h / 2, hook, -2, RenderQueue::RENDER_GAME, 0);
 		debug.x = hook_position_x - 5;
 		debug.y = hook_position_y - 5;
-		Engine->GetModule<::Render>().DrawRect(debug, 0, 0, 0, 255, true, RenderQueue::RENDER_GAME,0);
+		Engine->GetModule<::Render>().DrawRect(debug, RXColor{ 0, 0, 0, 255 }, true, RenderQueue::RENDER_GAME, 0);
 
 		draw_angle = atan2(hook_position_y - (player->y + (player->collider->h / 2)), hook_position_x - (player->x + (player->collider->w / 2)));
 		float distance_to_hook = DistanceBetweenTwoPoints(hook_position_x, hook_position_y, player->x + player->collider->w / 2, player->y + player->collider->h / 2);

@@ -43,6 +43,18 @@ public:
 
 	virtual void Blit(Render& aRender, Camera& camera, Window& aWindow) = 0;
 
+	void SetPosition(int aX, int aY)
+	{
+		x = aX;
+		y = aY;
+	}
+
+	void SetCenter(int aCenterX, int aCenterY)
+	{
+		center_x = aCenterX;
+		center_y = aCenterY;
+	}
+
 	bool operator<(const BlitItem& rhs) const
 	{
 		return rhs.depth > depth;
@@ -69,7 +81,7 @@ public:
 	void Blit(TextureID aTexID, int x, int y,const RXRect& rect_on_image, int depth, RenderQueue aQueue = RenderQueue::RENDER_GAME, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1, int center_x = -1,int center_y = -1);
 
 	void BlitText(const char* text, FontID font, int x, int y, int depth, const RXColor& aColor,RenderQueue aQueue,bool ignore_camera = false);
-	void DrawRect(const RXRect& area, uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool filled,RenderQueue aQueue, int depth, bool ignore_camera = false);
+	void DrawRect(const RXRect& area, const RXColor& aColor, bool filled,RenderQueue aQueue, int depth, bool ignore_camera = false);
 	void DrawTrail(RXPoint* point_array, int amount, RenderQueue aQueue,bool aIgnoreCamera,int depth, uint8_t r = 255, uint8_t g = 255, uint8_t b= 255);
 
 	long GetDrawCallsLastFrame();

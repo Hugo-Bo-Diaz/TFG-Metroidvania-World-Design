@@ -103,6 +103,6 @@ void UIhealthbar::RenderDebug()
 	}
 	lTotalW += end.w;
 
-	Engine->GetModule<::Render>().DrawRect({ (int)x,(int)y,lTotalW,begin.h }, 255, 255, 255, 255, false, RenderQueue::RENDER_DEBUG, -10, true);
+	Engine->GetModule<::Render>().DrawRect({ (int)x,(int)y,lTotalW,begin.h }, RXColor{ 255, 255, 255, 255 }, false, RenderQueue::RENDER_DEBUG, -10, true);
 
 }

@@ -232,7 +232,7 @@ bool ArmorTrap::Render()
 
 void ArmorTrap::RenderDebug()
 {
-	Engine->GetModule<::Render>().DrawRect(aggro, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().DrawRect(aggro, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
 }
 
 void ArmorTrap::Destroy()

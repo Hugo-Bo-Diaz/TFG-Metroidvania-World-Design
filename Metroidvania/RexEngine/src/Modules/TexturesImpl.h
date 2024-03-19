@@ -10,6 +10,8 @@ struct SDL_Surface;
 
 struct Texture
 {
+	Texture(TextureID aTexID, const char* aName, SDL_Texture* aTexPoint) : id(aTexID), name(std::string(aName)), texture(aTexPoint) {};
+
 	TextureID id;
 	std::string name;
 	SDL_Texture* texture;

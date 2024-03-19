@@ -4,14 +4,9 @@
 #include "Modules/Render.h"
 
 #include "Utils/Logger.h"
-ParticleEmitter::ParticleEmitter(particle_preset* preset, float lifespan, float p_x, float p_y, int aDepth)
+ParticleEmitter::ParticleEmitter(particle_preset* preset, float lifespan, float p_x, float p_y, int aDepth) 
+	: position_x(p_x),position_y(p_y),preset_for_emitter(new particle_preset(*preset)),total_lifespan(lifespan),depth(aDepth)
 {
-	position_x = p_x;
-	position_y = p_y;
-	preset_for_emitter = new particle_preset(*preset);
-	total_lifespan = lifespan;
-	depth = aDepth;
-
 	for (int i = 0; i < MAX_PARTICLES; ++i)
 	{
 		particles[i] == NULL;

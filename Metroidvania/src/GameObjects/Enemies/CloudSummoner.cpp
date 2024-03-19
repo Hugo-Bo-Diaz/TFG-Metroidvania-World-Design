@@ -141,7 +141,7 @@ bool CloudSummoner::Loop(float dt)
 			}
 		}
 
-		Engine->GetModule<::Render>().DrawRect(aggro, 0, 255, 0, 50,true, RenderQueue::RENDER_DEBUG,0);
+		Engine->GetModule<::Render>().DrawRect(aggro, RXColor{ 0, 255, 0, 50 }, true, RenderQueue::RENDER_DEBUG, 0);
 
 		last_state = CS_PATROL;
 

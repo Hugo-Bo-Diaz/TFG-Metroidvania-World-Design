@@ -479,9 +479,9 @@ bool ShieldMonster::Render()
 
 void ShieldMonster::RenderDebug()
 {
-	Engine->GetModule<::Render>().DrawRect(aggro, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
-	Engine->GetModule<::Render>().DrawRect(range, 255, 255, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
-	Engine->GetModule<::Render>().DrawRect(shield, 255, 0, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().DrawRect(aggro, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().DrawRect(range, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().DrawRect(shield, RXColor{ 255, 0, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
 
 }
 

@@ -11,6 +11,9 @@ struct Music
 	_Mix_Music* music;
 	float volume = 1.0f;
 	float fade;
+
+	Music(const char* aPath, uint aID, _Mix_Music* aSFX, float aVolume, float aFade)
+		:path(std::string(aPath)), id(aID), music(aSFX), volume(aVolume), fade(aFade) {};
 };
 
 struct SFX
@@ -19,6 +22,9 @@ struct SFX
 	uint id;
 	Mix_Chunk* sfx;
 	float volume = 1.0f;
+
+	SFX(const char* aPath, uint aID, Mix_Chunk* aSFX, float aVolume) 
+		:path(std::string(aPath)), id(aID), sfx(aSFX), volume(aVolume) {};
 };
 
 class Audio::AudioImpl : public Part::Part_Impl

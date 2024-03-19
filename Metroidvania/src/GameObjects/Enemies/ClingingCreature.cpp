@@ -233,8 +233,8 @@ bool ClingCreature::Render()
 
 void ClingCreature::RenderDebug()
 {
-	Engine->GetModule<::Render>().DrawRect(check_down, 255, 0, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
-	Engine->GetModule<::Render>().DrawRect(check_front, 0, 255, 0, 100, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().DrawRect(check_down, RXColor{ 255, 0, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().DrawRect(check_front, RXColor{ 0, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
 }
 
 void ClingCreature::Destroy()

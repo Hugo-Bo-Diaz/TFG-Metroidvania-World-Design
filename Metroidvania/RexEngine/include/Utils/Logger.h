@@ -18,7 +18,7 @@ LOG_INFO,
 LOG_DEBUG
 };
 
-struct DLL_EXPORT Log{
+struct Log{
 	time_t date; // 2
 	int threadID; // 3
 
