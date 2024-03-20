@@ -8,6 +8,8 @@
 
 #define MAXFRAMES 20
 
+typedef unsigned int TextureID;
+
 enum Animation_loop
 {
 	ANIM_LOOP,
@@ -18,22 +20,23 @@ enum Animation_loop
 //an animation is going to be a series of rectangles that encapsulate the sprites
 class DLL_EXPORT Animation
 {
-public:
-	Animation();
-	
+private:
+	std::vector<RXRect> frames;
 	int current_frame = 0;
-	int amount_of_frames=0;
-	
-	void AddFrame(RXRect frame);
+
+public:
+	Animation() {};
+	Animation(TextureID aTex) :mTexture(aTex) {};
+	void AddFrame(const RXRect& frame);
 
 	void NextFrame();
+	RXRect& GetCurrentFrame();
+	RXRect& GetFrame(int ind);
+	void SetCurrentFrame(int aNewCurrentFrame);
+	int GetAmountOfFrames();
+	int GetCurrentFrameNumber();
 
-	RXRect* GetCurrentFrame();
-	
-	RXRect* GetFrame(int ind);
-
-	RXRect frames[MAXFRAMES];
-
+	TextureID mTexture = -1;
 	//implement a callback when the animation is done
 };
 

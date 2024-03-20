@@ -31,5 +31,5 @@ void Rain::Loop()
 
 void Rain::Render()
 {
-	Engine->GetModule<::Render>().Blit(spells, hitbox.x, hitbox.y, blitrect, -2);
+	Engine->GetModule<::Render>().RenderTexture(spells, hitbox.x, hitbox.y, blitrect, -2);
 }

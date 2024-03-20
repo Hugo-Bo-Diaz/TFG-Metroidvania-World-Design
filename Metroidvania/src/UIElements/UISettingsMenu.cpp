@@ -174,25 +174,25 @@ void UISettingsMenu::Render()
 	volume_sfx_bar_rect.w = 208 * (volume_sfx / 100);
 
 	//render base
-	Engine->GetModule<::Render>().Blit(lTextureBase, x, y, {0,0,236,288}, -2, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().RenderTexture(lTextureBase, x, y, {0,0,236,288}, -2, RenderQueue::RENDER_UI);
 	//render bars
-	Engine->GetModule<::Render>().Blit(lTextureOptions, x+14,y+146, volume_music_bar_rect,-3, RenderQueue::RENDER_UI);
-	Engine->GetModule<::Render>().Blit(lTextureOptions, x+14, y+86, volume_sfx_bar_rect, -3, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().RenderTexture(lTextureOptions, x+14,y+146, volume_music_bar_rect,-3, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().RenderTexture(lTextureOptions, x+14, y+86, volume_sfx_bar_rect, -3, RenderQueue::RENDER_UI);
 
 	//render highlighted option
 	switch (current_option)
 	{
 	case SETTINGS_VOLUME_SFX:
-		Engine->GetModule<::Render>().Blit(lTextureOptions, x + 6, y + 78, blue_mid_rect, -2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().RenderTexture(lTextureOptions, x + 6, y + 78, blue_mid_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case SETTINGS_VOLUME_MUSIC:
-		Engine->GetModule<::Render>().Blit(lTextureOptions, x + 6, y + 138, blue_mid_rect, -2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().RenderTexture(lTextureOptions, x + 6, y + 138, blue_mid_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case SETTINGS_FULLSCREEN_TOGGLE:
-		Engine->GetModule<::Render>().Blit(lTextureOptions, x + 6, y + 174, blue_big_rect, -2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().RenderTexture(lTextureOptions, x + 6, y + 174, blue_big_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case SETTINGS_BACK:
-		Engine->GetModule<::Render>().Blit(lTextureOptions, x + 6, y + 246, blue_small_rect, -2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().RenderTexture(lTextureOptions, x + 6, y + 246, blue_small_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	default:
 		break;

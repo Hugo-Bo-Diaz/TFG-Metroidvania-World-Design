@@ -68,6 +68,7 @@ void ClingCreature::Init()
 	animation.AddFrame({ 96,0,48,48 });
 	animation.AddFrame({ 144,0,48,48 });
 	animation.AddFrame({ 192,0,48,48 });
+	animation.mTexture = cling_enemy;
 }
 
 bool ClingCreature::Loop(float dt)
@@ -225,16 +226,15 @@ bool ClingCreature::Render()
 		animation_timer.Reset();
 	}
 
-	Engine->GetModule<::Render>().Blit(cling_enemy, collider->x, collider->y, *animation.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
-
+	Engine->GetModule<::Render>().RenderAnimation(animation, collider->x, collider->y, -2, RenderQueue::RENDER_GAME, angle);
 
 	return true;
 }
 
 void ClingCreature::RenderDebug()
 {
-	Engine->GetModule<::Render>().DrawRect(check_down, RXColor{ 255, 0, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
-	Engine->GetModule<::Render>().DrawRect(check_front, RXColor{ 0, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().RenderRect(check_down, RXColor{ 255, 0, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().RenderRect(check_front, RXColor{ 0, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
 }
 
 void ClingCreature::Destroy()

@@ -34,8 +34,10 @@ void FlyingShield::Init()
 	mSFXPing = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/ping.wav");
 
 	flying_left.AddFrame({ 0,0,48,48 });
+	flying_left.mTexture = floating_shield;
 
 	flying_right.AddFrame({ 48,0,48,48 });
+	flying_right.mTexture = floating_shield;
 
 	r1exp = { 0,0,12,12 };
 	explosion.area_in_texture.push_back(&r1exp);
@@ -122,11 +124,11 @@ bool FlyingShield::Render()
 
 	if (speed_x < 0)
 	{
-		Engine->GetModule<::Render>().Blit(floating_shield, collider->x, collider->y, *flying_left.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().RenderAnimation(flying_left, collider->x, collider->y);
 	}
 	else
 	{
-		Engine->GetModule<::Render>().Blit(floating_shield, collider->x, collider->y, *flying_right.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().RenderAnimation(flying_right, collider->x, collider->y);
 	}
 	return true;
 }

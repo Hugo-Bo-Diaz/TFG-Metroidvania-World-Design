@@ -155,7 +155,7 @@ bool GroundedElemental::Loop(float dt)
 
 bool GroundedElemental::Render()
 {
-	if (walking_left.amount_of_frames == 0 || walking_right.amount_of_frames == 0)
+	if (walking_left.GetAmountOfFrames() == 0 || walking_right.GetAmountOfFrames() == 0)
 		SetAnimations(RED_GROUNDELEMENTAL);
 
 	if (animation_timer.Read() > animation_frame_interval)
@@ -170,9 +170,9 @@ bool GroundedElemental::Render()
 	
 
 	if (speed_x < 0)
-		Engine->GetModule<::Render>().Blit(groundelemental, collider->x, collider->y, *walking_left.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().RenderAnimation(walking_left, collider->x, collider->y);
 	else
-		Engine->GetModule<::Render>().Blit(groundelemental, collider->x, collider->y, *walking_right.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().RenderAnimation(walking_right, collider->x, collider->y);
 
 	return true;
 }
@@ -194,18 +194,20 @@ void GroundedElemental::SetAnimations(GroundedElementalColor _c)
 {
 	c = _c;
 
-	if (walking_left.amount_of_frames == 0)
+	if (walking_left.GetAmountOfFrames() == 0)
 	{
 		walking_left.AddFrame({ 0  ,c * 48,48,48 });
 		walking_left.AddFrame({ 48 ,c * 48,48,48 });
 		walking_left.AddFrame({ 96 ,c * 48,48,48 });
 		walking_left.AddFrame({ 144,c * 48,48,48 });
+		walking_left.mTexture = groundelemental;
 	}
-	if (walking_right.amount_of_frames == 0)
+	if (walking_right.GetAmountOfFrames() == 0)
 	{
 		walking_right.AddFrame({ 192,c * 48,48,48 });
 		walking_right.AddFrame({ 240,c * 48,48,48 });
 		walking_right.AddFrame({ 288,c * 48,48,48 });
 		walking_right.AddFrame({ 336,c * 48,48,48 });
+		walking_right.mTexture = groundelemental;
 	}
 }

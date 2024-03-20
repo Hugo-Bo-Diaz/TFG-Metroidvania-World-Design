@@ -54,12 +54,12 @@ bool SceneController::SceneControllerImpl::Loop(float dt)
 
 	for (std::vector<background_texture*>::iterator it = active_backgrounds.begin(); it != active_backgrounds.end(); it++)
 	{
-		mPartInst->mApp.GetImplementation<Render, Render::RenderImpl>()->BlitMapBackground((*it)->texture, (*it)->depth, (*it)->repeat_y, (*it)->parallax_x, (*it)->parallax_y);
+		mPartInst->mApp.GetImplementation<Render, Render::RenderImpl>()->RenderMapBackground((*it)->texture, (*it)->depth, (*it)->repeat_y, (*it)->parallax_x, (*it)->parallax_y);
 	}
 
 	for (std::vector<layer*>::iterator it = layers.begin(); it != layers.end(); ++it)
 	{
-		mPartInst->mApp.GetImplementation<Render,Render::RenderImpl>()->BlitMapLayer(*it);
+		mPartInst->mApp.GetImplementation<Render,Render::RenderImpl>()->RenderMapLayer(*it);
 	}
 
 	return ret;

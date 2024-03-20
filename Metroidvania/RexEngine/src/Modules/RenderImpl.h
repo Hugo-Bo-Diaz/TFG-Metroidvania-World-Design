@@ -18,9 +18,9 @@ public:
 	{
 		mPartInst = aRender;
 	}
-	void BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x = 1, float parallax_factor_y = 1);
-	void BlitMapLayer(layer* layer);
-	void BlitParticleEmitter(ParticleEmitter* emitter, RenderQueue aRenderQueue);
+	void RenderMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x = 1, float parallax_factor_y = 1);
+	void RenderMapLayer(layer* layer);
+	void RenderParticleEmitter(ParticleEmitter* emitter, RenderQueue aRenderQueue);
 
 protected:
 	bool Init();

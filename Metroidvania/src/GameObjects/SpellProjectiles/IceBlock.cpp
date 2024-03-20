@@ -31,7 +31,7 @@ bool IceBlock::Loop(float dt)
 }
 
 bool IceBlock::Render()
-{		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, spr_on_img, -2);
+{		Engine->GetModule<::Render>().RenderTexture(spells, collider->x, collider->y, spr_on_img, -2);
 
 	return true;
 }

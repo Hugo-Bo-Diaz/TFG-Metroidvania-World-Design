@@ -137,12 +137,12 @@ void UItextbox::Render()
 			int real_x = position_x + i*32;
 			int real_y = position_y + j*32;
 
-			Engine->GetModule<::Render>().Blit(TexTextBox,real_x,real_y,*r,10, RenderQueue::RENDER_UI);
+			Engine->GetModule<::Render>().RenderTexture(TexTextBox,real_x,real_y,*r,10, RenderQueue::RENDER_UI);
 		}
 		
 	}
 	//BLIT TEXT 12 12
-	Engine->GetModule<::Render>().BlitText(texts[current_text].substr(0, current_letter).c_str(), mFont, position_x + 12, position_y + 12, -10001, RXColor{0,0,0,255}, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().RenderText(texts[current_text].substr(0, current_letter).c_str(), mFont, position_x + 12, position_y + 12, -10001, RXColor{0,0,0,255}, RenderQueue::RENDER_UI);
 	//Engine->GetModule<::Render>().BlitText(texts[current_text].substr(0, current_letter).c_str(), mFont, position_x + 12, position_y + 12 + text_size * App->txt->GetFont(mFont)->size, -10001, SDL_Color{0,0,0,255});
 
 	if (author != "")
@@ -171,10 +171,10 @@ void UItextbox::Render()
 			int real_x = position_x + i * 32;
 			int real_y = position_y - 40;
 
-			Engine->GetModule<::Render>().Blit(TexTextBox, real_x, real_y, *r, 9, RenderQueue::RENDER_UI);
+			Engine->GetModule<::Render>().RenderTexture(TexTextBox, real_x, real_y, *r, 9, RenderQueue::RENDER_UI);
 		}
 
-		Engine->GetModule<::Render>().BlitText(author.c_str(), mFont, position_x + 12, position_y - 8, -10001, RXColor{0,0,0,255}, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().RenderText(author.c_str(), mFont, position_x + 12, position_y - 8, -10001, RXColor{0,0,0,255}, RenderQueue::RENDER_UI);
 	}
 
 }

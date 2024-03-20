@@ -132,7 +132,7 @@ bool MaxHealthPickup::Loop(float dt)
 
 bool MaxHealthPickup::Render()
 {
-	Engine->GetModule<::Render>().Blit(items, collider->x, collider->y, maxhealthplus, 10);
+	Engine->GetModule<::Render>().RenderTexture(items, collider->x, collider->y, maxhealthplus, 10);
 
 	return true;
 }

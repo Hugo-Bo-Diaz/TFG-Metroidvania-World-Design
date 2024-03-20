@@ -32,7 +32,7 @@ bool Particles::ParticlesImpl::Loop(float dt)
 
 	for (std::list<ParticleEmitter*>::iterator it = particles.begin(); it != particles.end(); it++)
 	{
-		mPartInst->mApp.GetImplementation<Render,Render::RenderImpl>()->BlitParticleEmitter(*it, RenderQueue::RENDER_GAME);
+		mPartInst->mApp.GetImplementation<Render,Render::RenderImpl>()->RenderParticleEmitter(*it, RenderQueue::RENDER_GAME);
 	}
 
 	return true;

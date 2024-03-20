@@ -266,14 +266,14 @@ void Fire::Render()
 			{
 				if (player->is_right)
 				{
-					Engine->GetModule<::Render>().Blit(spells,
+					Engine->GetModule<::Render>().RenderTexture(spells,
 						player->collider->x + player->collider->w - 5,
 						player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
 						fireball_big, -2);
 				}
 				else
 				{
-					Engine->GetModule<::Render>().Blit(spells,
+					Engine->GetModule<::Render>().RenderTexture(spells,
 						player->collider->x - fireball_big.w + 5,
 						player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
 						fireball_big, -2);
@@ -283,14 +283,14 @@ void Fire::Render()
 			{
 				if (player->is_right)
 				{
-					Engine->GetModule<::Render>().Blit(spells,
+					Engine->GetModule<::Render>().RenderTexture(spells,
 						player->collider->x + player->collider->w - 15,
 						player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
 						fireball_small, -2);
 				}
 				else
 				{
-					Engine->GetModule<::Render>().Blit(spells,
+					Engine->GetModule<::Render>().RenderTexture(spells,
 						player->collider->x - fireball_small.w + 15,
 						player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
 						fireball_small, -2);
@@ -306,10 +306,10 @@ void Fire::Render()
 
 	if (is_fireshield_up)
 	{
-		Engine->GetModule<::Render>().Blit(spells,
-			player->collider->x + (player->collider->w - fireshield.GetCurrentFrame()->w) / 2,
-			player->collider->y + (player->collider->h - fireshield.GetCurrentFrame()->h) / 2,
-			*fireshield.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().RenderTexture(spells,
+			player->collider->x + (player->collider->w - fireshield.GetCurrentFrame().w) / 2,
+			player->collider->y + (player->collider->h - fireshield.GetCurrentFrame().h) / 2,
+			fireshield.GetCurrentFrame(), -2);
 
 		to_follow->position_x = player->x;
 		to_follow->position_y = player->y;

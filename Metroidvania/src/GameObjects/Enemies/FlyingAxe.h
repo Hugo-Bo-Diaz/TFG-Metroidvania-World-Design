@@ -45,13 +45,12 @@ public:
 	//graphics
 	Animation rotate_left;
 	Animation rotate_right;
+	Animation facing_left;
+	Animation facing_right;
 
 	particle_preset metal;
 	RXRect r18metalfirst;
 	RXRect r19metalsecond;
-
-	RXRect facing_left;
-	RXRect facing_right;
 
 	float animation_frequency = 100;
 

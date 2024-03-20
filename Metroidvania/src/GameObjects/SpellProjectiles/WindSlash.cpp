@@ -16,7 +16,7 @@ void WindSlash::Init()
 {
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
-
+	windslash.mTexture = spells;
 
 	r5slash = { 0,12,12,12 };
 	windslash_part.area_in_texture.push_back(&r5slash);
@@ -65,7 +65,7 @@ bool WindSlash::Loop(float dt)
 
 bool WindSlash::Render()
 {
-	Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *windslash.GetCurrentFrame(), -2);
+	Engine->GetModule<::Render>().RenderAnimation(windslash, collider->x, collider->y, -2);
 	return true;
 }
 

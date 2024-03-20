@@ -16,12 +16,6 @@ CloudSummoner::CloudSummoner(float _initial_x, float _initial_y)
 	initial_y = _initial_y;
 	initial_x = _initial_x;
 
-	book.AddFrame({ 192,0,22,22 });
-
-	facing_right.AddFrame({ 128,0,64,48 });
-	facing_left.AddFrame({ 64,0,64,48 });
-	facing_front.AddFrame({ 0,0,64,48 });
-
 	base_book_offset_x = 64 / 2 - 22 / 2;
 	base_book_offset_y = 48 / 2 - 30 / 2;
 }
@@ -63,6 +57,16 @@ void CloudSummoner::Init()
 	explosion.minmax_frequency = std::make_pair(10, 50);
 	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
 	explosion.texture_name = particles;
+
+	book.AddFrame({ 192,0,22,22 });
+
+	facing_right.AddFrame({ 128,0,64,48 });
+	facing_right.mTexture = cloud_summoner;
+	facing_left.AddFrame({ 64,0,64,48 });
+	facing_left.mTexture = cloud_summoner;
+	facing_front.AddFrame({ 0,0,64,48 });
+	facing_front.mTexture = cloud_summoner;
+
 }
 
 bool CloudSummoner::Loop(float dt)
@@ -141,7 +145,7 @@ bool CloudSummoner::Loop(float dt)
 			}
 		}
 
-		Engine->GetModule<::Render>().DrawRect(aggro, RXColor{ 0, 255, 0, 50 }, true, RenderQueue::RENDER_DEBUG, 0);
+		Engine->GetModule<::Render>().RenderRect(aggro, RXColor{ 0, 255, 0, 50 }, true, RenderQueue::RENDER_DEBUG, 0);
 
 		last_state = CS_PATROL;
 
@@ -251,30 +255,30 @@ bool CloudSummoner::Render()
 {
 	if (speed_x < 0)
 	{
-		Engine->GetModule<::Render>().Blit(cloud_summoner, collider->x, collider->y, *facing_left.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().RenderAnimation(facing_left, collider->x, collider->y);
 	}
 	else if (speed_x > 0)
 	{
-		Engine->GetModule<::Render>().Blit(cloud_summoner, collider->x, collider->y, *facing_right.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().RenderAnimation(facing_right, collider->x, collider->y);
 	}
 	else if(following != nullptr)
 	{
 		if (following->collider->x > collider->x)
 		{
-			Engine->GetModule<::Render>().Blit(cloud_summoner, collider->x, collider->y, *facing_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider->x, collider->y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().Blit(cloud_summoner, collider->x, collider->y, *facing_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider->x, collider->y);
 		}
 	}
 	else
 	{
-		Engine->GetModule<::Render>().Blit(cloud_summoner, collider->x, collider->y, *facing_front.GetCurrentFrame(), 0);
+		Engine->GetModule<::Render>().RenderAnimation(facing_front, collider->x, collider->y);
 	}
 
 
-	Engine->GetModule<::Render>().Blit(cloud_summoner, collider->x + oscilated_book_x, collider->y+oscilated_book_y, *book.GetCurrentFrame(), 0);
+	Engine->GetModule<::Render>().RenderAnimation(book, collider->x + oscilated_book_x, collider->y+oscilated_book_y);
 
 	return true;
 }

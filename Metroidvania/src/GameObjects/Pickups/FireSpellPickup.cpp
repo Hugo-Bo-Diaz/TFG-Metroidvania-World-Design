@@ -91,6 +91,6 @@ bool FireSpellPickup::Loop(float dt)
 
 bool FireSpellPickup::Render()
 {
-	Engine->GetModule<::Render>().Blit(spell_books, collider->x, collider->y, firespellbook, 10);
+	Engine->GetModule<::Render>().RenderTexture(spell_books, collider->x, collider->y, firespellbook, 10);
 	return true;
 }

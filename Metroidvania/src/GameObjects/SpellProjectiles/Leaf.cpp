@@ -29,7 +29,9 @@ void Leaf::Init()
 	grass.texture_name = particles;
 
 	leaf_right.AddFrame({ 96,64,64,32 });
+	leaf_right.mTexture = spells;
 	leaf_left.AddFrame({ 96,32,64,32 });//48 16
+	leaf_left.mTexture = spells;
 	p = Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider->x, collider->y);
 
 }
@@ -68,12 +70,12 @@ bool Leaf::Render()
 {
 	if (direction == 1)
 	{
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *leaf_right.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
+		Engine->GetModule<::Render>().RenderAnimation(leaf_right, collider->x, collider->y, -2, RenderQueue::RENDER_GAME, angle);
 		leaf_right.NextFrame();
 	}
 	else
 	{
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *leaf_left.GetCurrentFrame(), -2, RenderQueue::RENDER_GAME, angle);
+		Engine->GetModule<::Render>().RenderAnimation(leaf_left, collider->x, collider->y, -2, RenderQueue::RENDER_GAME, angle);
 		leaf_left.NextFrame();
 	}
 	return true;

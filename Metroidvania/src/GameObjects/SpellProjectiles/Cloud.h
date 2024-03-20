@@ -29,7 +29,7 @@ public:
 
 	RXRect hitbox;
 
-	RXRect blitrect;
+	Animation blitrect;
 
 	std::vector<Rain*> rain_vector;
 	std::vector<Rain*> rain_to_delete;

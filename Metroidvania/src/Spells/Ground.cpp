@@ -198,7 +198,7 @@ void Ground::Render()
 	if (groundpounding)
 	{
 		//add graphic
-		Engine->GetModule<::Render>().Blit(spells, player->collider->x, player->collider->y + player->collider->h, groundpound, -2);
+		Engine->GetModule<::Render>().RenderTexture(spells, player->collider->x, player->collider->y + player->collider->h, groundpound, -2);
 	}
 }
 

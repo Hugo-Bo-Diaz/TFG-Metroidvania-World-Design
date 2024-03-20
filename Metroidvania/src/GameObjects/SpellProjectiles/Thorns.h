@@ -38,10 +38,10 @@ public:
 
 	ThornsState state = SEED;
 
-	RXRect thorn_first = {128,0,32,32};
-	RXRect thorn_second = {160,0,32,32};
-	RXRect seed = {192,0,32,32};
-	RXRect last_thorn_segment = { 128,0,8,32 };
+	Animation thorn_first;
+	Animation thorn_second;
+	Animation seed;
+	Animation last_thorn_segment;
 	
 	ParticleEmitter* p;
 	particle_preset grass;

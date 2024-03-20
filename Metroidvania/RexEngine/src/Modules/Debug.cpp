@@ -53,7 +53,7 @@ bool Debug::DebugImpl::Loop(float dt)
 
 	if (mIsDebugPanelActive)
 	{
-		mPartInst->mApp.GetModule<Render>().DrawRect(mPanel, RXColor{ 0,0,0,220 }, true, RenderQueue::RENDER_DEBUG, 1, true);
+		mPartInst->mApp.GetModule<Render>().RenderRect(mPanel, RXColor{ 0,0,0,220 }, true, RenderQueue::RENDER_DEBUG, 1, true);
 		std::string lString;
 
 		lString = "FPS: ";
@@ -67,18 +67,18 @@ bool Debug::DebugImpl::Loop(float dt)
 		float FPS = (1.0f / averageDT) * 1000;
 
 		lString += std::to_string(averageDT);
-		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 20, 0, {255,255,255,255},RenderQueue::RENDER_DEBUG,true);
+		mPartInst->mApp.GetModule<Render>().RenderText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 20, 0, {255,255,255,255},RenderQueue::RENDER_DEBUG,true);
 		
 		float virmem,physmem;
 		mPartInst->GetTotalMemoryUsage(virmem,physmem);
 
 		lString = "Virt Mem: ";
 		lString += std::to_string(virmem);
-		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 45, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
+		mPartInst->mApp.GetModule<Render>().RenderText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 45, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
 
 		lString = "Phys Mem: ";
 		lString += std::to_string(physmem);
-		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 70, 0, {255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
+		mPartInst->mApp.GetModule<Render>().RenderText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 70, 0, {255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
 
 		lString = "CPU Usage: ";
 
@@ -91,15 +91,15 @@ bool Debug::DebugImpl::Loop(float dt)
 		float averageCPU = GetQueueMedianNumber(mCPUUsageQueue);
 
 		lString += std::to_string(averageCPU);
-		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 95, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
+		mPartInst->mApp.GetModule<Render>().RenderText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 95, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
 
 		lString = "Draw Calls: ";
 		lString += std::to_string(mPartInst->mApp.GetModule<Render>().GetDrawCallsLastFrame());
-		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 120, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
+		mPartInst->mApp.GetModule<Render>().RenderText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 120, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
 
 		lString = "Total Objects: ";
 		lString += std::to_string(mPartInst->mApp.GetModule<ObjectManager>().GetTotalObjectNumber());
-		mPartInst->mApp.GetModule<Render>().BlitText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 145, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
+		mPartInst->mApp.GetModule<Render>().RenderText(lString.c_str(), mPartInst->mDebugPanelFont, 10, 145, 0, { 255,255,255,255 }, RenderQueue::RENDER_DEBUG, true);
 	}
 
 	if (mIsDebugSceneActive)

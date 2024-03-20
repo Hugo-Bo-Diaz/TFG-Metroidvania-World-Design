@@ -109,19 +109,19 @@ void UIPauseMenu::Render()
 {
 
 	//render base
-	Engine->GetModule<::Render>().Blit(TexMenuBase, x, y, {0,0,452,456}, -2, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().RenderTexture(TexMenuBase, x, y, {0,0,452,456}, -2, RenderQueue::RENDER_UI);
 
 	//render highlighted option
 	switch (current_option)
 	{
 	case PAUSE_RESUME:
-		Engine->GetModule<::Render>().Blit(TexMenuOptions, x+90, y+164, resume_rect, -2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().RenderTexture(TexMenuOptions, x+90, y+164, resume_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case PAUSE_SETTINGS:
-		Engine->GetModule<::Render>().Blit(TexMenuOptions, x + 90, y + 260, settings_rect, -2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().RenderTexture(TexMenuOptions, x + 90, y + 260, settings_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	case PAUSE_EXIT:
-		Engine->GetModule<::Render>().Blit(TexMenuOptions, x + 90, y + 356, exit_rect, -2, RenderQueue::RENDER_UI);
+		Engine->GetModule<::Render>().RenderTexture(TexMenuOptions, x + 90, y + 356, exit_rect, -2, RenderQueue::RENDER_UI);
 		break;
 	default:
 		break;

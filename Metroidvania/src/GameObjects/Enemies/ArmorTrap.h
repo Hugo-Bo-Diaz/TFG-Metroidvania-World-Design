@@ -47,7 +47,7 @@ public:
 
 	Animation left;
 	Animation right;
-	RXRect idle;
+	Animation idle;
 	particle_preset fire_ge_death;
 	particle_preset metal;
 	RXRect r14firegedeath;

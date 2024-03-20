@@ -33,7 +33,7 @@ void UIimage::Loop()
 
 void UIimage::Render()
 {
-	Engine->GetModule<::Render>().Blit(Tex, global_x, global_y, screenspace, depth, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().RenderTexture(Tex, global_x, global_y, screenspace, depth, RenderQueue::RENDER_UI);
 
 	UIelement::Render();
 }

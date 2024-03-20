@@ -54,8 +54,11 @@ void CloudMelee::Init()
 	//64*48
 
 	facing_right.AddFrame({ 64,0,64,48 });
+	facing_right.mTexture = cloud_melee;
 	facing_left.AddFrame({ 128,0,64,48 });
+	facing_left.mTexture = cloud_melee;
 	facing_front.AddFrame({ 0,0,64,48 });
+	facing_front.mTexture = cloud_melee;
 }
 
 
@@ -266,11 +269,11 @@ bool CloudMelee::Render()
 	{
 		if (speed_x < 0)
 		{
-			Engine->GetModule<::Render>().Blit(cloud_melee, collider->x, collider->y, *facing_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider->x, collider->y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().Blit(cloud_melee, collider->x, collider->y, *facing_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider->x, collider->y);
 		}
 	}
 
@@ -278,11 +281,11 @@ bool CloudMelee::Render()
 	{
 		if (speed_x > 0)
 		{
-			Engine->GetModule<::Render>().Blit(cloud_melee, collider->x, collider->y, *facing_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider->x, collider->y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().Blit(cloud_melee, collider->x, collider->y, *facing_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider->x, collider->y);
 		}
 	}
 

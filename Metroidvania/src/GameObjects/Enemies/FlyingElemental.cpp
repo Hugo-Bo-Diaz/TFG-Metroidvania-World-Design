@@ -240,7 +240,7 @@ bool FlyingElemental::Loop(float dt)
 
 bool FlyingElemental::Render()
 {
-	if (flying_left.amount_of_frames == 0 || flying_right.amount_of_frames == 0)
+	if (flying_left.GetAmountOfFrames() == 0 || flying_right.GetAmountOfFrames() == 0)
 		SetAnimations(RED_FLYINGELEMENTAL);
 
 	if (state == FE_PATROL || state == FE_CHARGE)
@@ -248,12 +248,12 @@ bool FlyingElemental::Render()
 		if (speed_x < 0)
 		{
 			flying_left.NextFrame();
-			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, *flying_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(flying_left, collider->x, collider->y);
 		}
 		else
 		{
 			flying_right.NextFrame();
-			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, *flying_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(flying_right, collider->x, collider->y);
 		}
 	}
 
@@ -262,12 +262,12 @@ bool FlyingElemental::Render()
 		if (speed_x > 0)
 		{
 			flying_left.NextFrame();
-			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, *flying_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(flying_left, collider->x, collider->y);
 		}
 		else
 		{
 			flying_right.NextFrame();
-			Engine->GetModule<::Render>().Blit(flyingelemental, collider->x, collider->y, *flying_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(flying_right, collider->x, collider->y);
 		}
 	}
 
@@ -292,18 +292,20 @@ void FlyingElemental::SetAnimations(FlyingElementalColor _c)
 {
 	c = _c;
 
-	if (flying_left.amount_of_frames == 0)
+	if (flying_left.GetAmountOfFrames() == 0)
 	{
 		flying_left.AddFrame({ 0  ,c * 56,56,56 });
 		flying_left.AddFrame({ 56 ,c * 56,56,56 });
 		flying_left.AddFrame({ 112,c * 56,56,56 });
 		flying_left.AddFrame({ 168,c * 56,56,56 });
+		flying_left = flyingelemental;
 	}
-	if (flying_right.amount_of_frames == 0)
+	if (flying_right.GetAmountOfFrames() == 0)
 	{
 		flying_right.AddFrame({ 224,c * 56,56,56 });
 		flying_right.AddFrame({ 280,c * 56,56,56 });
 		flying_right.AddFrame({ 336,c * 56,56,56 });
 		flying_right.AddFrame({ 392,c * 56,56,56 });
+		flying_right = flyingelemental;
 	}
 }

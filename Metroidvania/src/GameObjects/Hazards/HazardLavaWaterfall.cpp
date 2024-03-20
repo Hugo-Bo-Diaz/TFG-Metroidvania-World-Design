@@ -16,6 +16,7 @@ HazardLavaWaterfall::HazardLavaWaterfall()
 void HazardLavaWaterfall::Init()
 {
 	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
+	anim.mTexture = hazards;
 }
 
 bool HazardLavaWaterfall::Loop(float dt)
@@ -58,7 +59,7 @@ bool HazardLavaWaterfall::Render()
 	{
 		for (int j = 0; j < tilesy; ++j)
 		{
-			Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y + 48 * j, *anim.GetCurrentFrame(), 50);
+			Engine->GetModule<::Render>().RenderAnimation(anim, collider->x + 48 * i, collider->y + 48 * j, 50);
 		}
 	}
 	return true;

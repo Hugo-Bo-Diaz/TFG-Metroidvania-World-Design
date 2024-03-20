@@ -1,36 +1,43 @@
+#include "..\..\include\EngineElements\Animation.h"
+#include "..\..\include\EngineElements\Animation.h"
+#include "..\..\include\EngineElements\Animation.h"
 #include "EngineElements/Animation.h"
 
-
-Animation::Animation()
+void Animation::AddFrame(const RXRect& frame)
 {
-	RXRect zero = { 0,0,0,0 };
-	for (int i = 0; i < MAXFRAMES; ++i)
-	{
-		frames[i] = zero;
-	}
-}
-
-void Animation::AddFrame(RXRect frame)
-{
-	frames[amount_of_frames] = frame;
-	++amount_of_frames;
+	frames.push_back(frame);
 }
 
 void Animation::NextFrame()
 {
 	++current_frame;
-	if (current_frame == amount_of_frames)
+	if (current_frame >= frames.size()-1)
 	{
 		current_frame = 0;
 	}
 }
 
-RXRect* Animation::GetCurrentFrame()
+RXRect& Animation::GetCurrentFrame()
 {
-	return &frames[current_frame];
+	return frames[current_frame];
 }
 
-RXRect* Animation::GetFrame(int ind)
+RXRect& Animation::GetFrame(int ind)
 {
-	return &frames[ind];
+	return frames[ind];
+}
+
+void Animation::SetCurrentFrame(int aNewCurrentFrame)
+{
+	current_frame = aNewCurrentFrame;
+}
+
+int Animation::GetAmountOfFrames()
+{
+	return current_frame;
+}
+
+int Animation::GetCurrentFrameNumber()
+{
+	return current_frame;
 }

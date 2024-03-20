@@ -73,8 +73,8 @@ public:
 
 	Animation left;
 	Animation right;
-	RXRect arm_left;
-	RXRect arm_right;
+	Animation arm_left;
+	Animation arm_right;
 	float arm_angle = 0;
 	int gdirection = 0;
 

@@ -52,13 +52,16 @@ void ArmorTrap::Init()
 	metal.minmax_frequency = std::make_pair(8, 15);
 	metal.texture_name = particles;
 
-	idle = {0,0,48,72};
+	idle.AddFrame({0,0,48,72});
+	idle.mTexture = armortrap;
 
 	left.AddFrame({ 48,0,48,72 });
 	left.AddFrame({ 96,0,48,72 });
+	left.mTexture = armortrap;
 
 	right.AddFrame({ 144,0,48,72 });
 	right.AddFrame({ 192,0,48,72 });
+	right.mTexture = armortrap;
 
 	aggro.w = 300;
 	aggro.h = 144;
@@ -216,14 +219,14 @@ bool ArmorTrap::Render()
 
 	if (current_state == ArmorTrap_IDLE)
 	{
-		Engine->GetModule<::Render>().Blit(armortrap, collider->x, collider->y, idle, 0);
+		Engine->GetModule<::Render>().RenderAnimation(idle, collider->x, collider->y);
 	}
 	else
 	{
 		if (speed_x < 0)
-			Engine->GetModule<::Render>().Blit(armortrap, collider->x, collider->y, *left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(left, collider->x, collider->y);
 		else
-			Engine->GetModule<::Render>().Blit(armortrap, collider->x, collider->y, *right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(right, collider->x, collider->y);
 	}
 
 
@@ -232,7 +235,7 @@ bool ArmorTrap::Render()
 
 void ArmorTrap::RenderDebug()
 {
-	Engine->GetModule<::Render>().DrawRect(aggro, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().RenderRect(aggro, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
 }
 
 void ArmorTrap::Destroy()

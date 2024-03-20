@@ -192,7 +192,7 @@ bool CoalJumper::Loop(float dt)
 		}
 
 		float frame = (crouching.Read()/time_crouching)*3;
-		animations[COALJUMPER_CROUCHING].current_frame = frame;
+		animations[COALJUMPER_CROUCHING].SetCurrentFrame(frame);
 
 		if (crouching.Read() >= time_crouching)
 		{
@@ -252,7 +252,7 @@ bool CoalJumper::Loop(float dt)
 
 		float frame = (cooldown_timer.Read() / cooldown) * 3;
 
-		animations[COALJUMPER_LANDING].current_frame = frame;
+		animations[COALJUMPER_LANDING].SetCurrentFrame(frame);
 
 		if (cooldown_timer.Read() > cooldown)
 		{
@@ -274,7 +274,7 @@ bool CoalJumper::Loop(float dt)
 
 bool CoalJumper::Render()
 {
-	Engine->GetModule<::Render>().Blit(coaljumper, collider->x, collider->y, *animations[state].GetCurrentFrame(), -1);
+	Engine->GetModule<::Render>().RenderAnimation(animations[state], collider->x, collider->y, -1);
 
 	return true;
 }

@@ -40,6 +40,7 @@ void CloudSummonerProjectile::Init()
 
 	Engine->GetModule<Camera>().CameraShake(7, 40);
 	projectile.AddFrame({ 230,22,26,26 });
+	projectile.mTexture = cloud_summoner;
 }
 
 bool CloudSummonerProjectile::Loop(float dt)
@@ -68,7 +69,7 @@ bool CloudSummonerProjectile::Loop(float dt)
 
 bool CloudSummonerProjectile::Render()
 {
-		Engine->GetModule<::Render>().Blit(cloud_summoner, collider->x, collider->y, *projectile.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().RenderAnimation(projectile, collider->x, collider->y, -2);
 
 	return true;
 }

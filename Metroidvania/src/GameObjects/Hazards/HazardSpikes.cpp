@@ -43,7 +43,7 @@ bool HazardSpikes::Render()
 	//top
 	for (int i = 0; i < tilesx; ++i)
 	{
-		Engine->GetModule<::Render>().Blit(hazards, collider->x + 48 * i, collider->y, spikes, -20);
+		Engine->GetModule<::Render>().RenderTexture(hazards, collider->x + 48 * i, collider->y, spikes, -20);
 	}
 
 	return true;

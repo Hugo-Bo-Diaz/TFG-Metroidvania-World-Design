@@ -45,20 +45,23 @@ void FlyingAxe::Init()
 	metal.minmax_frequency = std::make_pair(8, 15);
 	metal.texture_name = particles;
 
-	facing_right = { 0,0,64,64 };
+	facing_right.AddFrame({ 0,0,64,64 });
+	facing_right.mTexture = floating_axe;
 
 	rotate_right.AddFrame({ 0,0,64,64 });
 	rotate_right.AddFrame({ 64,0,64,64 });
 	rotate_right.AddFrame({ 128,0,64,64 });
 	rotate_right.AddFrame({ 192,0,64,64 });
+	rotate_right.mTexture = floating_axe;
 
-	facing_left = { 0,64,64,64 };
+	facing_left.AddFrame({ 0,64,64,64 });
+	facing_left.mTexture = floating_axe;
 
 	rotate_left.AddFrame({ 0,64,64,64 });
 	rotate_left.AddFrame({ 64,64,64,64 });
 	rotate_left.AddFrame({ 128,64,64,64 });
 	rotate_left.AddFrame({ 192,64,64,64 });
-
+	rotate_left.mTexture = floating_axe;
 }
 
 bool FlyingAxe::Loop(float dt)
@@ -225,11 +228,11 @@ bool FlyingAxe::Render()
 	{
 		if (speed_x < 0)
 		{
-			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, *rotate_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(rotate_left, collider->x, collider->y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, *rotate_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(rotate_right, collider->x, collider->y);
 		}
 	}
 
@@ -237,11 +240,11 @@ bool FlyingAxe::Render()
 	{
 		if (speed_x > 0)
 		{
-			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, *rotate_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(rotate_left, collider->x, collider->y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().Blit(floating_axe, collider->x, collider->y, *rotate_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(rotate_right, collider->x, collider->y);
 		}
 	}
 

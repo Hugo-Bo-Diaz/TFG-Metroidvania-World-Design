@@ -13,6 +13,8 @@ void IceShard::Init()
 {
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	ice_shard_left.mTexture = spells;
+	ice_shard_right.mTexture = spells;
 
 	r4ice = { 36,12,12,12 };
 	ice.area_in_texture.push_back(&r4ice);
@@ -59,12 +61,12 @@ bool IceShard::Render()
 {
 	if (direction == 1)
 	{
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *ice_shard_right.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().RenderAnimation(ice_shard_right, collider->x, collider->y, -2);
 		ice_shard_right.NextFrame();
 	}
 	else
 	{
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *ice_shard_left.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().RenderAnimation(ice_shard_left, collider->x, collider->y, -2);
 		ice_shard_left.NextFrame();
 	}
 

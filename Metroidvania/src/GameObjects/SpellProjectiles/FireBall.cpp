@@ -39,6 +39,8 @@ void FireBall::Init()
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
 
 	mSFXGroundHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
+	fireball_big.mTexture = spells;
+	fireball_small.mTexture = spells;
 }
 void FireBall::Destroy()
 {
@@ -90,9 +92,9 @@ bool FireBall::Loop(float dt)
 bool FireBall::Render()
 {
 	if (is_big)
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *fireball_big.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().RenderAnimation(fireball_big, collider->x, collider->y, -2);
 	else
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *fireball_small.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().RenderAnimation(fireball_small, collider->x, collider->y, -2);
 
 	return true;
 }

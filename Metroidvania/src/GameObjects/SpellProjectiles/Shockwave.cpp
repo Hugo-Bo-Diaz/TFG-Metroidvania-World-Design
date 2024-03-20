@@ -41,7 +41,9 @@ void Shockwave::Init()
 	mSFXGroundHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
 
 	shockwave_left.AddFrame({ 0,160,32,32 });
+	shockwave_left.mTexture = spells;
 	shockwave_right.AddFrame({ 32,160,32,32 });
+	shockwave_right.mTexture = spells;
 
 	r8ground = { 0,24,12,12 };
 	r9ground = { 12,24,12,12 };
@@ -151,11 +153,11 @@ bool Shockwave::Render()
 {
 	if (x_speed > 0)
 	{
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *shockwave_right.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().RenderAnimation(shockwave_right, collider->x, collider->y, -2);
 	}
 	else
 	{
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *shockwave_left.GetCurrentFrame(), -2);
+		Engine->GetModule<::Render>().RenderAnimation(shockwave_left, collider->x, collider->y, -2);
 	}
 	return true;
 }

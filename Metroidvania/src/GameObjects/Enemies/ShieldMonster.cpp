@@ -21,8 +21,8 @@ ShieldMonster::ShieldMonster()
 	left.AddFrame({ 224,140,112,140 });
 	left.AddFrame({ 336,140,112,140 });
 
-	arm_left = {112,0,112,128};
-	arm_right = {0,0,112,128};
+	arm_left.AddFrame({112,0,112,128});
+	arm_right.AddFrame({0,0,112,128});
 
 	range.w = 300;
 	range.h = 50;
@@ -58,6 +58,12 @@ void ShieldMonster::Init()
 
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 	mSFXPing = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/ping.wav");
+
+	right.mTexture = shield_monster;
+	left.mTexture = shield_monster;
+	arm_left.mTexture = shield_monster_arm;
+	arm_right.mTexture = shield_monster_arm;
+
 
 	r8ground = { 0,24,12,12 };
 	r9ground = { 12,24,12,12 };
@@ -454,34 +460,34 @@ bool ShieldMonster::Render()
 
 	if (gdirection < 0)
 	{
-		Engine->GetModule<::Render>().Blit(shield_monster, collider->x, collider->y, *left.GetCurrentFrame(), 0);
-		if (left.current_frame+1 > left.amount_of_frames / 2)
+		Engine->GetModule<::Render>().RenderAnimation(left, collider->x, collider->y);
+		if (left.GetCurrentFrameNumber() +1 > left.GetAmountOfFrames() / 2)
 		{
 			offset_y += 10;
 		}
 	}
 	else
 	{
-		Engine->GetModule<::Render>().Blit(shield_monster, collider->x, collider->y, *right.GetCurrentFrame(), 0);
-		if (right.current_frame+1 > right.amount_of_frames / 2)
+		Engine->GetModule<::Render>().RenderAnimation(right, collider->x, collider->y);
+		if (right.GetCurrentFrameNumber()+1 > right.GetAmountOfFrames() / 2)
 		{
 			offset_y += 10;
 		}
 	}
 
 	if (gdirection < 0)
-		Engine->GetModule<::Render>().Blit(shield_monster_arm, collider->x-50, collider->y+8+offset_y, arm_left, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,98,16);
+		Engine->GetModule<::Render>().RenderAnimation(arm_left, collider->x-50, collider->y+8+offset_y, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,98,16);
 	else
-		Engine->GetModule<::Render>().Blit(shield_monster_arm, collider->x+42, collider->y+8+offset_y, arm_right, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,14,16);
+		Engine->GetModule<::Render>().RenderAnimation(arm_right, collider->x+42, collider->y+8+offset_y, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,14,16);
 
 	return true;
 }
 
 void ShieldMonster::RenderDebug()
 {
-	Engine->GetModule<::Render>().DrawRect(aggro, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
-	Engine->GetModule<::Render>().DrawRect(range, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
-	Engine->GetModule<::Render>().DrawRect(shield, RXColor{ 255, 0, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().RenderRect(aggro, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().RenderRect(range, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+	Engine->GetModule<::Render>().RenderRect(shield, RXColor{ 255, 0, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
 
 }
 

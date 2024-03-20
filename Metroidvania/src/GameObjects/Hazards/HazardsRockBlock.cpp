@@ -72,7 +72,7 @@ bool HazardRockBlock::Loop(float dt)
 bool HazardRockBlock::Render()
 {
 
-	Engine->GetModule<::Render>().Blit(hazards, collider->x, collider->y+5, rockblock, -20);
+	Engine->GetModule<::Render>().RenderTexture(hazards, collider->x, collider->y+5, rockblock, -20);
 	
 
 	return true;

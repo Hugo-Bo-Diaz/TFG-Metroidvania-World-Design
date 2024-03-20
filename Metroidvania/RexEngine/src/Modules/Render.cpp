@@ -120,7 +120,7 @@ bool Render::RenderImpl::Loop(float dt)
 }
 
 
-void Render::RenderImpl::BlitMapLayer(layer* layer)
+void Render::RenderImpl::RenderMapLayer(layer* layer)
 {
 	SDL_Texture* lTex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(layer->tileset_of_layer->texture);
 	if (lTex == nullptr)
@@ -133,7 +133,7 @@ void Render::RenderImpl::BlitMapLayer(layer* layer)
 	allQueue.push(it);
 }
 
-void Render::RenderImpl::BlitParticleEmitter(ParticleEmitter* layer, RenderQueue aRenderQueue)
+void Render::RenderImpl::RenderParticleEmitter(ParticleEmitter* layer, RenderQueue aRenderQueue)
 {
 	SDL_Texture* lTex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(layer->preset_for_emitter->texture_name);
 	if (lTex == nullptr)
@@ -147,7 +147,7 @@ void Render::RenderImpl::BlitParticleEmitter(ParticleEmitter* layer, RenderQueue
 }
 
 
-void Render::RenderImpl::BlitMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x, float parallax_factor_y)
+void Render::RenderImpl::RenderMapBackground(TextureID aTexID, int depth, bool repeat_y, float parallax_factor_x, float parallax_factor_y)
 {
 	SDL_Texture* lTex = mPartInst->mApp.GetImplementation<Textures, Textures::TexturesImpl>()->Get_Texture(aTexID);
 	if (lTex == nullptr)
@@ -194,8 +194,7 @@ void Render::CountDrawCall()
 	lImpl->mDrawCallsLastFrame++;
 }
 
-
-void Render::Blit(TextureID aTexID, int x, int y,const RXRect& rect_on_image, int depth, RenderQueue aQueue, float angle, float parallax_factor_x, float parallax_factor_y, int center_x,int center_y)
+void Render::RenderTexture(TextureID aTexID, int x, int y,const RXRect& rect_on_image, int depth, RenderQueue aQueue, float angle, float parallax_factor_x, float parallax_factor_y, int center_x,int center_y)
 {
 	RenderImpl* lImpl = dynamic_cast<RenderImpl*>(mPartFuncts);
 	if (!lImpl)
@@ -220,7 +219,12 @@ void Render::Blit(TextureID aTexID, int x, int y,const RXRect& rect_on_image, in
 	lImpl->GetQueue(aQueue)->push(it);
 }
 
-void Render::BlitText(const char* text, FontID font, int x, int y, int depth, const RXColor& aColor, RenderQueue aQueue, bool ignore_camera)
+void Render::RenderAnimation(Animation& aAnimation, int x, int y, int aDepth, RenderQueue aQueue, float angle, float parallax_factor_x, float parallax_factor_y, int center_x, int center_y)
+{
+	RenderTexture(aAnimation.mTexture, x, y, aAnimation.GetCurrentFrame(), aDepth, aQueue, angle, parallax_factor_x, parallax_factor_y, center_x, center_y);
+}
+
+void Render::RenderText(const char* text, FontID font, int x, int y, int depth, const RXColor& aColor, RenderQueue aQueue, bool ignore_camera)
 {
 	RenderImpl* lImpl = dynamic_cast<RenderImpl*>(mPartFuncts);
 	if (!lImpl)
@@ -248,7 +252,7 @@ void Render::BlitText(const char* text, FontID font, int x, int y, int depth, co
 	lImpl->GetQueue(aQueue)->push(it);
 }
 
-void Render::DrawRect(const RXRect& area, const RXColor& aColor, bool filled, RenderQueue aQueue,int depth , bool ignore_camera)
+void Render::RenderRect(const RXRect& area, const RXColor& aColor, bool filled, RenderQueue aQueue,int depth , bool ignore_camera)
 {
 	RenderImpl* lImpl = dynamic_cast<RenderImpl*>(mPartFuncts);
 	if (!lImpl)
@@ -265,7 +269,7 @@ void Render::DrawRect(const RXRect& area, const RXColor& aColor, bool filled, Re
 	lImpl->GetQueue(aQueue)->push(it);
 }
 
-void Render::DrawTrail(RXPoint* point_array, int amount, RenderQueue aQueue,bool aIgnoreCamera,int depth, uint8_t r, uint8_t g, uint8_t b)
+void Render::RenderTrail(RXPoint* point_array, int amount, RenderQueue aQueue,bool aIgnoreCamera,int depth, uint8_t r, uint8_t g, uint8_t b)
 {
 	RenderImpl* lImpl = dynamic_cast<RenderImpl*>(mPartFuncts);
 	if (!lImpl)

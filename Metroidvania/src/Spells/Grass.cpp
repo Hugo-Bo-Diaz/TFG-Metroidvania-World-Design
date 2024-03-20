@@ -212,17 +212,17 @@ void Grass::Render()
 {
 	if (hooked || hook_out)
 	{
-		Engine->GetModule<::Render>().Blit(spells, hook_position_x - hook.w / 2, hook_position_y - hook.h / 2, hook, -2, RenderQueue::RENDER_GAME, 0);
+		Engine->GetModule<::Render>().RenderTexture(spells, hook_position_x - hook.w / 2, hook_position_y - hook.h / 2, hook, -2, RenderQueue::RENDER_GAME, 0);
 		debug.x = hook_position_x - 5;
 		debug.y = hook_position_y - 5;
-		Engine->GetModule<::Render>().DrawRect(debug, RXColor{ 0, 0, 0, 255 }, true, RenderQueue::RENDER_GAME, 0);
+		Engine->GetModule<::Render>().RenderRect(debug, RXColor{ 0, 0, 0, 255 }, true, RenderQueue::RENDER_GAME, 0);
 
 		draw_angle = atan2(hook_position_y - (player->y + (player->collider->h / 2)), hook_position_x - (player->x + (player->collider->w / 2)));
 		float distance_to_hook = DistanceBetweenTwoPoints(hook_position_x, hook_position_y, player->x + player->collider->w / 2, player->y + player->collider->h / 2);
 		int vine_portions = 1 + (distance_to_hook / 32);
 		for (int i = 0; i < vine_portions; ++i)
 		{
-			Engine->GetModule<::Render>().Blit(spells,
+			Engine->GetModule<::Render>().RenderTexture(spells,
 				player->x + player->collider->w / 2 + cos(draw_angle)*i * 32 - vine.w / 2,
 				player->y + player->collider->h / 2 + sin(draw_angle)*i * 32 - vine.h / 2,
 				vine, -1, RenderQueue::RENDER_GAME, draw_angle * 180 / 3.1428);

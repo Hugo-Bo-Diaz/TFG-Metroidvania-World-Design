@@ -140,6 +140,13 @@ void Player::Init()
 
 	playerTex = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/Player.png");
 	Engine->GetModule<Camera>().FollowObject(this);
+	idle_right.mTexture = playerTex;
+	idle_left.mTexture = playerTex;
+	air_left.mTexture = playerTex;
+	air_right.mTexture = playerTex;
+	walking_left.mTexture = playerTex;
+	walking_right.mTexture = playerTex;
+
 }
 
 bool Player::Loop(float dt)
@@ -665,43 +672,43 @@ bool Player::Render()
 		{
 			if (is_right)
 			{
-				Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *idle_right.GetCurrentFrame(), 0);
+				Engine->GetModule<::Render>().RenderAnimation(idle_right, collider->x-separation, collider->y);
 				idle_right.NextFrame();
 			}
 			else
 			{
-				Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *idle_left.GetCurrentFrame(), 0);
+				Engine->GetModule<::Render>().RenderAnimation(idle_left, collider->x-separation, collider->y);
 				idle_left.NextFrame();
 			}
 		}
 		break;
 		case WALKING_LEFT:
 		{
-			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *walking_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(walking_left, collider->x-separation, collider->y);
 			walking_left.NextFrame();
 		}
 		break;
 		case WALKING_RIGHT:
 		{
-			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *walking_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(walking_right, collider->x-separation, collider->y);
 			walking_right.NextFrame();
 		}
 		break;
 		case AIRBORNE_LEFT:
 		{
-			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *air_left.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(air_left, collider->x-separation, collider->y);
 			air_left.NextFrame();
 		}
 		break;
 		case AIRBORNE_RIGHT:
 		{
-			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *air_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(air_right, collider->x-separation, collider->y);
 			air_right.NextFrame();
 		}
 		break;
 		default:
 		{
-			Engine->GetModule<::Render>().Blit(playerTex, collider->x-separation, collider->y, *idle_right.GetCurrentFrame(), 0);
+			Engine->GetModule<::Render>().RenderAnimation(idle_right, collider->x-separation, collider->y);
 			idle_right.NextFrame();
 		}
 		break;

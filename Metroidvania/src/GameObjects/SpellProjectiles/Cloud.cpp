@@ -8,19 +8,20 @@ Cloud::Cloud()
 {
 	RXRect wall = { collider->x,collider->y,collider->w,collider->h };
 
-	blitrect = {96,96,64,32};
+	blitrect.AddFrame({96,96,64,32});
 }
 
 void Cloud::Init()
 {
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	blitrect.mTexture = spells;
 }
 
 bool Cloud::Loop(float dt)
 {
 	bool ret = true;
 
-	Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, blitrect, -2);
+	Engine->GetModule<::Render>().RenderAnimation(blitrect, collider->x, collider->y, -2);
 
 	if (timer.Read()>life_expectancy)
 	{

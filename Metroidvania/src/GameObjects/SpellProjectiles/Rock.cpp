@@ -64,6 +64,7 @@ void Rock::Init()
 	groundcontact.texture_name = particles;
 
 	rock_sprite.AddFrame({ 96,160,32,32 });
+	rock_sprite.mTexture = spells;
 }
 
 bool Rock::Loop(float dt)
@@ -120,7 +121,7 @@ bool Rock::Loop(float dt)
 
 bool Rock::Render()
 {
-	Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, *rock_sprite.GetCurrentFrame(), -2);
+	Engine->GetModule<::Render>().RenderAnimation(rock_sprite, collider->x, collider->y, -2);
 
 	return true;
 }

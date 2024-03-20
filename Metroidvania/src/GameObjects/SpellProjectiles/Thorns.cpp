@@ -29,6 +29,15 @@ void Thorns::Init()
 
 	p = Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider->x, collider->y);
 	state = SEED;
+
+	thorn_first.AddFrame({ 128,0,32,32 });
+	thorn_first.mTexture = spells;
+	thorn_second.AddFrame({ 160,0,32,32 });
+	thorn_second.mTexture = spells;
+	seed.AddFrame({ 192,0,32,32 });
+	seed.mTexture = spells;
+	last_thorn_segment.AddFrame({ 128,0,8,32 });
+	last_thorn_segment.mTexture = spells;
 }
 
 bool Thorns::Loop(float dt)
@@ -166,7 +175,7 @@ bool Thorns::Render()
 	case SEED:
 	{
 
-		Engine->GetModule<::Render>().Blit(spells, collider->x, collider->y, seed, -1);
+		Engine->GetModule<::Render>().RenderAnimation(seed, collider->x, collider->y, -1);
 	}
 	break;
 	case THORNS_ON_FLOOR:
@@ -179,16 +188,16 @@ bool Thorns::Render()
 			if (i % 2 == 0)
 			{
 				//draw thorns 1
-				Engine->GetModule<::Render>().Blit(spells, collider->x + i * 32, collider->y, thorn_first, -2);
+				Engine->GetModule<::Render>().RenderAnimation(thorn_first, collider->x + i * 32, collider->y, -2);
 			}
 			else
 			{
 				//draw thorns 2
-				Engine->GetModule<::Render>().Blit(spells, collider->x + i * 32, collider->y, thorn_second, -2);
+				Engine->GetModule<::Render>().RenderAnimation(thorn_second, collider->x + i * 32, collider->y, -2);
 			}
 		}
-		last_thorn_segment.w = extra_distance;
-		Engine->GetModule<::Render>().Blit(spells, collider->x + i * 32, collider->y, last_thorn_segment, -2);
+		//last_thorn_segment.GetCurrentFrame().w = extra_distance;
+		Engine->GetModule<::Render>().RenderAnimation(last_thorn_segment, collider->x + i * 32, collider->y, -2);
 
 	}
 	}

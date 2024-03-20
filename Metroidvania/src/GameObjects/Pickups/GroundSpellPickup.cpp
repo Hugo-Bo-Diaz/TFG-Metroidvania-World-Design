@@ -113,6 +113,6 @@ bool GroundSpellPickup::Loop(float dt)
 
 bool GroundSpellPickup::Render()
 {
-	Engine->GetModule<::Render>().Blit(spell_books, collider->x, collider->y, groundspellbook, 10);
+	Engine->GetModule<::Render>().RenderTexture(spell_books, collider->x, collider->y, groundspellbook, 10);
 	return true;
 }
