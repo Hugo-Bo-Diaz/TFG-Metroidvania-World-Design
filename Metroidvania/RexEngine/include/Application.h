@@ -27,20 +27,6 @@ private:
 	float last_frame_ms;
 public:
 
-	Input* inp;
-	Window* win;
-	Render* ren;
-	Textures* tex;
-	SceneController* scn;
-	ObjectManager* phy;
-	Audio* aud;
-	Camera* cam;
-	Particles* par;
-	UserInterface* gui;
-	Text* txt;
-	ProgressTracker* trk;
-	Debug* dbg;
-
 	//thread blocking call until the engine has finished running
 	void Run();
 

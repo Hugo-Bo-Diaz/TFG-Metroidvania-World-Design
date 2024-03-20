@@ -29,7 +29,7 @@ void MetroidVaniaSceneProcessor::SceneProcessingMainMenu()
 		settings->y = 64;
 		settings->x += 76;
 		settings->y += 92;
-		App->gui->AddElement(settings);
+		App->mAPI->GetModule<UserInterface>().AddElement(settings);
 		settings->parent_type = SETTINGS_PARENT_MAIN_MENU;
 	}
 
@@ -38,7 +38,7 @@ void MetroidVaniaSceneProcessor::SceneProcessingMainMenu()
 
 void MetroidVaniaSceneProcessor::SceneProcessingInGame()
 {
-	if (App->inp->GetInput(BUTTON_3))
+	if (App->mAPI->GetModule<Input>().GetInput(BUTTON_3))
 	{
 		if (pl->IsSameTypeAs<UIPauseMenu>())
 		{
@@ -60,26 +60,26 @@ void MetroidVaniaSceneProcessor::SceneProcessingInGame()
 	//	App->trk->LoadGame("save.xml");
 	//}
 
-	if (App->inp->GetInput(START) == BUTTON_DOWN && canopenmenu && !is_pause_menu_up && !is_select_menu_up)
+	if (App->mAPI->GetModule<Input>().GetInput(START) == BUTTON_DOWN && canopenmenu && !is_pause_menu_up && !is_select_menu_up)
 	{
 		UIPauseMenu* ret = new UIPauseMenu();
 
 		ret->x = 320;
 		ret->y = 64;
 		
-		App->gui->AddElement(ret);
+		App->mAPI->GetModule<UserInterface>().AddElement(ret);
 		is_pause_menu_up = true;
 	}
 
 
-	if (App->inp->GetInput(SELECT) == BUTTON_DOWN && canopenmenu && !is_select_menu_up && !is_pause_menu_up)
+	if (App->mAPI->GetModule<Input>().GetInput(SELECT) == BUTTON_DOWN && canopenmenu && !is_select_menu_up && !is_pause_menu_up)
 	{
 		UISelectMenu* ret = new UISelectMenu();
 		
 		ret->x = 106;
 		ret->y = 64;
 		
-		App->gui->AddElement(ret);
+		App->mAPI->GetModule<UserInterface>().AddElement(ret);
 		is_pause_menu_up = true;
 
 		//Engine->GetModule<SceneController>().AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingMainMenu, &MetroidVaniaSceneProcessor::GetInstance()));
@@ -147,10 +147,10 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 	{
 		inGameUI->SetPlayer(pl);
 	}
-	App->gui->AddElement(inGameUI);
+	App->mAPI->GetModule<UserInterface>().AddElement(inGameUI);
 
-	portals = *App->phy->GetAllObjectsOfType(GetTypeIndex<Portal>());
-	spawnpoints = *App->phy->GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
+	portals = *App->mAPI->GetModule<ObjectManager>().GetAllObjectsOfType(GetTypeIndex<Portal>());
+	spawnpoints = *App->mAPI->GetModule<ObjectManager>().GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
 
 
 
@@ -163,8 +163,8 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 	int spawnpoint_x = 87;
 	int spawnpoint_y = 200;
 
-	portals = *App->phy->GetAllObjectsOfType(GetTypeIndex<Portal>());
-	spawnpoints = *App->phy->GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
+	portals = *App->mAPI->GetModule<ObjectManager>().GetAllObjectsOfType(GetTypeIndex<Portal>());
+	spawnpoints = *App->mAPI->GetModule<ObjectManager>().GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
 
 	for (std::vector<GameObject*>::iterator it = spawnpoints.begin(); it != spawnpoints.end(); it++)
 	{
@@ -187,7 +187,7 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 	}
 
 	//set player
-	pl = (Player*)App->phy->AddObject(newplayer_x, newplayer_y, 64, 64, GetTypeIndex<Player>());
+	pl = (Player*)App->mAPI->GetModule<ObjectManager>().AddObject(newplayer_x, newplayer_y, 64, 64, GetTypeIndex<Player>());
 
 	inGameUI->SetPlayer(pl);
 
@@ -267,7 +267,7 @@ void MetroidVaniaSceneProcessor::UsePortal(Portal* p, int offset)
 	//CHANGES ALL MAP
 	inGameUI->SetPlayer(nullptr);
 
-	App->scn->LoadMap(map_to_change.c_str());
+	App->mAPI->GetModule<SceneController>().LoadMap(map_to_change.c_str());
 
 	//ON NEW MAP
 	//int newplayer_x = 0;

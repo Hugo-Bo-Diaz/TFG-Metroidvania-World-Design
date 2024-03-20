@@ -68,58 +68,59 @@ int main(int argc, char* args[])
 	MetroidVaniaSceneProcessor::GetInstance().App = App;
 	MetroidVaniaSceneProcessor::GetInstance().EngineInitialization();
 	
-	App->phy->AddFactory(new Factory<Player>("Player"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<Player>("Player"));
 
 	//demo and lore
-	App->phy->AddFactory(new Factory<TextBoxObject>("TextBoxObject"));
-	App->phy->AddFactory(new Factory<FirstDialogue>("FirstDialogue"));
-	App->phy->AddFactory(new Factory<EndDemoObject>("EndDemoObject"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<TextBoxObject>("TextBoxObject"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<FirstDialogue>("FirstDialogue"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<EndDemoObject>("EndDemoObject"));
 
 	//flow
-	App->phy->AddFactory(new Factory<Portal>("Portal"));
-	App->phy->AddFactory(new Factory<SpawnPoint>("SpawnPoint"));
-	App->phy->AddFactory(new Factory<CheckPoint>("Checkpoint"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<Portal>("Portal"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<SpawnPoint>("SpawnPoint"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<CheckPoint>("Checkpoint"));
 
 	//hazards
-	App->phy->AddFactory(new Factory<CloudTrampoline>("HazardsCloudTrampoline"));
-	App->phy->AddFactory(new Factory<HazardLava>("HazardLava"));
-	App->phy->AddFactory(new Factory<HazardLavaWaterfall>("HazardLavaWaterfall"));
-	App->phy->AddFactory(new Factory<HazardSpikes>("HazardSpikes"));
-	App->phy->AddFactory(new Factory<HazardRockBlock>("HazardRockBlock"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<CloudTrampoline>("HazardsCloudTrampoline"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<HazardLava>("HazardLava"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<HazardLavaWaterfall>("HazardLavaWaterfall"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<HazardSpikes>("HazardSpikes"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<HazardRockBlock>("HazardRockBlock"));
 	
 	//projectiles
-	App->phy->AddFactory(new Factory<WindSlash>("ProjectileWindSlash"));
-	App->phy->AddFactory(new Factory<Thorns>("ProjectileThorns"));
-	App->phy->AddFactory(new Factory<Shockwave>("ProjectileShockwave"));
-	App->phy->AddFactory(new Factory<Rock>("ProjectileRock"));
-	App->phy->AddFactory(new Factory<Leaf>("ProjectileLeaf"));
-	App->phy->AddFactory(new Factory<IceBlock>("ProjectileIceBlock"));
-	App->phy->AddFactory(new Factory<IceShard>("ProjectileIceShard"));
-	App->phy->AddFactory(new Factory<FireBall>("ProjectileFireBall"));
-	App->phy->AddFactory(new Factory<Cloud>("ProjectileCloud"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<WindSlash>("ProjectileWindSlash"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<Thorns>("ProjectileThorns"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<Shockwave>("ProjectileShockwave"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<Rock>("ProjectileRock"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<Leaf>("ProjectileLeaf"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<IceBlock>("ProjectileIceBlock"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<IceShard>("ProjectileIceShard"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<FireBall>("ProjectileFireBall"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<Cloud>("ProjectileCloud"));
 
 	//pickups
-	App->phy->AddFactory(new Factory<MaxHealthPickup>("HealthChargePickup"));
-	App->phy->AddFactory(new Factory<MaxManaPickup>("ManaChargePickup"));
-	App->phy->AddFactory(new Factory<FireSpellPickup>("SpellUnlockFire"));
-	App->phy->AddFactory(new Factory<GroundSpellPickup>("SpellUnlockGround"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<MaxHealthPickup>("HealthChargePickup"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<MaxManaPickup>("ManaChargePickup"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<FireSpellPickup>("SpellUnlockFire"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<GroundSpellPickup>("SpellUnlockGround"));
 
 	//Enemies
-	App->phy->AddFactory(new Factory<ArmorTrap>("EnemyArmorTrap"));
-	App->phy->AddFactory(new Factory<ClingCreature>("EnemyClingCreature"));
-	App->phy->AddFactory(new Factory<CloudMelee>("EnemyCloudMelee"));
-	App->phy->AddFactory(new Factory<CloudSummoner>("EnemyCloudSummoner"));
-	App->phy->AddFactory(new Factory<CloudSummonerProjectile>("EnemyCloudSummonerProjectile"));
-	App->phy->AddFactory(new Factory<CoalJumper>("EnemyCoalJumper"));
-	App->phy->AddFactory(new Factory<FlyingAxe>("EnemyFlyingAxe"));
-	App->phy->AddFactory(new Factory<FlyingShield>("EnemyFlyingShield"));
-	App->phy->AddFactory(new Factory<FlyingElemental>("EnemyFlyingElemental"));
-	App->phy->AddFactory(new Factory<GroundedElemental>("EnemyGroundedElemental"));
-	App->phy->AddFactory(new Factory<ShieldMonster>("EnemyShieldMonster"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<ArmorTrap>("EnemyArmorTrap"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<ClingCreature>("EnemyClingCreature"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<CloudMelee>("EnemyCloudMelee"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<CloudSummoner>("EnemyCloudSummoner"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<CloudSummonerProjectile>("EnemyCloudSummonerProjectile"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<CoalJumper>("EnemyCoalJumper"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<FlyingAxe>("EnemyFlyingAxe"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<FlyingShield>("EnemyFlyingShield"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<FlyingElemental>("EnemyFlyingElemental"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<GroundedElemental>("EnemyGroundedElemental"));
+	App->mAPI->GetModule<ObjectManager>().AddFactory(new Factory<ShieldMonster>("EnemyShieldMonster"));
 
 
-	App->scn->AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingInGame,&MetroidVaniaSceneProcessor::GetInstance()));
-	App->scn->AssignLoadFunction(std::bind(&MetroidVaniaSceneProcessor::SceneCreationInGame,&MetroidVaniaSceneProcessor::GetInstance()));
+	App->mAPI->GetModule<SceneController>().AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingInGame,&MetroidVaniaSceneProcessor::GetInstance()));
+	App->mAPI->GetModule<SceneController>().AssignLoadFunction(std::bind(&MetroidVaniaSceneProcessor::SceneCreationInGame,&MetroidVaniaSceneProcessor::GetInstance()));
+	App->mAPI->GetModule<SceneController>().LoadMap("Assets/maps/map0_entrance.tmx");
 	App->Run();
 	return 1;
 }

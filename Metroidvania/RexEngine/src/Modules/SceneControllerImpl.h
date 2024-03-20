@@ -68,7 +68,6 @@ public:
 	}
 
 protected:
-	bool Init();
 	bool Loop(float dt);
 	bool CleanUp();
 

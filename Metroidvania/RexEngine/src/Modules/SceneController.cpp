@@ -31,12 +31,6 @@ SceneController::SceneController(EngineAPI& aAPI):Part("SceneController",aAPI)
 
 #pragma region IMPLEMENTATION
 
-bool SceneController::SceneControllerImpl::Init()
-{
-	mPartInst->LoadMap("Assets/maps/map0_entrance.tmx");
-	return true;
-}
-
 bool SceneController::SceneControllerImpl::Loop(float dt)
 {
 	bool ret = true;

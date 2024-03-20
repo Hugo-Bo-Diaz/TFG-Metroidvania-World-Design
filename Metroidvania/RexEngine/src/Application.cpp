@@ -58,33 +58,19 @@ Application::Application(const char* aConfigFile, bool& aSuccesful)
 	signal(SIGILL, ExceptionHandler);
 	signal(SIGSEGV, ExceptionHandler);
 
-	inp = new Input(*mAPI);
-	win = new Window(*mAPI);
-	ren = new Render(*mAPI);
-	tex = new Textures(*mAPI);
-	scn = new SceneController(*mAPI);
-	phy = new ObjectManager(*mAPI);
-	cam = new Camera(*mAPI);
-	aud = new Audio(*mAPI);
-	par = new Particles(*mAPI);
-	gui = new UserInterface(*mAPI);
-	txt = new Text(*mAPI);
-	trk = new ProgressTracker(*mAPI);
-	dbg = new Debug(*mAPI);
-
-	parts.push_back(inp);
-	parts.push_back(win);
-	parts.push_back(phy);
-	parts.push_back(gui);
-	parts.push_back(scn);
-	parts.push_back(cam);
-	parts.push_back(par);
-	parts.push_back(aud);
-	parts.push_back(ren);
-	parts.push_back(tex);
-	parts.push_back(txt);
-	parts.push_back(trk);
-	parts.push_back(dbg);
+	parts.push_back(new Input(*mAPI));
+	parts.push_back(new Window(*mAPI));
+	parts.push_back(new ObjectManager(*mAPI));
+	parts.push_back(new UserInterface(*mAPI));
+	parts.push_back(new SceneController(*mAPI));
+	parts.push_back(new Camera(*mAPI));
+	parts.push_back(new Particles(*mAPI));
+	parts.push_back(new Audio(*mAPI));
+	parts.push_back(new Render(*mAPI));
+	parts.push_back(new Textures(*mAPI));
+	parts.push_back(new Text(*mAPI));
+	parts.push_back(new ProgressTracker(*mAPI));
+	parts.push_back(new Debug(*mAPI));
 }
 
 
