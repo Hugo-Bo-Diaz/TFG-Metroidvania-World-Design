@@ -71,22 +71,30 @@ public:
 
 struct SDL_Renderer;
 
+//module that handles graphic processing
 class DLL_EXPORT Render : public Part
 {
 public:
 	Render(EngineAPI& aAPI);
 
-	//all textured
+	//renders a texture
 	void RenderTexture(TextureID aTexID, int x, int y,const RXRect& rect_on_image, int aDepth, RenderQueue aQueue = RenderQueue::RENDER_GAME, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1, int center_x = -1,int center_y = -1);
+	//renders an animation
 	void RenderAnimation(Animation& aAnimation, int x, int y, int aDepth = 0, RenderQueue aQueue = RenderQueue::RENDER_GAME, float angle = 0, float parallax_factor_x = 1, float parallax_factor_y = 1, int center_x = -1, int center_y = -1);
 
+	//renders a text
 	void RenderText(const char* text, FontID font, int x, int y, int depth, const RXColor& aColor,RenderQueue aQueue,bool ignore_camera = false);
+	//renders a rectangle
 	void RenderRect(const RXRect& area, const RXColor& aColor, bool filled,RenderQueue aQueue, int depth, bool ignore_camera = false);
+	//renders a trail of points
 	void RenderTrail(RXPoint* point_array, int amount, RenderQueue aQueue,bool aIgnoreCamera,int depth, uint8_t r = 255, uint8_t g = 255, uint8_t b= 255);
 
+	//returns the amount of draw calls that were done last frame
 	long GetDrawCallsLastFrame();
+	//adds one to the draw calls on this frame
 	void CountDrawCall();
 
+	//returns the SDL render for advanced operations
 	SDL_Renderer* GetSDL_Renderer();
 
 	class RenderImpl;

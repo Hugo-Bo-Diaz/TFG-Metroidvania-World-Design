@@ -13,20 +13,23 @@ enum TextBoxColor
 	GREY,
 	WHITE
 };
-
+//module that manages the user interface
 class DLL_EXPORT UserInterface : public Part
 {
 public:
 	UserInterface(EngineAPI&);
 
+	//Loads a scene meant to hold UI
 	void LoadUIScene(const char* scene) {};
 
+	//Removes an element from the engine
 	void RemoveElement(UIelement* to_delete);
+	//returns true if element exists
 	bool ElementExists(UIelement* to_check);
 
+	//adds UI element to the engine
 	bool AddElement(UIelement* uiElement);
 
-	//TEXT WORKS WITH A REFERENCE TO A STRUCT THAT CAN GIVE AN SDL_TEXTURE
 	class GuiImpl;
 };
 

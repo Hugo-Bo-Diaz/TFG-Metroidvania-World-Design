@@ -85,24 +85,33 @@ public:
 	bool keyboard;
 
 };
-
+//modules that handles the input
 class DLL_EXPORT Input : public Part
 {
 public:
 	Input(EngineAPI& aAPI);
 	~Input() {};
 
+	//returns the state of the input
 	Keystate GetKey(int id);
+	//returns the state of the input
 	Keystate GetButton(int id);
+	//returns the state of the input
 	Keystate GetInput(Gameplay_buttons id);
 
+	//returns the state of the input, it recieves a boolean, true if the value is desired from the left joystick
 	void GetJoystick(bool left, float& x, float& y);
+	//returns the state of the input, it recieves a boolean, true if the value is desired from the left trigger
 	float GetTrigger(bool left);
 
+	//returns true if the trigger was pressed, it recieves a boolean, true if the value is desired from the left trigger
 	bool GetTriggerPressed(bool left);
+	//returns true if the trigger was pressed, it recieves a boolean, true if the value is desired from the left trigger
 	bool GetTriggerDown(bool left);
+	//returns true if the trigger was pressed, it recieves a boolean, true if the value is desired from the left trigger
 	bool GetTriggerReleased(bool left);
 
+	//returns true if the input module is using a controller
 	bool IsUsingController();
 
 	//0 horizontal 1 vertical

@@ -30,16 +30,22 @@ public:
 	}
 };
 
+//module that can be used to easily store data
 class DLL_EXPORT ProgressTracker : public Part
 {
 public:
 	ProgressTracker(EngineAPI& aAPI);
 
+	//returns a section that can be used for a save file
 	Section* GetBaseSaveSection();
+	//returns a section that can be used for settings
 	Section* GetBaseSettingsSection();
 
+	//returns true if file can be loaded
 	bool CanLoadGame(const char* file);
+	//returns true if file was loaded
 	bool LoadFile(const char* save_loc);
+	//returns true if file was saved
 	bool SaveFile(const char* save_loc);
 private:
 	class ProgressTrackerImpl;

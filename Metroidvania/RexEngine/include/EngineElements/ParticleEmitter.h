@@ -15,32 +15,48 @@
 
 struct SDL_Texture;
 
+//class that contains the definition for a particle emmitter
 class DLL_EXPORT particle_preset
 {
 public:
 
+	//name of the preset 
 	std::string name;
+	//texture 
 	TextureID texture_name;
 
+	//possible sections of the texture
 	std::vector<RXRect*> area_in_texture;
 
+	//spawn angle 
 	std::pair<float, float> minmax_angle = std::make_pair(0.0f, 0.0f);
+	//angle variation speed 
 	std::pair<float, float> minmax_angle_speed = std::make_pair(0.0f, 0.0f);
 
+	//inital scale
 	std::pair<float, float> minmax_scale = std::make_pair(1.0f, 1.0f);
+	//scale variation speed
 	std::pair<float, float> minmax_scale_speed = std::make_pair(0.0f, 0.0f);
 
+	//lifespan variation
 	std::pair<float, float> minmax_lifespan = std::make_pair(1000.0f, 2000.0f);
 
+	//speed on x
 	std::pair<float, float> minmax_speed_x = std::make_pair(0.0f, 0.0f);
+	//speed on y
 	std::pair<float, float> minmax_speed_y = std::make_pair(0.0f, 0.0f);
 
+	//acceleration on x
 	std::pair<float, float> minmax_acc_x = std::make_pair(0.0f, 0.0f);
+	//acceleration on y
 	std::pair<float, float> minmax_acc_y = std::make_pair(0.0f, 0.0f);
 
+	//variation on x coordinate
 	std::pair<float, float> minmax_x_offset = std::make_pair(-50.0f, 50.0f);
+	//variation on y coordinate
 	std::pair<float, float> minmax_y_offset = std::make_pair(-50.0f, 50.0f);
 
+	//spawn frequency
 	std::pair<float, float> minmax_frequency = std::make_pair(100.0f, 200.0f);
 
 
@@ -142,18 +158,29 @@ struct particle
 	}
 };
 
-
+/*class that processes a particle emmitter, as long as the engine is running and it has been registered they will be processed automatically
+all of the properties will affect how it is presented
+*/
 class DLL_EXPORT ParticleEmitter
 {
 public:
+	//if it has been set it will be destroyed once its lifespan reaches zero
 	Timer life_emitter;
+	//total time it will be alive
 	float total_lifespan;
+	//timer to keep track of spawning particles
 	Timer particles_spawn;
+	//preset that contains the parameters for the particles
 	particle_preset* preset_for_emitter;
+	//if active it will be processed
 	bool active = true;
+	//if not alive it will be eliminated next frame
 	bool alive = true;
+	//position on the x axis
 	float position_x;
+	//position on the y axis
 	float position_y;
+	//how far from the camera is it
 	int depth;
 
 	ParticleEmitter() {};

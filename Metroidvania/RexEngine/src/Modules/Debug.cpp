@@ -171,6 +171,54 @@ float Debug::GetPercentCPUUsage()
 	return percent * 100;
 }
 
+void Debug::ActivateDebugScene()
+{
+	DebugImpl* lImpl = dynamic_cast<DebugImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	lImpl->mIsDebugSceneActive = true;
+}
+
+void Debug::DeActivateDebugScene()
+{
+	DebugImpl* lImpl = dynamic_cast<DebugImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	lImpl->mIsDebugSceneActive = false;
+}
+
+void Debug::ActivateDebugPerformance()
+{
+	DebugImpl* lImpl = dynamic_cast<DebugImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	lImpl->mIsDebugPanelActive = true;
+}
+
+void Debug::DeActivateDebugPerformance()
+{
+	DebugImpl* lImpl = dynamic_cast<DebugImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	lImpl->mIsDebugPanelActive = false;
+}
+
 bool Debug::IsDebugActive()
 {
 	DebugImpl* lImpl = dynamic_cast<DebugImpl*>(mPartFuncts);

@@ -1,15 +1,6 @@
 #include "Utils/Logger.h"
 #include "../src/Modules/RXpch.h"
 
-Logger::Logger()
-{
-
-}
-
-bool Logger::Init()
-{
-	return true;
-}
 
 void Logger::Console_log(LogLevel aLevel, const char* log)
 {

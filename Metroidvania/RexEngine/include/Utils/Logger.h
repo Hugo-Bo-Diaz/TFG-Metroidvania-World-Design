@@ -24,14 +24,11 @@ struct Log{
 	std::string GetAsString();
 };
 
+//utility for the logger
 class DLL_EXPORT Logger
 {
 public:
-
-	Logger();
-
-	bool Init();
-	
+	//logs into the file and the console
 	static void Console_log(LogLevel level, const char* log);
 };
 

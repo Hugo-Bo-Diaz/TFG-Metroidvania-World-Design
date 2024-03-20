@@ -4,6 +4,9 @@
 #include "PartImpl.h"
 #include "../include/Modules/Window.h"
 
+struct SDL_Window;
+struct SDL_Surface;
+
 class Window::WindowImpl : public Part::Part_Impl
 {
 private:

@@ -174,4 +174,25 @@ void Textures::Destroy_Texture(const char* texture_to_destroy)
 	return;
 }
 
+void Textures::Destroy_Texture(TextureID aTextureID)
+{
+	TexturesImpl* lImpl = dynamic_cast<TexturesImpl*>(mPartFuncts);
+	if (!lImpl)
+	{
+		Logger::Console_log(LogLevel::LOG_ERROR, "Wrong format on the implementation class");
+		return;
+	}
+
+	for (std::vector<Texture*>::iterator it = lImpl->texture_list.begin(); it != lImpl->texture_list.end(); it++)
+	{
+		if ((*it)->id == aTextureID)
+		{
+			delete(*it);
+			lImpl->texture_list.erase(it);
+			return;
+		}
+	}
+	return;
+}
+
 #pragma endregion

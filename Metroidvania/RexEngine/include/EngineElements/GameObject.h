@@ -7,16 +7,27 @@
 
 class ObjectManager;
 class SceneController;
+
+/*this is the main class that should be INHERITED to create custom behaviours of objects
+IMPORTANT: during the constructor and destructor the object's reference to the engine has not been initialized,
+please use the Init and Destroy function to manage engine functionality
+*/
 class DLL_EXPORT GameObject
 {
 public:
+	//the collider is the main presence of the object inside of the engine
 	RXRect* collider;
 	std::type_index mType = std::type_index(typeid(*this));
 
+	//function that is called right after the engine creates the gameobject
 	virtual void Init() {};
+	//function that is called every frame, it gives the Delta Time as an argument
 	virtual bool Loop(float dt) { return true; };
+	//function that is called every frame, especially for rendering events
 	virtual bool Render() { return true; };
+	//function that is called every frame when the debug visualization is active
 	virtual void RenderDebug() {};
+	//function right before the engine reference of the object is destroyed
 	virtual void Destroy() {};
 
 	GameObject()

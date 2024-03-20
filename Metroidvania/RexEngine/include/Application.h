@@ -41,21 +41,23 @@ public:
 	ProgressTracker* trk;
 	Debug* dbg;
 
+	//thread blocking call until the engine has finished running
 	void Run();
 
+	//creates the application and loads its configuration
 	Application(const char* aConfigFile, bool& aResult);
 	std::string mConfigFile;
 
+	//THIS SET OF FUNCTIONS IS CALLED AUTOMATICALLY, DO NOT CALL
 	bool Init();
 	bool Loop();
 	bool CleanUp();
+	//THIS SET OF FUNCTIONS IS CALLED AUTOMATICALLY, DO NOT CALL
 
-	~Application() {};	
+	//other properties
 	std::list<Part*> parts;
 	Timer update_timer;
-
 	void LoadConfig(const char* filename);
-
 	float GetLastUpdateTime() { return dt; }
 
 	EngineAPI* mAPI;
