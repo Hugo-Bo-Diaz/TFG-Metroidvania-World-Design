@@ -100,7 +100,6 @@ private:
 	std::function<void()> SceneFunction;
 	std::function<void()> LoadFunction;
 
-
 	friend class SceneController;
 	SceneController* mPartInst;
 };
