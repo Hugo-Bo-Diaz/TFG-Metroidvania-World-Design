@@ -133,10 +133,10 @@ void Player::Init()
 		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("Stats");
 	}
 	nextpos = new RXRect();
-	nextpos->x = collider->x;
-	nextpos->y = collider->y;
-	nextpos->w = collider->w;
-	nextpos->h = collider->h;
+	nextpos->x = collider.x;
+	nextpos->y = collider.y;
+	nextpos->w = collider.w;
+	nextpos->h = collider.h;
 
 	playerTex = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/Player.png");
 	Engine->GetModule<Camera>().FollowObject(this);
@@ -161,8 +161,8 @@ bool Player::Loop(float dt)
 
 	spd = speed_x;
 
-	x = collider->x;
-	y = collider->y;
+	x = collider.x;
+	y = collider.y;
 
 	/*if (App->inp->GetInput(BUTTON_4)==BUTTON_DOWN)
 	{
@@ -194,8 +194,8 @@ bool Player::Loop(float dt)
 	//}
 
 	//STEP 1
-	collider->x = nextpos->x;
-	collider->y = nextpos->y;
+	collider.x = nextpos->x;
+	collider.y = nextpos->y;
 
 	//STEP 2
 	speed_x += acceleration_x;
@@ -221,7 +221,7 @@ bool Player::Loop(float dt)
 
 	//STEP 3 oh boi
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
@@ -437,8 +437,8 @@ bool Player::Loop(float dt)
 		trail[i].y = trail[i-1].y;
 	}
 
-	trail[0].x = collider->x+collider->w/2;
-	trail[0].y = collider->y+collider->h/2;
+	trail[0].x = collider.x+collider.w/2;
+	trail[0].y = collider.y+collider.h/2;
 
 	//Engine->GetModule<::Render>().DrawTrail(trail, 30);
 
@@ -456,7 +456,7 @@ bool Player::Loop(float dt)
 	}
 
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -464,7 +464,7 @@ bool Player::Loop(float dt)
 		{
 			if ((*it)->object->IsSameTypeAs<Enemy>())
 			{
-				if ((*it)->object->collider->x < collider->x)
+				if ((*it)->object->collider.x < collider.x)
 				{
 					AddHealth(-1, 1);
 				}
@@ -672,43 +672,43 @@ bool Player::Render()
 		{
 			if (is_right)
 			{
-				Engine->GetModule<::Render>().RenderAnimation(idle_right, collider->x-separation, collider->y);
+				Engine->GetModule<::Render>().RenderAnimation(idle_right, collider.x-separation, collider.y);
 				idle_right.NextFrame();
 			}
 			else
 			{
-				Engine->GetModule<::Render>().RenderAnimation(idle_left, collider->x-separation, collider->y);
+				Engine->GetModule<::Render>().RenderAnimation(idle_left, collider.x-separation, collider.y);
 				idle_left.NextFrame();
 			}
 		}
 		break;
 		case WALKING_LEFT:
 		{
-			Engine->GetModule<::Render>().RenderAnimation(walking_left, collider->x-separation, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(walking_left, collider.x-separation, collider.y);
 			walking_left.NextFrame();
 		}
 		break;
 		case WALKING_RIGHT:
 		{
-			Engine->GetModule<::Render>().RenderAnimation(walking_right, collider->x-separation, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(walking_right, collider.x-separation, collider.y);
 			walking_right.NextFrame();
 		}
 		break;
 		case AIRBORNE_LEFT:
 		{
-			Engine->GetModule<::Render>().RenderAnimation(air_left, collider->x-separation, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(air_left, collider.x-separation, collider.y);
 			air_left.NextFrame();
 		}
 		break;
 		case AIRBORNE_RIGHT:
 		{
-			Engine->GetModule<::Render>().RenderAnimation(air_right, collider->x-separation, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(air_right, collider.x-separation, collider.y);
 			air_right.NextFrame();
 		}
 		break;
 		default:
 		{
-			Engine->GetModule<::Render>().RenderAnimation(idle_right, collider->x-separation, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(idle_right, collider.x-separation, collider.y);
 			idle_right.NextFrame();
 		}
 		break;

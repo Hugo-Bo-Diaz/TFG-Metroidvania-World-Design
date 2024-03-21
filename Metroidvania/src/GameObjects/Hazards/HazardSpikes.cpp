@@ -19,7 +19,7 @@ void HazardSpikes::Init()
 bool HazardSpikes::Loop(float dt)
 {
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -37,13 +37,13 @@ bool HazardSpikes::Loop(float dt)
 
 bool HazardSpikes::Render()
 {
-	int tilesx = collider->w / 48;
-	int tilesy = collider->h / 48;
+	int tilesx = collider.w / 48;
+	int tilesy = collider.h / 48;
 
 	//top
 	for (int i = 0; i < tilesx; ++i)
 	{
-		Engine->GetModule<::Render>().RenderTexture(hazards, collider->x + 48 * i, collider->y, spikes, -20);
+		Engine->GetModule<::Render>().RenderTexture(hazards, collider.x + 48 * i, collider.y, spikes, -20);
 	}
 
 	return true;

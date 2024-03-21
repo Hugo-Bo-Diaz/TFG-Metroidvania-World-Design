@@ -15,17 +15,17 @@ FlyingShield::FlyingShield(float _initial_y)
 
 void FlyingShield::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider->x, collider->y, 300);
+	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
 }
 
 void FlyingShield::Init()
 {
-	initial_y = collider->x;
+	initial_y = collider.x;
 	nextpos = new RXRect();
-	nextpos->x = collider->x;
-	nextpos->y = collider->y;
-	nextpos->w = collider->w;
-	nextpos->h = collider->h;
+	nextpos->x = collider.x;
+	nextpos->y = collider.y;
+	nextpos->w = collider.w;
+	nextpos->h = collider.h;
 
 	floating_shield = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/floating_shield.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
@@ -59,15 +59,15 @@ bool FlyingShield::Loop(float dt)
 {
 
 	//STEP 1
-	collider->x = nextpos->x;
-	collider->y = nextpos->y;
+	collider.x = nextpos->x;
+	collider.y = nextpos->y;
 
 	//STEP 2
 
 	nextpos->x += speed_x;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
@@ -78,13 +78,13 @@ bool FlyingShield::Loop(float dt)
 			if (result.h < result.w)
 			{
 
-				if (collider->y < colliders[i]->y)// he goin crash!
+				if (collider.y < colliders[i]->y)// he goin crash!
 				{
 					//speed_y = 0;
 					nextpos->y -= result.h;
 				}
 
-				if (collider->y > colliders[i]->y)// he goin crash!
+				if (collider.y > colliders[i]->y)// he goin crash!
 				{
 					//speed_y = 0;
 					nextpos->y += result.h;
@@ -92,12 +92,12 @@ bool FlyingShield::Loop(float dt)
 			}
 			else
 			{
-				if (collider->x > colliders[i]->x)
+				if (collider.x > colliders[i]->x)
 				{
 					nextpos->x += result.w;
 				}
 
-				if (collider->x < colliders[i]->x)
+				if (collider.x < colliders[i]->x)
 				{
 					nextpos->x -= result.w;
 				}
@@ -124,11 +124,11 @@ bool FlyingShield::Render()
 
 	if (speed_x < 0)
 	{
-		Engine->GetModule<::Render>().RenderAnimation(flying_left, collider->x, collider->y);
+		Engine->GetModule<::Render>().RenderAnimation(flying_left, collider.x, collider.y);
 	}
 	else
 	{
-		Engine->GetModule<::Render>().RenderAnimation(flying_right, collider->x, collider->y);
+		Engine->GetModule<::Render>().RenderAnimation(flying_right, collider.x, collider.y);
 	}
 	return true;
 }

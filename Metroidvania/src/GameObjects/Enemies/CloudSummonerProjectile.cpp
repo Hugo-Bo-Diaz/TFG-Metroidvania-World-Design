@@ -15,7 +15,7 @@ CloudSummonerProjectile::CloudSummonerProjectile()
 
 void CloudSummonerProjectile::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider->x, collider->y, 300);
+	Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider.x, collider.y, 300);
 }
 
 void CloudSummonerProjectile::Init()
@@ -47,16 +47,16 @@ bool CloudSummonerProjectile::Loop(float dt)
 {
 	bool ret = true;
 
-	collider->x += speed_x;
-	collider->y += speed_y;
+	collider.x += speed_x;
+	collider.y += speed_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
-		if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
+		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			Engine->GetModule<Audio>().PlaySFX(mSFXLand);
@@ -69,7 +69,7 @@ bool CloudSummonerProjectile::Loop(float dt)
 
 bool CloudSummonerProjectile::Render()
 {
-		Engine->GetModule<::Render>().RenderAnimation(projectile, collider->x, collider->y, -2);
+		Engine->GetModule<::Render>().RenderAnimation(projectile, collider.x, collider.y, -2);
 
 	return true;
 }

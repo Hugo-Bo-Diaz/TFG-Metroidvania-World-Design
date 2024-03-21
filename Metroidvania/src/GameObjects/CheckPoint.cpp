@@ -21,7 +21,7 @@ CheckPoint::~CheckPoint()
 bool CheckPoint::Loop(float dt)
 {
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{

@@ -38,14 +38,14 @@ void Wind::Init()
 
 void Wind::Loop(float dt)
 {
-	p->position_x = player->collider->x;
-	p->position_y = player->collider->y;
+	p->position_x = player->collider.x;
+	p->position_y = player->collider.y;
 
 	//Windslash--------------------------------------------------------------------------------------------------------------------------
 	//if (App->inp->GetButton(X) == BUTTON_DOWN)
 	if (Engine->GetModule<Input>().GetInput(BUTTON_2)==KEY_DOWN)
 	{
-		WindSlash* windslash = (WindSlash*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y, 48, 48, GetTypeIndex<WindSlash>());
+		WindSlash* windslash = (WindSlash*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<WindSlash>());
 		windslash->Fire(player->is_right);
 		Engine->GetModule<Camera>().CameraShake(7, 100);
 
@@ -57,7 +57,7 @@ void Wind::Loop(float dt)
 	{
 		player->speed_y = -jump_force;
 		jump_available = false;
-		Engine->GetModule<Particles>().AddParticleEmitter(&windbuff, player->collider->x, player->collider->y, 400);
+		Engine->GetModule<Particles>().AddParticleEmitter(&windbuff, player->collider.x, player->collider.y, 400);
 	}
 
 	if (!jump_available && player->grounded)

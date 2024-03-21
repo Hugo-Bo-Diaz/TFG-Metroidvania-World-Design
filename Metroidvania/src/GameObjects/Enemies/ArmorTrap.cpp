@@ -72,11 +72,11 @@ bool ArmorTrap::Loop(float dt)
 	//STEP 2
 	speed_y += acceleration_y;
 
-	collider->x += speed_x;
-	collider->y += speed_y;
+	collider.x += speed_x;
+	collider.y += speed_y;
 
-	aggro.x = collider->x + collider->w/2 - aggro.w/2;
-	aggro.y = collider->y + collider->h - aggro.h;
+	aggro.x = collider.x + collider.w/2 - aggro.w/2;
+	aggro.y = collider.y + collider.h - aggro.h;
 
 	std::vector<collision*> collisions;
 	Engine->GetModule<ObjectManager>().GetCollisions(&aggro, collisions);
@@ -119,7 +119,7 @@ bool ArmorTrap::Loop(float dt)
 	case ArmorTrap_CHASE:
 	{
 		int direction = 0;
-		int distance = target->collider->x - collider->x;
+		int distance = target->collider.x - collider.x;
 		if (distance > 0)
 			direction = 1;
 		else
@@ -141,7 +141,7 @@ bool ArmorTrap::Loop(float dt)
 
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	bool change_direction = false;
 	bool floor_below = false;
@@ -156,27 +156,27 @@ bool ArmorTrap::Loop(float dt)
 		RXPoint p2;//down(should collide)
 		if (speed_x < 0)//left
 		{
-			p1.x = collider->x - abs(speed_x);
-			p1.y = collider->y + collider->h / 2;
+			p1.x = collider.x - abs(speed_x);
+			p1.y = collider.y + collider.h / 2;
 
-			p2.x = collider->x - abs(speed_x);
-			p2.y = collider->y + collider->h + 10;
+			p2.x = collider.x - abs(speed_x);
+			p2.y = collider.y + collider.h + 10;
 
 		}
 		else if (speed_x > 0)
 		{
-			p1.x = collider->x + collider->w + abs(speed_x);
-			p1.y = collider->y + collider->h / 2;
+			p1.x = collider.x + collider.w + abs(speed_x);
+			p1.y = collider.y + collider.h / 2;
 
-			p2.x = collider->x + collider->w + abs(speed_x);
-			p2.y = collider->y + collider->h + 10;
+			p2.x = collider.x + collider.w + abs(speed_x);
+			p2.y = collider.y + collider.h + 10;
 		}
 
 		RXRect result;
-		if (RXRectCollision(colliders[i], collider, &result) == true && collider->y < colliders[i]->y)// he goin crash!
+		if (RXRectCollision(colliders[i], &collider, &result) == true && collider.y < colliders[i]->y)// he goin crash!
 		{
 			speed_y = 0;
-			collider->y -= result.h;
+			collider.y -= result.h;
 
 			if (knocked_up)
 			{
@@ -219,14 +219,14 @@ bool ArmorTrap::Render()
 
 	if (current_state == ArmorTrap_IDLE)
 	{
-		Engine->GetModule<::Render>().RenderAnimation(idle, collider->x, collider->y);
+		Engine->GetModule<::Render>().RenderAnimation(idle, collider.x, collider.y);
 	}
 	else
 	{
 		if (speed_x < 0)
-			Engine->GetModule<::Render>().RenderAnimation(left, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(left, collider.x, collider.y);
 		else
-			Engine->GetModule<::Render>().RenderAnimation(right, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(right, collider.x, collider.y);
 	}
 
 
@@ -240,7 +240,7 @@ void ArmorTrap::RenderDebug()
 
 void ArmorTrap::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&fire_ge_death, collider->x, collider->y, 200);
+	Engine->GetModule<Particles>().AddParticleEmitter(&fire_ge_death, collider.x, collider.y, 200);
 }
 
 
@@ -255,7 +255,7 @@ void ArmorTrap::RecieveDamage(int dmg, int direction)
 	}
 	else
 	{
-		Engine->GetModule<Particles>().AddParticleEmitter(&metal, collider->x, collider->y, 300);
+		Engine->GetModule<Particles>().AddParticleEmitter(&metal, collider.x, collider.y, 300);
 	}
 
 	speed_x = direction * 6;

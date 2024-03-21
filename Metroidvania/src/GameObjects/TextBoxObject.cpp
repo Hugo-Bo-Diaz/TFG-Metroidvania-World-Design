@@ -51,7 +51,7 @@ bool TextBoxObject::Loop(float dt)
 	bool iscontactingplayer = false;
 
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -103,9 +103,9 @@ bool TextBoxObject::Render()
 	if (player_contact == true)
 	{
 		if(Engine->GetModule<Input>().IsUsingController())
-			Engine->GetModule<::Render>().RenderTexture(texture, collider->x + collider->w/2 - 24, collider->y - 48, rectanglecontroller,-5);
+			Engine->GetModule<::Render>().RenderTexture(texture, collider.x + collider.w/2 - 24, collider.y - 48, rectanglecontroller,-5);
 		else
-			Engine->GetModule<::Render>().RenderTexture(texture, collider->x + collider->w / 2 - 24, collider->y - 48, rectanglekeyboard, -5);
+			Engine->GetModule<::Render>().RenderTexture(texture, collider.x + collider.w / 2 - 24, collider.y - 48, rectanglekeyboard, -5);
 	}
 
 	return true;

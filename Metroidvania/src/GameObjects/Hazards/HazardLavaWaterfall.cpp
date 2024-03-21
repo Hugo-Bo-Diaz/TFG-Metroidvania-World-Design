@@ -22,7 +22,7 @@ void HazardLavaWaterfall::Init()
 bool HazardLavaWaterfall::Loop(float dt)
 {
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -30,7 +30,7 @@ bool HazardLavaWaterfall::Loop(float dt)
 		{
 			if ((*it)->object->IsSameTypeAs<Player>() && !((Fire*)((Player*)(*it)->object)->spells[FIRE])->is_fireshield_up)
 			{
-				if ((*it)->object->collider->x > collider->x)
+				if ((*it)->object->collider.x > collider.x)
 				{
 					((Player*)(*it)->object)->AddHealth(-1, 1);
 				}
@@ -52,14 +52,14 @@ bool HazardLavaWaterfall::Loop(float dt)
 
 bool HazardLavaWaterfall::Render()
 {
-	int tilesx = collider->w / 48;
-	int tilesy = collider->h / 48;
+	int tilesx = collider.w / 48;
+	int tilesy = collider.h / 48;
 
 	for (int i = 0; i < tilesx; ++i)
 	{
 		for (int j = 0; j < tilesy; ++j)
 		{
-			Engine->GetModule<::Render>().RenderAnimation(anim, collider->x + 48 * i, collider->y + 48 * j, 50);
+			Engine->GetModule<::Render>().RenderAnimation(anim, collider.x + 48 * i, collider.y + 48 * j, 50);
 		}
 	}
 	return true;

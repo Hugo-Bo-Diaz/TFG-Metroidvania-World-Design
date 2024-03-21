@@ -27,30 +27,30 @@ void IceShard::Init()
 	ice.minmax_frequency = std::make_pair(5, 20);
 	ice.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&ice, collider->x, collider->y);
+	p = Engine->GetModule<Particles>().AddParticleEmitter(&ice, collider.x, collider.y);
 }
 
 bool IceShard::Loop(float dt)
 {
 	bool ret = true;
 
-	collider->x += direction * speed;
+	collider.x += direction * speed;
 
-	p->position_x = collider->x;
-	p->position_y = collider->y;
+	p->position_x = collider.x;
+	p->position_y = collider.y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
-		if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
+		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			//Engine->GetModule<Particles>().to_delete.push_back(p);
 			Engine->GetModule<Particles>().RemoveParticleEmitter(p);
-			Engine->GetModule<Particles>().AddParticleEmitter(&ice, collider->x-8, collider->y, 300);
+			Engine->GetModule<Particles>().AddParticleEmitter(&ice, collider.x-8, collider.y, 300);
 		}
 	}
 
@@ -61,12 +61,12 @@ bool IceShard::Render()
 {
 	if (direction == 1)
 	{
-		Engine->GetModule<::Render>().RenderAnimation(ice_shard_right, collider->x, collider->y, -2);
+		Engine->GetModule<::Render>().RenderAnimation(ice_shard_right, collider.x, collider.y, -2);
 		ice_shard_right.NextFrame();
 	}
 	else
 	{
-		Engine->GetModule<::Render>().RenderAnimation(ice_shard_left, collider->x, collider->y, -2);
+		Engine->GetModule<::Render>().RenderAnimation(ice_shard_left, collider.x, collider.y, -2);
 		ice_shard_left.NextFrame();
 	}
 

@@ -31,7 +31,7 @@ void WindSlash::Init()
 	windslash_part.minmax_frequency = std::make_pair(5, 20);
 	windslash_part.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&windslash_part, collider->x, collider->h);
+	p = Engine->GetModule<Particles>().AddParticleEmitter(&windslash_part, collider.x, collider.h);
 
 }
 
@@ -39,24 +39,24 @@ bool WindSlash::Loop(float dt)
 {
 	bool ret = true;
 
-	collider->x += direction * speed;
+	collider.x += direction * speed;
 	windslash.NextFrame();
 
-	p->position_x = collider->x;
-	p->position_y = collider->y;
+	p->position_x = collider.x;
+	p->position_y = collider.y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
-		if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
+		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			//Engine->GetModule<Particles>().to_delete.push_back(p);
 			Engine->GetModule<Particles>().RemoveParticleEmitter(p);
-			Engine->GetModule<Particles>().AddParticleEmitter(&windslash_part, collider->x, collider->y, 500);
+			Engine->GetModule<Particles>().AddParticleEmitter(&windslash_part, collider.x, collider.y, 500);
 		}
 	}
 
@@ -65,7 +65,7 @@ bool WindSlash::Loop(float dt)
 
 bool WindSlash::Render()
 {
-	Engine->GetModule<::Render>().RenderAnimation(windslash, collider->x, collider->y, -2);
+	Engine->GetModule<::Render>().RenderAnimation(windslash, collider.x, collider.y, -2);
 	return true;
 }
 

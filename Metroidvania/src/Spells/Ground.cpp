@@ -74,7 +74,7 @@ void Ground::Loop(float dt)
 	//if (App->inp->GetButton(X) == BUTTON_DOWN && ! is_rock_on_cooldown)
 	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_DOWN && !is_rock_on_cooldown && player->manaCost(manacost_rock) && !Engine->GetModule<ObjectManager>().isPaused())
 	{
-			((Rock*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x+player->collider->w/2, player->collider->y+player->collider->h / 2, 32, 32, GetTypeIndex<Rock>()))->Fire(player->is_right,45,15,1);
+			((Rock*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x+player->collider.w/2, player->collider.y+player->collider.h / 2, 32, 32, GetTypeIndex<Rock>()))->Fire(player->is_right,45,15,1);
 			is_rock_on_cooldown = true;
 			rock_timer.Reset();
 			rock_timer.Start();
@@ -103,8 +103,8 @@ void Ground::Loop(float dt)
 
 	if (groundpounding)
 	{
-		groundpoundhitbox.x = player->collider->x;
-		groundpoundhitbox.y = player->collider->y + player->collider->h;
+		groundpoundhitbox.x = player->collider.x;
+		groundpoundhitbox.y = player->collider.y + player->collider.h;
 
 
 		std::vector<collision*> collisions;
@@ -122,7 +122,7 @@ void Ground::Loop(float dt)
 			if ((*it)->object->IsSameTypeAs<HazardRockBlock>())
 			{
 				Engine->GetModule<ObjectManager>().DeleteObject((*it)->object);
-				Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, ((*it)->object)->collider->x + ((*it)->object)->collider->w / 2, ((*it)->object)->collider->y + ((*it)->object)->collider->h / 2, 300);
+				Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, ((*it)->object)->collider.x + ((*it)->object)->collider.w / 2, ((*it)->object)->collider.y + ((*it)->object)->collider.h / 2, 300);
 
 			}
 		}
@@ -172,8 +172,8 @@ void Ground::Loop(float dt)
 	//if (App->inp->GetButton(B) == BUTTON_DOWN && player->grounded && !is_eq_on_cooldown)
 	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && player->grounded && !is_eq_on_cooldown && player->manaCost(manacost_earthquake) && !Engine->GetModule<ObjectManager>().isPaused())
 	{
-		((Shockwave*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(true, 8);
-		((Shockwave*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x + player->collider->w / 2, player->collider->y + player->collider->h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(false, 8);
+		((Shockwave*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x + player->collider.w / 2, player->collider.y + player->collider.h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(true, 8);
+		((Shockwave*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x + player->collider.w / 2, player->collider.y + player->collider.h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(false, 8);
 		
 		is_eq_on_cooldown = true;
 		earthquake_timer.Reset();
@@ -183,8 +183,8 @@ void Ground::Loop(float dt)
 		player->AddMana(-manacost_earthquake);
 
 		Engine->GetModule<Camera>().CameraShake(15, 2);//ADD PARTICLES
-		Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, player->collider->x, player->collider->y + player->collider->h, 200);
-		Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, player->collider->x + player->collider->w, player->collider->y + player->collider->h, 200);
+		Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, player->collider.x, player->collider.y + player->collider.h, 200);
+		Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, player->collider.x + player->collider.w, player->collider.y + player->collider.h, 200);
 	}
 
 	if (is_eq_on_cooldown && earthquake_timer.Read() > cooldown_earthquake)
@@ -198,7 +198,7 @@ void Ground::Render()
 	if (groundpounding)
 	{
 		//add graphic
-		Engine->GetModule<::Render>().RenderTexture(spells, player->collider->x, player->collider->y + player->collider->h, groundpound, -2);
+		Engine->GetModule<::Render>().RenderTexture(spells, player->collider.x, player->collider.y + player->collider.h, groundpound, -2);
 	}
 }
 

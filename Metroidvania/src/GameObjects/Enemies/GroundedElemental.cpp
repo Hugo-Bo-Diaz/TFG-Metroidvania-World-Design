@@ -28,10 +28,10 @@ void GroundedElemental::Destroy()
 	switch (c)
 	{
 	case RED_GROUNDELEMENTAL:
-		Engine->GetModule<Particles>().AddParticleEmitter(&fire_ge_death, collider->x, collider->y, 200);
+		Engine->GetModule<Particles>().AddParticleEmitter(&fire_ge_death, collider.x, collider.y, 200);
 		break;
 	case BROWN_GROUNDEDELEMENTAL:
-		Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider->x, collider->y, 200);
+		Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider.x, collider.y, 200);
 		break;
 	default:
 		break;
@@ -83,14 +83,14 @@ void GroundedElemental::Init()
 bool GroundedElemental::Loop(float dt)
 {
 	//STEP 1
-	collider->x += speed_x;
-	collider->y += speed_y;
+	collider.x += speed_x;
+	collider.y += speed_y;
 
 	//STEP 2
 	speed_y += acceleration_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	bool change_direction = false;
 	bool floor_below = false;
@@ -105,27 +105,27 @@ bool GroundedElemental::Loop(float dt)
 		RXPoint p2;//down(should collide)
 		if (speed_x < 0)//left
 		{
-			p1.x = collider->x - abs(speed_x);
-			p1.y = collider->y + collider->h / 2;
+			p1.x = collider.x - abs(speed_x);
+			p1.y = collider.y + collider.h / 2;
 
-			p2.x = collider->x - abs(speed_x);
-			p2.y = collider->y + collider->h + 10;
+			p2.x = collider.x - abs(speed_x);
+			p2.y = collider.y + collider.h + 10;
 			
 		}
 		else if (speed_x > 0)
 		{
-			p1.x = collider->x + collider->w + abs(speed_x);
-			p1.y = collider->y + collider->h / 2;
+			p1.x = collider.x + collider.w + abs(speed_x);
+			p1.y = collider.y + collider.h / 2;
 
-			p2.x = collider->x + collider->w + abs(speed_x);
-			p2.y = collider->y + collider->h + 10;
+			p2.x = collider.x + collider.w + abs(speed_x);
+			p2.y = collider.y + collider.h + 10;
 		}
 
 		RXRect result;
-			if (RXRectCollision(colliders[i], collider, &result) == true && collider->y < colliders[i]->y)// he goin crash!
+			if (RXRectCollision(colliders[i], &collider, &result) == true && collider.y < colliders[i]->y)// he goin crash!
 			{
 				speed_y = 0;
-				collider -= result.h;
+				collider.y -= result.h;
 				
 				if (knocked_up)
 				{
@@ -170,9 +170,9 @@ bool GroundedElemental::Render()
 	
 
 	if (speed_x < 0)
-		Engine->GetModule<::Render>().RenderAnimation(walking_left, collider->x, collider->y);
+		Engine->GetModule<::Render>().RenderAnimation(walking_left, collider.x, collider.y);
 	else
-		Engine->GetModule<::Render>().RenderAnimation(walking_right, collider->x, collider->y);
+		Engine->GetModule<::Render>().RenderAnimation(walking_right, collider.x, collider.y);
 
 	return true;
 }

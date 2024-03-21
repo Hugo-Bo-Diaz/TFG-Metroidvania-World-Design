@@ -74,13 +74,13 @@ bool MaxHealthPickup::Loop(float dt)
 		Engine->GetModule<ObjectManager>().DeleteObject(this);
 	}
 
-	p->position_x = collider->x;
-	p->position_y = collider->y;
+	p->position_x = collider.x;
+	p->position_y = collider.y;
 
 
 
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -121,7 +121,7 @@ bool MaxHealthPickup::Loop(float dt)
 					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue(std::to_string(lore_unlock).c_str(), 1.0f);
 					textbox->AddPanelToTextBox("New lore entry unlocked");
 				}
-				Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider->x, collider->y, 1500);
+				Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider.x, collider.y, 1500);
 			}
 		}
 	}
@@ -132,7 +132,7 @@ bool MaxHealthPickup::Loop(float dt)
 
 bool MaxHealthPickup::Render()
 {
-	Engine->GetModule<::Render>().RenderTexture(items, collider->x, collider->y, maxhealthplus, 10);
+	Engine->GetModule<::Render>().RenderTexture(items, collider.x, collider.y, maxhealthplus, 10);
 
 	return true;
 }

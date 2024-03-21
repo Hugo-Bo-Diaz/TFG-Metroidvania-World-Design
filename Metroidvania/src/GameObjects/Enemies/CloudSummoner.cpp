@@ -22,16 +22,16 @@ CloudSummoner::CloudSummoner(float _initial_x, float _initial_y)
 
 void CloudSummoner::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider->x, collider->y, 300);
+	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
 }
 
 void CloudSummoner::Init()
 {
 	nextpos = new RXRect();
-	nextpos->x = collider->x;
-	nextpos->y = collider->y;
-	nextpos->w = collider->w;
-	nextpos->h = collider->h;
+	nextpos->x = collider.x;
+	nextpos->y = collider.y;
+	nextpos->w = collider.w;
+	nextpos->h = collider.h;
 
 	cloud_summoner = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cloud_summoner.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
@@ -71,17 +71,17 @@ void CloudSummoner::Init()
 
 bool CloudSummoner::Loop(float dt)
 {
-	float d_to_origin = std::sqrt(std::pow(collider->x - initial_x, 2) + std::pow(collider->y - initial_y, 2));
+	float d_to_origin = std::sqrt(std::pow(collider.x - initial_x, 2) + std::pow(collider.y - initial_y, 2));
 
 	//STEP 1
-	collider->x = nextpos->x + oscilated_y;
-	collider->y = nextpos->y + oscilated_x;
+	collider.x = nextpos->x + oscilated_y;
+	collider.y = nextpos->y + oscilated_x;
 
 	nextpos->x += speed_x;
 	nextpos->y += speed_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
@@ -92,13 +92,13 @@ bool CloudSummoner::Loop(float dt)
 			if (result.h < result.w)
 			{
 
-				if (collider->y < colliders[i]->y)// he goin crash!
+				if (collider.y < colliders[i]->y)// he goin crash!
 				{
 					//speed_y = 0;
 					nextpos->y -= result.h;
 				}
 
-				if (collider->y > colliders[i]->y)// he goin crash!
+				if (collider.y > colliders[i]->y)// he goin crash!
 				{
 					//speed_y = 0;
 					nextpos->y += result.h;
@@ -107,12 +107,12 @@ bool CloudSummoner::Loop(float dt)
 			}
 			else
 			{
-				if (collider->x > colliders[i]->x)
+				if (collider.x > colliders[i]->x)
 				{
 					nextpos->x += result.w;
 				}
 
-				if (collider->x < colliders[i]->x)
+				if (collider.x < colliders[i]->x)
 				{
 					nextpos->x -= result.w;
 				}
@@ -125,8 +125,8 @@ bool CloudSummoner::Loop(float dt)
 	{
 	case CS_PATROL:
 	{
-		aggro.x = collider->x - aggro.w/2;
-		aggro.y = collider->y - aggro.h/2;
+		aggro.x = collider.x - aggro.w/2;
+		aggro.y = collider.y - aggro.h/2;
 
 		//detect player
 		std::vector<collision*> collisions;
@@ -151,8 +151,8 @@ bool CloudSummoner::Loop(float dt)
 
 		if (d_to_origin > 50 && !home) 
 		{
-			float deltaX = initial_x - collider->x - 32;
-			float deltaY = initial_y - collider->y - 32;
+			float deltaX = initial_x - collider.x - 32;
+			float deltaY = initial_y - collider.y - 32;
 
 			float angle = atan2(deltaY, -deltaX);
 
@@ -172,8 +172,8 @@ bool CloudSummoner::Loop(float dt)
 	case CS_AGGRO:
 	{
 
-		float deltaX = following->collider->x + following->collider->w / 2 - collider->x - 32;
-		float deltaY = following->collider->y + following->collider->h / 2 - collider->y - 32;
+		float deltaX = following->collider.x + following->collider.w / 2 - collider.x - 32;
+		float deltaY = following->collider.y + following->collider.h / 2 - collider.y - 32;
 
 		float angle = atan2(deltaY, -deltaX);
 
@@ -181,7 +181,7 @@ bool CloudSummoner::Loop(float dt)
 		{
 			shooting_timer.Reset();
 			shooting_timer.Start();
-			GameObject* obj = Engine->GetModule<ObjectManager>().AddObject(collider->x + collider->w/2 + 11, collider->y+ collider->h / 2 + 11, 22, 22, GetTypeIndex<CloudSummonerProjectile>());
+			GameObject* obj = Engine->GetModule<ObjectManager>().AddObject(collider.x + collider.w/2 + 11, collider.y+ collider.h / 2 + 11, 22, 22, GetTypeIndex<CloudSummonerProjectile>());
 
 			float proj_speed_x = -cos(angle) * projectile_speed;
 			float proj_speed_y = sin(angle) * projectile_speed;
@@ -204,7 +204,7 @@ bool CloudSummoner::Loop(float dt)
 				speed_y = 0;
 			}
 
-			float d_to_follow = std::sqrt(std::pow(collider->x - following->collider->x, 2) + std::pow(collider->y - following->collider->y, 2));
+			float d_to_follow = std::sqrt(std::pow(collider.x - following->collider.x, 2) + std::pow(collider.y - following->collider.y, 2));
 
 			if (d_to_follow > max_distance_to_player)
 			{
@@ -255,30 +255,30 @@ bool CloudSummoner::Render()
 {
 	if (speed_x < 0)
 	{
-		Engine->GetModule<::Render>().RenderAnimation(facing_left, collider->x, collider->y);
+		Engine->GetModule<::Render>().RenderAnimation(facing_left, collider.x, collider.y);
 	}
 	else if (speed_x > 0)
 	{
-		Engine->GetModule<::Render>().RenderAnimation(facing_right, collider->x, collider->y);
+		Engine->GetModule<::Render>().RenderAnimation(facing_right, collider.x, collider.y);
 	}
 	else if(following != nullptr)
 	{
-		if (following->collider->x > collider->x)
+		if (following->collider.x > collider.x)
 		{
-			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider.x, collider.y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider.x, collider.y);
 		}
 	}
 	else
 	{
-		Engine->GetModule<::Render>().RenderAnimation(facing_front, collider->x, collider->y);
+		Engine->GetModule<::Render>().RenderAnimation(facing_front, collider.x, collider.y);
 	}
 
 
-	Engine->GetModule<::Render>().RenderAnimation(book, collider->x + oscilated_book_x, collider->y+oscilated_book_y);
+	Engine->GetModule<::Render>().RenderAnimation(book, collider.x + oscilated_book_x, collider.y+oscilated_book_y);
 
 	return true;
 }

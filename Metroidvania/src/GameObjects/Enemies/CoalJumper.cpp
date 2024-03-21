@@ -26,16 +26,16 @@ CoalJumper::CoalJumper()
 
 void CoalJumper::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider->x, collider->y, 600);
+	Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider.x, collider.y, 600);
 }
 
 void CoalJumper::Init()
 {
 	nextpos = new RXRect();
-	nextpos->x = collider->x;
-	nextpos->y = collider->y;
-	nextpos->w = collider->w;
-	nextpos->h = collider->h;
+	nextpos->x = collider.x;
+	nextpos->y = collider.y;
+	nextpos->w = collider.w;
+	nextpos->h = collider.h;
 
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	coaljumper = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/coaljumper.png");
@@ -100,7 +100,7 @@ void CoalJumper::Init()
 
 bool CoalJumper::Loop(float dt)
 {
-	if (!Engine->GetModule<Camera>().isOnScreen(*collider) && !idle_timer.paused)
+	if (!Engine->GetModule<Camera>().isOnScreen(collider) && !idle_timer.paused)
 	{
 		idle_timer.Pause();
 	}
@@ -109,11 +109,11 @@ bool CoalJumper::Loop(float dt)
 		idle_timer.Resume();
 	}
 
-	collider->x = nextpos->x;
-	collider->y = nextpos->y;
+	collider.x = nextpos->x;
+	collider.y = nextpos->y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	speed_y += acceleration_y;
 
@@ -123,7 +123,7 @@ bool CoalJumper::Loop(float dt)
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
-		if (RXRectCollision(colliders[i], nextpos, &result) == true && collider->y < colliders[i]->y)// he goin crash!
+		if (RXRectCollision(colliders[i], nextpos, &result) == true && collider.y < colliders[i]->y)// he goin crash!
 		{
 			if (result.h > result.w)
 			{
@@ -267,14 +267,14 @@ bool CoalJumper::Loop(float dt)
 	}
 
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	return true;
 }
 
 bool CoalJumper::Render()
 {
-	Engine->GetModule<::Render>().RenderAnimation(animations[state], collider->x, collider->y, -1);
+	Engine->GetModule<::Render>().RenderAnimation(animations[state], collider.x, collider.y, -1);
 
 	return true;
 }
@@ -289,7 +289,7 @@ void CoalJumper::RecieveDamage(int dmg, int _direction)
 	}
 	else
 	{
-		Engine->GetModule<Particles>().AddParticleEmitter(&smoke, collider->x, collider->y, 200);
+		Engine->GetModule<Particles>().AddParticleEmitter(&smoke, collider.x, collider.y, 200);
 	}
 
 	//speed_x = direction * 6;

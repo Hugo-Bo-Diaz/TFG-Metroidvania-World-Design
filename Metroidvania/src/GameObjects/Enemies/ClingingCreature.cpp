@@ -75,7 +75,7 @@ bool ClingCreature::Loop(float dt)
 {
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x, collider->y, 50, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x, collider.y, 50, colliders);
 
 	bool thereisfloor = false;
 
@@ -83,66 +83,66 @@ bool ClingCreature::Loop(float dt)
 	{
 	case CLINGCREATURE_RIGHT:
 		
-		collider->x += speed_param;
+		collider.x += speed_param;
 
-		//check_down.x = collider->x + collider->w / 2;
-		check_down.x = collider->x;
+		//check_down.x = collider.x + collider.w / 2;
+		check_down.x = collider.x;
 		//check_down.w = 5;
-		check_down.w = collider->w+5;
-		check_down.y = collider->y + collider->h;
-		check_down.h = collider->h/2;
+		check_down.w = collider.w+5;
+		check_down.y = collider.y + collider.h;
+		check_down.h = collider.h/2;
 
-		check_front.x = collider->x + collider->w;
+		check_front.x = collider.x + collider.w;
 		check_front.w = 5;
-		check_front.y = collider->y;
-		check_front.h = collider->h/2;
+		check_front.y = collider.y;
+		check_front.h = collider.h/2;
 
 		break;
 	case CLINGCREATURE_DOWN:
-		collider->y += speed_param;
+		collider.y += speed_param;
 
-		check_down.x = collider->x - collider->w/2;
-		check_down.w = collider->w/2;
-		check_down.y = collider->y;
+		check_down.x = collider.x - collider.w/2;
+		check_down.w = collider.w/2;
+		check_down.y = collider.y;
 		//check_down.h = 5;
-		check_down.h = collider->h+5;
+		check_down.h = collider.h+5;
 
 
-		check_front.x = collider->x + collider->w/2;
-		check_front.w = collider->w/2;
-		check_front.y = collider->y+collider->h;
+		check_front.x = collider.x + collider.w/2;
+		check_front.w = collider.w/2;
+		check_front.y = collider.y+collider.h;
 		check_front.h = 5;
 
 		break;
 	case CLINGCREATURE_LEFT:
-		collider->x -= speed_param;
+		collider.x -= speed_param;
 
-		//check_down.x = collider->x+collider->w - 5;
-		check_down.x = collider->x - 5;
+		//check_down.x = collider.x+collider.w - 5;
+		check_down.x = collider.x - 5;
 		//check_down.w = 5;
-		check_down.w = collider->w + 5;
-		check_down.y = collider->y - collider->h/2;
-		check_down.h = collider->h/2;
+		check_down.w = collider.w + 5;
+		check_down.y = collider.y - collider.h/2;
+		check_down.h = collider.h/2;
 
-		check_front.x = collider->x-5;
+		check_front.x = collider.x-5;
 		check_front.w = 5;
-		check_front.y = collider->y + collider->h / 2;
-		check_front.h = collider->h / 2;
+		check_front.y = collider.y + collider.h / 2;
+		check_front.h = collider.h / 2;
 
 		break;
 	case CLINGCREATURE_UP:
-		collider->y -= speed_param;
+		collider.y -= speed_param;
 
-		check_down.x = collider->x + collider->w;
-		check_down.w = collider->w/2;
-		//check_down.y = collider->y + collider->h - 5;
-		check_down.y = collider->y - 5;
+		check_down.x = collider.x + collider.w;
+		check_down.w = collider.w/2;
+		//check_down.y = collider.y + collider.h - 5;
+		check_down.y = collider.y - 5;
 		//check_down.h = 5;
-		check_down.h = collider->h + 5;
+		check_down.h = collider.h + 5;
 
-		check_front.x = collider->x;
-		check_front.w = collider->w / 2;
-		check_front.y = collider->y-5;
+		check_front.x = collider.x;
+		check_front.w = collider.w / 2;
+		check_front.y = collider.y-5;
 		check_front.h = 5;
 
 		break;
@@ -179,16 +179,16 @@ bool ClingCreature::Loop(float dt)
 	if (shouldfall)
 	{
 		speed_y += accy;
-		collider->y += speed_y;
+		collider.y += speed_y;
 		for (int i = 0; i < colliders.size(); ++i)
 		{
 			RXRect result;
-			if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
+			if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 			{
 				//turn up
 				shouldfall = false;
 				speed_y = 0;
-				collider->y -= result.h;
+				collider.y -= result.h;
 			}
 		}
 	}
@@ -226,7 +226,7 @@ bool ClingCreature::Render()
 		animation_timer.Reset();
 	}
 
-	Engine->GetModule<::Render>().RenderAnimation(animation, collider->x, collider->y, -2, RenderQueue::RENDER_GAME, angle);
+	Engine->GetModule<::Render>().RenderAnimation(animation, collider.x, collider.y, -2, RenderQueue::RENDER_GAME, angle);
 
 	return true;
 }
@@ -239,7 +239,7 @@ void ClingCreature::RenderDebug()
 
 void ClingCreature::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider->x, collider->y, 200);
+	Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider.x, collider.y, 200);
 }
 
 void ClingCreature::TurnCorner(bool clockwise)
@@ -278,7 +278,7 @@ void ClingCreature::RecieveDamage(int dmg, int direction)
 	}
 	else
 	{
-		Engine->GetModule<Particles>().AddParticleEmitter(&metal_and_sand, collider->x, collider->y, 200);
+		Engine->GetModule<Particles>().AddParticleEmitter(&metal_and_sand, collider.x, collider.y, 200);
 	}
 
 }

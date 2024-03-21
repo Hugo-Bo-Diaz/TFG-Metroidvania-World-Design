@@ -6,7 +6,7 @@
 
 Cloud::Cloud()
 {
-	RXRect wall = { collider->x,collider->y,collider->w,collider->h };
+	RXRect wall = { collider.x,collider.y,collider.w,collider.h };
 
 	blitrect.AddFrame({96,96,64,32});
 }
@@ -21,7 +21,7 @@ bool Cloud::Loop(float dt)
 {
 	bool ret = true;
 
-	Engine->GetModule<::Render>().RenderAnimation(blitrect, collider->x, collider->y, -2);
+	Engine->GetModule<::Render>().RenderAnimation(blitrect, collider.x, collider.y, -2);
 
 	if (timer.Read()>life_expectancy)
 	{
@@ -36,7 +36,7 @@ bool Cloud::Loop(float dt)
 		Rain* r = new Rain(Engine);
 		r->blitrect = { 0, 192, 64, 32};
 		r->speed = rain_speed;
-		r->hitbox = { collider->x,collider->y,64,32};
+		r->hitbox = { collider.x,collider.y,64,32};
 		r->parent = this;
 		rain_timer.Reset();
 		rain_vector.push_back(r);

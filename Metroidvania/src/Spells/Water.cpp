@@ -22,7 +22,7 @@ void Water::Loop(float dt)
 	//if (App->inp->GetButton(X) == BUTTON_DOWN)
 	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_DOWN)
 	{
-		IceShard* iceshard = (IceShard*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y+player->collider->h/2-12, 48, 24, GetTypeIndex<IceShard>());
+		IceShard* iceshard = (IceShard*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y+player->collider.h/2-12, 48, 24, GetTypeIndex<IceShard>());
 		iceshard->Fire(player->is_right);
 		Engine->GetModule<Camera>().CameraShake(10, 100);
 	}
@@ -33,12 +33,12 @@ void Water::Loop(float dt)
 	{
 		if (player->is_right)
 		{
-			IceBlock* block = (IceBlock*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x + player->collider->w, player->collider->y, 64, 64, GetTypeIndex<IceBlock>());
+			IceBlock* block = (IceBlock*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x + player->collider.w, player->collider.y, 64, 64, GetTypeIndex<IceBlock>());
 			block->Init();
 		}
 		else
 		{
-			IceBlock* block = (IceBlock*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x - 64, player->collider->y, 64, 64, GetTypeIndex<IceBlock>());
+			IceBlock* block = (IceBlock*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x - 64, player->collider.y, 64, 64, GetTypeIndex<IceBlock>());
 			block->Init();
 		}
 
@@ -67,11 +67,11 @@ void Water::Loop(float dt)
 		{
 			if (player->is_right)
 			{
-				current_cloud = (Cloud*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x + player->collider->w + min_radius, player->collider->y, 64, 32, GetTypeIndex<Cloud>());
+				current_cloud = (Cloud*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x + player->collider.w + min_radius, player->collider.y, 64, 32, GetTypeIndex<Cloud>());
 			}
 			else
 			{
-				current_cloud = (Cloud*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x - 64 - min_radius, player->collider->y, 64, 32, GetTypeIndex<Cloud>());
+				current_cloud = (Cloud*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x - 64 - min_radius, player->collider.y, 64, 32, GetTypeIndex<Cloud>());
 			}
 		}
 		else
@@ -79,13 +79,13 @@ void Water::Loop(float dt)
 			if (joystickx > 0)
 			{
 				float coord = min_radius + (max_radius - min_radius)*abs(joystickx);
-				current_cloud = (Cloud*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x + player->collider->w + coord, player->collider->y, 64, 32, GetTypeIndex<Cloud>());
+				current_cloud = (Cloud*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x + player->collider.w + coord, player->collider.y, 64, 32, GetTypeIndex<Cloud>());
 			}
 
 			if (joystickx < 0)
 			{
 				float coord = min_radius + (max_radius - min_radius)*abs(joystickx);
-				current_cloud = (Cloud*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x - 64 - coord, player->collider->y, 64, 32, GetTypeIndex<Cloud>());
+				current_cloud = (Cloud*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x - 64 - coord, player->collider.y, 64, 32, GetTypeIndex<Cloud>());
 			}
 		}
 

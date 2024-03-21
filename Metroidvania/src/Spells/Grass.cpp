@@ -48,25 +48,25 @@ void Grass::Loop(float dt)
 	
 	//leafshot--------------------------------------------------------------------------------------------------------------------------
 	//if (App->inp->GetButton(X) == BUTTON_RELEASE)
-	p->position_x = player->collider->x + player->collider->w / 2;
-	p->position_y = player->collider->y + player->collider->h / 2;
+	p->position_x = player->collider.x + player->collider.w / 2;
+	p->position_y = player->collider.y + player->collider.h / 2;
 
 
 	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_RELEASE)
 	{
 		if (charge > 25)
 		{
-			/*Leaf* leaf = (Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y, 48, 48, LEAF);
+			/*Leaf* leaf = (Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, LEAF);
 			leaf->Fire(player->is_right, 15);*/
-			((Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, 15);
-			((Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, 0);
-			((Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, -15);
+			((Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, 15);
+			((Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, 0);
+			((Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, -15);
 
 			Engine->GetModule<Camera>().CameraShake(20, 100);
 		}
 		else
 		{
-			Leaf* leaf = (Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y, 48, 48, GetTypeIndex<Leaf>());
+			Leaf* leaf = (Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>());
 			leaf->Fire(player->is_right, 0);
 
 			Engine->GetModule<Camera>().CameraShake(10, 50);
@@ -95,8 +95,8 @@ void Grass::Loop(float dt)
 			float x,y;
 			Engine->GetModule<Input>().GetJoystick(true,x,y);
 			current_angle = 3.1428 +(atan2(-y,-x));
-			hook_position_x = player->x + player->collider->w / 2;
-			hook_position_y = player->y + player->collider->h / 2;
+			hook_position_x = player->x + player->collider.w / 2;
+			hook_position_y = player->y + player->collider.h / 2;
 			hook_out = true;
 		}
 		if (hooked)
@@ -115,8 +115,8 @@ void Grass::Loop(float dt)
 		{
 			hook_out = false;
 
-			hook_position_x = player->x + player->collider->w / 2;
-			hook_position_y = player->y + player->collider->h / 2;
+			hook_position_x = player->x + player->collider.w / 2;
+			hook_position_y = player->y + player->collider.h / 2;
 		}
 
 	
@@ -159,7 +159,7 @@ void Grass::Loop(float dt)
 
 	if (hooked)
 	{
-		if (DistanceBetweenTwoPoints(hook_position_x, hook_position_y, player->x + player->collider->w / 2, player->y + player->collider->h / 2) > 64)
+		if (DistanceBetweenTwoPoints(hook_position_x, hook_position_y, player->x + player->collider.w / 2, player->y + player->collider.h / 2) > 64)
 		{
 			current_angle = atan2(hook_position_y - player->y, hook_position_x - player->x);
 
@@ -196,7 +196,7 @@ void Grass::Loop(float dt)
 	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && !is_thorns_on_cooldown)
 	{
 		is_thorns_on_cooldown = true;
-		Thorns* t = (Thorns*)Engine->GetModule<ObjectManager>().AddObject(player->x+player->collider->w/2, player->y + player->collider->h / 2,32,32, GetTypeIndex<Thorns>());
+		Thorns* t = (Thorns*)Engine->GetModule<ObjectManager>().AddObject(player->x+player->collider.w/2, player->y + player->collider.h / 2,32,32, GetTypeIndex<Thorns>());
 		t->Fire(player->is_right,thorns_max_time);
 		thorns_timer.Reset();
 		thorns_timer.Start();
@@ -217,14 +217,14 @@ void Grass::Render()
 		debug.y = hook_position_y - 5;
 		Engine->GetModule<::Render>().RenderRect(debug, RXColor{ 0, 0, 0, 255 }, true, RenderQueue::RENDER_GAME, 0);
 
-		draw_angle = atan2(hook_position_y - (player->y + (player->collider->h / 2)), hook_position_x - (player->x + (player->collider->w / 2)));
-		float distance_to_hook = DistanceBetweenTwoPoints(hook_position_x, hook_position_y, player->x + player->collider->w / 2, player->y + player->collider->h / 2);
+		draw_angle = atan2(hook_position_y - (player->y + (player->collider.h / 2)), hook_position_x - (player->x + (player->collider.w / 2)));
+		float distance_to_hook = DistanceBetweenTwoPoints(hook_position_x, hook_position_y, player->x + player->collider.w / 2, player->y + player->collider.h / 2);
 		int vine_portions = 1 + (distance_to_hook / 32);
 		for (int i = 0; i < vine_portions; ++i)
 		{
 			Engine->GetModule<::Render>().RenderTexture(spells,
-				player->x + player->collider->w / 2 + cos(draw_angle)*i * 32 - vine.w / 2,
-				player->y + player->collider->h / 2 + sin(draw_angle)*i * 32 - vine.h / 2,
+				player->x + player->collider.w / 2 + cos(draw_angle)*i * 32 - vine.w / 2,
+				player->y + player->collider.h / 2 + sin(draw_angle)*i * 32 - vine.h / 2,
 				vine, -1, RenderQueue::RENDER_GAME, draw_angle * 180 / 3.1428);
 		}
 	}
@@ -240,8 +240,8 @@ void Grass::Switched_out()
 	hook_out = false;
 	hooked = false;
 
-	hook_position_x = player->x + player->collider->w / 2;
-	hook_position_y = player->y + player->collider->h / 2;
+	hook_position_x = player->x + player->collider.w / 2;
+	hook_position_y = player->y + player->collider.h / 2;
 
 	charge = 0;
 }

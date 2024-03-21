@@ -29,20 +29,20 @@ FlyingElemental::FlyingElemental(float _initial_y)
 
 void FlyingElemental::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider->x, collider->y, 300);
+	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
 }
 
 
 
 void FlyingElemental::Init()
 {
-	initial_y = collider->y;
+	initial_y = collider.y;
 
 	nextpos = new RXRect();
-	nextpos->x = collider->x;
-	nextpos->y = collider->y;
-	nextpos->w = collider->w;
-	nextpos->h = collider->h;
+	nextpos->x = collider.x;
+	nextpos->y = collider.y;
+	nextpos->w = collider.w;
+	nextpos->h = collider.h;
 
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	flyingelemental = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/flyingelemental.png");
@@ -66,8 +66,8 @@ void FlyingElemental::Init()
 bool FlyingElemental::Loop(float dt)
 {
 	//STEP 1
-	collider->x = nextpos->x;
-	collider->y = nextpos->y;
+	collider.x = nextpos->x;
+	collider.y = nextpos->y;
 
 	//STEP 2
 	speed_y += acceleration_y;
@@ -76,7 +76,7 @@ bool FlyingElemental::Loop(float dt)
 	nextpos->y += speed_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
@@ -87,13 +87,13 @@ bool FlyingElemental::Loop(float dt)
 			if (result.h < result.w)
 			{
 
-				if (collider->y < colliders[i]->y)// he goin crash!
+				if (collider.y < colliders[i]->y)// he goin crash!
 				{
 					//speed_y = 0;
 					nextpos->y -= result.h;
 				}
 
-				if (collider->y > colliders[i]->y)// he goin crash!
+				if (collider.y > colliders[i]->y)// he goin crash!
 				{
 					//speed_y = 0;
 					nextpos->y += result.h;
@@ -102,12 +102,12 @@ bool FlyingElemental::Loop(float dt)
 			}
 			else
 			{
-				if (collider->x > colliders[i]->x)
+				if (collider.x > colliders[i]->x)
 				{
 					nextpos->x += result.w;
 				}
 
-				if (collider->x < colliders[i]->x)
+				if (collider.x < colliders[i]->x)
 				{
 					nextpos->x -= result.w;
 				}
@@ -123,13 +123,13 @@ bool FlyingElemental::Loop(float dt)
 	{
 		if (speed_x < 0)
 		{
-			aggro.x = collider->x - aggro.w;
-			aggro.y = collider->y;
+			aggro.x = collider.x - aggro.w;
+			aggro.y = collider.y;
 		}
 		else
 		{
-			aggro.x = collider->x + collider->w;
-			aggro.y = collider->y;
+			aggro.x = collider.x + collider.w;
+			aggro.y = collider.y;
 		}
 
 		//detect player
@@ -160,7 +160,7 @@ bool FlyingElemental::Loop(float dt)
 			current_distance = 0;
 		}
 
-		if (collider->y < initial_y)
+		if (collider.y < initial_y)
 		{
 			speed_y = bounce_strength;
 		}
@@ -219,7 +219,7 @@ bool FlyingElemental::Loop(float dt)
 			charge_timer.Reset();
 		}
 
-		if(collider->y<initial_y && charged)
+		if(collider.y<initial_y && charged)
 		{
 			state = FE_PATROL;
 			if(speed_x<0)
@@ -248,12 +248,12 @@ bool FlyingElemental::Render()
 		if (speed_x < 0)
 		{
 			flying_left.NextFrame();
-			Engine->GetModule<::Render>().RenderAnimation(flying_left, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(flying_left, collider.x, collider.y);
 		}
 		else
 		{
 			flying_right.NextFrame();
-			Engine->GetModule<::Render>().RenderAnimation(flying_right, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(flying_right, collider.x, collider.y);
 		}
 	}
 
@@ -262,12 +262,12 @@ bool FlyingElemental::Render()
 		if (speed_x > 0)
 		{
 			flying_left.NextFrame();
-			Engine->GetModule<::Render>().RenderAnimation(flying_left, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(flying_left, collider.x, collider.y);
 		}
 		else
 		{
 			flying_right.NextFrame();
-			Engine->GetModule<::Render>().RenderAnimation(flying_right, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(flying_right, collider.x, collider.y);
 		}
 	}
 

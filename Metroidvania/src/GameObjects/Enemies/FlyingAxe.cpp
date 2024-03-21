@@ -17,7 +17,7 @@ FlyingAxe::FlyingAxe(float _initial_y)
 
 void FlyingAxe::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&metal, collider->x, collider->y, 300);
+	Engine->GetModule<Particles>().AddParticleEmitter(&metal, collider.x, collider.y, 300);
 }
 
 
@@ -67,8 +67,8 @@ void FlyingAxe::Init()
 bool FlyingAxe::Loop(float dt)
 {
 	//STEP 1
-	collider->x = nextpos->x;
-	collider->y = nextpos->y;
+	collider.x = nextpos->x;
+	collider.y = nextpos->y;
 
 	//STEP 2
 
@@ -76,7 +76,7 @@ bool FlyingAxe::Loop(float dt)
 	nextpos->y += speed_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
@@ -94,13 +94,13 @@ bool FlyingAxe::Loop(float dt)
 				if (result.h < result.w)
 				{
 
-					if (collider->y < colliders[i]->y)// he goin crash!
+					if (collider.y < colliders[i]->y)// he goin crash!
 					{
 						//speed_y = 0;
 						nextpos->y -= result.h;
 					}
 
-					if (collider->y > colliders[i]->y)// he goin crash!
+					if (collider.y > colliders[i]->y)// he goin crash!
 					{
 						//speed_y = 0;
 						nextpos->y += result.h;
@@ -109,12 +109,12 @@ bool FlyingAxe::Loop(float dt)
 				}
 				else
 				{
-					if (collider->x > colliders[i]->x)
+					if (collider.x > colliders[i]->x)
 					{
 						nextpos->x += result.w;
 					}
 
-					if (collider->x < colliders[i]->x)
+					if (collider.x < colliders[i]->x)
 					{
 						nextpos->x -= result.w;
 					}
@@ -131,13 +131,13 @@ bool FlyingAxe::Loop(float dt)
 	{
 		if (speed_x < 0)
 		{
-			aggro.x = collider->x - aggro.w;
-			aggro.y = collider->y;
+			aggro.x = collider.x - aggro.w;
+			aggro.y = collider.y;
 		}
 		else
 		{
-			aggro.x = collider->x + collider->w;
-			aggro.y = collider->y;
+			aggro.x = collider.x + collider.w;
+			aggro.y = collider.y;
 		}
 
 		//detect player
@@ -154,8 +154,8 @@ bool FlyingAxe::Loop(float dt)
 					starting.Reset();
 					starting.Start();
 
-					float deltaX = (*it)->object->collider->x + (*it)->object->collider->w / 2 - x - 32;
-					float deltaY = (*it)->object->collider->y + (*it)->object->collider->h / 2 - y - 32;
+					float deltaX = (*it)->object->collider.x + (*it)->object->collider.w / 2 - x - 32;
+					float deltaY = (*it)->object->collider.y + (*it)->object->collider.h / 2 - y - 32;
 
 					float angle = atan2(deltaY, -deltaX);
 
@@ -203,7 +203,7 @@ bool FlyingAxe::Loop(float dt)
 		}
 
 
-		if(collider->y<initial_y && charged)
+		if(collider.y<initial_y && charged)
 		{
 			state = AXE_PATROL;
 			if(speed_x<0)
@@ -228,11 +228,11 @@ bool FlyingAxe::Render()
 	{
 		if (speed_x < 0)
 		{
-			Engine->GetModule<::Render>().RenderAnimation(rotate_left, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(rotate_left, collider.x, collider.y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().RenderAnimation(rotate_right, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(rotate_right, collider.x, collider.y);
 		}
 	}
 
@@ -240,11 +240,11 @@ bool FlyingAxe::Render()
 	{
 		if (speed_x > 0)
 		{
-			Engine->GetModule<::Render>().RenderAnimation(rotate_left, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(rotate_left, collider.x, collider.y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().RenderAnimation(rotate_right, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(rotate_right, collider.x, collider.y);
 		}
 	}
 

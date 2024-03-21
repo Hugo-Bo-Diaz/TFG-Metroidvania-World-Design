@@ -98,7 +98,7 @@ void Fire::Loop(float dt)
 
 		if (charge > 70 && player->manaCost(manacost_big))
 		{
-			FireBall* fireball = (FireBall*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y, 32, 32, GetTypeIndex<FireBall>());
+			FireBall* fireball = (FireBall*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 32, 32, GetTypeIndex<FireBall>());
 			fireball->Fire(player->is_right, true);
 			Engine->GetModule<Camera>().CameraShake(20, 120);
 			Engine->GetModule<Audio>().PlaySFX(mSFXFireBall);
@@ -106,7 +106,7 @@ void Fire::Loop(float dt)
 		}
 		else if (player->manaCost(manacost_small))
 		{
-			FireBall* fireball = (FireBall*)Engine->GetModule<ObjectManager>().AddObject(player->collider->x, player->collider->y, 32, 32, GetTypeIndex<FireBall>());
+			FireBall* fireball = (FireBall*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 32, 32, GetTypeIndex<FireBall>());
 			fireball->Fire(player->is_right, false);
 			Engine->GetModule<Camera>().CameraShake(10, 120);
 			Engine->GetModule<Audio>().PlaySFX(mSFXFireBallBig);
@@ -135,7 +135,7 @@ void Fire::Loop(float dt)
 	{
 		if (player->is_right)
 		{
-			volcano_particles->position_x = player->x + player->collider->w;
+			volcano_particles->position_x = player->x + player->collider.w;
 			volcano_particles->position_y = player->y;
 		}
 		else
@@ -151,11 +151,11 @@ void Fire::Loop(float dt)
 			r->speed = -6;
 			if(player->is_right)
 			{
-			r->hitbox = { player->collider->x+player->collider->w,player->collider->y+player->collider->h-24,64,48 };
+			r->hitbox = { player->collider.x+player->collider.w,player->collider.y+player->collider.h-24,64,48 };
 			}
 			else
 			{
-				r->hitbox = { player->collider->x -64,player->collider->y + player->collider->h - 24,64,48 };
+				r->hitbox = { player->collider.x -64,player->collider.y + player->collider.h - 24,64,48 };
 			}
 			r->parent = this;
 			r->life.Start();
@@ -166,13 +166,13 @@ void Fire::Loop(float dt)
 		}
 		/*
 			Engine->GetModule<::Render>().Blit(Engine->GetModule<Textures>().Get_Texture("spells"),
-				player->collider->x + player->collider->w,
-				player->collider->y,
+				player->collider.x + player->collider.w,
+				player->collider.y,
 				firebreath_right.GetCurrentFrame(), -2);
 
 			Engine->GetModule<::Render>().Blit(Engine->GetModule<Textures>().Get_Texture("spells"),
-				player->collider->x - firebreath_left.GetCurrentFrame()->w,
-				player->collider->y,
+				player->collider.x - firebreath_left.GetCurrentFrame()->w,
+				player->collider.y,
 				firebreath_left.GetCurrentFrame(), -2);
 		*/
 	}
@@ -228,7 +228,7 @@ void Fire::Loop(float dt)
 	{
 		player->AddMana(-manacost_shield_over_time);
 
-		RXRect fireshield = {player->collider->x-16,player->collider->y-16,96,96};
+		RXRect fireshield = {player->collider.x-16,player->collider.y-16,96,96};
 		std::vector<collision*> collisions;
 		Engine->GetModule<ObjectManager>().GetCollisions(&fireshield, collisions);
 
@@ -237,7 +237,7 @@ void Fire::Loop(float dt)
 			if ((*it)->object != player)
 			{
 				int direction = 0;
-				if (player->collider->x < (*it)->object->collider->x)
+				if (player->collider.x < (*it)->object->collider.x)
 				{
 					direction = 1;
 				}
@@ -267,15 +267,15 @@ void Fire::Render()
 				if (player->is_right)
 				{
 					Engine->GetModule<::Render>().RenderTexture(spells,
-						player->collider->x + player->collider->w - 5,
-						player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
+						player->collider.x + player->collider.w - 5,
+						player->collider.y + player->collider.h / 2 - fireball_big.h / 2,
 						fireball_big, -2);
 				}
 				else
 				{
 					Engine->GetModule<::Render>().RenderTexture(spells,
-						player->collider->x - fireball_big.w + 5,
-						player->collider->y + player->collider->h / 2 - fireball_big.h / 2,
+						player->collider.x - fireball_big.w + 5,
+						player->collider.y + player->collider.h / 2 - fireball_big.h / 2,
 						fireball_big, -2);
 				}
 			}
@@ -284,15 +284,15 @@ void Fire::Render()
 				if (player->is_right)
 				{
 					Engine->GetModule<::Render>().RenderTexture(spells,
-						player->collider->x + player->collider->w - 15,
-						player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
+						player->collider.x + player->collider.w - 15,
+						player->collider.y + player->collider.h / 2 - fireball_small.h / 2,
 						fireball_small, -2);
 				}
 				else
 				{
 					Engine->GetModule<::Render>().RenderTexture(spells,
-						player->collider->x - fireball_small.w + 15,
-						player->collider->y + player->collider->h / 2 - fireball_small.h / 2,
+						player->collider.x - fireball_small.w + 15,
+						player->collider.y + player->collider.h / 2 - fireball_small.h / 2,
 						fireball_small, -2);
 				}
 			}
@@ -307,8 +307,8 @@ void Fire::Render()
 	if (is_fireshield_up)
 	{
 		Engine->GetModule<::Render>().RenderTexture(spells,
-			player->collider->x + (player->collider->w - fireshield.GetCurrentFrame().w) / 2,
-			player->collider->y + (player->collider->h - fireshield.GetCurrentFrame().h) / 2,
+			player->collider.x + (player->collider.w - fireshield.GetCurrentFrame().w) / 2,
+			player->collider.y + (player->collider.h - fireshield.GetCurrentFrame().h) / 2,
 			fireshield.GetCurrentFrame(), -2);
 
 		to_follow->position_x = player->x;

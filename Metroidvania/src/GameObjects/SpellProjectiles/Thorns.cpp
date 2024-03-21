@@ -27,7 +27,7 @@ void Thorns::Init()
 	grass.minmax_frequency = std::make_pair(5, 20);
 	grass.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider->x, collider->y);
+	p = Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider.x, collider.y);
 	state = SEED;
 
 	thorn_first.AddFrame({ 128,0,32,32 });
@@ -47,31 +47,31 @@ bool Thorns::Loop(float dt)
 	{
 	case SEED:
 	{
-		collider->x += speed;
+		collider.x += speed;
 
-		collider->y += y_speed;
+		collider.y += y_speed;
 
 		y_speed += gravity;
 
-		p->position_x = collider->x + collider->w / 2;
-		p->position_y = collider->y + collider->h / 2;
+		p->position_x = collider.x + collider.w / 2;
+		p->position_y = collider.y + collider.h / 2;
 
 
 		std::vector<RXRect*> colliders;
-		Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
+		Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 		for (int i = 0; i < colliders.size(); ++i)
 		{
 			RXRect result;
-			if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
+			if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 			{
 				state = THORNS_ON_FLOOR;
-				int tile_x = collider->x / 32;
-				int tile_y = collider->y / 32;
-				collider->x = tile_x * 32;
-				collider->y = tile_y * 32;
-				collider->w = 8;
-				collider->h = 32;
+				int tile_x = collider.x / 32;
+				int tile_y = collider.y / 32;
+				collider.x = tile_x * 32;
+				collider.y = tile_y * 32;
+				collider.w = 8;
+				collider.h = 32;
 
 				life_timer.Reset();
 				life_timer.Start();
@@ -84,33 +84,33 @@ bool Thorns::Loop(float dt)
 	case THORNS_ON_FLOOR:
 	{
 
-//		Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
+//		Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 
 		std::vector<RXRect*> colliders;
 
 		if (direction == -1)
 		{
-			Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x, collider->y + collider->h / 2, 50, colliders);
-			p->position_x = collider->x + collider->w;
+			Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x, collider.y + collider.h / 2, 50, colliders);
+			p->position_x = collider.x + collider.w;
 		}
 		else
 		{
-			Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w, collider->y + collider->h / 2, 50, colliders);
-			p->position_x = collider->x;
+			Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w, collider.y + collider.h / 2, 50, colliders);
+			p->position_x = collider.x;
 		}
 
 		for (int i = 0; i < colliders.size(); ++i)
 		{
 			if (direction == -1)
 			{
-				RXPoint p = { collider->x + collider->w + 4, collider->y + collider->h + 8 };
+				RXPoint p = { collider.x + collider.w + 4, collider.y + collider.h + 8 };
 
 				if (RXPointInRect(&p, colliders[i]) == false)
 				{
 					expand = false;
 				}
-				RXPoint p_f = { collider->x + collider->w + 4, collider->y +8};
+				RXPoint p_f = { collider.x + collider.w + 4, collider.y +8};
 
 				if (RXPointInRect(&p_f, colliders[i]) == true)
 				{
@@ -119,13 +119,13 @@ bool Thorns::Loop(float dt)
 			}
 			else
 			{
-				RXPoint p = { collider->x - 4, collider->y + collider->h + 8 };
+				RXPoint p = { collider.x - 4, collider.y + collider.h + 8 };
 
 				if (RXPointInRect(&p, colliders[i]) == false)
 				{
 					expand = false;
 				}
-				RXPoint p_f = { collider->x - 4, collider->y + 8};
+				RXPoint p_f = { collider.x - 4, collider.y + 8};
 
 				if (RXPointInRect(&p_f, colliders[i]) == true)
 				{
@@ -139,12 +139,12 @@ bool Thorns::Loop(float dt)
 		{
 			if (direction == -1)
 			{
-				collider->w += expansion_speed;
+				collider.w += expansion_speed;
 			}
 			else
 			{
-					collider->w += expansion_speed;
-					collider->x -= expansion_speed;
+					collider.w += expansion_speed;
+					collider.x -= expansion_speed;
 			}
 
 
@@ -175,29 +175,29 @@ bool Thorns::Render()
 	case SEED:
 	{
 
-		Engine->GetModule<::Render>().RenderAnimation(seed, collider->x, collider->y, -1);
+		Engine->GetModule<::Render>().RenderAnimation(seed, collider.x, collider.y, -1);
 	}
 	break;
 	case THORNS_ON_FLOOR:
 	{
-		int tiles = collider->w / 32;
-		float extra_distance = collider->w % 32;
+		int tiles = collider.w / 32;
+		float extra_distance = collider.w % 32;
 		int i;
 		for (i = 0; i< tiles; ++i)
 		{
 			if (i % 2 == 0)
 			{
 				//draw thorns 1
-				Engine->GetModule<::Render>().RenderAnimation(thorn_first, collider->x + i * 32, collider->y, -2);
+				Engine->GetModule<::Render>().RenderAnimation(thorn_first, collider.x + i * 32, collider.y, -2);
 			}
 			else
 			{
 				//draw thorns 2
-				Engine->GetModule<::Render>().RenderAnimation(thorn_second, collider->x + i * 32, collider->y, -2);
+				Engine->GetModule<::Render>().RenderAnimation(thorn_second, collider.x + i * 32, collider.y, -2);
 			}
 		}
 		//last_thorn_segment.GetCurrentFrame().w = extra_distance;
-		Engine->GetModule<::Render>().RenderAnimation(last_thorn_segment, collider->x + i * 32, collider->y, -2);
+		Engine->GetModule<::Render>().RenderAnimation(last_thorn_segment, collider.x + i * 32, collider.y, -2);
 
 	}
 	}

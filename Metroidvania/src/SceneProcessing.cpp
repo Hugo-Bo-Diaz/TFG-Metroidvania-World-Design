@@ -105,16 +105,16 @@ void MetroidVaniaSceneProcessor::SceneProcessingInGame()
 	int intersection_d;
 	for (std::vector<GameObject*>::iterator it = portals.begin(); it != portals.end(); it++)
 	{
-		if(pl != nullptr && RXRectCollision(pl->nextpos,(*it)->collider))
+		if(pl != nullptr && RXRectCollision(pl->nextpos,&(*it)->collider))
 		{
 			to_use = (Portal*)*it;
 			if (to_use->horizontal)
 			{
-				intersection_d = pl->x - to_use->collider->x;
+				intersection_d = pl->x - to_use->collider.x;
 			}
 			else
 			{
-				intersection_d = pl->y - to_use->collider->y;
+				intersection_d = pl->y - to_use->collider.y;
 			}
 		}
 	}
@@ -171,8 +171,8 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 		SpawnPoint* s = (SpawnPoint*)(*it);
 		if (s->id == spawn_point_id)
 		{
-			spawnpoint_x = s->collider->x;
-			spawnpoint_y = s->collider->y;
+			spawnpoint_x = s->collider.x;
+			spawnpoint_y = s->collider.y;
 		}
 	}
 	newplayer_x = spawnpoint_x;
@@ -197,7 +197,7 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 	//pl->current_spell = (spell_type)current_spell;
 	pl->speed_y = prev_speed_y;
 	pl->speed_x = prev_speed_x;
-	pl->collider->w -= pl->separation * 2;
+	pl->collider.w -= pl->separation * 2;
 	pl->nextpos->w -= pl->separation * 2;
 }
 
@@ -284,8 +284,8 @@ void MetroidVaniaSceneProcessor::UsePortal(Portal* p, int offset)
 	//	SpawnPoint* s = (SpawnPoint*)(*it);
 	//	if (s->id == point_id)
 	//	{
-	//		spawnpoint_x = s->collider->x;
-	//		spawnpoint_y = s->collider->y;
+	//		spawnpoint_x = s->collider.x;
+	//		spawnpoint_y = s->collider.y;
 	//	}
 	//}
 	//newplayer_x = spawnpoint_x;
@@ -310,7 +310,7 @@ void MetroidVaniaSceneProcessor::UsePortal(Portal* p, int offset)
 	////pl->current_spell = (spell_type)current_spell;
 	////pl->speed_y = speed_y;
 	////pl->speed_x = speed_x;
-	//pl->collider->w -= pl->separation * 2;
+	//pl->collider.w -= pl->separation * 2;
 	//pl->nextpos->w -= pl->separation * 2;
 
 
@@ -351,7 +351,7 @@ void MetroidVaniaSceneProcessor::GoToLastCheckPoint()
 	//pl->nextpos->x = App->trk->last_checkpoint_x;
 	//pl->nextpos->y = App->trk->last_checkpoint_y;
 
-	//pl->collider->w -= pl->separation * 2;
+	//pl->collider.w -= pl->separation * 2;
 	//pl->nextpos->w -= pl->separation * 2;
 	//App->trk->SetPlayer(pl);
 

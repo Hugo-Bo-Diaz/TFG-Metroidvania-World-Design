@@ -32,7 +32,7 @@ void Leaf::Init()
 	leaf_right.mTexture = spells;
 	leaf_left.AddFrame({ 96,32,64,32 });//48 16
 	leaf_left.mTexture = spells;
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider->x, collider->y);
+	p = Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider.x, collider.y);
 
 }
 
@@ -40,26 +40,26 @@ bool Leaf::Loop(float dt)
 {
 	bool ret = true;
 
-	collider->x += direction * speed * ratio_x;
+	collider.x += direction * speed * ratio_x;
 	
-	collider->y += direction * speed * ratio_y;
+	collider.y += direction * speed * ratio_y;
 
-	p->position_x = collider->x+collider->w/2;
-	p->position_y = collider->y+collider->h/2;
+	p->position_x = collider.x+collider.w/2;
+	p->position_y = collider.y+collider.h/2;
 
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
-		if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
+		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			//Engine->GetModule<Particles>().to_delete.push_back(p);
 			Engine->GetModule<Particles>().RemoveParticleEmitter(p);
-			Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider->x + collider->w / 2, collider->y + collider->h / 2, 200);
+			Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider.x + collider.w / 2, collider.y + collider.h / 2, 200);
 		}
 	}
 
@@ -70,12 +70,12 @@ bool Leaf::Render()
 {
 	if (direction == 1)
 	{
-		Engine->GetModule<::Render>().RenderAnimation(leaf_right, collider->x, collider->y, -2, RenderQueue::RENDER_GAME, angle);
+		Engine->GetModule<::Render>().RenderAnimation(leaf_right, collider.x, collider.y, -2, RenderQueue::RENDER_GAME, angle);
 		leaf_right.NextFrame();
 	}
 	else
 	{
-		Engine->GetModule<::Render>().RenderAnimation(leaf_left, collider->x, collider->y, -2, RenderQueue::RENDER_GAME, angle);
+		Engine->GetModule<::Render>().RenderAnimation(leaf_left, collider.x, collider.y, -2, RenderQueue::RENDER_GAME, angle);
 		leaf_left.NextFrame();
 	}
 	return true;

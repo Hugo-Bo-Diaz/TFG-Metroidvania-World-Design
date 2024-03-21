@@ -58,8 +58,8 @@ void GroundSpellPickup::Init()
 
 	groundspellbook = { 216,0,52,64 };
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&sand_left, collider->x, collider->y);
-	q = Engine->GetModule<Particles>().AddParticleEmitter(&sand_right, collider->x, collider->y);
+	p = Engine->GetModule<Particles>().AddParticleEmitter(&sand_left, collider.x, collider.y);
+	q = Engine->GetModule<Particles>().AddParticleEmitter(&sand_right, collider.x, collider.y);
 
 	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("SpellsUnlock") == nullptr)
 	{
@@ -78,14 +78,14 @@ bool GroundSpellPickup::Loop(float dt)
 		Engine->GetModule<ObjectManager>().DeleteObject(this);
 	}
 
-	p->position_x = collider->x;
-	p->position_y = collider->y;
+	p->position_x = collider.x;
+	p->position_y = collider.y;
 	
-	q->position_x = collider->x;
-	q->position_y = collider->y;
+	q->position_x = collider.x;
+	q->position_y = collider.y;
 
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -100,8 +100,8 @@ bool GroundSpellPickup::Loop(float dt)
 				textbox->AddPanelToTextBox("this castle is still alive, just broken");
 				Engine->GetModule<UserInterface>().AddElement(textbox);
 				//Engine->GetModule<Particles>().to_delete.push_back(p);
-				Engine->GetModule<Particles>().AddParticleEmitter(&sand_left, collider->x, collider->y, 1500);
-				Engine->GetModule<Particles>().AddParticleEmitter(&sand_right, collider->x, collider->y, 1500);
+				Engine->GetModule<Particles>().AddParticleEmitter(&sand_left, collider.x, collider.y, 1500);
+				Engine->GetModule<Particles>().AddParticleEmitter(&sand_right, collider.x, collider.y, 1500);
 				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue("16", 1.0f);
 
 			}
@@ -113,6 +113,6 @@ bool GroundSpellPickup::Loop(float dt)
 
 bool GroundSpellPickup::Render()
 {
-	Engine->GetModule<::Render>().RenderTexture(spell_books, collider->x, collider->y, groundspellbook, 10);
+	Engine->GetModule<::Render>().RenderTexture(spell_books, collider.x, collider.y, groundspellbook, 10);
 	return true;
 }

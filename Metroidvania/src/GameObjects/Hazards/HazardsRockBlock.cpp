@@ -31,14 +31,14 @@ bool HazardRockBlock::Loop(float dt)
 {
 	if (wall_id == -1)
 	{
-		RXRect lRect = { collider->x,collider->y,48,48 };
+		RXRect lRect = { collider.x,collider.y,48,48 };
 		wall_id = Engine->GetModule<ObjectManager>().AddWall(lRect);
-		collider->y -= 5;
-		collider->h += 5;
+		collider.y -= 5;
+		collider.h += 5;
 	}
 
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 	/*
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -72,7 +72,7 @@ bool HazardRockBlock::Loop(float dt)
 bool HazardRockBlock::Render()
 {
 
-	Engine->GetModule<::Render>().RenderTexture(hazards, collider->x, collider->y+5, rockblock, -20);
+	Engine->GetModule<::Render>().RenderTexture(hazards, collider.x, collider.y+5, rockblock, -20);
 	
 
 	return true;

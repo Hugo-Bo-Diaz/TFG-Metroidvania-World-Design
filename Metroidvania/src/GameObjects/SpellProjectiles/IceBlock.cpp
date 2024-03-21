@@ -6,13 +6,13 @@
 IceBlock::IceBlock()
 {
 
-	RXRect wall = {collider->x,collider->y,collider->w,collider->h};
+	RXRect wall = {collider.x,collider.y,collider.w,collider.h};
 }
 
 void IceBlock::Init()
 {
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
-	wall_id = Engine->GetModule<ObjectManager>().AddWall(*collider);
+	wall_id = Engine->GetModule<ObjectManager>().AddWall(collider);
 }
 
 bool IceBlock::Loop(float dt)
@@ -31,7 +31,7 @@ bool IceBlock::Loop(float dt)
 }
 
 bool IceBlock::Render()
-{		Engine->GetModule<::Render>().RenderTexture(spells, collider->x, collider->y, spr_on_img, -2);
+{		Engine->GetModule<::Render>().RenderTexture(spells, collider.x, collider.y, spr_on_img, -2);
 
 	return true;
 }

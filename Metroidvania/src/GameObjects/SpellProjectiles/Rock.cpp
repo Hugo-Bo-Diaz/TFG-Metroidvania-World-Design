@@ -23,7 +23,7 @@ Rock::Rock()
 
 Rock::~Rock()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
+	Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, collider.x + collider.w / 2, collider.y + collider.h / 2, 300);
 }
 
 void Rock::Init()
@@ -71,14 +71,14 @@ bool Rock::Loop(float dt)
 {
 	bool ret = true;
 
-	collider->x += x_speed;
+	collider.x += x_speed;
 
-	collider->y += y_speed;
+	collider.y += y_speed;
 
 	y_speed += gravity;
 
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -102,16 +102,16 @@ bool Rock::Loop(float dt)
 
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
-		if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
+		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
-			Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, collider->x + collider->w/2, collider->y + collider->h/2, 100);
+			Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, collider.x + collider.w/2, collider.y + collider.h/2, 100);
 			Engine->GetModule<Camera>().CameraShake(15, 60);
 		}
 	}
@@ -121,7 +121,7 @@ bool Rock::Loop(float dt)
 
 bool Rock::Render()
 {
-	Engine->GetModule<::Render>().RenderAnimation(rock_sprite, collider->x, collider->y, -2);
+	Engine->GetModule<::Render>().RenderAnimation(rock_sprite, collider.x, collider.y, -2);
 
 	return true;
 }

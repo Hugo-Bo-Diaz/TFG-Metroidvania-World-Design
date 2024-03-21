@@ -51,7 +51,7 @@ void FireSpellPickup::Init()
 	fireshield.minmax_frequency = std::make_pair(5, 20);
 	fireshield.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider->x, collider->y);
+	p = Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider.x, collider.y);
 }
 
 bool FireSpellPickup::Loop(float dt)
@@ -61,11 +61,11 @@ bool FireSpellPickup::Loop(float dt)
 		Engine->GetModule<ObjectManager>().DeleteObject(this);
 	}
 
-	p->position_x = collider->x;
-	p->position_y = collider->y;
+	p->position_x = collider.x;
+	p->position_y = collider.y;
 
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -80,7 +80,7 @@ bool FireSpellPickup::Loop(float dt)
 				textbox->AddPanelToTextBox("remember your past      we need you");
 				Engine->GetModule<UserInterface>().AddElement(textbox);
 				//Engine->GetModule<Particles>().to_delete.push_back(p);
-				Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider->x, collider->y,1500);
+				Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider.x, collider.y,1500);
 				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue("4",1.0f);
 			}
 		}
@@ -91,6 +91,6 @@ bool FireSpellPickup::Loop(float dt)
 
 bool FireSpellPickup::Render()
 {
-	Engine->GetModule<::Render>().RenderTexture(spell_books, collider->x, collider->y, firespellbook, 10);
+	Engine->GetModule<::Render>().RenderTexture(spell_books, collider.x, collider.y, firespellbook, 10);
 	return true;
 }

@@ -30,7 +30,7 @@ void LavaSpell::Loop()
 	{
 
 		int direction = 0;
-		if(hitbox.x<(*it)->object->collider->x)
+		if(hitbox.x<(*it)->object->collider.x)
 		{
 			direction = 1;
 		}

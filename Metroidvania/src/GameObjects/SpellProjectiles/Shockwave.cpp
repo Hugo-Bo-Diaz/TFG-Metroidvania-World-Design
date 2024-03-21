@@ -23,17 +23,17 @@ Shockwave::Shockwave()
 
 Shockwave::~Shockwave()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
+	Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, collider.x + collider.w / 2, collider.y + collider.h / 2, 300);
 	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
 }
 
 void Shockwave::Init()
 {
 	nextpos = new RXRect();
-	nextpos->x = collider->x;
-	nextpos->y = collider->y;
-	nextpos->w = collider->w;
-	nextpos->h = collider->h;
+	nextpos->x = collider.x;
+	nextpos->y = collider.y;
+	nextpos->w = collider.w;
+	nextpos->h = collider.h;
 
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
 	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
@@ -76,18 +76,18 @@ void Shockwave::Init()
 	groundcontact.minmax_frequency = std::make_pair(10, 25);
 	groundcontact.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, collider->x, collider->y + collider->h);
+	p = Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, collider.x, collider.y + collider.h);
 }
 
 bool Shockwave::Loop(float dt)
 {
 	bool ret = true;
 
-	collider->x += x_speed;
+	collider.x += x_speed;
 	nextpos->x += x_speed;
 
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -112,14 +112,14 @@ bool Shockwave::Loop(float dt)
 
 	floor_check.x = x_speed + nextpos->x + nextpos->w/2;
 
-	p->position_x = collider->x+collider->w/2;
-	p->position_y = collider->y+collider->h/2;
+	p->position_x = collider.x+collider.w/2;
+	p->position_y = collider.y+collider.h/2;
 
 	std::vector<RXRect*> colliders;
 	
 	bool should_delete = true;
 
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
@@ -153,11 +153,11 @@ bool Shockwave::Render()
 {
 	if (x_speed > 0)
 	{
-		Engine->GetModule<::Render>().RenderAnimation(shockwave_right, collider->x, collider->y, -2);
+		Engine->GetModule<::Render>().RenderAnimation(shockwave_right, collider.x, collider.y, -2);
 	}
 	else
 	{
-		Engine->GetModule<::Render>().RenderAnimation(shockwave_left, collider->x, collider->y, -2);
+		Engine->GetModule<::Render>().RenderAnimation(shockwave_left, collider.x, collider.y, -2);
 	}
 	return true;
 }

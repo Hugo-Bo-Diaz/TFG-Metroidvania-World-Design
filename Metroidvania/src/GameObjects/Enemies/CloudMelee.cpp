@@ -20,18 +20,18 @@ CloudMelee::CloudMelee(float _initial_x, float _initial_y)
 
 void CloudMelee::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider->x, collider->y, 300);
+	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
 }
 
 
 void CloudMelee::Init()
 {
-	initial_y = collider->x;
+	initial_y = collider.x;
 	nextpos = new RXRect();
-	nextpos->x = collider->x;
-	nextpos->y = collider->y;
-	nextpos->w = collider->w;
-	nextpos->h = collider->h;
+	nextpos->x = collider.x;
+	nextpos->y = collider.y;
+	nextpos->w = collider.w;
+	nextpos->h = collider.h;
 
 	cloud_melee = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cloud_melee.png");
 	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
@@ -65,14 +65,14 @@ void CloudMelee::Init()
 bool CloudMelee::Loop(float dt)
 {
 	//STEP 1
-	collider->x = nextpos->x;
-	collider->y = nextpos->y;
+	collider.x = nextpos->x;
+	collider.y = nextpos->y;
 
 	nextpos->x += speed_x;
 	nextpos->y += speed_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 100, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 
 	bool has_crashed = false;
@@ -87,13 +87,13 @@ bool CloudMelee::Loop(float dt)
 			if (result.h < result.w)
 			{
 
-				if (collider->y < colliders[i]->y)// he goin crash!
+				if (collider.y < colliders[i]->y)// he goin crash!
 				{
 					//speed_y = 0;
 					nextpos->y -= result.h;
 				}
 
-				if (collider->y > colliders[i]->y)// he goin crash!
+				if (collider.y > colliders[i]->y)// he goin crash!
 				{
 					//speed_y = 0;
 					nextpos->y += result.h;
@@ -102,12 +102,12 @@ bool CloudMelee::Loop(float dt)
 			}
 			else
 			{
-				if (collider->x > colliders[i]->x)
+				if (collider.x > colliders[i]->x)
 				{
 					nextpos->x += result.w;
 				}
 
-				if (collider->x < colliders[i]->x)
+				if (collider.x < colliders[i]->x)
 				{
 					nextpos->x -= result.w;
 				}
@@ -123,13 +123,13 @@ bool CloudMelee::Loop(float dt)
 	{
 		if (speed_x < 0)
 		{
-			aggro.x = collider->x - aggro.w;
-			aggro.y = collider->y - 200;
+			aggro.x = collider.x - aggro.w;
+			aggro.y = collider.y - 200;
 		}
 		else
 		{
-			aggro.x = collider->x + collider->w;
-			aggro.y = collider->y - 200;
+			aggro.x = collider.x + collider.w;
+			aggro.y = collider.y - 200;
 		}
 
 		//detect player
@@ -146,13 +146,13 @@ bool CloudMelee::Loop(float dt)
 					starting.Reset();
 					starting.Start();
 
-					float deltaX = (*it)->object->collider->x + (*it)->object->collider->w / 2 - x - 32;
-					float deltaY = (*it)->object->collider->y + (*it)->object->collider->h / 2 - y - 32;
+					float deltaX = (*it)->object->collider.x + (*it)->object->collider.w / 2 - x - 32;
+					float deltaY = (*it)->object->collider.y + (*it)->object->collider.h / 2 - y - 32;
 
 					float angle = atan2(deltaY, -deltaX);
 
 
-					if((*it)->object->collider->x > collider->x)
+					if((*it)->object->collider.x > collider.x)
 					{
 						charge_speed_x = -charge_speed_base * cos(angle);
 					}
@@ -226,7 +226,7 @@ bool CloudMelee::Loop(float dt)
 	case CM_RECOVER:
 	{
 		bool is_in_position = true;
-		if (collider->y > initial_y)
+		if (collider.y > initial_y)
 		{
 			is_in_position = false;
 			speed_y = -2;
@@ -236,10 +236,10 @@ bool CloudMelee::Loop(float dt)
 			speed_y = 0;
 		}
 
-		if (std::abs(collider->x - initial_x) > 50)
+		if (std::abs(collider.x - initial_x) > 50)
 		{
 			is_in_position = false;
-			if (collider->x > initial_x)
+			if (collider.x > initial_x)
 				speed_x = -patrol_speed;
 			else
 				speed_x = patrol_speed;
@@ -269,11 +269,11 @@ bool CloudMelee::Render()
 	{
 		if (speed_x < 0)
 		{
-			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider.x, collider.y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider.x, collider.y);
 		}
 	}
 
@@ -281,11 +281,11 @@ bool CloudMelee::Render()
 	{
 		if (speed_x > 0)
 		{
-			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider.x, collider.y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider->x, collider->y);
+			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider.x, collider.y);
 		}
 	}
 

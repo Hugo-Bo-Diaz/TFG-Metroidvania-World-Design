@@ -44,22 +44,22 @@ void FireBall::Init()
 }
 void FireBall::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider->x, collider->y, 300);
+	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
 }
 
 bool FireBall::Loop(float dt)
 {
 	bool ret = true;
 
-	collider->x += direction * speed;
+	collider.x += direction * speed;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider->x + collider->w / 2, collider->y + collider->h / 2, 50, colliders);
+	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
-		if (RXRectCollision(colliders[i], collider, &result) == true)// he goin crash!
+		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<ObjectManager>().DeleteObject(this);
 			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
@@ -68,7 +68,7 @@ bool FireBall::Loop(float dt)
 
 
 	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(collider, collisions);
+	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
 
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -92,9 +92,9 @@ bool FireBall::Loop(float dt)
 bool FireBall::Render()
 {
 	if (is_big)
-		Engine->GetModule<::Render>().RenderAnimation(fireball_big, collider->x, collider->y, -2);
+		Engine->GetModule<::Render>().RenderAnimation(fireball_big, collider.x, collider.y, -2);
 	else
-		Engine->GetModule<::Render>().RenderAnimation(fireball_small, collider->x, collider->y, -2);
+		Engine->GetModule<::Render>().RenderAnimation(fireball_small, collider.x, collider.y, -2);
 
 	return true;
 }
@@ -110,9 +110,9 @@ void FireBall::Fire(bool left_dir, bool _is_big)
 	
 	if (!is_big)
 	{
-		collider->y += 16;
-		collider->w = 16;
-		collider->h = 16;
+		collider.y += 16;
+		collider.w = 16;
+		collider.h = 16;
 	}
 	else
 	{
