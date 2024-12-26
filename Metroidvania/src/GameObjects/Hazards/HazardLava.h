@@ -1,9 +1,9 @@
 #ifndef HAZARD__LAVA
 #define HAZARD__LAVA
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "Utils/Timer.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class HazardLava :
 	public GameObject
@@ -23,7 +23,7 @@ public:
 	bool offset_cycle=true;
 
 	RXRect lava;
-	TextureID hazards;
+	RexTextureID hazards;
 };
 
 #endif

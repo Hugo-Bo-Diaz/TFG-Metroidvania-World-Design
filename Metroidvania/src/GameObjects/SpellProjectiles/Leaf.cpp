@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "Modules/Input.h"
 #include "Modules/Render.h"
-#include "Modules/Particles.h"
 
 Leaf::Leaf()
 {
@@ -10,8 +9,8 @@ Leaf::Leaf()
 
 void Leaf::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
 
 	r10grass = { 24,24,12,12 };
 	r11grass = { 36,24,12,12 };
@@ -32,7 +31,7 @@ void Leaf::Init()
 	leaf_right.mTexture = spells;
 	leaf_left.AddFrame({ 96,32,64,32 });//48 16
 	leaf_left.mTexture = spells;
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider.x, collider.y);
+	p = Engine->GetModule<::Render>().AddParticleEmitter(&grass, collider.x, collider.y);
 
 }
 
@@ -49,17 +48,17 @@ bool Leaf::Loop(float dt)
 
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
 		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
-			Engine->GetModule<ObjectManager>().DeleteObject(this);
-			//Engine->GetModule<Particles>().to_delete.push_back(p);
-			Engine->GetModule<Particles>().RemoveParticleEmitter(p);
-			Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider.x + collider.w / 2, collider.y + collider.h / 2, 200);
+			Engine->GetModule<SceneController>().DeleteObject(this);
+			//Engine->GetModule<::Render>().to_delete.push_back(p);
+			Engine->GetModule<::Render>().RemoveParticleEmitter(p);
+			Engine->GetModule<::Render>().AddParticleEmitter(&grass, collider.x + collider.w / 2, collider.y + collider.h / 2, 200);
 		}
 	}
 

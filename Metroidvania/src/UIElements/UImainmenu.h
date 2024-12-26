@@ -3,7 +3,7 @@
 
 #include "EngineElements/ParticleEmitter.h"
 #include "../GameObjects/Player.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 #include "EngineElements/UIelement.h"
 #include "Modules/Audio.h"
 
@@ -43,9 +43,9 @@ public:
 	int offset_option_y = 232;
 	int interval_y = 68;
 
-	TextureID TexBase;
-	TextureID TexSelected;
-	TextureID TexDisabled;
+	RexTextureID TexBase;
+	RexTextureID TexSelected;
+	RexTextureID TexDisabled;
 
 	AudioID mMenuMusic;
 	AudioID mSFXMenuSelect;

@@ -2,11 +2,10 @@
 #include "../GameObjects/Player.h"
 #include "Application.h"
 #include "Modules/Input.h"
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "../GameObjects/SpellProjectiles/FireBall.h"
 #include "Modules/Render.h"
 #include "Modules/Camera.h"
-#include "Modules/Particles.h"
 #include "Modules/Audio.h"
 #include "../GameObjects/SpellProjectiles/LavaSpell.h"
 
@@ -22,18 +21,18 @@
 
 Fire::~Fire()
 {
-	Engine->GetModule<Particles>().RemoveParticleEmitter(volcano_particles);
-	Engine->GetModule<Particles>().RemoveParticleEmitter(to_follow);
-	//Engine->GetModule<Particles>().to_delete.push_back(volcano_particles);
-	//Engine->GetModule<Particles>().to_delete.push_back(to_follow);
+	Engine->GetModule<::Render>().RemoveParticleEmitter(volcano_particles);
+	Engine->GetModule<::Render>().RemoveParticleEmitter(to_follow);
+	//Engine->GetModule<::Render>().to_delete.push_back(volcano_particles);
+	//Engine->GetModule<::Render>().to_delete.push_back(to_follow);
 
 	
 }
 
 void Fire::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
 
 	mSFXFireBall = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/fireball_small.wav");
 	mSFXFireBallBig = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/fireball_big.wav");
@@ -77,10 +76,10 @@ void Fire::Init()
 	fireball_big = { 0,0,64,64 };
 	fireball_small = { 96,0,32,32 };
 
-	to_follow = Engine->GetModule<Particles>().AddParticleEmitter(&fireshield_part,0,0);
+	to_follow = Engine->GetModule<::Render>().AddParticleEmitter(&fireshield_part,0,0);
 	to_follow->active = false;
 
-	volcano_particles = Engine->GetModule<Particles>().AddParticleEmitter(&lava, 0, 0);
+	volcano_particles = Engine->GetModule<::Render>().AddParticleEmitter(&lava, 0, 0);
 	volcano_particles->active = false;
 
 	fireshield_timer.Pause();
@@ -92,13 +91,15 @@ void Fire::Init()
 
 void Fire::Loop(float dt)
 {
+	float lTimeFactor = dt / (1000 / 60);
+
 	//Fireball--------------------------------------------------------------------------------------------------------------------------
 	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_RELEASE)
 	{
 
 		if (charge > 70 && player->manaCost(manacost_big))
 		{
-			FireBall* fireball = (FireBall*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 32, 32, GetTypeIndex<FireBall>());
+			FireBall* fireball = (FireBall*)Engine->GetModule<SceneController>().AddObject(player->collider.x, player->collider.y, 32, 32, GetTypeIndex<FireBall>());
 			fireball->Fire(player->is_right, true);
 			Engine->GetModule<Camera>().CameraShake(20, 120);
 			Engine->GetModule<Audio>().PlaySFX(mSFXFireBall);
@@ -106,7 +107,7 @@ void Fire::Loop(float dt)
 		}
 		else if (player->manaCost(manacost_small))
 		{
-			FireBall* fireball = (FireBall*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 32, 32, GetTypeIndex<FireBall>());
+			FireBall* fireball = (FireBall*)Engine->GetModule<SceneController>().AddObject(player->collider.x, player->collider.y, 32, 32, GetTypeIndex<FireBall>());
 			fireball->Fire(player->is_right, false);
 			Engine->GetModule<Camera>().CameraShake(10, 120);
 			Engine->GetModule<Audio>().PlaySFX(mSFXFireBallBig);
@@ -118,10 +119,10 @@ void Fire::Loop(float dt)
 
 	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_REPEAT)
 	{
-		charge += 2;
+		charge += 2 * lTimeFactor;
 	}
 	//Fireslash/breath------------------------------------------------------------------------------------------------------------------
-	if (Engine->GetModule<Input>().GetInput(BUTTON_3) == KEY_DOWN && player->grounded && !Engine->GetModule<ObjectManager>().isPaused())
+	if (Engine->GetModule<Input>().GetInput(BUTTON_3) == KEY_DOWN && player->grounded && !Engine->GetModule<SceneController>().isPaused())
 	{
 		player->LockMovement();
 		lavaspawner.Start();
@@ -165,12 +166,12 @@ void Fire::Loop(float dt)
 			player->AddMana(-0.2);
 		}
 		/*
-			Engine->GetModule<::Render>().Blit(Engine->GetModule<Textures>().Get_Texture("spells"),
+			Engine->GetModule<::Render>().Blit(Engine->GetModule<::Render>().Get_Texture("spells"),
 				player->collider.x + player->collider.w,
 				player->collider.y,
 				firebreath_right.GetCurrentFrame(), -2);
 
-			Engine->GetModule<::Render>().Blit(Engine->GetModule<Textures>().Get_Texture("spells"),
+			Engine->GetModule<::Render>().Blit(Engine->GetModule<::Render>().Get_Texture("spells"),
 				player->collider.x - firebreath_left.GetCurrentFrame()->w,
 				player->collider.y,
 				firebreath_left.GetCurrentFrame(), -2);
@@ -197,7 +198,7 @@ void Fire::Loop(float dt)
 	}
 
 	//Fireshield--------------------------------------------------------------------------------------------------------------------
-	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && !is_fireshield_on_cooldown && player->manaCost(manacost_shield) && !Engine->GetModule<ObjectManager>().isPaused())
+	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && !is_fireshield_on_cooldown && player->manaCost(manacost_shield) && !Engine->GetModule<SceneController>().isPaused())
 	{
 		//player->LockMovement(shield_activation_time);
 		is_fireshield_on_cooldown = true;
@@ -229,15 +230,15 @@ void Fire::Loop(float dt)
 		player->AddMana(-manacost_shield_over_time);
 
 		RXRect fireshield = {player->collider.x-16,player->collider.y-16,96,96};
-		std::vector<collision*> collisions;
-		Engine->GetModule<ObjectManager>().GetCollisions(&fireshield, collisions);
+		std::vector<collision> collisions;
+		Engine->GetModule<SceneController>().GetCollisions(&fireshield, collisions);
 
-		for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+		for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 		{
-			if ((*it)->object != player)
+			if ((*it).object != player)
 			{
 				int direction = 0;
-				if (player->collider.x < (*it)->object->collider.x)
+				if (player->collider.x < (*it).object->collider.x)
 				{
 					direction = 1;
 				}
@@ -246,9 +247,9 @@ void Fire::Loop(float dt)
 					direction = -1;
 				}
 
-				if ((*it)->object->IsSameTypeAs<Enemy>())
+				if ((*it).object->IsSameTypeAs<Enemy>())
 				{
-					((Enemy*)(*it)->object)->RecieveDamage(0.3, direction);
+					((Enemy*)(*it).object)->RecieveDamage(0.3, direction);
 				}
 			}
 		}
@@ -260,7 +261,7 @@ void Fire::Render()
 {
 	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_REPEAT)
 	{
-		if (!Engine->GetModule<ObjectManager>().isPaused())
+		if (!Engine->GetModule<SceneController>().isPaused())
 		{
 			if (charge > 100)
 			{

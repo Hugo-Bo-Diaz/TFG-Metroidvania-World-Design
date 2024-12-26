@@ -1,11 +1,11 @@
 #include "MaxHealthPickup.h"
-#include "Modules/Particles.h"
 #include "Application.h"
 #include "Modules/ProgressTracker.h"
 #include "Modules/Gui.h"
 #include "../../UIElements/UItextbox.h"
 #include "../../UIelementFunctions.h"
 #include "../Player.h"
+#include "../../MetroidvaniaConstants.h"
 
 MaxHealthPickup::MaxHealthPickup()
 {
@@ -35,15 +35,15 @@ MaxHealthPickup::MaxHealthPickup(std::list<ObjectProperty*>& aProperties)
 
 void MaxHealthPickup::Destroy()
 {
-	//Engine->GetModule<Particles>().to_delete.push_back(p);
-	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
+	//Engine->GetModule<::Render>().to_delete.push_back(p);
+	Engine->GetModule<::Render>().RemoveParticleEmitter(p);
 	//GameObject::~GameObject();
 }
 
 void MaxHealthPickup::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	items = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/items.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/items.png", items);
 
 	maxhealthplus = { 0,0,48,48 };
 
@@ -60,18 +60,23 @@ void MaxHealthPickup::Init()
 	magic.minmax_frequency = std::make_pair(20, 40);
 	magic.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&magic, 0, 0);
+	p = Engine->GetModule<::Render>().AddParticleEmitter(&magic, 0, 0);
 	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups") == nullptr)
 	{
 		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("pickups");
+	}
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs") == nullptr)
+	{
+		Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("LoreLogs");
 	}
 }
 
 bool MaxHealthPickup::Loop(float dt)
 {
-	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue(std::to_string(pickup_id).c_str()) != 0.0f)
+	std::string lPickup = "Pickup" + std::to_string(pickup_id);
+	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue(lPickup.c_str()) != 0.0f)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
 	}
 
 	p->position_x = collider.x;
@@ -79,35 +84,35 @@ bool MaxHealthPickup::Loop(float dt)
 
 
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Player>())
+			if ((*it).object->IsSameTypeAs<Player>())
 			{
-				Player* pl = (Player*)((*it)->object);
+				Player* pl = (Player*)((*it).object);
 				pl->AddHealth(1);
 
-				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue(std::to_string(pickup_id).c_str(),1.0f);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue(lPickup.c_str(),1.0f);
 				
-				int charges_for_hp = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue("CurrentFragmentsHP");
-				int max_charges_for_hp = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue("MaxFragmentsHP");
+				int charges_for_hp = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("CurrentFragmentsHP");
 
-				Engine->GetModule<ObjectManager>().DeleteObject(this);
+				Engine->GetModule<SceneController>().DeleteObject(this);
 
-				std::string s = std::to_string(charges_for_hp + 1) + "/" + std::to_string(max_charges_for_hp)+ " to increase hp";
+				std::string s = std::to_string(charges_for_hp + 1) + "/" + std::to_string(ITEM_SHARDS_FOR_UPGRADE)+ " to increase hp";
 
 				charges_for_hp += 1;
-				if (charges_for_hp >= max_charges_for_hp)
+				if (charges_for_hp >= ITEM_SHARDS_FOR_UPGRADE)
 				{
 					pl->max_health += 1;
 					pl->health += 1;
-					int charges_for_hp = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue("CurrentFragmentsHP",0);
-					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue("MaxHP",pl->max_health);
+					charges_for_hp = 0;
+					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->SetValue("MaxHP",pl->max_health);
 				}
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->SetValue("CurrentFragmentsHP",charges_for_hp);
 
 				UItextbox* textbox= new UItextbox("", s.c_str(), TextBoxColor::GREY, 15, 4, 272, 420, 2, 0.2);
 				Engine->GetModule<UserInterface>().AddElement(textbox);
@@ -116,12 +121,16 @@ bool MaxHealthPickup::Loop(float dt)
 				{
 					textbox->AddPanelToTextBox(text.c_str());
 				}
-				if (lore_unlock != -1 && Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->GetValue(std::to_string(lore_unlock).c_str()) == 0.0f)
+				
+				std::string lEntry = "Lore" + std::to_string(lore_unlock);
+				if (lore_unlock != -1 && Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->GetValue(lEntry.c_str()) == 0.0f)
 				{
-					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue(std::to_string(lore_unlock).c_str(), 1.0f);
+					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue(lEntry.c_str(), lore_unlock);
 					textbox->AddPanelToTextBox("New lore entry unlocked");
 				}
-				Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider.x, collider.y, 1500);
+				Engine->GetModule<::Render>().AddParticleEmitter(&magic, collider.x, collider.y, 1500);
+
+				Engine->GetModule<ProgressTracker>().SaveFile("save_file.xml");
 			}
 		}
 	}

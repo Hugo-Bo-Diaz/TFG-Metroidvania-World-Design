@@ -13,7 +13,7 @@ Cloud::Cloud()
 
 void Cloud::Init()
 {
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
 	blitrect.mTexture = spells;
 }
 
@@ -25,7 +25,7 @@ bool Cloud::Loop(float dt)
 
 	if (timer.Read()>life_expectancy)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
 	}
 
 	//handle rain

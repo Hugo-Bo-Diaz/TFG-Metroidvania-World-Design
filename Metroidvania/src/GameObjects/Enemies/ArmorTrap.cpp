@@ -1,8 +1,6 @@
 #include "ArmorTrap.h"
 #include "Application.h"
 #include "Modules/Render.h"
-#include "Modules/Textures.h"
-#include "Modules/Particles.h"
 #include "Modules/Audio.h"
 #include "Modules/Debug.h"
 #include "../Player.h"
@@ -13,8 +11,8 @@ ArmorTrap::ArmorTrap()
 
 void ArmorTrap::Init()
 {
-	armortrap = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/armortrap.png");
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/armortrap.png", armortrap);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
@@ -78,18 +76,18 @@ bool ArmorTrap::Loop(float dt)
 	aggro.x = collider.x + collider.w/2 - aggro.w/2;
 	aggro.y = collider.y + collider.h - aggro.h;
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&aggro, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&aggro, collisions);
 
 	isplayernearby = false;
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Player>())
+			if ((*it).object->IsSameTypeAs<Player>())
 			{
 				isplayernearby = true;
-				target = (*it)->object;
+				target = (*it).object;
 			}
 		}
 	}
@@ -141,7 +139,7 @@ bool ArmorTrap::Loop(float dt)
 
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	bool change_direction = false;
 	bool floor_below = false;
@@ -240,25 +238,31 @@ void ArmorTrap::RenderDebug()
 
 void ArmorTrap::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&fire_ge_death, collider.x, collider.y, 200);
+	Engine->GetModule<::Render>().AddParticleEmitter(&fire_ge_death, collider.x, collider.y, 200);
 }
 
 
-void ArmorTrap::RecieveDamage(int dmg, int direction)
+bool ArmorTrap::RecieveDamage(int dmg, int direction)
 {
 	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 
 	health -= dmg;
 	if (health <= 0)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
+		return false;
 	}
 	else
 	{
-		Engine->GetModule<Particles>().AddParticleEmitter(&metal, collider.x, collider.y, 300);
+		Engine->GetModule<::Render>().AddParticleEmitter(&metal, collider.x, collider.y, 300);
+	}
+	
+	if (direction != 0)
+	{
+		speed_x = direction * 6;
+		speed_y = -10;
+		knocked_up = true;
 	}
 
-	speed_x = direction * 6;
-	speed_y = -10;
-	knocked_up = true;
+	return true;
 }

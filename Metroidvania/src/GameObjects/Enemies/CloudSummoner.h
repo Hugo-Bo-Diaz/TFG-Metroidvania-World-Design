@@ -1,11 +1,11 @@
 #ifndef CLOUD__SUMMONER__H
 #define CLOUD__SUMMONER__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 #include "Modules/Audio.h"
 
 enum CloudSummonerState
@@ -25,13 +25,14 @@ public:
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void RenderDebug();
 	void Destroy();
 
 	CloudSummonerState state = CS_PATROL;
 	CloudSummonerState last_state = CS_PATROL;
-	float health = 1;
+	float health = 2;
 
-	void RecieveDamage(int dmg, int direction);
+	bool RecieveDamage(int dmg, int direction);
 
 	float x;
 	float y;
@@ -48,6 +49,9 @@ public:
 
 	RXRect r1exp;
 	particle_preset explosion;
+	RXRect r13magic;
+	particle_preset magic;
+	ParticleEmitter* lCurrentEmmiter = nullptr;
 
 	//patrol
 	float patrol_speed = 2.5;
@@ -91,8 +95,8 @@ public:
 
 	int perm = 0;
 
-	TextureID cloud_summoner;
-	TextureID particles;
+	RexTextureID cloud_summoner;
+	RexTextureID particles;
 
 	AudioID mSFXHit;
 };

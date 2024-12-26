@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<config debug = "true">
+<config debug = "true" renderer = "OpenGL">
 	<Debug>
 		<debug_font>Assets/Fonts/Lato-Regular.ttf</debug_font>
 	</Debug>

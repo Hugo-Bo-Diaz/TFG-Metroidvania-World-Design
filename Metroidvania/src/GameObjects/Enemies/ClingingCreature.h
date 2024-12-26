@@ -1,11 +1,10 @@
 #ifndef CLING__CREATURE__H
 #define CLING_CREATURE__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 
 enum ClingCreatureDirection {
@@ -47,7 +46,7 @@ public:
 	RXRect check_down;
 	RXRect check_front;
 
-	void RecieveDamage(int dmg, int direction);
+	bool RecieveDamage(int dmg, int direction);
 	int health = 3;
 
 	int timesturned = 0;
@@ -56,8 +55,8 @@ public:
 	float accy = 1.0;
 	float speed_y = 0;
 
-	TextureID cling_enemy;
-	TextureID particles;
+	RexTextureID cling_enemy;
+	RexTextureID particles;
 
 	AudioID mSFXHit;
 };

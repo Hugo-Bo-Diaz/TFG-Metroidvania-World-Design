@@ -1,10 +1,10 @@
 #ifndef GROUND__SPELL__PICKUP__H
 #define GROUND__SPELL__PICKUP__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class ParticleEmitter;
 
@@ -30,7 +30,7 @@ public:
 	RXRect r16sandfirst;
 	RXRect r17sandsecond;
 
-	TextureID particles;
-	TextureID spell_books;
+	RexTextureID particles;
+	RexTextureID spell_books;
 };
 #endif

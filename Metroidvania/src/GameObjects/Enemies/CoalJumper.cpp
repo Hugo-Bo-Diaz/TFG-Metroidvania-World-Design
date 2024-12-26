@@ -1,8 +1,6 @@
 #include "CoalJumper.h"
 #include "Application.h"
 #include "Modules/Render.h"
-#include "Modules/Textures.h"
-#include "Modules/Particles.h"
 #include "Modules/Camera.h"
 #include "Modules/Audio.h"
 
@@ -26,7 +24,7 @@ CoalJumper::CoalJumper()
 
 void CoalJumper::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider.x, collider.y, 600);
+	Engine->GetModule<::Render>().AddParticleEmitter(&fireshield, collider.x, collider.y, 600);
 }
 
 void CoalJumper::Init()
@@ -37,8 +35,7 @@ void CoalJumper::Init()
 	nextpos->w = collider.w;
 	nextpos->h = collider.h;
 
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	coaljumper = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/coaljumper.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
 	animations[COALJUMPER_IDLE].AddFrame({ 0,0,64,64 });//1
@@ -113,7 +110,7 @@ bool CoalJumper::Loop(float dt)
 	collider.y = nextpos->y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	speed_y += acceleration_y;
 
@@ -266,8 +263,8 @@ bool CoalJumper::Loop(float dt)
 		break;
 	}
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
 	return true;
 }
@@ -279,23 +276,27 @@ bool CoalJumper::Render()
 	return true;
 }
 
-void CoalJumper::RecieveDamage(int dmg, int _direction)
+bool CoalJumper::RecieveDamage(int dmg, int _direction)
 {
 	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
+		return false;
 	}
 	else
 	{
-		Engine->GetModule<Particles>().AddParticleEmitter(&smoke, collider.x, collider.y, 200);
+		Engine->GetModule<::Render>().AddParticleEmitter(&smoke, collider.x, collider.y, 200);
 	}
 
 	//speed_x = direction * 6;
-	direction = _direction;
-	speed_x_knockback = 6;
-	speed_y = -5;
-	state = COALJUMPER_HIT;
-
+	if (direction != 0)
+	{
+		direction = _direction;
+		speed_x_knockback = 6;
+		speed_y = -5;
+		state = COALJUMPER_HIT;
+	}
+	return true;
 }

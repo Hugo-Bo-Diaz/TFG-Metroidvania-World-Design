@@ -1,8 +1,10 @@
 #include "CloudMelee.h"
-#include "Modules/Particles.h"
+#include "Modules/Render.h"
 #include "Application.h"
 #include "Modules/Audio.h"
 #include "../Player.h"
+#include "RXRand.h"
+
 CloudMelee::CloudMelee()
 {
 }
@@ -20,21 +22,22 @@ CloudMelee::CloudMelee(float _initial_x, float _initial_y)
 
 void CloudMelee::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
+	Engine->GetModule<::Render>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
 }
 
 
 void CloudMelee::Init()
 {
-	initial_y = collider.x;
+	initial_x = collider.x;
+	initial_y = collider.y;
 	nextpos = new RXRect();
 	nextpos->x = collider.x;
 	nextpos->y = collider.y;
 	nextpos->w = collider.w;
 	nextpos->h = collider.h;
 
-	cloud_melee = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cloud_melee.png");
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/cloud_melee.png", cloud_melee);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
@@ -59,6 +62,7 @@ void CloudMelee::Init()
 	facing_left.mTexture = cloud_melee;
 	facing_front.AddFrame({ 0,0,64,48 });
 	facing_front.mTexture = cloud_melee;
+	health = 3;
 }
 
 
@@ -72,7 +76,7 @@ bool CloudMelee::Loop(float dt)
 	nextpos->y += speed_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 
 	bool has_crashed = false;
@@ -133,34 +137,48 @@ bool CloudMelee::Loop(float dt)
 		}
 
 		//detect player
-		std::vector<collision*> collisions;
-		Engine->GetModule<ObjectManager>().GetCollisions(&aggro, collisions);
+		std::vector<collision> collisions;
+		Engine->GetModule<SceneController>().GetCollisions(&aggro, collisions);
 
-		for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+		for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 		{
-			if ((*it)->object != this)
+			if ((*it).object != this)
 			{
-				if ((*it)->object->IsSameTypeAs<Player>())
+				if ((*it).object->IsSameTypeAs<Player>())
 				{
 					state = CM_STARTING_CHARGE;
+					Logger::Console_log(LogLevel::LOG_DEBUG, "entering starting charge");
 					starting.Reset();
 					starting.Start();
 
-					float deltaX = (*it)->object->collider.x + (*it)->object->collider.w / 2 - x - 32;
-					float deltaY = (*it)->object->collider.y + (*it)->object->collider.h / 2 - y - 32;
+					float deltaX = (*it).object->collider.x + (*it).object->collider.w / 2 - x - 32;
+					float deltaY = (*it).object->collider.y + (*it).object->collider.h / 2 - y - 32;
 
-					float angle = atan2(deltaY, -deltaX);
+					float center_player_x = (*it).object->collider.x + (*it).object->collider.w;
+					float center_player_y = (*it).object->collider.y + (*it).object->collider.h;
+
+					float angle = 3.1428 + atan2(-deltaY, -deltaX);
+					angle = atan2((collider.y + 32) - center_player_y, (collider.x + 32) - center_player_x);
+					Logger::Console_log(LogLevel::LOG_DEBUG, std::to_string(angle * 180 / 3.14).c_str());
+
+					charge_speed_x = -1 * cos(angle) * charge_speed_base;
+					charge_speed_y = -1 * sin(angle) * charge_speed_base;
+
+					//float deltaX = (*it)->object->collider.x + (*it)->object->collider.w / 2 - x - 32;
+					//float deltaY = (*it)->object->collider.y + (*it)->object->collider.h / 2 - y - 32;
+
+					//float angle = atan2(deltaY, -deltaX);
 
 
-					if((*it)->object->collider.x > collider.x)
-					{
-						charge_speed_x = -charge_speed_base * cos(angle);
-					}
-					else
-					{
-						charge_speed_x = charge_speed_base * cos(angle);
-					}
-					charge_speed_y = charge_speed_base * sin(angle);
+					//if((*it)->object->collider.x > collider.x)
+					//{
+					//	charge_speed_x = -charge_speed_base * cos(angle);
+					//}
+					//else
+					//{
+					//	charge_speed_x = charge_speed_base * cos(angle);
+					//}
+					//charge_speed_y = charge_speed_base * sin(angle);
 				}
 			}
 		}
@@ -188,20 +206,16 @@ bool CloudMelee::Loop(float dt)
 
 		if (starting.Read() > time_starting)
 		{
+			Logger::Console_log(LogLevel::LOG_DEBUG, "entering charge");
 			state = CM_CHARGE;
 			charge_timer.Reset();
 		}
+		starting_shake_x = RXGetRandom(0.0f,starting_shake_max);
+		starting_shake_y = RXGetRandom(0.0f,starting_shake_max);
 
 		if (last_state == CM_PATROL)
 		{
-			if (speed_x > 0)
-			{
-				speed_x = -speed_starting;
-			}
-			else
-			{
-				speed_x = speed_starting;
-			}
+			speed_x = 0;
 		}
 		last_state = CM_STARTING_CHARGE;
 	}
@@ -216,6 +230,7 @@ bool CloudMelee::Loop(float dt)
 
 		if (charge_timer.Read() > 5000 || has_crashed)
 		{
+			Logger::Console_log(LogLevel::LOG_DEBUG, "entering recover");
 			state = CM_RECOVER;
 			charge_timer.Reset();
 		}
@@ -251,6 +266,7 @@ bool CloudMelee::Loop(float dt)
 
 		if(is_in_position)
 		{
+			Logger::Console_log(LogLevel::LOG_DEBUG, "entering patrol");
 			state = CM_PATROL;
 			speed_x = patrol_speed;
 		}
@@ -281,27 +297,35 @@ bool CloudMelee::Render()
 	{
 		if (speed_x > 0)
 		{
-			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider.x, collider.y);
+			Engine->GetModule<::Render>().RenderAnimation(facing_left, collider.x + starting_shake_x, collider.y + starting_shake_y);
 		}
 		else
 		{
-			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider.x, collider.y);
+			Engine->GetModule<::Render>().RenderAnimation(facing_right, collider.x + starting_shake_x, collider.y + starting_shake_y);
 		}
 	}
 
 	return true;
 }
+void CloudMelee::RenderDebug()
+{
+	Engine->GetModule<::Render>().RenderRect(aggro, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+}
 
-void CloudMelee::RecieveDamage(int dmg, int direction)
+bool CloudMelee::RecieveDamage(int dmg, int direction)
 {
 	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
+		return false;
+	}
+	if (direction != 0)
+	{
+		speed_x = -direction * speed_x;
+		speed_y = -10;
 	}
 
-	speed_x = -direction * speed_x;
-	speed_y = -10;
-
+	return true;
 }

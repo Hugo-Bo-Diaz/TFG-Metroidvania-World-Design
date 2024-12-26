@@ -13,7 +13,7 @@ TextBoxObject::TextBoxObject()
 
 void TextBoxObject::Init()
 {
-	texture = Engine->GetModule<Textures>().Load_Texture("Assets/UI/indicator.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/indicator.png", texture);
 
 	rectanglekeyboard = {0,0,48,48};
 	rectanglecontroller = { 48,0,48,48 };
@@ -50,14 +50,14 @@ bool TextBoxObject::Loop(float dt)
 {
 	bool iscontactingplayer = false;
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Player>())
+			if ((*it).object->IsSameTypeAs<Player>())
 			{
 				iscontactingplayer = true;
 				if (Engine->GetModule<Input>().GetInput(BUTTON_2) == BUTTON_DOWN && strings.size()>0)
@@ -77,7 +77,8 @@ bool TextBoxObject::Loop(float dt)
 
 					if (lore_unlock != -1 && Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->GetValue(std::to_string(lore_unlock).c_str()) == 0.0f)
 					{
-						Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue(std::to_string(lore_unlock).c_str(), 1.0f);
+						std::string lEntry = "Lore" + std::to_string(lore_unlock);
+						Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue(lEntry.c_str(), 1.0f);
 						textbox->AddPanelToTextBox("New lore entry unlocked");
 					}
 				}

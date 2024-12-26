@@ -2,10 +2,8 @@
 #include "../GameObjects/Player.h"
 #include "Application.h"
 #include "Modules/Input.h"
-#include "Modules/ObjectManager.h"
 #include "Modules/Render.h"
 #include "Modules/Camera.h"
-#include "Modules/Particles.h"
 #include "Modules/Audio.h"
 #include "Utils/Utils.h"
 
@@ -25,8 +23,8 @@
 
 void Ground::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
 
 	mSFXGroundPound = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/groundpound.wav");
 	mSFXRock = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/rock_throw.wav");
@@ -69,12 +67,13 @@ void Ground::Init()
 
 void Ground::Loop(float dt)
 {
+	float lTimeFactor = dt / (1000 / 60);
 
 	//rock throw--------------------------------------------------------------------------------------------------------------------------
 	//if (App->inp->GetButton(X) == BUTTON_DOWN && ! is_rock_on_cooldown)
-	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_DOWN && !is_rock_on_cooldown && player->manaCost(manacost_rock) && !Engine->GetModule<ObjectManager>().isPaused())
+	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_DOWN && !is_rock_on_cooldown && player->manaCost(manacost_rock) && !Engine->GetModule<SceneController>().isPaused())
 	{
-			((Rock*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x+player->collider.w/2, player->collider.y+player->collider.h / 2, 32, 32, GetTypeIndex<Rock>()))->Fire(player->is_right,45,15,1);
+			((Rock*)Engine->GetModule<SceneController>().AddObject(player->collider.x+player->collider.w/2, player->collider.y+player->collider.h / 2, 32, 32, GetTypeIndex<Rock>()))->Fire(player->is_right,45,15,1);
 			is_rock_on_cooldown = true;
 			rock_timer.Reset();
 			rock_timer.Start();
@@ -90,7 +89,7 @@ void Ground::Loop(float dt)
 	
 	//groundpound------------------------------------------------------------------------------------------------------------------
 	//if (App->inp->GetButton(Y) == BUTTON_DOWN && !groundpounding)
-	if (Engine->GetModule<Input>().GetInput(BUTTON_3) == KEY_DOWN && !groundpounding&& player->manaCost(manacost_groundpound) && !Engine->GetModule<ObjectManager>().isPaused())
+	if (Engine->GetModule<Input>().GetInput(BUTTON_3) == KEY_DOWN && !groundpounding&& player->manaCost(manacost_groundpound) && !Engine->GetModule<SceneController>().isPaused())
 	{
 		current_yspeed = initial_yspeed;
 		groundpounding = true;
@@ -107,37 +106,35 @@ void Ground::Loop(float dt)
 		groundpoundhitbox.y = player->collider.y + player->collider.h;
 
 
-		std::vector<collision*> collisions;
-		Engine->GetModule<ObjectManager>().GetCollisions(&groundpoundhitbox, collisions);
+		std::vector<collision> collisions;
+		Engine->GetModule<SceneController>().GetCollisions(&groundpoundhitbox, collisions);
 		
-		for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+		for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 		{
 			if (!hashitsomething)
 			{
-				if ((*it)->object->IsSameTypeAs<Enemy>())
+				if ((*it).object->IsSameTypeAs<Enemy>())
 				{
-					((Enemy*)(*it)->object)->RecieveDamage(5, player->is_right);
+					((Enemy*)(*it).object)->RecieveDamage(5, player->is_right);
 				}
 			}
-			if ((*it)->object->IsSameTypeAs<HazardRockBlock>())
+			if ((*it).object->IsSameTypeAs<HazardRockBlock>())
 			{
-				Engine->GetModule<ObjectManager>().DeleteObject((*it)->object);
-				Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, ((*it)->object)->collider.x + ((*it)->object)->collider.w / 2, ((*it)->object)->collider.y + ((*it)->object)->collider.h / 2, 300);
+				Engine->GetModule<SceneController>().DeleteObject((*it).object);
+				Engine->GetModule<::Render>().AddParticleEmitter(&rockblockexplosion, ((*it).object)->collider.x + ((*it).object)->collider.w / 2, ((*it).object)->collider.y + ((*it).object)->collider.h / 2, 300);
 
 			}
 		}
-
-		Engine->GetModule<ObjectManager>().ClearCollisionArray(collisions);
 
 		// move player accordingly
 		if (!is_on_gp_lag)
 		{
-			player->nextpos->y += current_yspeed;
+			player->nextpos->y += current_yspeed * lTimeFactor;
 			current_yspeed += gravity;
 		}
 		//check for floor and stop once on it
 		std::vector<RXRect*> colliders;
-		Engine->GetModule<ObjectManager>().GetNearbyWalls(player->nextpos->x + player->nextpos->w / 2, player->nextpos->y + player->nextpos->h / 2, 300, colliders);
+		Engine->GetModule<SceneController>().GetNearbyWalls(player->nextpos->x + player->nextpos->w / 2, player->nextpos->y + player->nextpos->h / 2, 300, colliders);
 
 		for (int i = 0; i < colliders.size(); ++i)
 		{
@@ -153,9 +150,9 @@ void Ground::Loop(float dt)
 				current_yspeed = 0;
 
 				Engine->GetModule<Camera>().CameraShake(35, 0.7);//ADD PARTICLES
-				Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, hitbox.x, hitbox.y + hitbox.h, 200);
-				Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, hitbox.x+hitbox.w/2, hitbox.y + hitbox.h, 200);
-				Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, hitbox.x+hitbox.w, hitbox.y + hitbox.h, 200);
+				Engine->GetModule<::Render>().AddParticleEmitter(&groundcontact, hitbox.x, hitbox.y + hitbox.h, 200);
+				Engine->GetModule<::Render>().AddParticleEmitter(&groundcontact, hitbox.x+hitbox.w/2, hitbox.y + hitbox.h, 200);
+				Engine->GetModule<::Render>().AddParticleEmitter(&groundcontact, hitbox.x+hitbox.w, hitbox.y + hitbox.h, 200);
 			}
 		}
 	}
@@ -170,10 +167,10 @@ void Ground::Loop(float dt)
 	
 	//earthquake--------------------------------------------------------------------------------------------------------------------
 	//if (App->inp->GetButton(B) == BUTTON_DOWN && player->grounded && !is_eq_on_cooldown)
-	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && player->grounded && !is_eq_on_cooldown && player->manaCost(manacost_earthquake) && !Engine->GetModule<ObjectManager>().isPaused())
+	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && player->grounded && !is_eq_on_cooldown && player->manaCost(manacost_earthquake) && !Engine->GetModule<SceneController>().isPaused())
 	{
-		((Shockwave*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x + player->collider.w / 2, player->collider.y + player->collider.h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(true, 8);
-		((Shockwave*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x + player->collider.w / 2, player->collider.y + player->collider.h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(false, 8);
+		((Shockwave*)Engine->GetModule<SceneController>().AddObject(player->collider.x + player->collider.w / 2, player->collider.y + player->collider.h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(true, 8);
+		((Shockwave*)Engine->GetModule<SceneController>().AddObject(player->collider.x + player->collider.w / 2, player->collider.y + player->collider.h-32, 32, 32, GetTypeIndex<Shockwave>()))->Fire(false, 8);
 		
 		is_eq_on_cooldown = true;
 		earthquake_timer.Reset();
@@ -183,8 +180,8 @@ void Ground::Loop(float dt)
 		player->AddMana(-manacost_earthquake);
 
 		Engine->GetModule<Camera>().CameraShake(15, 2);//ADD PARTICLES
-		Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, player->collider.x, player->collider.y + player->collider.h, 200);
-		Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, player->collider.x + player->collider.w, player->collider.y + player->collider.h, 200);
+		Engine->GetModule<::Render>().AddParticleEmitter(&groundcontact, player->collider.x, player->collider.y + player->collider.h, 200);
+		Engine->GetModule<::Render>().AddParticleEmitter(&groundcontact, player->collider.x + player->collider.w, player->collider.y + player->collider.h, 200);
 	}
 
 	if (is_eq_on_cooldown && earthquake_timer.Read() > cooldown_earthquake)

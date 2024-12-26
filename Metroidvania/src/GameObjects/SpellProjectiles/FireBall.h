@@ -1,7 +1,7 @@
 #ifndef FIRE__BALL__H
 #define FIRE__BALL__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Audio.h"
@@ -35,8 +35,8 @@ public:
 
 	int damage = 2;
 
-	TextureID spells;
-	TextureID particles;
+	RexTextureID spells;
+	RexTextureID particles;
 
 	AudioID mSFXGroundHit;
 };

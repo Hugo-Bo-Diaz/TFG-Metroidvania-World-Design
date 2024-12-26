@@ -29,7 +29,7 @@ public:
 	void CleanUp();
 
 	//fireball
-	int charge = 0;
+	float charge = 0;
 	float manacost_small = 0.25;
 	float manacost_big = 0.5;
 
@@ -76,8 +76,8 @@ public:
 
 	Animation fireshield;
 
-	TextureID spells;
-	TextureID particles;
+	RexTextureID spells;
+	RexTextureID particles;
 
 	AudioID mSFXFireBall;
 	AudioID mSFXFireBallBig;

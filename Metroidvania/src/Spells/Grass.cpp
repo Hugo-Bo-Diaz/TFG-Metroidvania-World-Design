@@ -2,25 +2,23 @@
 #include "../GameObjects/Player.h"
 #include "Application.h"
 #include "Modules/Input.h"
-#include "Modules/ObjectManager.h"
 #include "../GameObjects/SpellProjectiles/Leaf.h"
 #include "../GameObjects/SpellProjectiles/Thorns.h"
 #include "Modules/Render.h"
 #include "Modules/Camera.h"
 #include "Utils/MathHelp.h"
-#include "Modules/Particles.h"
 #include "Utils/Utils.h"
 
 Grass::~Grass()
 {
-	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
-	//Engine->GetModule<Particles>().to_delete.push_back(p);
+	Engine->GetModule<::Render>().RemoveParticleEmitter(p);
+	//Engine->GetModule<::Render>().to_delete.push_back(p);
 }
 
 void Grass::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
 
 	r10grass = { 24,24,12,12 };
 	r11grass = { 36,24,12,12 };
@@ -39,13 +37,14 @@ void Grass::Init()
 
 	thorns_timer.Pause();
 	thorns_timer.Reset();
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&grass, 0, 0);
+	p = Engine->GetModule<::Render>().AddParticleEmitter(&grass, 0, 0);
 	p->active = false;
 }
 
 void Grass::Loop(float dt)
 {
-	
+	float lTimeFactor = dt / (1000 / 60);
+
 	//leafshot--------------------------------------------------------------------------------------------------------------------------
 	//if (App->inp->GetButton(X) == BUTTON_RELEASE)
 	p->position_x = player->collider.x + player->collider.w / 2;
@@ -56,17 +55,17 @@ void Grass::Loop(float dt)
 	{
 		if (charge > 25)
 		{
-			/*Leaf* leaf = (Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, LEAF);
+			/*Leaf* leaf = (Leaf*)Engine->GetModule<SceneController>().AddObject(player->collider.x, player->collider.y, 48, 48, LEAF);
 			leaf->Fire(player->is_right, 15);*/
-			((Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, 15);
-			((Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, 0);
-			((Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, -15);
+			((Leaf*)Engine->GetModule<SceneController>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, 15);
+			((Leaf*)Engine->GetModule<SceneController>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, 0);
+			((Leaf*)Engine->GetModule<SceneController>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>()))->Fire(player->is_right, -15);
 
 			Engine->GetModule<Camera>().CameraShake(20, 100);
 		}
 		else
 		{
-			Leaf* leaf = (Leaf*)Engine->GetModule<ObjectManager>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>());
+			Leaf* leaf = (Leaf*)Engine->GetModule<SceneController>().AddObject(player->collider.x, player->collider.y, 48, 48, GetTypeIndex<Leaf>());
 			leaf->Fire(player->is_right, 0);
 
 			Engine->GetModule<Camera>().CameraShake(10, 50);
@@ -76,7 +75,7 @@ void Grass::Loop(float dt)
 
 	if (Engine->GetModule<Input>().GetInput(BUTTON_2) == KEY_REPEAT)
 	{
-		charge += 2;
+		charge += 2 * lTimeFactor;
 	}
 	if (charge > 25)
 	{
@@ -126,7 +125,7 @@ void Grass::Loop(float dt)
 
 		//now we look for a wall within range
 		std::vector<RXRect*> colliders;
-		Engine->GetModule<ObjectManager>().GetNearbyWalls(hook_position_x, hook_position_y, 100, colliders);
+		Engine->GetModule<SceneController>().GetNearbyWalls(hook_position_x, hook_position_y, 100, colliders);
 		for (int i = 0; i < colliders.size(); ++i)
 		{
 			//top line
@@ -163,14 +162,14 @@ void Grass::Loop(float dt)
 		{
 			current_angle = atan2(hook_position_y - player->y, hook_position_x - player->x);
 
-			player->nextpos->x += cos(current_angle)*speed_player;
-			player->nextpos->y += sin(current_angle)*speed_player;
+			player->nextpos->x += cos(current_angle) * speed_player * lTimeFactor;
+			player->nextpos->y += sin(current_angle) * speed_player * lTimeFactor;
 		}
 		
 		bool stay_hooked = false;
 
 		std::vector<RXRect*> colliders;
-		Engine->GetModule<ObjectManager>().GetNearbyWalls(hook_position_x, hook_position_y, 100, colliders);
+		Engine->GetModule<SceneController>().GetNearbyWalls(hook_position_x, hook_position_y, 100, colliders);
 		for (int i = 0; i < colliders.size(); ++i)
 		{
 			RXPoint p = { hook_position_x,hook_position_y };
@@ -196,7 +195,7 @@ void Grass::Loop(float dt)
 	if (Engine->GetModule<Input>().GetInput(BUTTON_4) == KEY_DOWN && !is_thorns_on_cooldown)
 	{
 		is_thorns_on_cooldown = true;
-		Thorns* t = (Thorns*)Engine->GetModule<ObjectManager>().AddObject(player->x+player->collider.w/2, player->y + player->collider.h / 2,32,32, GetTypeIndex<Thorns>());
+		Thorns* t = (Thorns*)Engine->GetModule<SceneController>().AddObject(player->x+player->collider.w/2, player->y + player->collider.h / 2,32,32, GetTypeIndex<Thorns>());
 		t->Fire(player->is_right,thorns_max_time);
 		thorns_timer.Reset();
 		thorns_timer.Start();

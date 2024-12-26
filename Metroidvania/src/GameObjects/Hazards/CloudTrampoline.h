@@ -1,9 +1,9 @@
 #ifndef CLOUD__TRAMPOLINE__H
 #define CLOUD__TRAMPOLINE__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "Utils/Timer.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class CloudTrampoline :
 	public GameObject
@@ -20,7 +20,7 @@ public:
 	RXRect cloudLoop;
 	RXRect cloudRight;
 
-	TextureID hazards;
+	RexTextureID hazards;
 };
 
 #endif

@@ -1,9 +1,9 @@
 #ifndef CLOUD__H
 #define CLOUD__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 #include <vector>
 class Rain;
 
@@ -34,7 +34,7 @@ public:
 	std::vector<Rain*> rain_vector;
 	std::vector<Rain*> rain_to_delete;
 
-	TextureID spells;
+	RexTextureID spells;
 };
 
 #endif // !PLAYER__REP__H

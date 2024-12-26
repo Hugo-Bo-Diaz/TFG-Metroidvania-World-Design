@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "Modules/Render.h"
 #include "../../Spells/Fire.h"
-#include "Modules/ObjectManager.h"
 
 #include "../Enemies/CoalJumper.h"
 #include "../Enemies/GroundedElemental.h"
@@ -23,14 +22,14 @@ void LavaSpell::Loop()
 		parent->DeleteLava(this);
 	}
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&hitbox, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&hitbox, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
 
 		int direction = 0;
-		if(hitbox.x<(*it)->object->collider.x)
+		if(hitbox.x<(*it).object->collider.x)
 		{
 			direction = 1;
 		}
@@ -39,12 +38,11 @@ void LavaSpell::Loop()
 			direction = -1;
 		}
 
-		if ((*it)->object->IsSameTypeAs<Enemy>())
+		if ((*it).object->IsSameTypeAs<Enemy>())
 		{
-			((Enemy*)(*it)->object)->RecieveDamage(damage, direction);
+			((Enemy*)(*it).object)->RecieveDamage(damage, direction);
 		}
 	}
-	Engine->GetModule<ObjectManager>().ClearCollisionArray(collisions);
 }
 
 void LavaSpell::Render()

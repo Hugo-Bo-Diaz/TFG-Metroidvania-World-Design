@@ -1,7 +1,6 @@
 #include "UIimage.h"
 #include "Application.h"
 #include "Modules/Render.h"
-#include "Modules/Textures.h"
 #include "EngineAPI.h"
 
 UIimage::UIimage(float _x, float _y, float _w, float _h, float _depth, const char * texture)
@@ -23,7 +22,7 @@ UIimage::UIimage(float _x, float _y, float _w, float _h, float _depth, const cha
 void UIimage::Init()
 {
 
-	Tex = Engine->GetModule<Textures>().Load_Texture(mPath.c_str());
+	Engine->GetModule<::Render>().LoadTexture(mPath.c_str(), Tex);
 }
 
 void UIimage::Loop()

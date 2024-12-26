@@ -1,10 +1,11 @@
 #ifndef SHOCKWAVE__H
 #define SHOCKWAVE__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "Modules/Audio.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
+#include "Modules/Render.h"
 
 class ParticleEmitter;
 
@@ -40,8 +41,8 @@ public:
 	RXRect r8ground;
 	RXRect r9ground;
 
-	TextureID spells;
-	TextureID particles;
+	RexTextureID spells;
+	RexTextureID particles;
 
 	AudioID mSFXGroundHit;
 };

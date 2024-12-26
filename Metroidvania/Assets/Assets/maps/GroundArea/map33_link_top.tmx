@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="22" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="234">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="22" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="255">
  <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
-  <image source="tilesets/tileset01.png" width="768" height="528"/>
+  <image source="../tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
  <tileset firstgid="177" name="tileset02" tilewidth="48" tileheight="48" tilecount="121" columns="11">
-  <image source="tilesets/tileset02.png" width="528" height="528"/>
+  <image source="../tilesets/tileset02.png" width="528" height="528"/>
  </tileset>
  <tileset firstgid="298" name="tileset03" tilewidth="48" tileheight="48" tilecount="306" columns="17">
-  <image source="tilesets/tileset03.png" width="816" height="864"/>
+  <image source="../tilesets/tileset03.png" width="816" height="864"/>
  </tileset>
  <tileset firstgid="604" name="objects" tilewidth="48" tileheight="48" tilecount="64" columns="8">
-  <image source="objects.png" width="384" height="384"/>
+  <image source="../tilesets/objects.png" width="384" height="384"/>
  </tileset>
  <imagelayer id="17" name="Image Layer 1">
-  <image source="Backgrounds/ground_back.png"/>
+  <image source="../Backgrounds/ground_back.png" width="1024" height="576"/>
   <properties>
    <property name="depth" type="int" value="3000"/>
    <property name="parallax_x" type="float" value="1"/>
@@ -22,7 +22,7 @@
   </properties>
  </imagelayer>
  <imagelayer id="18" name="Image Layer 2">
-  <image source="Backgrounds/ground_far.png"/>
+  <image source="../Backgrounds/ground_far.png" width="1024" height="576"/>
   <properties>
    <property name="depth" type="int" value="2900"/>
    <property name="parallax_x" type="float" value="0.8"/>
@@ -31,7 +31,7 @@
   </properties>
  </imagelayer>
  <imagelayer id="19" name="Image Layer 3">
-  <image source="Backgrounds/ground_front.png"/>
+  <image source="../Backgrounds/ground_front.png" width="1024" height="576"/>
   <properties>
    <property name="depth" type="int" value="2800"/>
    <property name="parallax_x" type="float" value="0.9"/>
@@ -1492,27 +1492,107 @@
   </object>
  </objectgroup>
  <objectgroup id="14" name="objects">
-  <object id="193" type="HazardRockBlock" gid="613" x="624" y="240" width="48" height="48"/>
-  <object id="194" type="HazardRockBlock" gid="613" x="672" y="240" width="48" height="48"/>
-  <object id="195" type="HazardRockBlock" gid="613" x="672" y="192" width="48" height="48"/>
-  <object id="196" type="HazardRockBlock" gid="613" x="624" y="144" width="48" height="48"/>
-  <object id="197" type="HazardRockBlock" gid="613" x="624" y="192" width="48" height="48"/>
-  <object id="198" type="HazardRockBlock" gid="613" x="672" y="144" width="48" height="48"/>
-  <object id="219" type="HazardRockBlock" gid="613" x="672" y="384" width="48" height="48"/>
-  <object id="220" type="HazardRockBlock" gid="613" x="624" y="384" width="48" height="48"/>
-  <object id="221" type="HazardRockBlock" gid="613" x="624" y="336" width="48" height="48"/>
-  <object id="222" type="HazardRockBlock" gid="613" x="672" y="336" width="48" height="48"/>
-  <object id="223" type="HazardRockBlock" gid="613" x="672" y="288" width="48" height="48"/>
-  <object id="224" type="HazardRockBlock" gid="613" x="624" y="288" width="48" height="48"/>
-  <object id="225" type="HazardRockBlock" gid="613" x="672" y="528" width="48" height="48"/>
-  <object id="226" type="HazardRockBlock" gid="613" x="624" y="528" width="48" height="48"/>
-  <object id="227" type="HazardRockBlock" gid="613" x="624" y="480" width="48" height="48"/>
-  <object id="228" type="HazardRockBlock" gid="613" x="672" y="480" width="48" height="48"/>
-  <object id="229" type="HazardRockBlock" gid="613" x="672" y="432" width="48" height="48"/>
-  <object id="230" type="HazardRockBlock" gid="613" x="624" y="432" width="48" height="48"/>
-  <object id="231" type="HazardRockBlock" gid="613" x="624" y="576" width="48" height="48"/>
-  <object id="232" type="HazardRockBlock" gid="613" x="672" y="576" width="48" height="48"/>
-  <object id="233" type="ManaChargePickup" gid="610" x="480" y="480" width="48" height="48">
+  <object id="234" type="HazardRockBlock" x="624" y="96" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="235" type="HazardRockBlock" x="672" y="96" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="236" type="HazardRockBlock" x="624" y="144" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="237" type="HazardRockBlock" x="672" y="144" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="238" type="HazardRockBlock" x="624" y="192" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="239" type="HazardRockBlock" x="672" y="192" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="240" type="HazardRockBlock" x="624" y="240" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="241" type="HazardRockBlock" x="672" y="240" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="242" type="HazardRockBlock" x="624" y="288" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="243" type="HazardRockBlock" x="672" y="288" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="244" type="HazardRockBlock" x="624" y="336" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="245" type="HazardRockBlock" x="672" y="336" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="246" type="HazardRockBlock" x="624" y="384" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="247" type="HazardRockBlock" x="672" y="384" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="248" type="HazardRockBlock" x="624" y="432" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="249" type="HazardRockBlock" x="672" y="432" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="250" type="HazardRockBlock" x="624" y="480" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="251" type="HazardRockBlock" x="672" y="480" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="252" type="HazardRockBlock" x="624" y="528" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="253" type="HazardRockBlock" x="672" y="528" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="254" type="ManaChargePickup" x="480" y="432" width="48" height="48">
    <properties>
     <property name="id" type="int" value="10"/>
     <property name="lore" type="int" value="19"/>

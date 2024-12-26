@@ -207,6 +207,18 @@
     <ClCompile Include="pugiXML\src\pugixml.cpp">
       <Filter>Resource Files\Tools\pugiXML</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameObjects\Hazards\HazardGroundCrumble.cpp">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\Enemies\DarkCloud.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\Pickups\WindSpellPickup.cpp">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\SpellProjectiles\Freeze.cpp">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameObjects\Enemies\ArmorTrap.h">
@@ -376,6 +388,21 @@
     </ClInclude>
     <ClInclude Include="pugiXML\src\pugixml.hpp">
       <Filter>Resource Files\Tools\pugiXML</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Hazards\HazardGroundCrumble.h">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Enemies\DarkCloud.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Pickups\WindSpellPickup.h">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Enemies\Enemy.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\SpellProjectiles\Freeze.h">
+      <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

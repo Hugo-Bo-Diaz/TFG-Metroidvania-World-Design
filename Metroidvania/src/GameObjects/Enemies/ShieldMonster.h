@@ -1,11 +1,9 @@
 #ifndef SHIELD__MONSTER__H
 #define SHIELD__MONSTER__H
 
-#include "Modules/ObjectManager.h"
 #include "EngineElements/Animation.h"
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 
 class Player;
@@ -29,6 +27,8 @@ public:
 	bool Render();
 	void RenderDebug();
 	void Destroy();
+
+	bool CanFreeze() { return false; };
 
 	RXRect* nextpos = nullptr;
 
@@ -63,7 +63,7 @@ public:
 	float acceleration_y = 1.0;
 	float health = 10;
 
-	void RecieveDamage(int dmg, int direction);
+	bool RecieveDamage(int dmg, int direction);
 
 	RXRect shield;
 	float max_shield_height = 140;
@@ -89,9 +89,9 @@ public:
 	RXRect r18metalfirst;
 	RXRect r19metalsecond;
 	
-	TextureID shield_monster;
-	TextureID shield_monster_arm;
-	TextureID particles;
+	RexTextureID shield_monster;
+	RexTextureID shield_monster_arm;
+	RexTextureID particles;
 
 	Timer animation_timer;
 

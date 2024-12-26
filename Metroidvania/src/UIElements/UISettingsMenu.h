@@ -1,7 +1,6 @@
 #ifndef UI_SETTINGS_MENU
 #define UI_SETTINGS_MENU
 
-#include "Modules/Textures.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Utils/Timer.h"
 #include "EngineElements/UIelement.h"
@@ -49,8 +48,8 @@ public:
 
 	SettingsParentType parent_type;
 
-	TextureID lTextureBase;
-	TextureID lTextureOptions;
+	RexTextureID lTextureBase;
+	RexTextureID lTextureOptions;
 
 	AudioID mSFXMenuSelect;
 	AudioID mSFXMenuChange;

@@ -1,12 +1,12 @@
 #ifndef CHECKPOINT__H
 #define CHECKPOINT__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 class CheckPoint : public GameObject
 {
 public:
 	CheckPoint() {};
-	CheckPoint(std::list<ObjectProperty*>& aList) { new (this) CheckPoint; };
+	CheckPoint(std::list<ObjectProperty*>& aList);
 	~CheckPoint();
 
 	bool Loop(float dt);

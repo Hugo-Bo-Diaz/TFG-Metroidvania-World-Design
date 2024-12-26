@@ -2,9 +2,8 @@
 #define CHECKPOINT__INDICATOR__H
 
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Text.h"
 #include "Utils/Timer.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 #include "EngineElements/UIelement.h"
 
 class UIcheckpointIndicator : public UIelement
@@ -12,7 +11,7 @@ class UIcheckpointIndicator : public UIelement
 public:
 	UIcheckpointIndicator();
 
-	FontID mFont;
+	RexFontID mFont;
 
 	RXRect on_screen;
 	float text_x;
@@ -27,7 +26,10 @@ public:
 
 	~UIcheckpointIndicator();
 
-	TextureID Texture;
+	RexTextureID Texture;
+
+	std::string mText;
+
 };
 
 #endif

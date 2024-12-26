@@ -1,9 +1,9 @@
 #ifndef MAX__MANA__PICKUP
 #define MAX__MANA__PICKUP
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class ParticleEmitter;
 
@@ -30,7 +30,7 @@ public:
 	particle_preset magic;
 	RXRect r13magic;
 
-	TextureID particles;
-	TextureID items;
+	RexTextureID particles;
+	RexTextureID items;
 };
 #endif

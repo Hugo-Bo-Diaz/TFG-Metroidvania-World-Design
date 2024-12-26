@@ -1,8 +1,8 @@
 #ifndef FIRST__DIALOGUE
 #define FIRST__DIALOGUE
 
-#include "Modules/ObjectManager.h"
-#include "Modules/Textures.h"
+#include "Modules/SceneController.h"
+#include "Modules/Render.h"
 
 class UItextbox;
 
@@ -19,7 +19,7 @@ public:
 	bool Render();
 
 	UItextbox* textbox;
-	TextureID texture;
+	RexTextureID texture;
 };
 
 #endif

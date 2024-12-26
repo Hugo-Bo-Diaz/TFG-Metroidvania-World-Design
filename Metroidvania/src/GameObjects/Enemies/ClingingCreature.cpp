@@ -1,6 +1,6 @@
 #include "ClingingCreature.h"
 #include "Modules/Audio.h"
-#include "Modules/Particles.h"
+#include "Modules/Render.h"
 #include "Modules/Debug.h"
 
 ClingCreature::ClingCreature()
@@ -23,8 +23,8 @@ ClingCreature::ClingCreature(std::list<ObjectProperty*>& aProperties)
 
 void ClingCreature::Init()
 {
-	cling_enemy = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cling_enemy.png");
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/cling_enemy.png", cling_enemy);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
@@ -75,7 +75,7 @@ bool ClingCreature::Loop(float dt)
 {
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x, collider.y, 50, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x, collider.y, 50, colliders);
 
 	bool thereisfloor = false;
 
@@ -226,7 +226,7 @@ bool ClingCreature::Render()
 		animation_timer.Reset();
 	}
 
-	Engine->GetModule<::Render>().RenderAnimation(animation, collider.x, collider.y, -2, RenderQueue::RENDER_GAME, angle);
+	Engine->GetModule<::Render>().RenderAnimation(animation, collider.x, collider.y, -2, RenderQueue::RENDER_GAME, angle,1.0f,1.0f,1.0f,1.0f,24,24);
 
 	return true;
 }
@@ -239,7 +239,7 @@ void ClingCreature::RenderDebug()
 
 void ClingCreature::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider.x, collider.y, 200);
+	Engine->GetModule<::Render>().AddParticleEmitter(&stone_death, collider.x, collider.y, 200);
 }
 
 void ClingCreature::TurnCorner(bool clockwise)
@@ -267,18 +267,19 @@ void ClingCreature::TurnCorner(bool clockwise)
 	curr_dir = (ClingCreatureDirection)newdir;	
 }
 
-void ClingCreature::RecieveDamage(int dmg, int direction)
+bool ClingCreature::RecieveDamage(int dmg, int direction)
 {
 	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 
 	health -= dmg;
 	if (health <= 0)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
+		return false;
 	}
 	else
 	{
-		Engine->GetModule<Particles>().AddParticleEmitter(&metal_and_sand, collider.x, collider.y, 200);
+		Engine->GetModule<::Render>().AddParticleEmitter(&metal_and_sand, collider.x, collider.y, 200);
 	}
-
+	return true;
 }

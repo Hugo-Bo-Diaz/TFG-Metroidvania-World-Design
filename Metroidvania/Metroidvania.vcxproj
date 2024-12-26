@@ -28,26 +28,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -144,6 +144,7 @@
     <ClCompile Include="src\GameObjects\Enemies\CloudSummoner.cpp" />
     <ClCompile Include="src\GameObjects\Enemies\CloudSummonerProjectile.cpp" />
     <ClCompile Include="src\GameObjects\Enemies\CoalJumper.cpp" />
+    <ClCompile Include="src\GameObjects\Enemies\DarkCloud.cpp" />
     <ClCompile Include="src\GameObjects\Enemies\FlyingAxe.cpp" />
     <ClCompile Include="src\GameObjects\Enemies\FlyingElemental.cpp" />
     <ClCompile Include="src\GameObjects\Enemies\FlyingShield.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="src\GameObjects\Enemies\ShieldMonster.cpp" />
     <ClCompile Include="src\GameObjects\FirstDialogue.cpp" />
     <ClCompile Include="src\GameObjects\Hazards\CloudTrampoline.cpp" />
+    <ClCompile Include="src\GameObjects\Hazards\HazardGroundCrumble.cpp" />
     <ClCompile Include="src\GameObjects\Hazards\HazardLava.cpp" />
     <ClCompile Include="src\GameObjects\Hazards\HazardLavaWaterfall.cpp" />
     <ClCompile Include="src\GameObjects\Hazards\HazardSpikes.cpp" />
@@ -159,10 +161,12 @@
     <ClCompile Include="src\GameObjects\Pickups\GroundSpellPickup.cpp" />
     <ClCompile Include="src\GameObjects\Pickups\MaxHealthPickup.cpp" />
     <ClCompile Include="src\GameObjects\Pickups\MaxManaPickup.cpp" />
+    <ClCompile Include="src\GameObjects\Pickups\WindSpellPickup.cpp" />
     <ClCompile Include="src\GameObjects\Player.cpp" />
     <ClCompile Include="src\GameObjects\Portal.cpp" />
     <ClCompile Include="src\GameObjects\SpellProjectiles\Cloud.cpp" />
     <ClCompile Include="src\GameObjects\SpellProjectiles\FireBall.cpp" />
+    <ClCompile Include="src\GameObjects\SpellProjectiles\Freeze.cpp" />
     <ClCompile Include="src\GameObjects\SpellProjectiles\IceBlock.cpp" />
     <ClCompile Include="src\GameObjects\SpellProjectiles\IceShard.cpp" />
     <ClCompile Include="src\GameObjects\SpellProjectiles\LavaSpell.cpp" />
@@ -202,6 +206,8 @@
     <ClInclude Include="src\GameObjects\Enemies\CloudSummoner.h" />
     <ClInclude Include="src\GameObjects\Enemies\CloudSummonerProjectile.h" />
     <ClInclude Include="src\GameObjects\Enemies\CoalJumper.h" />
+    <ClInclude Include="src\GameObjects\Enemies\DarkCloud.h" />
+    <ClInclude Include="src\GameObjects\Enemies\Enemy.h" />
     <ClInclude Include="src\GameObjects\Enemies\FlyingAxe.h" />
     <ClInclude Include="src\GameObjects\Enemies\FlyingElemental.h" />
     <ClInclude Include="src\GameObjects\Enemies\FlyingShield.h" />
@@ -209,6 +215,7 @@
     <ClInclude Include="src\GameObjects\Enemies\ShieldMonster.h" />
     <ClInclude Include="src\GameObjects\FirstDialogue.h" />
     <ClInclude Include="src\GameObjects\Hazards\CloudTrampoline.h" />
+    <ClInclude Include="src\GameObjects\Hazards\HazardGroundCrumble.h" />
     <ClInclude Include="src\GameObjects\Hazards\HazardLava.h" />
     <ClInclude Include="src\GameObjects\Hazards\HazardLavaWaterfall.h" />
     <ClInclude Include="src\GameObjects\Hazards\HazardSpikes.h" />
@@ -217,10 +224,12 @@
     <ClInclude Include="src\GameObjects\Pickups\GroundSpellPickup.h" />
     <ClInclude Include="src\GameObjects\Pickups\MaxHealthPickup.h" />
     <ClInclude Include="src\GameObjects\Pickups\MaxManaPickup.h" />
+    <ClInclude Include="src\GameObjects\Pickups\WindSpellPickup.h" />
     <ClInclude Include="src\GameObjects\Player.h" />
     <ClInclude Include="src\GameObjects\Portal.h" />
     <ClInclude Include="src\GameObjects\SpellProjectiles\Cloud.h" />
     <ClInclude Include="src\GameObjects\SpellProjectiles\FireBall.h" />
+    <ClInclude Include="src\GameObjects\SpellProjectiles\Freeze.h" />
     <ClInclude Include="src\GameObjects\SpellProjectiles\IceBlock.h" />
     <ClInclude Include="src\GameObjects\SpellProjectiles\IceShard.h" />
     <ClInclude Include="src\GameObjects\SpellProjectiles\LavaSpell.h" />

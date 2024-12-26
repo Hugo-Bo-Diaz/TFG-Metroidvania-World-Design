@@ -1,6 +1,5 @@
 #include "Thorns.h"
 #include "Application.h"
-#include "Modules/Particles.h"
 #include "Modules/Camera.h"
 
 Thorns::Thorns()
@@ -9,8 +8,8 @@ Thorns::Thorns()
 
 void Thorns::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
 
 	r10grass = { 24,24,12,12 };
 	r11grass = { 36,24,12,12 };
@@ -27,7 +26,7 @@ void Thorns::Init()
 	grass.minmax_frequency = std::make_pair(5, 20);
 	grass.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&grass, collider.x, collider.y);
+	p = Engine->GetModule<::Render>().AddParticleEmitter(&grass, collider.x, collider.y);
 	state = SEED;
 
 	thorn_first.AddFrame({ 128,0,32,32 });
@@ -58,7 +57,7 @@ bool Thorns::Loop(float dt)
 
 
 		std::vector<RXRect*> colliders;
-		Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
+		Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 		for (int i = 0; i < colliders.size(); ++i)
 		{
@@ -84,19 +83,19 @@ bool Thorns::Loop(float dt)
 	case THORNS_ON_FLOOR:
 	{
 
-//		Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
+//		Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 
 		std::vector<RXRect*> colliders;
 
 		if (direction == -1)
 		{
-			Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x, collider.y + collider.h / 2, 50, colliders);
+			Engine->GetModule<SceneController>().GetNearbyWalls(collider.x, collider.y + collider.h / 2, 50, colliders);
 			p->position_x = collider.x + collider.w;
 		}
 		else
 		{
-			Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w, collider.y + collider.h / 2, 50, colliders);
+			Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w, collider.y + collider.h / 2, 50, colliders);
 			p->position_x = collider.x;
 		}
 
@@ -155,9 +154,9 @@ bool Thorns::Loop(float dt)
 
 		if (life_timer.Read() > lifespan)
 		{
-			Engine->GetModule<ObjectManager>().DeleteObject(this);
-			//Engine->GetModule<Particles>().to_delete.push_back(p);
-			Engine->GetModule<Particles>().RemoveParticleEmitter(p);
+			Engine->GetModule<SceneController>().DeleteObject(this);
+			//Engine->GetModule<::Render>().to_delete.push_back(p);
+			Engine->GetModule<::Render>().RemoveParticleEmitter(p);
 		}
 
 	}

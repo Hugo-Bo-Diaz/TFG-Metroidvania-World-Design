@@ -1,7 +1,6 @@
 #include "UISettingsMenu.h"
 #include "UIPauseMenu.h"
 #include "Application.h"
-#include "Modules/Textures.h"
 #include "Modules/Render.h"
 #include "Modules/Input.h"
 #include "Modules/Gui.h"
@@ -24,8 +23,8 @@ UISettingsMenu::UISettingsMenu()
 
 void UISettingsMenu::Init()
 {
-	lTextureBase = Engine->GetModule<Textures>().Load_Texture("Assets/UI/settings_menu_base.png");
-	lTextureOptions = Engine->GetModule<Textures>().Load_Texture("Assets/UI/settings_menu_options.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/settings_menu_base.png", lTextureBase);
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/settings_menu_options.png", lTextureOptions);
 
 	mSFXMenuSelect = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_choose2.wav");
 	mSFXMenuChange = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_change.wav");

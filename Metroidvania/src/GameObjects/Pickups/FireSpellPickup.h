@@ -1,10 +1,10 @@
 #ifndef FIRE__SPELL__PICKUP__H
 #define FIRE__SPELL__PICKUP__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class ParticleEmitter;
 
@@ -28,7 +28,7 @@ public:
 	RXRect r12shield;
 	ParticleEmitter* p;
 
-	TextureID particles;
-	TextureID spell_books;
+	RexTextureID particles;
+	RexTextureID spell_books;
 };
 #endif

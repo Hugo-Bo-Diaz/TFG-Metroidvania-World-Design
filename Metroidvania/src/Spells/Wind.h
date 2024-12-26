@@ -5,7 +5,7 @@
 #include "EngineElements/Animation.h"
 #include "Utils/Timer.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class ParticleEmitter;
 
@@ -30,7 +30,7 @@ public:
 
 	//superjump
 	bool jump_available = true;
-	float jump_force = 22;
+	float jump_force = 15;
 
 	//mobility
 	bool is_mobility_on_cooldown = false;
@@ -45,7 +45,7 @@ public:
 	RXRect r6buff;
 	RXRect r7buff;
 
-	TextureID particle;
+	RexTextureID particle;
 };
 
 #endif

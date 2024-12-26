@@ -1,7 +1,7 @@
 #ifndef ICE__SHARD__H
 #define ICE__SHARD__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
 
@@ -19,6 +19,7 @@ public:
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void Destroy();
 
 	float speed = 10;
 	int direction;
@@ -30,8 +31,8 @@ public:
 	particle_preset ice;
 	RXRect r4ice;
 
-	TextureID spells;
-	TextureID particles;
+	RexTextureID spells;
+	RexTextureID particles;
 };
 
 #endif // !PLAYER__REP__H

@@ -1,5 +1,5 @@
 #include "FlyingElemental.h"
-#include "Modules/Particles.h"
+#include "Modules/Render.h"
 #include "Application.h"
 #include "Modules/Audio.h"
 #include "../Player.h"
@@ -29,7 +29,7 @@ FlyingElemental::FlyingElemental(float _initial_y)
 
 void FlyingElemental::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
+	Engine->GetModule<::Render>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
 }
 
 
@@ -44,8 +44,9 @@ void FlyingElemental::Init()
 	nextpos->w = collider.w;
 	nextpos->h = collider.h;
 
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	flyingelemental = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/flyingelemental.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/flyingelemental.png", flyingelemental);
+	SetAnimations(c);
 
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
@@ -76,7 +77,7 @@ bool FlyingElemental::Loop(float dt)
 	nextpos->y += speed_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
@@ -133,14 +134,14 @@ bool FlyingElemental::Loop(float dt)
 		}
 
 		//detect player
-		std::vector<collision*> collisions;
-		Engine->GetModule<ObjectManager>().GetCollisions(&aggro, collisions);
+		std::vector<collision> collisions;
+		Engine->GetModule<SceneController>().GetCollisions(&aggro, collisions);
 
-		for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+		for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 		{
-			if ((*it)->object != this)
+			if ((*it).object != this)
 			{
-				if ((*it)->object->IsSameTypeAs<Player>())
+				if ((*it).object->IsSameTypeAs<Player>())
 				{
 					state = FE_STARTING_CHARGE;
 					starting.Reset();
@@ -274,18 +275,23 @@ bool FlyingElemental::Render()
 	return true;
 }
 
-void FlyingElemental::RecieveDamage(int dmg, int direction)
+bool FlyingElemental::RecieveDamage(int dmg, int direction)
 {
 	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
+		return false;
+	}
+	
+	if (direction != 0)
+	{
+		speed_x = -direction * speed_x;
+		speed_y = -10;
 	}
 
-	speed_x = -direction * speed_x;
-	speed_y = -10;
-
+	return true;
 }
 
 void FlyingElemental::SetAnimations(FlyingElementalColor _c)
@@ -298,7 +304,7 @@ void FlyingElemental::SetAnimations(FlyingElementalColor _c)
 		flying_left.AddFrame({ 56 ,c * 56,56,56 });
 		flying_left.AddFrame({ 112,c * 56,56,56 });
 		flying_left.AddFrame({ 168,c * 56,56,56 });
-		flying_left = flyingelemental;
+		flying_left.mTexture = flyingelemental;
 	}
 	if (flying_right.GetAmountOfFrames() == 0)
 	{
@@ -306,6 +312,6 @@ void FlyingElemental::SetAnimations(FlyingElementalColor _c)
 		flying_right.AddFrame({ 280,c * 56,56,56 });
 		flying_right.AddFrame({ 336,c * 56,56,56 });
 		flying_right.AddFrame({ 392,c * 56,56,56 });
-		flying_right = flyingelemental;
+		flying_right.mTexture = flyingelemental;
 	}
 }

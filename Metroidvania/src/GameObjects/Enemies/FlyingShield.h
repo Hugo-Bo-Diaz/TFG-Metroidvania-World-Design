@@ -1,11 +1,9 @@
 #ifndef FLYING__SHIELD__H
 #define FLYING__SHIELD__H
 
-#include "Modules/ObjectManager.h"
 #include "EngineElements/Animation.h"
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 
 class FlyingShield : public Enemy
@@ -23,7 +21,7 @@ public:
 
 	float health = 1;
 	
-	void RecieveDamage(int dmg, int direction);
+	bool RecieveDamage(int dmg, int direction);
 	
 	float x;
 	float y;
@@ -44,8 +42,8 @@ public:
 
 	float speed_x = 3;
 
-	TextureID particles;
-	TextureID floating_shield;
+	RexTextureID particles;
+	RexTextureID floating_shield;
 
 	AudioID mSFXHit;
 	AudioID mSFXPing;

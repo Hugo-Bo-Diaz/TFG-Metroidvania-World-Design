@@ -2,7 +2,10 @@
 #include "Application.h"
 #include "Modules/Input.h"
 #include "Modules/Render.h"
-#include "Modules/Particles.h"
+#include "../Enemies/Enemy.h"
+#include "Freeze.h"
+#include "Utils/Utils.h"
+
 IceShard::IceShard()
 {
 	ice_shard_right.AddFrame({ 162,134,48,24 });
@@ -11,8 +14,8 @@ IceShard::IceShard()
 
 void IceShard::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
 	ice_shard_left.mTexture = spells;
 	ice_shard_right.mTexture = spells;
 
@@ -27,7 +30,13 @@ void IceShard::Init()
 	ice.minmax_frequency = std::make_pair(5, 20);
 	ice.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&ice, collider.x, collider.y);
+	p = Engine->GetModule<::Render>().AddParticleEmitter(&ice, collider.x, collider.y);
+}
+
+void IceShard::Destroy()
+{
+	Engine->GetModule<::Render>().RemoveParticleEmitter(p);
+	Engine->GetModule<::Render>().AddParticleEmitter(&ice, collider.x, collider.y,1000);
 }
 
 bool IceShard::Loop(float dt)
@@ -40,17 +49,38 @@ bool IceShard::Loop(float dt)
 	p->position_y = collider.y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
 		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
-			Engine->GetModule<ObjectManager>().DeleteObject(this);
-			//Engine->GetModule<Particles>().to_delete.push_back(p);
-			Engine->GetModule<Particles>().RemoveParticleEmitter(p);
-			Engine->GetModule<Particles>().AddParticleEmitter(&ice, collider.x-8, collider.y, 300);
+			Engine->GetModule<::Render>().RemoveParticleEmitter(p);
+			Engine->GetModule<::Render>().AddParticleEmitter(&ice, collider.x-8, collider.y, 300);
+			Engine->GetModule<SceneController>().DeleteObject(this);
+		}
+	}
+
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
+
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	{
+		if ((*it).object != this)
+		{
+			if ((*it).object->IsSameTypeAs<Enemy>())
+			{
+				if (((Enemy*)(*it).object)->CanFreeze())
+				{
+					if (((Enemy*)(*it).object)->RecieveDamage(1, 0)) {
+						Freeze* freeze = (Freeze*)Engine->GetModule<SceneController>().AddObject((*it).object->collider.x, (*it).object->collider.y, 32, 32, GetTypeIndex<Freeze>());
+						freeze->SetTarget((*it).object);
+					}
+				}
+				Engine->GetModule<SceneController>().DeleteObject(this);
+			}
+
 		}
 	}
 

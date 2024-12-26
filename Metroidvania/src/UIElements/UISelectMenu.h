@@ -3,8 +3,7 @@
 
 #include "EngineElements/ParticleEmitter.h"
 #include <list>
-#include "Modules/Textures.h"
-#include "Modules/Text.h"
+#include "Modules/Render.h"
 #include "EngineElements/UIelement.h"
 
 #define MAX_LORE_CAPACITY_MENU 10
@@ -37,7 +36,7 @@ public:
 
 	void CycleOption(float direction);
 
-	FontID lFont;
+	RexFontID lFont;
 
 	RXRect selectquad;
 
@@ -46,9 +45,9 @@ public:
 
 	bool first_update = true;
 
-	TextureID selectMenuBack;
-	TextureID selectLogBook;
-	TextureID selectOptions;
+	RexTextureID selectMenuBack;
+	RexTextureID selectLogBook;
+	RexTextureID selectOptions;
 };
 
 #endif

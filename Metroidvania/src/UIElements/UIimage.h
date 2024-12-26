@@ -3,7 +3,7 @@
 
 #include "EngineElements/ParticleEmitter.h"
 #include <string>
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 #include "EngineElements/UIelement.h"
 
 class UIimage : public UIelement
@@ -17,7 +17,7 @@ public:
 	void Render();
 
 	std::string mPath;
-	TextureID Tex;
+	RexTextureID Tex;
 };
 
 #endif // !UI__IMAGE

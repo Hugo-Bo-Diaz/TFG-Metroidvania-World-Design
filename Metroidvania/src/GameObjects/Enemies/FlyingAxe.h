@@ -1,11 +1,9 @@
 #ifndef FLYING__AXE__H
 #define FLYING__AXE__H
 
-#include "Modules/ObjectManager.h"
 #include "EngineElements/Animation.h"
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 
 enum FlyingAxeState
@@ -32,7 +30,7 @@ public:
 	FlyingAxeState last_state = AXE_PATROL;
 	float health = 1;
 	
-	void RecieveDamage(int dmg, int direction);
+	bool RecieveDamage(int dmg, int direction);
 	
 	float x;
 	float y;
@@ -75,8 +73,8 @@ public:
 	float speed_x = patrol_speed;
 	float speed_y = 0;
 
-	TextureID floating_axe;
-	TextureID particles;
+	RexTextureID floating_axe;
+	RexTextureID particles;
 
 	AudioID mSFXHit;
 };

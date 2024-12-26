@@ -1,8 +1,6 @@
 #include"FireSpellPickup.h"
 #include "Application.h"
-#include "Modules/ObjectManager.h"
 #include "../Player.h"
-#include "Modules/Particles.h"
 #include "Modules/Gui.h"
 #include "Modules/ProgressTracker.h"
 #include "../../UIElements/UItextbox.h"
@@ -14,14 +12,14 @@ FireSpellPickup::FireSpellPickup()
 
 void FireSpellPickup::Destroy()
 {
-	//Engine->GetModule<Particles>().to_delete.push_back(p);
-	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
+	//Engine->GetModule<::Render>().to_delete.push_back(p);
+	Engine->GetModule<::Render>().RemoveParticleEmitter(p);
 }
 
 void FireSpellPickup::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spell_books = Engine->GetModule<Textures>().Load_Texture("Assets/UI/books.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/books.png", spell_books);
 
 	firespellbook = { 0,0,52,64 };
 
@@ -51,37 +49,37 @@ void FireSpellPickup::Init()
 	fireshield.minmax_frequency = std::make_pair(5, 20);
 	fireshield.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider.x, collider.y);
+	p = Engine->GetModule<::Render>().AddParticleEmitter(&fireshield, collider.x, collider.y);
 }
 
 bool FireSpellPickup::Loop(float dt)
 {
 	if(Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("SpellsUnlock")->GetValue("Fire"))
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
 	}
 
 	p->position_x = collider.x;
 	p->position_y = collider.y;
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Player>())
+			if ((*it).object->IsSameTypeAs<Player>())
 			{
-				((Player*)((*it)->object))->unlock_spell(FIRE);
+				((Player*)((*it).object))->unlock_spell(FIRE);
 				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("SpellsUnlock")->SetValue("Fire", 1);
-				Engine->GetModule<ObjectManager>().DeleteObject(this);
+				Engine->GetModule<SceneController>().DeleteObject(this);
 				UItextbox* textbox= new UItextbox("","congratulations you unlocked fire!",TextBoxColor::RED, 15, 4, 272, 420, 2, 0.2);
 				textbox->AddPanelToTextBox("remember your past      we need you");
 				Engine->GetModule<UserInterface>().AddElement(textbox);
-				//Engine->GetModule<Particles>().to_delete.push_back(p);
-				Engine->GetModule<Particles>().AddParticleEmitter(&fireshield, collider.x, collider.y,1500);
-				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue("4",1.0f);
+				//Engine->GetModule<::Render>().to_delete.push_back(p);
+				Engine->GetModule<::Render>().AddParticleEmitter(&fireshield, collider.x, collider.y,1500);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue("Lore4",4.0f);
 			}
 		}
 	}

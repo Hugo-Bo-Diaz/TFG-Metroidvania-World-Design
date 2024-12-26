@@ -64,8 +64,8 @@ public:
 	RXRect r10grass;
 	RXRect r11grass;
 
-	TextureID spells;
-	TextureID particles;
+	RexTextureID spells;
+	RexTextureID particles;
 };
 
 #endif

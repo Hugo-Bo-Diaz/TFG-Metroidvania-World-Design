@@ -4,7 +4,6 @@
 #include "Modules/ProgressTracker.h"
 #include "Modules/Gui.h"
 #include "Modules/Render.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 #include "UISettingsMenu.h"
 #include "../SceneProcessing.h"
@@ -15,11 +14,11 @@ UIMainMenu::UIMainMenu()
 
 void UIMainMenu::Init()
 {
-	TexBase = Engine->GetModule<Textures>().Load_Texture("Assets/UI/mainmenu.png");
-	TexSelected = Engine->GetModule<Textures>().Load_Texture("Assets/UI/mainmenuselected.png");
-	TexDisabled = Engine->GetModule<Textures>().Load_Texture("Assets/UI/mainmenudisabled.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/mainmenu.png", TexBase);
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/mainmenuselected.png", TexSelected);
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/mainmenudisabled.png", TexDisabled);
 
-	mMenuMusic = Engine->GetModule<Audio>().LoadSFX("Assets/Music/not-in-vain.ogg");
+	mMenuMusic = Engine->GetModule<Audio>().LoadMusic("Assets/Music/not-in-vain.ogg");
 	mSFXMenuSelect = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_choose2.wav");
 	mSFXPing = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/ping.wav");
 	mSFXMenuChange = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_change.wav");

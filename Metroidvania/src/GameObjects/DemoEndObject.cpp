@@ -13,8 +13,9 @@ EndDemoObject::EndDemoObject()
 
 void EndDemoObject::Init()
 {
-	indicator = Engine->GetModule<Textures>().Load_Texture("Assets/UI/indicator.png");
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	bool lResult;
+	lResult = Engine->GetModule<::Render>().LoadTexture("Assets/UI/indicator.png", indicator);
+	lResult = Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 
 	rectanglekeyboard = { 0,0,48,48 };
 	rectanglecontroller = { 48,0,48,48 };
@@ -24,19 +25,19 @@ bool EndDemoObject::Loop(float dt)
 {
 	bool iscontactingplayer = false;
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Player>())
+			if ((*it).object->IsSameTypeAs<Player>())
 			{
 				iscontactingplayer = true;
 				if (Engine->GetModule<Input>().GetInput(BUTTON_2) == BUTTON_DOWN)
 				{
-					playerbooks = ((Player*)(*it)->object)->unlocked_spells;
+					playerbooks = ((Player*)(*it).object)->unlocked_spells;
 					std::string s1 = "You have " + std::to_string(playerbooks) + "/2 books required to complete the demo" ;
 					
 					std::string s2 = "";
@@ -65,7 +66,7 @@ bool EndDemoObject::Loop(float dt)
 		if (playerbooks >= 2)
 		{
 			//END DEMO HERE :D
-			Engine->GetModule<ObjectManager>().UnPauseObjects();
+			Engine->GetModule<SceneController>().UnPauseObjects();
 			//App->trk->go_to_main_menu = true;
 			Engine->GetModule<ProgressTracker>().SaveFile("save_file.xml");
 			Engine->GetModule<Camera>().CoverScreen(1000, 300, 0, 0, 0);

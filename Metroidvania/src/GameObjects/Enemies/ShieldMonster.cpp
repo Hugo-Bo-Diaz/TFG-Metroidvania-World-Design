@@ -1,8 +1,6 @@
 #include "ShieldMonster.h"
 #include "Application.h"
 #include "Modules/Render.h"
-#include "Modules/Textures.h"
-#include "Modules/Particles.h"
 #include "Modules/Audio.h"
 #include "../Player.h"
 #include "Modules/Debug.h"
@@ -40,7 +38,7 @@ ShieldMonster::ShieldMonster()
 void ShieldMonster::Destroy()
 {
 	//ADD PARTICLES
-	Engine->GetModule<Particles>().AddParticleEmitter(&shield_monster_death, collider.x, collider.y, 400);
+	Engine->GetModule<::Render>().AddParticleEmitter(&shield_monster_death, collider.x, collider.y, 400);
 
 }
 
@@ -52,9 +50,9 @@ void ShieldMonster::Init()
 	nextpos->w = collider.w;
 	nextpos->h = collider.h;
 
-	shield_monster = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/shield_monster.png");
-	shield_monster_arm = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/shield_monster_arm.png");
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/shield_monster.png", shield_monster);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/shield_monster_arm.png", shield_monster_arm);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 	mSFXPing = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/ping.wav");
@@ -157,72 +155,67 @@ bool ShieldMonster::Loop(float dt)
 
 	shield.y = collider.y;
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&aggro, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&aggro, collisions);
 
 	isplayernearby = false;
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Player>())
+			if ((*it).object->IsSameTypeAs<Player>())
 			{
 				isplayernearby = true;
-				target = (*it)->object;
+				target = (*it).object;
 			}
 		}
 	}
 
-	Engine->GetModule<ObjectManager>().ClearCollisionArray(collisions);
-
-	Engine->GetModule<ObjectManager>().GetCollisions(&range, collisions);
+	Engine->GetModule<SceneController>().GetCollisions(&range, collisions);
 
 	isplayeronrange = false;
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Player>())
+			if ((*it).object->IsSameTypeAs<Player>())
 			{
 				isplayeronrange = true;
 			}
 		}
 	}
 
-	Engine->GetModule<ObjectManager>().ClearCollisionArray(collisions);
+	Engine->GetModule<SceneController>().GetCollisions(&shield, collisions);
 
-	Engine->GetModule<ObjectManager>().GetCollisions(&shield, collisions);
-
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<FireBall>())
+			if ((*it).object->IsSameTypeAs<FireBall>())
 			{
 				Engine->GetModule<Audio>().PlaySFX(mSFXPing);
-				Engine->GetModule<ObjectManager>().DeleteObject((*it)->object);
-				Engine->GetModule<Particles>().AddParticleEmitter(&metal, (*it)->object->collider.x, (*it)->object->collider.y, 300);
+				Engine->GetModule<SceneController>().DeleteObject((*it).object);
+				Engine->GetModule<::Render>().AddParticleEmitter(&metal, (*it).object->collider.x, (*it).object->collider.y, 300);
 			}
-			if ((*it)->object->IsSameTypeAs<Rock>())
+			if ((*it).object->IsSameTypeAs<Rock>())
 			{
 				Engine->GetModule<Audio>().PlaySFX(mSFXPing);
-				Engine->GetModule<ObjectManager>().DeleteObject((*it)->object);
-				Engine->GetModule<Particles>().AddParticleEmitter(&metal, (*it)->object->collider.x, (*it)->object->collider.y, 300);
+				Engine->GetModule<SceneController>().DeleteObject((*it).object);
+				Engine->GetModule<::Render>().AddParticleEmitter(&metal, (*it).object->collider.x, (*it).object->collider.y, 300);
 			}
-			if ((*it)->object->IsSameTypeAs<Player>())
+			if ((*it).object->IsSameTypeAs<Player>())
 			{
 				int direction = 0;
-				int distance = (*it)->object->collider.x - collider.x;
+				int distance = (*it).object->collider.x - collider.x;
 				if (distance > 0)
 					direction = 1;
 				else
 					direction = -1;
 
-				((Player*)((*it)->object))->AddHealth(-1, direction);
+				((Player*)((*it).object))->AddHealth(-1, direction);
 			}
 		}
 	}
-	Engine->GetModule<ObjectManager>().ClearCollisionArray(collisions);
 
 	//arm_angle += 1;
 
@@ -338,7 +331,7 @@ bool ShieldMonster::Loop(float dt)
 
 			HitBox.y = collider.y + collider.h - HitBox.h;
 
-			Engine->GetModule<ObjectManager>().GetCollisions(&HitBox, collisions);
+			Engine->GetModule<SceneController>().GetCollisions(&HitBox, collisions);
 
 			int xemitter=HitBox.x;
 			if (gdirection == 1)
@@ -347,19 +340,18 @@ bool ShieldMonster::Loop(float dt)
 				xemitter += HitBox.w;
 
 
-			Engine->GetModule<Particles>().AddParticleEmitter(&shield_monster_hit, HitBox.x+HitBox.w/2, HitBox.y, 300);
+			Engine->GetModule<::Render>().AddParticleEmitter(&shield_monster_hit, HitBox.x+HitBox.w/2, HitBox.y, 300);
 
-			for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+			for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 			{
-				if ((*it)->object != this)
+				if ((*it).object != this)
 				{
-					if ((*it)->object->IsSameTypeAs<Player>())
+					if ((*it).object->IsSameTypeAs<Player>())
 					{
-						((Player*)((*it)->object))->AddHealth(-1, gdirection);
+						((Player*)((*it).object))->AddHealth(-1, gdirection);
 					}
 				}
 			}
-			Engine->GetModule<ObjectManager>().ClearCollisionArray(collisions);
 		}
 
 		
@@ -378,7 +370,7 @@ bool ShieldMonster::Loop(float dt)
 
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	bool change_direction = false;
 	bool floor_below = false;
@@ -476,9 +468,9 @@ bool ShieldMonster::Render()
 	}
 
 	if (gdirection < 0)
-		Engine->GetModule<::Render>().RenderAnimation(arm_left, collider.x-50, collider.y+8+offset_y, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,98,16);
+		Engine->GetModule<::Render>().RenderAnimation(arm_left, collider.x-50, collider.y+8+offset_y, 0, RenderQueue::RENDER_GAME,arm_angle,1.0f,1.0f,1,1,98,16);
 	else
-		Engine->GetModule<::Render>().RenderAnimation(arm_right, collider.x+42, collider.y+8+offset_y, 0, RenderQueue::RENDER_GAME,arm_angle,1,1,14,16);
+		Engine->GetModule<::Render>().RenderAnimation(arm_right, collider.x+42, collider.y+8+offset_y, 0, RenderQueue::RENDER_GAME,arm_angle,1.0f,1.0f,1,1,14,16);
 
 	return true;
 }
@@ -492,9 +484,9 @@ void ShieldMonster::RenderDebug()
 }
 
 
-void ShieldMonster::RecieveDamage(int dmg, int direction)
+bool ShieldMonster::RecieveDamage(int dmg, int direction)
 {
-
+	bool lResult = false;
 	int dir = -gdirection;
 	if (direction == dir)
 	{
@@ -503,7 +495,8 @@ void ShieldMonster::RecieveDamage(int dmg, int direction)
 		health -= dmg;
 		if (health <= 0)
 		{
-			Engine->GetModule<ObjectManager>().DeleteObject(this);
+			Engine->GetModule<SceneController>().DeleteObject(this);
+			lResult = false;
 		}
 		else
 		{
@@ -513,7 +506,7 @@ void ShieldMonster::RecieveDamage(int dmg, int direction)
 			else
 				fromdir = 0.25;
 
-			Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider.x+(collider.w*fromdir), collider.y+collider.h/2, 300);
+			Engine->GetModule<::Render>().AddParticleEmitter(&stone_death, collider.x+(collider.w*fromdir), collider.y+collider.h/2, 300);
 
 		}
 	}
@@ -527,6 +520,8 @@ void ShieldMonster::RecieveDamage(int dmg, int direction)
 		else
 			fromdir = 0.25;
 
-		Engine->GetModule<Particles>().AddParticleEmitter(&metal, collider.x + (collider.w*fromdir), collider.y + collider.h / 2, 150);
+		Engine->GetModule<::Render>().AddParticleEmitter(&metal, collider.x + (collider.w*fromdir), collider.y + collider.h / 2, 150);
 	}
+
+	return lResult;
 }

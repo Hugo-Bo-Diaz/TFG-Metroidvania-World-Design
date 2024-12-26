@@ -1,11 +1,11 @@
 #include "MaxManaPickup.h"
-#include "Modules/Particles.h"
 #include "Application.h"
 #include "Modules/ProgressTracker.h"
 #include "Modules/Gui.h"
 #include "../../UIElements/UItextbox.h"
 #include "../Player.h"
 #include "../../UIelementFunctions.h"
+#include "../../MetroidvaniaConstants.h"
 
 MaxManaPickup::MaxManaPickup()
 {
@@ -13,8 +13,8 @@ MaxManaPickup::MaxManaPickup()
 
 void MaxManaPickup::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	items = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/items.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/items.png", items);
 
 	maxmanaplus = { 48,0,48,48 };
 
@@ -31,7 +31,7 @@ void MaxManaPickup::Init()
 	magic.minmax_frequency = std::make_pair(20, 40);
 	magic.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&magic, 0, 0);
+	p = Engine->GetModule<::Render>().AddParticleEmitter(&magic, 0, 0);
 
 	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs") == nullptr)
 	{
@@ -62,53 +62,53 @@ MaxManaPickup::MaxManaPickup(std::list<ObjectProperty*>& aProperties)
 
 void MaxManaPickup::Destroy()
 {
-	//Engine->GetModule<Particles>().to_delete.push_back(p);
-	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
+	//Engine->GetModule<::Render>().to_delete.push_back(p);
+	Engine->GetModule<::Render>().RemoveParticleEmitter(p);
 }
 
 bool MaxManaPickup::Loop(float dt)
 {
-	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue(std::to_string(pickup_id).c_str()) != 0.0f)
+	Section* lSection = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups");
+	if (lSection != nullptr && lSection->GetValue(std::to_string(pickup_id).c_str()) != 0.0f)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
 	}
 
 	p->position_x = collider.x;
 	p->position_y = collider.y;
 
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Player>())
+			if ((*it).object->IsSameTypeAs<Player>())
 			{
-				Player* pl = (Player*)((*it)->object);
+				Player* pl = (Player*)((*it).object);
 				pl->AddMana(1);
 
 				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue(std::to_string(pickup_id).c_str(), 1.0f);
 
-				int charges_for_mana = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue("CurrentFragmentsMana");
-				int max_charges_for_mana = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->GetValue("MaxFragmentsMana");
+				int charges_for_mana = Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("CurrentFragmentsMana");
 
-				Engine->GetModule<ObjectManager>().DeleteObject(this);
+				Engine->GetModule<SceneController>().DeleteObject(this);
 
-				std::string s = std::to_string(charges_for_mana + 1) + "/" + std::to_string(max_charges_for_mana) + " to increase mana";
+				std::string s = std::to_string(charges_for_mana + 1) + "/" + std::to_string(ITEM_SHARDS_FOR_UPGRADE) + " to increase mana";
 
 				charges_for_mana += 1;
 
-				if (charges_for_mana >= max_charges_for_mana)
+				if (charges_for_mana >= ITEM_SHARDS_FOR_UPGRADE)
 				{
 					pl->max_mana += 1;
 					pl->mana += 1;
 					charges_for_mana = 0;
-					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue("MaxMana", pl->max_mana);
+					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->SetValue("MaxMana", pl->max_mana);
 				}
 
-				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("pickups")->SetValue("CurrentFragmentsMana", charges_for_mana);
+				Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->SetValue("CurrentFragmentsMana", charges_for_mana);
 
 				UItextbox* textbox = new UItextbox("", s.c_str(), TextBoxColor::GREY, 15, 4, 272, 420, 2, 0.2);
 				Engine->GetModule<UserInterface>().AddElement(textbox);
@@ -119,11 +119,12 @@ bool MaxManaPickup::Loop(float dt)
 				}
 				if (lore_unlock != -1 && Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->GetValue(std::to_string(lore_unlock).c_str()) == 0.0f)
 				{
-					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue(std::to_string(lore_unlock).c_str(), 1.0f);
+					std::string lEntry = "Lore" + std::to_string(lore_unlock);
+					Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("LoreLogs")->SetValue(lEntry.c_str(), 1.0f);
 					textbox->AddPanelToTextBox("New lore entry unlocked");
 				}
-				//Engine->GetModule<Particles>().to_delete.push_back(p);
-				Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider.x, collider.y, 1500);
+				//Engine->GetModule<::Render>().to_delete.push_back(p);
+				Engine->GetModule<::Render>().AddParticleEmitter(&magic, collider.x, collider.y, 1500);
 			}
 		}
 	}
