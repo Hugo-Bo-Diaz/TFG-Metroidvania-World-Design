@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="257">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="32" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="270">
  <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
-  <image source="tilesets/tileset01.png" width="768" height="528"/>
+  <image source="../tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
  <tileset firstgid="177" name="tileset02" tilewidth="48" tileheight="48" tilecount="121" columns="11">
-  <image source="tilesets/tileset02.png" width="528" height="528"/>
+  <image source="../tilesets/tileset02.png" width="528" height="528"/>
  </tileset>
  <tileset firstgid="298" name="tileset03" tilewidth="48" tileheight="48" tilecount="306" columns="17">
-  <image source="tilesets/tileset03.png" width="816" height="864"/>
+  <image source="../tilesets/tileset03.png" width="816" height="864"/>
  </tileset>
  <tileset firstgid="604" name="objects" tilewidth="48" tileheight="48" tilecount="64" columns="8">
-  <image source="objects.png" width="384" height="384"/>
+  <image source="../tilesets/objects.png" width="384" height="384"/>
  </tileset>
  <imagelayer id="17" name="Image Layer 1">
-  <image source="Backgrounds/ground_back.png"/>
+  <image source="../Backgrounds/ground_back.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="30"/>
+   <property name="depth" type="int" value="3000"/>
    <property name="parallax_x" type="float" value="1"/>
    <property name="parallax_y" type="float" value="1"/>
    <property name="repeat_y" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="18" name="Image Layer 2">
-  <image source="Backgrounds/ground_far.png"/>
+  <image source="../Backgrounds/ground_far.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="20"/>
+   <property name="depth" type="int" value="2900"/>
    <property name="parallax_x" type="float" value="0.8"/>
    <property name="parallax_y" type="float" value="0.1"/>
    <property name="repeat_y" type="bool" value="false"/>
   </properties>
  </imagelayer>
  <imagelayer id="19" name="Image Layer 3">
-  <image source="Backgrounds/ground_front.png"/>
+  <image source="../Backgrounds/ground_front.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="10"/>
+   <property name="depth" type="int" value="2800"/>
    <property name="parallax_x" type="float" value="0.9"/>
    <property name="parallax_y" type="float" value="0.2"/>
    <property name="repeat_y" type="bool" value="false"/>
@@ -41,6 +41,7 @@
  </imagelayer>
  <layer id="11" name="back_tiles" width="32" height="16">
   <properties>
+   <property name="depth" type="int" value="1050"/>
    <property name="tileset" type="int" value="0"/>
   </properties>
   <data>
@@ -560,6 +561,7 @@
  </layer>
  <layer id="21" name="back_second" width="32" height="16">
   <properties>
+   <property name="depth" type="int" value="1000"/>
    <property name="tileset" type="int" value="2"/>
   </properties>
   <data>
@@ -1079,6 +1081,7 @@
  </layer>
  <layer id="12" name="front" width="32" height="16">
   <properties>
+   <property name="depth" type="int" value="950"/>
    <property name="tileset" type="int" value="0"/>
   </properties>
   <data>
@@ -1598,6 +1601,7 @@
  </layer>
  <layer id="20" name="front_second" width="32" height="16">
   <properties>
+   <property name="depth" type="int" value="900"/>
    <property name="tileset" type="int" value="2"/>
   </properties>
   <data>
@@ -2128,30 +2132,66 @@
   </object>
  </objectgroup>
  <objectgroup id="14" name="objects">
-  <object id="233" type="ManaChargePickup" gid="610" x="864" y="384" width="48" height="48">
+  <object id="256" type="HazardSpikes" gid="628" x="480" y="576" width="864" height="48"/>
+  <object id="257" type="HazardRockBlock" x="864" y="288" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="258" type="HazardRockBlock" x="912" y="288" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="259" type="HazardRockBlock" x="816" y="288" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="260" type="HazardRockBlock" x="960" y="336" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="261" type="HazardRockBlock" x="960" y="384" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="262" type="HazardRockBlock" x="960" y="288" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="263" type="HazardRockBlock" x="768" y="336" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="264" type="HazardRockBlock" x="768" y="288" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="265" type="HazardRockBlock" x="768" y="384" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="266" type="EnemyGroundedElemental" x="384" y="384" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="267" type="EnemyClingCreature" x="576" y="288" width="48" height="48"/>
+  <object id="268" type="EnemyClingCreature" x="1152" y="336" width="48" height="48"/>
+  <object id="269" type="ManaChargePickup" x="864" y="336" width="48" height="48">
    <properties>
     <property name="id" type="int" value="12"/>
     <property name="lore" type="int" value="21"/>
     <property name="text" value="Who were the mages of this area..."/>
    </properties>
   </object>
-  <object id="238" type="EnemyGroundedElemental" gid="620" x="384" y="432" width="48" height="48">
-   <properties>
-    <property name="color" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="239" type="EnemyClingCreature" gid="625" x="1152" y="384" width="48" height="48"/>
-  <object id="245" type="EnemyClingCreature" gid="625" x="576" y="336" width="48" height="48"/>
-  <object id="247" type="HazardRockBlock" gid="613" x="912" y="336" width="48" height="48"/>
-  <object id="248" type="HazardRockBlock" gid="613" x="960" y="384" width="48" height="48"/>
-  <object id="249" type="HazardRockBlock" gid="613" x="960" y="336" width="48" height="48"/>
-  <object id="250" type="HazardRockBlock" gid="613" x="960" y="432" width="48" height="48"/>
-  <object id="251" type="HazardRockBlock" gid="613" x="864" y="336" width="48" height="48"/>
-  <object id="252" type="HazardRockBlock" gid="613" x="816" y="336" width="48" height="48"/>
-  <object id="253" type="HazardRockBlock" gid="613" x="768" y="336" width="48" height="48"/>
-  <object id="254" type="HazardRockBlock" gid="613" x="768" y="384" width="48" height="48"/>
-  <object id="255" type="HazardRockBlock" gid="613" x="768" y="432" width="48" height="48"/>
-  <object id="256" type="HazardSpikes" gid="628" x="480" y="576" width="864" height="48"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
   <properties>

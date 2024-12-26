@@ -29,4 +29,14 @@
 	<entry id = "21" title = "Spirit" content = "This part of the castle was inhabited by powerful and stoic stone mages capable of moving the ground at will" />
 	
 	<entry id = "22" title = "Golems" content = "These were once pacific creatures that were forced to battle for their own existance blinded by anger"/>
+	
+	<entry id = "23" title = "Wind book" content = "No matter what happens I must continue forward"/>
+	
+	<entry id = "24" title = "Air temple" content = "This area is way higher than the rest of the castle, how did it end up here?"/>
+	<entry id = "25" title = "Air ruins" content = "It feels as if the ruins themselves have taken on new life"/>
+	<entry id = "26" title = "Heights" content = "How was anyone able to destroy this part of the castle, it is way too hig..."/>
+	<entry id = "27" title = "Origin" content = "Who built this part of the castle? it feels so different to the rest of the building"/>
+	<entry id = "28" title = "Clouds" content = "Why are these clouds alive? who gave them consciousness?"/>
+	<entry id = "29" title = "Wind master" content = "I feel like the wind master was someone who was able to flow with any situation"/>
+
 </lore>

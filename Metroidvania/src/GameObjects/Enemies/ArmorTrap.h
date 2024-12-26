@@ -1,0 +1,75 @@
+#ifndef ARMOR__TRAP__H
+#define ARMOR__TRAP__H
+
+#include "Modules/SceneController.h"
+#include "EngineElements/Animation.h"
+#include "EngineElements/ParticleEmitter.h"
+#include "Modules/Audio.h"
+#include "Enemy.h"
+#include "RXRect.h"
+class Player;
+
+typedef int AudioID;
+
+enum ArmorTrapState {
+	ArmorTrap_IDLE,
+	ArmorTrap_PATROL,
+	ArmorTrap_CHASE
+};
+
+class ArmorTrap : public Enemy
+{
+public:
+	ArmorTrap();
+	ArmorTrap(std::list<ObjectProperty*>& aList) { new (this) ArmorTrap; };
+	~ArmorTrap();
+
+	void Init();
+	bool Loop(float dt);
+	bool Render();
+	void RenderDebug();
+	void Destroy();
+
+	float patrol_speed = 1;
+	float chase_speed = 3;
+	float idle_speed = 0;
+	float speed_x = patrol_speed;
+	float speed_y = 0;
+
+	float acceleration_y = 1.0;
+	float health = 4;
+
+	bool RecieveDamage(int dmg, int direction);
+
+	float animation_interval_chase = 100;
+	float animation_interval_patrol = 200;
+
+	Animation left;
+	Animation right;
+	Animation idle;
+	particle_preset fire_ge_death;
+	particle_preset metal;
+	RXRect r14firegedeath;
+	RXRect r15firegedeath;
+	RXRect r18metalfirst;
+	RXRect r19metalsecond;
+
+	Timer animation_timer;
+
+	bool knocked_up = false;
+
+	GameObject* target;
+
+	ArmorTrapState current_state = ArmorTrap_IDLE;
+
+	RXRect aggro;
+
+	bool isplayernearby;
+
+	RexTextureID armortrap;
+	RexTextureID particles;
+
+	AudioID mSFXHit;
+};
+
+#endif
