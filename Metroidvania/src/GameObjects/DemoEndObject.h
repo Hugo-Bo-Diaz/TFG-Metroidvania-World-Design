@@ -1,9 +1,8 @@
 #ifndef DEMO__END__OBJECT__H
 #define DEMO__END__OBJECT__H
 
-#include "Modules/ObjectManager.h"
 #include "Modules/Gui.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class UItextbox;
 
@@ -35,8 +34,8 @@ public:
 	RXRect rectanglekeyboard;
 	RXRect rectanglecontroller;
 
-	TextureID indicator;
-	TextureID particles;
+	RexTextureID indicator;
+	RexTextureID particles;
 };
 
 #endif

@@ -1,11 +1,9 @@
 #ifndef FLYING__ELEMENTAL__H
 #define FLYING__ELEMENTAL__H
 
-#include "Modules/ObjectManager.h"
 #include "EngineElements/Animation.h"
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 
 enum FlyingElementalColor
@@ -36,7 +34,7 @@ public:
 	FlyingElementalState last_state = FE_PATROL;
 	float health = 1;
 	
-	void RecieveDamage(int dmg, int direction);
+	bool RecieveDamage(int dmg, int direction);
 	
 	float x;
 	float y;
@@ -85,8 +83,8 @@ public:
 	float speed_y = -10;
 	float acceleration_y = patrol_accel_y;
 
-	TextureID flyingelemental;
-	TextureID particles;
+	RexTextureID flyingelemental;
+	RexTextureID particles;
 
 	AudioID mSFXHit;
 };

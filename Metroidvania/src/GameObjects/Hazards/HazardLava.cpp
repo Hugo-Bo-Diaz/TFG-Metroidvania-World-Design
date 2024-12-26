@@ -3,7 +3,6 @@
 #include "Modules/Render.h"
 #include "../Player.h"
 #include "Modules/ProgressTracker.h"
-#include "Modules/Textures.h"
 #include "../../SceneProcessing.h"
 
 HazardLava::HazardLava()
@@ -15,21 +14,21 @@ HazardLava::HazardLava()
 
 void HazardLava::Init()
 {
-	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/hazards.png", hazards);
 }
 
 bool HazardLava::Loop(float dt)
 {
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Player>())
+			if ((*it).object->IsSameTypeAs<Player>())
 			{
-				((Player*)(*it))->Respawn();
+				((Player*)(*it).object)->Respawn();
 			}
 		}
 	}

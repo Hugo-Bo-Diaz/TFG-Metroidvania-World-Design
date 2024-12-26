@@ -1,8 +1,6 @@
 #include "GroundedElemental.h"
 #include "Application.h"
 #include "Modules/Render.h"
-#include "Modules/Textures.h"
-#include "Modules/Particles.h"
 #include "Modules/Audio.h"
 
 GroundedElemental::GroundedElemental()
@@ -28,10 +26,10 @@ void GroundedElemental::Destroy()
 	switch (c)
 	{
 	case RED_GROUNDELEMENTAL:
-		Engine->GetModule<Particles>().AddParticleEmitter(&fire_ge_death, collider.x, collider.y, 200);
+		Engine->GetModule<::Render>().AddParticleEmitter(&fire_ge_death, collider.x, collider.y, 200);
 		break;
 	case BROWN_GROUNDEDELEMENTAL:
-		Engine->GetModule<Particles>().AddParticleEmitter(&stone_death, collider.x, collider.y, 200);
+		Engine->GetModule<::Render>().AddParticleEmitter(&stone_death, collider.x, collider.y, 200);
 		break;
 	default:
 		break;
@@ -41,8 +39,9 @@ void GroundedElemental::Destroy()
 
 void GroundedElemental::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	groundelemental = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/groundelemental.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/groundelemental.png", groundelemental);
+	SetAnimations(c);
 
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
@@ -90,7 +89,7 @@ bool GroundedElemental::Loop(float dt)
 	speed_y += acceleration_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	bool change_direction = false;
 	bool floor_below = false;
@@ -177,17 +176,24 @@ bool GroundedElemental::Render()
 	return true;
 }
 
-void GroundedElemental::RecieveDamage(int dmg, int direction)
+bool GroundedElemental::RecieveDamage(int dmg, int direction)
 {
 	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
+		return false;
 	}
-	speed_x = direction * 6;
-	speed_y = -10;
-	knocked_up = true;
+	
+	if (direction != 0)
+	{
+		speed_x = direction * 6;
+		speed_y = -10;
+		knocked_up = true;
+	}
+
+	return true;
 }
 
 void GroundedElemental::SetAnimations(GroundedElementalColor _c)

@@ -12,7 +12,7 @@ FirstDialogue::FirstDialogue()
 
 void FirstDialogue::Init()
 {
-	texture = Engine->GetModule<Textures>().Load_Texture("Assets/UI/black_square.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/black_square.png", texture);
 
 	textbox = new UItextbox("", "For those who seek power are blind to their surroundings", TextBoxColor::GREY, 15, 4, 272, 160, 2, 0.2);
 	textbox->AddPanelToTextBox("only when it is able to serve all will it be balanced");
@@ -24,7 +24,7 @@ bool FirstDialogue::Loop(float dt)
 {
 	if (!Engine->GetModule<UserInterface>().ElementExists(textbox))
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
 		MetroidVaniaSceneProcessor::GetInstance().canopenmenu = true;
 	}
 

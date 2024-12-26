@@ -2,9 +2,9 @@
 #include "Application.h"
 #include "Modules/Window.h"
 #include "Modules/Render.h"
-#include "Modules/Textures.h"
 #include "Modules/Gui.h"
 #include "EngineAPI.h"
+
 UIcheckpointIndicator::UIcheckpointIndicator()
 {
 	
@@ -27,11 +27,24 @@ UIcheckpointIndicator::UIcheckpointIndicator()
 	//text_y = App->win->height / 2 + text->font_used->vsize / 2;
 	text_y = h / 2 + textheight/ 2;
 
+	mText = "CHECKPOINT REACHED";
 }
 
 void UIcheckpointIndicator::Init()
 {
-	Texture = Engine->GetModule<Textures>().Load_Texture("Assets/UI/black_square_alpha.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/black_square_alpha.png", Texture);
+	Engine->GetModule<::Render>().LoadFont("Assets/Fonts/Bebas-Regular.ttf", RXColor{ 255, 255, 255, 255}, 50, mFont);
+
+	int lScreenW = 0;
+	int lScreenH = 0;
+	int lTextSizeX = 0;
+	int lTextSizeY = 0;
+
+	Engine->GetModule<::Render>().GetTextSize(mFont,mText.c_str(), lTextSizeX, lTextSizeY);
+	Engine->GetModule<Window>().GetWindowSize(lScreenW, lScreenH);
+
+	text_x = lScreenW / 2 - lTextSizeX / 2;
+	text_y = lScreenH / 2 - lTextSizeY / 2;
 }
 
 void UIcheckpointIndicator::Loop()
@@ -45,8 +58,8 @@ void UIcheckpointIndicator::Loop()
 
 void UIcheckpointIndicator::Render()
 {
-	Engine->GetModule<::Render>().RenderText("CHECKPOINT REACHED", mFont, text_x, text_y, -1000, {0,0,0,0}, RenderQueue::RENDER_UI);
-	Engine->GetModule<::Render>().RenderTexture(Texture, on_screen.x, on_screen.y, {0,0,168,28}, -40, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().RenderText(mText.c_str(), mFont, text_x, text_y, -1000, {0,0,0,0}, RenderQueue::RENDER_UI);
+	Engine->GetModule<::Render>().RenderTexture(Texture, on_screen.x, on_screen.y, {0,0,1024,64}, -40, RenderQueue::RENDER_UI);
 }
 
 UIcheckpointIndicator::~UIcheckpointIndicator()

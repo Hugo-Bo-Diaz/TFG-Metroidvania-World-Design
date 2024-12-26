@@ -29,8 +29,8 @@ UIspelldisplay::UIspelldisplay()
 
 void UIspelldisplay::Init()
 {
-	lTexture = Engine->GetModule<Textures>().Load_Texture("Assets/UI/spell_location.png");
-	lBooksTex = Engine->GetModule<Textures>().Load_Texture("Assets/UI/books.png"); 
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/spell_location.png", lTexture);
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/books.png", lBooksTex);
 }
 
 void UIspelldisplay::Loop()

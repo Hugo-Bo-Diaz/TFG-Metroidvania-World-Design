@@ -15,28 +15,28 @@ HazardLavaWaterfall::HazardLavaWaterfall()
 
 void HazardLavaWaterfall::Init()
 {
-	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/hazards.png", hazards);
 	anim.mTexture = hazards;
 }
 
 bool HazardLavaWaterfall::Loop(float dt)
 {
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Player>() && !((Fire*)((Player*)(*it)->object)->spells[FIRE])->is_fireshield_up)
+			if ((*it).object->IsSameTypeAs<Player>() && !((Fire*)((Player*)(*it).object)->spells[FIRE])->is_fireshield_up)
 			{
-				if ((*it)->object->collider.x > collider.x)
+				if ((*it).object->collider.x > collider.x)
 				{
-					((Player*)(*it)->object)->AddHealth(-1, 1);
+					((Player*)(*it).object)->AddHealth(-1, 1);
 				}
 				else
 				{
-					((Player*)(*it)->object)->AddHealth(-1, -1);
+					((Player*)(*it).object)->AddHealth(-1, -1);
 				}
 			}
 		}

@@ -1,11 +1,10 @@
 #ifndef CLOUD__MELEE__H
 #define CLOUD__MELEE__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 
 enum CloudMeleeState
@@ -27,13 +26,14 @@ public:
 	void Init();
 	bool Loop(float dt);
 	bool Render();
+	void RenderDebug();
 	void Destroy();
 
 	CloudMeleeState state = CM_PATROL;
 	CloudMeleeState last_state = CM_PATROL;
 	float health = 1;
 
-	void RecieveDamage(int dmg, int direction);
+	bool RecieveDamage(int dmg, int direction);
 
 	float x;
 	float y;
@@ -64,7 +64,9 @@ public:
 
 	float time_starting = 1000;
 	Timer starting;
-	float speed_starting = 2;
+	float starting_shake_max = 5;
+	float starting_shake_x = 0;
+	float starting_shake_y = 0;
 
 	//charge
 	float charge_speed_base = 10;
@@ -82,8 +84,8 @@ public:
 	float speed_y = -10;
 	float acceleration_y = patrol_accel_y;
 
-	TextureID cloud_melee;
-	TextureID particles;
+	RexTextureID cloud_melee;
+	RexTextureID particles;
 
 	AudioID mSFXHit;
 };

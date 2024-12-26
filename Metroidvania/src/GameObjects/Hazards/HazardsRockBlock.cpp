@@ -4,7 +4,6 @@
 
 #include "../Player.h"
 #include "../../Spells/Ground.h"
-#include "Modules/Particles.h"
 
 #include "Modules/ProgressTracker.h"
 
@@ -16,15 +15,15 @@ HazardRockBlock::HazardRockBlock()
 
 void HazardRockBlock::Destroy()
 {
-	Engine->GetModule<ObjectManager>().DeleteWall(wall_id);
+	Engine->GetModule<SceneController>().DeleteWall(wall_id);
 }
 
 void HazardRockBlock::Init()
 {
-	//wall_id = Engine->GetModule<ObjectManager>().AddWall(RXRect{ collider->x + 1,collider->y + 1,46,46 });
+	//wall_id = Engine->GetModule<SceneController>().AddWall(RXRect{ collider.x + 1,collider.y + 1,46,46 });
 
-	hazards = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/hazards.png");
-	//wall_id = Engine->GetModule<ObjectManager>().AddWall(*collider);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/hazards.png", hazards);
+	wall_id = Engine->GetModule<SceneController>().AddWall(collider);
 }
 
 bool HazardRockBlock::Loop(float dt)
@@ -32,13 +31,13 @@ bool HazardRockBlock::Loop(float dt)
 	if (wall_id == -1)
 	{
 		RXRect lRect = { collider.x,collider.y,48,48 };
-		wall_id = Engine->GetModule<ObjectManager>().AddWall(lRect);
+		wall_id = Engine->GetModule<SceneController>().AddWall(lRect);
 		collider.y -= 5;
 		collider.h += 5;
 	}
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 	/*
 	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
@@ -54,9 +53,9 @@ bool HazardRockBlock::Loop(float dt)
 					if (g->groundpounding)
 					{
 						//delete this object :^)
-						Engine->GetModule<ObjectManager>().DeleteObject(this);
-						Engine->GetModule<ObjectManager>().DeleteWall(wall_id);
-						Engine->GetModule<Particles>().AddParticleEmitter(&Engine->GetModule<Particles>().rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
+						Engine->GetModule<SceneController>().DeleteObject(this);
+						Engine->GetModule<SceneController>().DeleteWall(wall_id);
+						Engine->GetModule<::Render>().AddParticleEmitter(&Engine->GetModule<::Render>().rockblockexplosion, collider->x + collider->w / 2, collider->y + collider->h / 2, 300);
 					}
 				}
 			}
@@ -64,7 +63,6 @@ bool HazardRockBlock::Loop(float dt)
 		}
 	}
 	*/
-	Engine->GetModule<ObjectManager>().ClearCollisionArray(collisions);
 
 	return true;
 }

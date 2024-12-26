@@ -1,9 +1,7 @@
 #include "UIPauseMenu.h"
 #include "Application.h"
-#include "Modules/Textures.h"
 #include "Modules/Render.h"
 #include "Modules/Input.h"
-#include "Modules/ObjectManager.h"
 #include "Modules/Gui.h"
 #include "Modules/Camera.h"
 #include "Modules/ProgressTracker.h"
@@ -23,10 +21,10 @@ UIPauseMenu::UIPauseMenu()
 
 void UIPauseMenu::Init()
 {
-	Engine->GetModule<ObjectManager>().PauseObjects();
+	Engine->GetModule<SceneController>().PauseObjects();
 
-	TexMenuBase = Engine->GetModule<Textures>().Load_Texture("Assets/UI/pause_menu_base.png");
-	TexMenuOptions = Engine->GetModule<Textures>().Load_Texture("Assets/UI/pause_menu_options.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/pause_menu_base.png", TexMenuBase);
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/pause_menu_options.png", TexMenuOptions);
 
 	mSFXMenuSelect = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_choose2.wav");
 	mSFXMenuChange = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/menu_change.wav");
@@ -43,7 +41,7 @@ void UIPauseMenu::Loop()
 		switch (current_option)
 		{
 		case PAUSE_RESUME:
-			Engine->GetModule<ObjectManager>().UnPauseObjects();
+			Engine->GetModule<SceneController>().UnPauseObjects();
 			MetroidVaniaSceneProcessor::GetInstance().is_pause_menu_up = false;
 			Engine->GetModule<UserInterface>().RemoveElement(this);
 			Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
@@ -53,7 +51,7 @@ void UIPauseMenu::Loop()
 			Engine->GetModule<Audio>().PlaySFX(mSFXMenuSelect);
 			break;
 		case PAUSE_EXIT:
-			Engine->GetModule<ObjectManager>().UnPauseObjects();
+			Engine->GetModule<SceneController>().UnPauseObjects();
 			MetroidVaniaSceneProcessor::GetInstance().is_pause_menu_up = false;
 			MetroidVaniaSceneProcessor::GetInstance().should_go_to_main_menu = true;
 			Engine->GetModule<UserInterface>().RemoveElement(this);

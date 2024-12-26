@@ -6,6 +6,7 @@
 #include "Utils/Timer.h"
 #include "EngineElements/ParticleEmitter.h"
 #include "Modules/Audio.h"
+#include "Modules/Render.h"
 
 class Ground : public Spell
 {
@@ -63,8 +64,8 @@ public:
 	RXRect r8ground;
 	RXRect r9ground;
 
-	TextureID spells;
-	TextureID particles;
+	RexTextureID spells;
+	RexTextureID particles;
 
 	AudioID mSFXGroundPound;
 	AudioID mSFXRock;

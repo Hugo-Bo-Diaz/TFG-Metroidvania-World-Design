@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "Modules/Input.h"
 #include "Modules/Render.h"
-#include "Modules/Particles.h"
 #include "Modules/Audio.h"
 
 #include "../Enemies/CoalJumper.h"
@@ -23,8 +22,8 @@ Shockwave::Shockwave()
 
 Shockwave::~Shockwave()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, collider.x + collider.w / 2, collider.y + collider.h / 2, 300);
-	Engine->GetModule<Particles>().RemoveParticleEmitter(p);
+	Engine->GetModule<::Render>().AddParticleEmitter(&rockblockexplosion, collider.x + collider.w / 2, collider.y + collider.h / 2, 300);
+	Engine->GetModule<::Render>().RemoveParticleEmitter(p);
 }
 
 void Shockwave::Init()
@@ -35,8 +34,8 @@ void Shockwave::Init()
 	nextpos->w = collider.w;
 	nextpos->h = collider.h;
 
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
 
 	mSFXGroundHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
 
@@ -76,7 +75,7 @@ void Shockwave::Init()
 	groundcontact.minmax_frequency = std::make_pair(10, 25);
 	groundcontact.texture_name = particles;
 
-	p = Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, collider.x, collider.y + collider.h);
+	p = Engine->GetModule<::Render>().AddParticleEmitter(&groundcontact, collider.x, collider.y + collider.h);
 }
 
 bool Shockwave::Loop(float dt)
@@ -86,29 +85,27 @@ bool Shockwave::Loop(float dt)
 	collider.x += x_speed;
 	nextpos->x += x_speed;
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<HazardRockBlock>())
+			if ((*it).object->IsSameTypeAs<HazardRockBlock>())
 			{
 				//delete this object :^)
-				Engine->GetModule<ObjectManager>().DeleteObject(this);
-				Engine->GetModule<ObjectManager>().DeleteObject((*it)->object);
+				Engine->GetModule<SceneController>().DeleteObject(this);
+				Engine->GetModule<SceneController>().DeleteObject((*it).object);
 			}
 
-			if ((*it)->object->IsSameTypeAs<Enemy>())
+			if ((*it).object->IsSameTypeAs<Enemy>())
 			{
-				((Enemy*)(*it)->object)->RecieveDamage(damage, direction);
-				Engine->GetModule<ObjectManager>().DeleteObject(this);
+				((Enemy*)(*it).object)->RecieveDamage(damage, direction);
+				Engine->GetModule<SceneController>().DeleteObject(this);
 			}
 		}
 	}
-
-	Engine->GetModule<ObjectManager>().ClearCollisionArray(collisions);
 
 	floor_check.x = x_speed + nextpos->x + nextpos->w/2;
 
@@ -119,7 +116,7 @@ bool Shockwave::Loop(float dt)
 	
 	bool should_delete = true;
 
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
@@ -127,10 +124,10 @@ bool Shockwave::Loop(float dt)
 
 		if (RXRectCollision(colliders[i], nextpos, &result) == true)// he goin crash!
 		{
-			Engine->GetModule<ObjectManager>().DeleteObject(this);
-			//Engine->GetModule<Particles>().to_delete.push_back(p);
+			Engine->GetModule<SceneController>().DeleteObject(this);
+			//Engine->GetModule<::Render>().to_delete.push_back(p);
 			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
-			Engine->GetModule<Particles>().RemoveParticleEmitter(p);
+			Engine->GetModule<::Render>().RemoveParticleEmitter(p);
 		}
 		if (RXPointInRect(&floor_check, colliders[i]) == true)
 		{
@@ -140,10 +137,10 @@ bool Shockwave::Loop(float dt)
 
 	if (should_delete)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
-		//Engine->GetModule<Particles>().to_delete.push_back(p);
+		Engine->GetModule<SceneController>().DeleteObject(this);
+		//Engine->GetModule<::Render>().to_delete.push_back(p);
 		Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
-		Engine->GetModule<Particles>().RemoveParticleEmitter(p);
+		Engine->GetModule<::Render>().RemoveParticleEmitter(p);
 	}
 
 	return ret;

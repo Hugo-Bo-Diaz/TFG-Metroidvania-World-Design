@@ -1,10 +1,10 @@
 #ifndef WIND__SLASH__H
 #define WIND__SLASH__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class ParticleEmitter;
 
@@ -24,14 +24,19 @@ public:
 	float speed = 20;
 	int direction;
 
+	int health = 2;
+	int damage = 1;
+
 	Animation windslash;
 
 	ParticleEmitter* p;
 	particle_preset windslash_part;
 	RXRect r5slash;
 
-	TextureID spells;
-	TextureID particles;
+	RexTextureID spells;
+	RexTextureID particles;
+	
+	std::list<GameObject*> mObjectsPassed;
 };
 
 #endif // !PLAYER__REP__H

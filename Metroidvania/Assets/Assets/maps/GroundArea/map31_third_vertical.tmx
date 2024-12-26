@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="22" height="32" tilewidth="48" tileheight="48" infinite="0" nextlayerid="23" nextobjectid="217">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="22" height="32" tilewidth="48" tileheight="48" infinite="0" nextlayerid="23" nextobjectid="239">
  <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
-  <image source="tilesets/tileset01.png" width="768" height="528"/>
+  <image source="../tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
  <tileset firstgid="177" name="tileset02" tilewidth="48" tileheight="48" tilecount="121" columns="11">
-  <image source="tilesets/tileset02.png" width="528" height="528"/>
+  <image source="../tilesets/tileset02.png" width="528" height="528"/>
  </tileset>
  <tileset firstgid="298" name="tileset03" tilewidth="48" tileheight="48" tilecount="306" columns="17">
-  <image source="tilesets/tileset03.png" width="816" height="864"/>
+  <image source="../tilesets/tileset03.png" width="816" height="864"/>
  </tileset>
  <tileset firstgid="604" name="objects" tilewidth="48" tileheight="48" tilecount="64" columns="8">
-  <image source="objects.png" width="384" height="384"/>
+  <image source="../tilesets/objects.png" width="384" height="384"/>
  </tileset>
  <imagelayer id="17" name="Image Layer 1">
-  <image source="Backgrounds/ground_back.png"/>
+  <image source="../Backgrounds/ground_back.png" width="1024" height="576"/>
   <properties>
    <property name="depth" type="int" value="3000"/>
    <property name="parallax_x" type="float" value="1"/>
@@ -22,7 +22,7 @@
   </properties>
  </imagelayer>
  <imagelayer id="18" name="Image Layer 2">
-  <image source="Backgrounds/ground_far.png"/>
+  <image source="../Backgrounds/ground_far.png" width="1024" height="576"/>
   <properties>
    <property name="depth" type="int" value="2900"/>
    <property name="parallax_x" type="float" value="0.8"/>
@@ -31,7 +31,7 @@
   </properties>
  </imagelayer>
  <imagelayer id="19" name="Image Layer 3">
-  <image source="Backgrounds/ground_front.png"/>
+  <image source="../Backgrounds/ground_front.png" width="1024" height="576"/>
   <properties>
    <property name="depth" type="int" value="2800"/>
    <property name="parallax_x" type="float" value="0.9"/>
@@ -2888,7 +2888,7 @@
   </data>
  </layer>
  <objectgroup color="#aa00ff" id="22" name="checkpoints">
-  <object id="216" x="144" y="288" width="720" height="192">
+  <object id="216" type="Checkpoint" x="144" y="288" width="720" height="192">
    <properties>
     <property name="room_id" type="int" value="31"/>
     <property name="x" type="int" value="480"/>
@@ -2909,50 +2909,86 @@
   </object>
  </objectgroup>
  <objectgroup id="14" name="objects">
-  <object id="183" type="HazardRockBlock" gid="613" x="144" y="1152" width="48" height="48"/>
-  <object id="184" type="HazardRockBlock" gid="613" x="192" y="1152" width="48" height="48"/>
-  <object id="185" type="HazardRockBlock" gid="613" x="288" y="1152" width="48" height="48"/>
-  <object id="186" type="HazardRockBlock" gid="613" x="240" y="1152" width="48" height="48"/>
-  <object id="188" type="EnemyGroundedElemental" gid="620" x="384" y="1344" width="48" height="48">
+  <object id="217" type="EnemyClingCreature" x="288" y="720" width="48" height="48"/>
+  <object id="218" type="EnemyClingCreature" x="720" y="624" width="48" height="48"/>
+  <object id="219" type="EnemyClingCreature" x="432" y="864" width="48" height="48"/>
+  <object id="220" type="EnemyClingCreature" x="768" y="864" width="48" height="48"/>
+  <object id="221" type="EnemyClingCreature" x="720" y="1008" width="48" height="48"/>
+  <object id="222" type="EnemyClingCreature" x="384" y="1056" width="48" height="48"/>
+  <object id="223" type="EnemyClingCreature" x="144" y="1008" width="48" height="48"/>
+  <object id="224" type="HazardRockBlock" x="192" y="480" width="48" height="48">
    <properties>
     <property name="color" type="int" value="1"/>
    </properties>
   </object>
-  <object id="193" type="HazardRockBlock" gid="613" x="336" y="528" width="48" height="48"/>
-  <object id="194" type="HazardRockBlock" gid="613" x="384" y="528" width="48" height="48"/>
-  <object id="195" type="HazardRockBlock" gid="613" x="288" y="528" width="48" height="48"/>
-  <object id="196" type="HazardRockBlock" gid="613" x="192" y="528" width="48" height="48"/>
-  <object id="197" type="HazardRockBlock" gid="613" x="240" y="528" width="48" height="48"/>
-  <object id="198" type="HazardRockBlock" gid="613" x="144" y="528" width="48" height="48"/>
-  <object id="199" type="HazardRockBlock" gid="613" x="624" y="816" width="48" height="48"/>
-  <object id="200" type="HazardRockBlock" gid="613" x="720" y="816" width="48" height="48"/>
-  <object id="201" type="HazardRockBlock" gid="613" x="672" y="816" width="48" height="48"/>
-  <object id="205" type="EnemyGroundedElemental" gid="620" x="624" y="1344" width="48" height="48">
+  <object id="225" type="HazardRockBlock" x="240" y="480" width="48" height="48">
    <properties>
     <property name="color" type="int" value="1"/>
    </properties>
   </object>
-  <object id="207" type="EnemyClingCreature" gid="625" x="288" y="768" width="48" height="48"/>
-  <object id="208" type="EnemyClingCreature" gid="625" x="720" y="672" width="48" height="48">
+  <object id="226" type="HazardRockBlock" x="144" y="480" width="48" height="48">
    <properties>
-    <property name="direction" type="int" value="3"/>
+    <property name="color" type="int" value="1"/>
    </properties>
   </object>
-  <object id="209" type="EnemyClingCreature" gid="625" x="384" y="1104" width="48" height="48"/>
-  <object id="210" type="EnemyClingCreature" gid="625" x="432" y="912" width="48" height="48">
+  <object id="227" type="HazardRockBlock" x="336" y="480" width="48" height="48">
    <properties>
-    <property name="direction" type="int" value="2"/>
+    <property name="color" type="int" value="1"/>
    </properties>
   </object>
-  <object id="211" type="EnemyClingCreature" gid="625" x="720" y="1056" width="48" height="48"/>
-  <object id="212" type="EnemyClingCreature" gid="625" x="144" y="1056" width="48" height="48">
+  <object id="228" type="HazardRockBlock" x="384" y="480" width="48" height="48">
    <properties>
-    <property name="direction" type="int" value="1"/>
+    <property name="color" type="int" value="1"/>
    </properties>
   </object>
-  <object id="213" type="EnemyClingCreature" gid="625" x="768" y="912" width="48" height="48">
+  <object id="229" type="HazardRockBlock" x="288" y="480" width="48" height="48">
    <properties>
-    <property name="direction" type="int" value="2"/>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="230" type="HazardRockBlock" x="672" y="768" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="231" type="HazardRockBlock" x="720" y="768" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="232" type="HazardRockBlock" x="624" y="768" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="233" type="HazardRockBlock" x="192" y="1104" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="234" type="HazardRockBlock" x="240" y="1104" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="235" type="HazardRockBlock" x="144" y="1104" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="236" type="HazardRockBlock" x="288" y="1104" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="237" type="EnemyGroundedElemental" x="384" y="1296" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="238" type="EnemyGroundedElemental" x="624" y="1296" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>

@@ -3,7 +3,7 @@
 
 #include "EngineElements/UIelement.h"
 #include <list>
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 #include "Modules/Audio.h"
 
 class UISettingsMenu;
@@ -38,8 +38,8 @@ public:
 
 	UISettingsMenu* settings;
 
-	TextureID TexMenuBase;
-	TextureID TexMenuOptions;
+	RexTextureID TexMenuBase;
+	RexTextureID TexMenuOptions;
 
 	AudioID mSFXMenuSelect;
 	AudioID mSFXMenuChange;

@@ -1,10 +1,9 @@
 #ifndef ROCK__H
 #define ROCK__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 
 class Rock : public GameObject
@@ -34,8 +33,8 @@ public:
 	RXRect r8ground;
 	RXRect r9ground;
 
-	TextureID spells;
-	TextureID particles;
+	RexTextureID spells;
+	RexTextureID particles;
 
 	AudioID mSFXGroundHit;
 };

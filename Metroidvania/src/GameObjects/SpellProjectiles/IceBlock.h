@@ -1,9 +1,9 @@
 #ifndef ICE__BLOCK__H
 #define ICE__BLOCK__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class IceBlock : public GameObject
 {
@@ -24,7 +24,7 @@ public:
 
 	Timer timer;
 	float life_expectancy = 5000;
-	TextureID spells;
+	RexTextureID spells;
 };
 
 #endif // !PLAYER__REP__H

@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "Modules/Input.h"
 #include "Modules/Render.h"
-#include "Modules/Particles.h"
 #include "Modules/Audio.h"
 
 #include "../Player.h"
@@ -15,13 +14,14 @@ CloudSummonerProjectile::CloudSummonerProjectile()
 
 void CloudSummonerProjectile::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&magic, collider.x, collider.y, 300);
+	Engine->GetModule<::Render>().AddParticleEmitter(&magic, collider.x, collider.y, 300);
+	Engine->GetModule<Audio>().PlaySFX(mSFXLand);
 }
 
 void CloudSummonerProjectile::Init()
 {
-	cloud_summoner = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cloud_summoner.png");
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/cloud_summoner.png", cloud_summoner);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 
 	mSFXLand = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
 
@@ -51,16 +51,29 @@ bool CloudSummonerProjectile::Loop(float dt)
 	collider.y += speed_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
 		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
-			Engine->GetModule<ObjectManager>().DeleteObject(this);
-			Engine->GetModule<Audio>().PlaySFX(mSFXLand);
+			Engine->GetModule<SceneController>().DeleteObject(this);
 			Engine->GetModule<Camera>().CameraShake(7, 40);
+		}
+	}
+
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
+
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	{
+		if ((*it).object != this)
+		{
+			if ((*it).object->IsSameTypeAs<Player>())
+			{
+
+			}
 		}
 	}
 

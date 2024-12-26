@@ -1,10 +1,7 @@
 #include "Application.h"
 #include "Modules/Render.h"
-#include "Modules/Textures.h"
 #include "UItextbox.h"
-#include "Modules/ObjectManager.h"
 #include "Modules/Input.h"
-#include "Modules/Text.h"
 #include "EngineAPI.h"
 
 UItextbox::UItextbox(const char * _author,const char* first_text, TextBoxColor color, int tiles_x, int tiles_y, int x, int y, float size, float speed)
@@ -50,16 +47,17 @@ void UItextbox::AddPanelToTextBox(const char * text)
 
 void UItextbox::Destroy()
 {
-	Engine->GetModule<ObjectManager>().UnPauseObjects();
+	Engine->GetModule<SceneController>().UnPauseObjects();
 }
 
 void UItextbox::Init()
 {
 	//mFont = App->txt->LoadFont("Assets/Fonts/font1.xml", SDL_Color{0,0,0,255},25);
-	mFont = Engine->GetModule<Text>().LoadFont("Assets/Fonts/Bebas-Regular.ttf", { 0,0,0,255 }, 25);
+	Engine->GetModule<::Render>().LoadFont("Assets/Fonts/Bebas-Regular.ttf", { 255,255,255,255 }, 25, mFont);
+	//Engine->GetModule<::Render>().LoadFont("Assets/Fonts/font1.xml", { 0,0,0,255 }, 25, mFont);
 
-	TexTextBox = Engine->GetModule<Textures>().Load_Texture("Assets/UI/textboxes.png");
-	Engine->GetModule<ObjectManager>().PauseObjects();
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/textboxes.png", TexTextBox);
+	Engine->GetModule<SceneController>().PauseObjects();
 }
 
 void UItextbox::Loop()
@@ -148,7 +146,7 @@ void UItextbox::Render()
 	if (author != "")
 	{
 		int size_x,size_y;
-		Engine->GetModule<Text>().GetTextSize(mFont,author.c_str(), size_x, size_y);
+		Engine->GetModule<::Render>().GetTextSize(mFont,author.c_str(), size_x, size_y);
 		//SMALL SQUARE
 		float author_size = 1 + (size_x) / 32;
 

@@ -1,9 +1,9 @@
 #ifndef HAZARD__ROCK__BLOCK
 #define HAZARD__ROCK__BLOCK
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "Utils/Timer.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class HazardRockBlock :
 	public GameObject
@@ -20,7 +20,7 @@ public:
 	void Destroy();
 
 	RXRect rockblock;
-	TextureID hazards;
+	RexTextureID hazards;
 };
 
 #endif

@@ -3,7 +3,6 @@
 
 #include "EngineElements/ParticleEmitter.h"
 #include <vector>
-#include "Modules/Textures.h"
 #include "EngineElements/UIelement.h"
 
 class Player;
@@ -28,8 +27,8 @@ public:
 	
 	int current_spell;
 
-	TextureID lTexture;
-	TextureID lBooksTex;
+	RexTextureID lTexture;
+	RexTextureID lBooksTex;
 
 	void Init();
 	void Loop();

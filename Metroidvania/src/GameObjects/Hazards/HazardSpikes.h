@@ -1,9 +1,9 @@
 #ifndef HAZARD__SPIKES
 #define HAZARD__SPIKES
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "Utils/Timer.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class HazardSpikes :
 	public GameObject
@@ -17,7 +17,7 @@ public:
 	bool Render();
 
 	RXRect spikes;
-	TextureID hazards;
+	RexTextureID hazards;
 };
 
 #endif

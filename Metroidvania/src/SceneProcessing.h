@@ -52,6 +52,15 @@ public:
 	int current_room_id = 0;
 	int spawn_point_id = 0;
 
+	//ON NEW MAP
+	int newplayer_x = 87;
+	int newplayer_y = 200;
+
+	int spawnpoint_x = 87;
+	int spawnpoint_y = 200;
+
+	spell_type last_spell = spell_type::FIRE;
+
 	static MetroidVaniaSceneProcessor& GetInstance();
 
 	void EngineInitialization();

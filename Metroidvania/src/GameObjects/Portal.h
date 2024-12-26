@@ -1,7 +1,7 @@
 #ifndef PORTAL__H
 #define PORTAL__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 
 class Portal : public GameObject
 {

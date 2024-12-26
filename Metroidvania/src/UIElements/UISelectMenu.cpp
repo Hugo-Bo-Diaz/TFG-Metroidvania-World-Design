@@ -1,15 +1,12 @@
 #include "UISelectMenu.h"
 #include "Application.h"
-#include "Modules/Textures.h"
 #include "Modules/Render.h"
 #include "Modules/Input.h"
-#include "Modules/ObjectManager.h"
 #include "Modules/Gui.h"
 #include "Modules/Camera.h"
 #include "Modules/ProgressTracker.h"
 #include "UIingameUI.h"
 #include "Modules/SceneController.h"
-#include "Modules/Text.h"
 #include "../SceneProcessing.h"
 #include "EngineAPI.h"
 
@@ -29,11 +26,11 @@ UISelectMenu::UISelectMenu()
 
 void UISelectMenu::Init()
 {
-	Engine->GetModule<ObjectManager>().PauseObjects();
+	Engine->GetModule<SceneController>().PauseObjects();
 
-	selectMenuBack = Engine->GetModule<Textures>().Load_Texture("Assets/UI/selectmenubackground.png");
-	selectLogBook = Engine->GetModule<Textures>().Load_Texture("Assets/UI/selectmenulogbook.png");
-	selectOptions = Engine->GetModule<Textures>().Load_Texture("Assets/UI/selectmenuoptions.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/selectmenubackground.png", selectMenuBack);
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/selectmenulogbook.png", selectLogBook);
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/selectmenuoptions.png", selectOptions);
 }
 
 UISelectMenu::~UISelectMenu()
@@ -110,7 +107,7 @@ void UISelectMenu::Loop()
 	if ((Engine->GetModule<Input>().GetInput(SELECT) == BUTTON_DOWN || Engine->GetModule<Input>().GetInput(START) == BUTTON_DOWN) && !first_update)
 	{
 
-		Engine->GetModule<ObjectManager>().UnPauseObjects();
+		Engine->GetModule<SceneController>().UnPauseObjects();
 		MetroidVaniaSceneProcessor::GetInstance().is_pause_menu_up = false;
 		Engine->GetModule<UserInterface>().RemoveElement(this);
 	}

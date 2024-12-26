@@ -1,10 +1,9 @@
 #ifndef PLAYER__H
 #define PLAYER__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "../include/EngineElements/Animation.h"
 #include "../Spells/Spell.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 #include "RXPoint.h"
 
@@ -95,7 +94,7 @@ public:
 	Animation air_right;
 	Animation air_left;
 
-	TextureID playerTex;
+	RexTextureID playerTex;
 
 	AudioID mSFXJump;
 	AudioID mSFXPlayerHit;

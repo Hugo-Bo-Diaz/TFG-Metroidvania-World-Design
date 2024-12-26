@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "Modules/Input.h"
 #include "Modules/Render.h"
-#include "Modules/Particles.h"
 #include "Modules/Camera.h"
 #include "Modules/Audio.h"
 
@@ -23,13 +22,13 @@ Rock::Rock()
 
 Rock::~Rock()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&rockblockexplosion, collider.x + collider.w / 2, collider.y + collider.h / 2, 300);
+	Engine->GetModule<::Render>().AddParticleEmitter(&rockblockexplosion, collider.x + collider.w / 2, collider.y + collider.h / 2, 300);
 }
 
 void Rock::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
 
 	mSFXGroundHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
 
@@ -77,24 +76,24 @@ bool Rock::Loop(float dt)
 
 	y_speed += gravity;
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<HazardRockBlock>())
+			if ((*it).object->IsSameTypeAs<HazardRockBlock>())
 			{
 				//delete this object :^)
-				Engine->GetModule<ObjectManager>().DeleteObject(this);
-				Engine->GetModule<ObjectManager>().DeleteObject((*it)->object);
+				Engine->GetModule<SceneController>().DeleteObject(this);
+				Engine->GetModule<SceneController>().DeleteObject((*it).object);
 			}
 
-			if ((*it)->object->IsSameTypeAs<Enemy>())
+			if ((*it).object->IsSameTypeAs<Enemy>())
 			{
-				((Enemy*)(*it)->object)->RecieveDamage(damage, direction);
-				Engine->GetModule<ObjectManager>().DeleteObject(this);
+				((Enemy*)(*it).object)->RecieveDamage(damage, direction);
+				Engine->GetModule<SceneController>().DeleteObject(this);
 			}
 
 		}
@@ -102,7 +101,7 @@ bool Rock::Loop(float dt)
 
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
@@ -110,8 +109,8 @@ bool Rock::Loop(float dt)
 		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
 			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
-			Engine->GetModule<ObjectManager>().DeleteObject(this);
-			Engine->GetModule<Particles>().AddParticleEmitter(&groundcontact, collider.x + collider.w/2, collider.y + collider.h/2, 100);
+			Engine->GetModule<SceneController>().DeleteObject(this);
+			Engine->GetModule<::Render>().AddParticleEmitter(&groundcontact, collider.x + collider.w/2, collider.y + collider.h/2, 100);
 			Engine->GetModule<Camera>().CameraShake(15, 60);
 		}
 	}

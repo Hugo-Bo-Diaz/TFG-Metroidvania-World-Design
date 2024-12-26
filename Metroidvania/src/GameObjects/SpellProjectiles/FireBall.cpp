@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "Modules/Input.h"
 #include "Modules/Render.h"
-#include "Modules/Particles.h"
 #include "Modules/Audio.h"
 
 #include "../Enemies/CoalJumper.h"
@@ -34,9 +33,9 @@ FireBall::FireBall()
 
 void FireBall::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 	explosion.texture_name = particles;
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
 
 	mSFXGroundHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
 	fireball_big.mTexture = spells;
@@ -44,7 +43,7 @@ void FireBall::Init()
 }
 void FireBall::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
+	Engine->GetModule<::Render>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
 }
 
 bool FireBall::Loop(float dt)
@@ -54,37 +53,34 @@ bool FireBall::Loop(float dt)
 	collider.x += direction * speed;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
 		RXRect result;
 		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
 		{
-			Engine->GetModule<ObjectManager>().DeleteObject(this);
+			Engine->GetModule<SceneController>().DeleteObject(this);
 			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
 		}
 	}
 
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Enemy>())
+			if ((*it).object->IsSameTypeAs<Enemy>())
 			{
-				((Enemy*)(*it)->object)->RecieveDamage(damage, direction);
-				Engine->GetModule<ObjectManager>().DeleteObject(this);
+				((Enemy*)(*it).object)->RecieveDamage(damage, direction);
+				Engine->GetModule<SceneController>().DeleteObject(this);
 			}
 
 		}
 	}
-
-	Engine->GetModule<ObjectManager>().ClearCollisionArray(collisions);
-
 
 	return ret;
 }

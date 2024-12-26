@@ -1,5 +1,5 @@
 #include "FlyingShield.h"
-#include "Modules/Particles.h"
+#include "Modules/Render.h"
 #include "Application.h"
 #include "Modules/Audio.h"
 
@@ -15,7 +15,7 @@ FlyingShield::FlyingShield(float _initial_y)
 
 void FlyingShield::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
+	Engine->GetModule<::Render>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
 }
 
 void FlyingShield::Init()
@@ -27,8 +27,8 @@ void FlyingShield::Init()
 	nextpos->w = collider.w;
 	nextpos->h = collider.h;
 
-	floating_shield = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/floating_shield.png");
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/floating_shield.png", floating_shield);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 	mSFXPing = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/ping.wav");
@@ -67,7 +67,7 @@ bool FlyingShield::Loop(float dt)
 	nextpos->x += speed_x;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
@@ -133,7 +133,7 @@ bool FlyingShield::Render()
 	return true;
 }
 
-void FlyingShield::RecieveDamage(int dmg, int direction)
+bool FlyingShield::RecieveDamage(int dmg, int direction)
 {
 	if (direction == speed_x / abs(speed_x))
 	{
@@ -141,11 +141,13 @@ void FlyingShield::RecieveDamage(int dmg, int direction)
 		health -= dmg;
 		if (health <= 0)
 		{
-			Engine->GetModule<ObjectManager>().DeleteObject(this);
+			Engine->GetModule<SceneController>().DeleteObject(this);
+			return false;
 		}
 	}
 	else
 	{
 		Engine->GetModule<Audio>().PlaySFX(mSFXPing);
 	}
+	return true;
 }

@@ -1,11 +1,9 @@
 #ifndef COALJUMPER__H
 #define COALJUMPER__H
 
-#include "Modules/ObjectManager.h"
 #include "EngineElements/Animation.h"
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 
 enum CoalJumperState {
@@ -33,7 +31,7 @@ public:
 
 	float health=5;
 	RXRect* nextpos = nullptr;
-	void RecieveDamage(int dmg, int direction);
+	bool RecieveDamage(int dmg, int direction);
 
 	//Idle
 	float time_between_frames = 200;
@@ -76,8 +74,8 @@ public:
 	RXRect r7buff;
 	RXRect r12shield;
 
-	TextureID particles;
-	TextureID coaljumper;
+	RexTextureID particles;
+	RexTextureID coaljumper;
 
 	AudioID mSFXHit;
 };

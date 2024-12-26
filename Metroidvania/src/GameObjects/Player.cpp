@@ -19,7 +19,8 @@
 #include "../Spells/Grass.h"
 #include "../Spells/Ground.h"
 
-#include "Enemy.h"
+#include "Enemies/Enemy.h"
+#include "Enemies/CloudSummonerProjectile.h"
 
 Player::Player()
 {
@@ -109,7 +110,7 @@ void Player::Init()
 	ground_spell->player = this;
 	spells.push_back(ground_spell);
 
-	unlocked_spells =0;
+	unlocked_spells =5;
 	
 	unlocked.push_back(true);
 	unlocked.push_back(true);
@@ -138,7 +139,7 @@ void Player::Init()
 	nextpos->w = collider.w;
 	nextpos->h = collider.h;
 
-	playerTex = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/Player.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/Player.png", playerTex);
 	Engine->GetModule<Camera>().FollowObject(this);
 	idle_right.mTexture = playerTex;
 	idle_left.mTexture = playerTex;
@@ -151,6 +152,7 @@ void Player::Init()
 
 bool Player::Loop(float dt)
 {
+	float lTimeFactor = dt / (1000 / 60);
 
 	/*if(unlocked[FIRE]==false)
 	{
@@ -198,8 +200,8 @@ bool Player::Loop(float dt)
 	collider.y = nextpos->y;
 
 	//STEP 2
-	speed_x += acceleration_x;
-	speed_y += acceleration_y;
+	speed_x += acceleration_x * lTimeFactor;
+	speed_y += acceleration_y * lTimeFactor;
 	if (speed_y > speed_y_cap)
 		speed_y = speed_y_cap;
 	//if (abs(speed_y) > 5)
@@ -211,9 +213,9 @@ bool Player::Loop(float dt)
 		speed_y = 0;
 	}
 
-	nextpos->x += speed_x*mobility_multiplier;
+	nextpos->x += speed_x*mobility_multiplier * lTimeFactor;
 	//if (!grounded)
-	nextpos->y += speed_y*mobility_multiplier;
+	nextpos->y += speed_y*mobility_multiplier * lTimeFactor;
 	if (speed_y > acceleration_y)
 	{
 		grounded = false;
@@ -221,7 +223,7 @@ bool Player::Loop(float dt)
 
 	//STEP 3 oh boi
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	for (int i = 0; i < colliders.size(); ++i)
 	{
@@ -455,16 +457,16 @@ bool Player::Loop(float dt)
 
 	}
 
-	std::vector<collision*> collisions;
-	Engine->GetModule<ObjectManager>().GetCollisions(&collider, collisions);
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
 
-	for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 	{
-		if ((*it)->object != this)
+		if ((*it).object != this)
 		{
-			if ((*it)->object->IsSameTypeAs<Enemy>())
+			if ((*it).object->IsSameTypeAs<Enemy>() && (*it).object->active)
 			{
-				if ((*it)->object->collider.x < collider.x)
+				if ((*it).object->collider.x < collider.x)
 				{
 					AddHealth(-1, 1);
 				}
@@ -472,6 +474,20 @@ bool Player::Loop(float dt)
 				{
 					AddHealth(-1, -1);
 				}
+			}
+			if ((*it).object->IsSameTypeAs<CloudSummonerProjectile>())
+			{
+				if ((*it).object->collider.x < collider.x)
+				{
+					AddHealth(-1, 1);
+				}
+				else
+				{
+					AddHealth(-1, -1);
+				}
+
+				Engine->GetModule<SceneController>().DeleteObject((*it).object);
+				Engine->GetModule<Camera>().CameraShake(7, 40);
 			}
 		}
 	}
@@ -633,6 +649,7 @@ void Player::AddHealth(int amount, int knockbackdirection)
 
 		speed_y = -12;
 		speed_x = 6* knockbackdirection;
+		acceleration_y = 0.5;
 		StartInvincibility();
 		invin_draw_timer.Reset();
 		Engine->GetModule<Camera>().CameraShake(20,100);
@@ -743,9 +760,10 @@ void Player::Respawn() {
 	//ADD BLACKSCREEN
 	if (!respawn_player && Engine->GetModule<Camera>().GetCoveragePercent() < 100)
 	{
-		Engine->GetModule<Camera>().CoverScreen(500, 200, 0, 0, 0);
+		Logger::Console_log(LogLevel::LOG_DEBUG, "RESPAWNING");
+		Engine->GetModule<Camera>().CoverScreen(700, 200, 0, 0, 0);
 		respawn_player = true;
-		Engine->GetModule<Camera>().CameraShake(15, 200);
+		//Engine->GetModule<Camera>().CameraShake(15, 200);
 	}
 }
 

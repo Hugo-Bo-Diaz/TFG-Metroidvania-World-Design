@@ -1,10 +1,9 @@
 #ifndef ARMOR__TRAP__H
 #define ARMOR__TRAP__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 #include "Enemy.h"
 #include "RXRect.h"
@@ -40,7 +39,7 @@ public:
 	float acceleration_y = 1.0;
 	float health = 4;
 
-	void RecieveDamage(int dmg, int direction);
+	bool RecieveDamage(int dmg, int direction);
 
 	float animation_interval_chase = 100;
 	float animation_interval_patrol = 200;
@@ -67,8 +66,8 @@ public:
 
 	bool isplayernearby;
 
-	TextureID armortrap;
-	TextureID particles;
+	RexTextureID armortrap;
+	RexTextureID particles;
 
 	AudioID mSFXHit;
 };

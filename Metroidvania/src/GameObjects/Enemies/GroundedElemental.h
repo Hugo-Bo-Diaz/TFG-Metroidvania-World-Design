@@ -1,17 +1,16 @@
 #ifndef GROUNDED__ELEMENTAL__H
 #define GROUNDED__ELEMENTAL__H
 
-#include "Modules/ObjectManager.h"
 #include "EngineElements/Animation.h"
 #include "Enemy.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 
 enum GroundedElementalColor
 {
 	RED_GROUNDELEMENTAL,
-	BROWN_GROUNDEDELEMENTAL
+	BROWN_GROUNDEDELEMENTAL,
+	GREY_GROUNDEDELEMENTAL,
 };
 
 class GroundedElemental : public Enemy
@@ -33,7 +32,7 @@ public:
 	float acceleration_y = 1.0;
 	float health = 2;
 
-	void RecieveDamage(int dmg, int direction);
+	bool RecieveDamage(int dmg, int direction);
 
 	float animation_frame_interval=100;
 	Timer animation_timer;
@@ -51,8 +50,8 @@ public:
 
 	GroundedElementalColor c;
 
-	TextureID particles;
-	TextureID groundelemental;
+	RexTextureID particles;
+	RexTextureID groundelemental;
 
 	AudioID mSFXHit;
 };

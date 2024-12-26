@@ -2,7 +2,6 @@
 #include "Modules/Render.h"
 #include "Application.h"
 #include "EngineAPI.h"
-#include "Modules/Textures.h"
 
 UIhealthbar::UIhealthbar(playerresource resource)
 {
@@ -28,7 +27,7 @@ UIhealthbar::UIhealthbar(playerresource resource)
 
 void UIhealthbar::Init()
 {
-	TextureHB = Engine->GetModule<Textures>().Load_Texture("Assets/UI/healthandmana.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/UI/healthandmana.png", TextureHB);
 }
 
 void UIhealthbar::Loop()

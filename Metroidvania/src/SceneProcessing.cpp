@@ -4,6 +4,7 @@
 #include "Modules/Input.h"
 #include "Modules/SceneController.h"
 #include "Modules/Gui.h"
+#include "Modules/Camera.h"
 #include "SceneProcessing.h"
 #include "UIelementFunctions.h"
 #include "Application.h"
@@ -33,27 +34,55 @@ void MetroidVaniaSceneProcessor::SceneProcessingMainMenu()
 		settings->parent_type = SETTINGS_PARENT_MAIN_MENU;
 	}
 
+	if (should_start_game)
+	{
+		App->mAPI->GetModule<SceneController>().AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingInGame, &MetroidVaniaSceneProcessor::GetInstance()));
+		App->mAPI->GetModule<SceneController>().AssignLoadFunction(std::bind(&MetroidVaniaSceneProcessor::SceneCreationInGame, &MetroidVaniaSceneProcessor::GetInstance()));
+		App->mAPI->GetModule<SceneController>().LoadMap("Assets/maps/map0_entrance.tmx");
+
+		Section* lSection = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats");
+		if (lSection == nullptr)
+		{
+			lSection = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->AddNewChild("Stats");
+		}
+
+		lSection->SetValue("MaxHP",4);
+		lSection->SetValue("CurrentHP",4);
+		lSection->SetValue("CurrentFragmentsHP",0);
+		lSection->SetValue("MaxMana",3);
+		lSection->SetValue("CurrentMana",3);
+		lSection->SetValue("CurrentFragmentsMana",0);
+	}
+	if (start_load_game)
+	{
+		if(App->mAPI->GetModule<ProgressTracker>().CanLoadGame("save_file.xml"))
+			App->mAPI->GetModule<ProgressTracker>().LoadFile("save_file.xml");
+
+		int lRoom = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->GetValue("last_checkpoint_id");
+
+		//ON OLD MAP
+		std::string map_to_change;
+
+		for (std::vector<room*>::iterator it = rooms.begin(); it != rooms.end(); it++)
+		{
+			if ((*it)->id == lRoom)
+			{
+				map_to_change = (*it)->path;
+				current_room_id = lRoom;
+			}
+		}
+		//CHANGES ALL MAP
+		App->mAPI->GetModule<SceneController>().LoadMap(map_to_change.c_str());
+
+		App->mAPI->GetModule<SceneController>().AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingInGame, &MetroidVaniaSceneProcessor::GetInstance()));
+		App->mAPI->GetModule<SceneController>().AssignLoadFunction(std::bind(&MetroidVaniaSceneProcessor::SceneCreationInGame, &MetroidVaniaSceneProcessor::GetInstance()));
+	}
+
 	//return true;
 }
 
 void MetroidVaniaSceneProcessor::SceneProcessingInGame()
 {
-	if (App->mAPI->GetModule<Input>().GetInput(BUTTON_3))
-	{
-		if (pl->IsSameTypeAs<UIPauseMenu>())
-		{
-			Logger::Console_log(LogLevel::LOG_ERROR, "WTF");
-		}
-
-		if (pl->IsSameTypeAs<GameObject>())
-		{
-			Logger::Console_log(LogLevel::LOG_WARN, "Inheritance yay");
-		}
-		if (pl->IsSameTypeAs<Portal>())
-		{
-			Logger::Console_log(LogLevel::LOG_INFO, "WTF portal lol");
-		}
-	}
 
 	//if (App->inp->GetInput(BUTTON_4))
 	//{
@@ -84,6 +113,18 @@ void MetroidVaniaSceneProcessor::SceneProcessingInGame()
 
 		//Engine->GetModule<SceneController>().AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingMainMenu, &MetroidVaniaSceneProcessor::GetInstance()));
 
+	}
+
+	if (App->mAPI->GetModule<Camera>().GetCoveragePercent() >= 100 && pl->respawn_player)
+	{
+		pl->nextpos->x = spawnpoint_x;
+		pl->nextpos->y = spawnpoint_y;
+
+		pl->speed_x = 0;
+		pl->speed_y = 0;
+
+		pl->respawn_player = false;
+		pl->AddHealth(-1, 0);
 	}
 
 
@@ -130,15 +171,7 @@ void MetroidVaniaSceneProcessor::SceneProcessingInGame()
 
 void MetroidVaniaSceneProcessor::SceneCreationMainMenu()
 {
-}
-
-void MetroidVaniaSceneProcessor::SceneCreationInGame()
-{
-	//if (pl == nullptr)
-	//{
-	//	pl= (Player*)Engine->GetModule<ObjectManager>().AddObject(87, 200, 64, 64, GetTypeIndex<Player>());
-	//}
-
+	//gets called on loading save file from main menu
 	if (inGameUI == nullptr)
 	{
 		inGameUI = new UIingameui(pl);
@@ -147,24 +180,61 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 	{
 		inGameUI->SetPlayer(pl);
 	}
-	App->mAPI->GetModule<UserInterface>().AddElement(inGameUI);
+	//App->mAPI->GetModule<UserInterface>().AddElement(inGameUI);
+	//set player
+	int lposX = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->GetValue("last_checkpoint_x");
+	int lposY = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->GetValue("last_checkpoint_y");
 
-	portals = *App->mAPI->GetModule<ObjectManager>().GetAllObjectsOfType(GetTypeIndex<Portal>());
-	spawnpoints = *App->mAPI->GetModule<ObjectManager>().GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
+	int lMaxHP = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("MaxHP");
+	int lCurrHP = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("CurrentHP");
+	int lMaxMana = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("MaxMana");
+	int lCurrMana = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("CurrentMana");
 
+	pl = (Player*)App->mAPI->GetModule<SceneController>().AddObject(lposX, lposY, 64, 64, GetTypeIndex<Player>());
 
+	pl->max_health = lMaxHP;
+	pl->max_mana = lMaxMana;
+	pl->health = lCurrHP;
+	pl->mana = lCurrMana;
 
+	inGameUI->SetPlayer(pl);
 
+	//inGameUI->player = pl;
+	//App->trk->SetPlayer(pl);
+	pl->collider.w -= pl->separation * 2;
+	pl->nextpos->w -= pl->separation * 2;
+}
+
+void MetroidVaniaSceneProcessor::SceneCreationInGame()
+{
+	//if (pl == nullptr)
+	//{
+	//	pl= (Player*)Engine->GetModule<SceneController>().AddObject(87, 200, 64, 64, GetTypeIndex<Player>());
+	//}
+	bool lFirstLoad = false;
+	if (inGameUI == nullptr)
+	{
+		inGameUI = new UIingameui(pl);
+		App->mAPI->GetModule<UserInterface>().AddElement(inGameUI);
+		lFirstLoad = true;
+	}
+	else
+	{
+		inGameUI->SetPlayer(pl);
+	}
+
+	portals = *App->mAPI->GetModule<SceneController>().GetAllObjectsOfType(GetTypeIndex<Portal>());
+	spawnpoints = *App->mAPI->GetModule<SceneController>().GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
 
 	//ON NEW MAP
-	int newplayer_x = 87;
-	int newplayer_y = 200;
+	newplayer_x = 87;
+	newplayer_y = 200;
 
-	int spawnpoint_x = 87;
-	int spawnpoint_y = 200;
+	spawnpoint_x = 87;
+	spawnpoint_y = 200;
 
-	portals = *App->mAPI->GetModule<ObjectManager>().GetAllObjectsOfType(GetTypeIndex<Portal>());
-	spawnpoints = *App->mAPI->GetModule<ObjectManager>().GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
+	portals = *App->mAPI->GetModule<SceneController>().GetAllObjectsOfType(GetTypeIndex<Portal>());
+	spawnpoints = *App->mAPI->GetModule<SceneController>().GetAllObjectsOfType(GetTypeIndex<SpawnPoint>());
 
 	for (std::vector<GameObject*>::iterator it = spawnpoints.begin(); it != spawnpoints.end(); it++)
 	{
@@ -186,10 +256,29 @@ void MetroidVaniaSceneProcessor::SceneCreationInGame()
 		newplayer_y = spawnpoint_y + offset;
 	}
 
-	//set player
-	pl = (Player*)App->mAPI->GetModule<ObjectManager>().AddObject(newplayer_x, newplayer_y, 64, 64, GetTypeIndex<Player>());
+	if (lFirstLoad && App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint") != nullptr)
+	{
+		newplayer_x = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->GetValue("last_checkpoint_x");
+		spawnpoint_x = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->GetValue("last_checkpoint_x");
+		newplayer_y = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->GetValue("last_checkpoint_y");
+		spawnpoint_y = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Checkpoint")->GetValue("last_checkpoint_y");
+	}
 
+	int lMaxHP = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("MaxHP");
+	int lCurrHP = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("CurrentHP");
+	int lMaxMana = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("MaxMana");
+	int lCurrMana = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats")->GetValue("CurrentMana");
+
+	//set player
+	pl = (Player*)App->mAPI->GetModule<SceneController>().AddObject(newplayer_x, newplayer_y, 64, 64, GetTypeIndex<Player>());
+
+	pl->current_spell = last_spell;
 	inGameUI->SetPlayer(pl);
+
+	pl->max_health = lMaxHP;
+	pl->max_mana = lMaxMana;
+	pl->health = lCurrHP;
+	pl->mana = lCurrMana;
 
 	//inGameUI->player = pl;
 	//App->trk->SetPlayer(pl);
@@ -257,13 +346,14 @@ void MetroidVaniaSceneProcessor::UsePortal(Portal* p, int offset)
 	//int current_spell = App->trk->pl->current_spell;
 	prev_speed_x = pl->speed_x;
 	prev_speed_y = pl->speed_y;
+	last_spell = pl->current_spell;
 
-	//Engine->GetModule<Particles>().ClearParticles();
+	//Engine->GetModule<::Render>().ClearParticles();
 
 	int point_id = p->id_destination_point;
 	spawn_point_id = point_id;
 	this->offset = offset;
-	bool horizontal = p->horizontal;
+	horizontal = p->horizontal;
 	//CHANGES ALL MAP
 	inGameUI->SetPlayer(nullptr);
 
@@ -300,7 +390,7 @@ void MetroidVaniaSceneProcessor::UsePortal(Portal* p, int offset)
 	//}
 
 	////set player
-	////pl = (Player*)Engine->GetModule<ObjectManager>().AddObject(newplayer_x, newplayer_y, 64, 64, GetTypeIndex<Player>());
+	////pl = (Player*)Engine->GetModule<SceneController>().AddObject(newplayer_x, newplayer_y, 64, 64, GetTypeIndex<Player>());
 
 	//inGameUI->SetPlayer(pl);
 
@@ -340,7 +430,7 @@ void MetroidVaniaSceneProcessor::GoToLastCheckPoint()
 	//	}
 	//	ChangeMap(map_to_change.c_str());
 
-		//pl = (Player*)Engine->GetModule<ObjectManager>().AddObject(0, 0, 64, 64, "Player");
+		//pl = (Player*)Engine->GetModule<SceneController>().AddObject(0, 0, 64, 64, "Player");
 		//App->gui->Add_GameUI((GameObject*)pl);
 
 		//pl->current_spell = (spell_type)current_spell;
@@ -384,7 +474,7 @@ void MetroidVaniaSceneProcessor::GoToLoadedScene()
 		//	}
 		//}
 
-		//pl = (Player*)Engine->GetModule<ObjectManager>().AddObject(0, 0, 64, 64, "Player");
+		//pl = (Player*)Engine->GetModule<SceneController>().AddObject(0, 0, 64, 64, "Player");
 		//App->gui->Add_GameUI((GameObject*)pl);
 
 		//pl->current_spell = (spell_type)current_spell;

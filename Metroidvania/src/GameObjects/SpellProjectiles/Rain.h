@@ -2,7 +2,7 @@
 #define RAIN__H
 
 #include "RXRect.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class EngineAPI;
 class Cloud;
@@ -20,7 +20,7 @@ public:
 
 	Cloud* parent;
 	
-	TextureID spells;
+	RexTextureID spells;
 	EngineAPI* Engine;
 };
 

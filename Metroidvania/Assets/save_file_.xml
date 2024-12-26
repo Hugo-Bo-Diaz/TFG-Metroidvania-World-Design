@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<save_state>
+	<ValuesNode />
+	<ChildrenNode>
+		<Checkpoint>
+			<ValuesNode>
+				<last_checkpoint_id>12.000000</last_checkpoint_id>
+				<last_checkpoint_x>574.000000</last_checkpoint_x>
+				<last_checkpoint_y>671.000000</last_checkpoint_y>
+			</ValuesNode>
+			<ChildrenNode />
+		</Checkpoint>
+		<LoreLogs>
+			<ValuesNode>
+				<lore>1.000000</lore>
+			</ValuesNode>
+			<ChildrenNode />
+		</LoreLogs>
+		<SpellsUnlock>
+			<ValuesNode>
+				<Ground>1.000000</Ground>
+			</ValuesNode>
+			<ChildrenNode />
+		</SpellsUnlock>
+		<Stats>
+			<ValuesNode>
+				<CurrentHP>2.000000</CurrentHP>
+				<CurrentMana>3.000000</CurrentMana>
+			</ValuesNode>
+			<ChildrenNode />
+		</Stats>
+		<pickups>
+			<ValuesNode />
+			<ChildrenNode />
+		</pickups>
+	</ChildrenNode>
+</save_state>

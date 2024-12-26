@@ -1,10 +1,9 @@
 #ifndef CLOUD__SUMMONER__PROJECTILE__H
 #define CLOUD__SUMMONER__PROJECTILE__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 #include "Modules/Audio.h"
 
 class CloudSummonerProjectile : public GameObject
@@ -32,8 +31,8 @@ public:
 	particle_preset magic;
 	RXRect r13magic;
 
-	TextureID cloud_summoner;
-	TextureID particles;
+	RexTextureID cloud_summoner;
+	RexTextureID particles;
 
 	AudioID mSFXLand;
 };

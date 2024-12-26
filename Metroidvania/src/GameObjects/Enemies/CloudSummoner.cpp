@@ -1,5 +1,4 @@
 #include "CloudSummoner.h"
-#include "Modules/Particles.h"
 #include "Application.h"
 #include "Modules/Audio.h"
 #include "CloudSummonerProjectile.h"
@@ -22,7 +21,12 @@ CloudSummoner::CloudSummoner(float _initial_x, float _initial_y)
 
 void CloudSummoner::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
+	Engine->GetModule<::Render>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
+	if (lCurrentEmmiter != nullptr)
+	{
+		Engine->GetModule<::Render>().RemoveParticleEmitter(lCurrentEmmiter);
+	}
+
 }
 
 void CloudSummoner::Init()
@@ -32,9 +36,12 @@ void CloudSummoner::Init()
 	nextpos->y = collider.y;
 	nextpos->w = collider.w;
 	nextpos->h = collider.h;
+	
+	initial_y = collider.y;
+	initial_x = collider.x;
 
-	cloud_summoner = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/cloud_summoner.png");
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/cloud_summoner.png", cloud_summoner);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
@@ -58,6 +65,19 @@ void CloudSummoner::Init()
 	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
 	explosion.texture_name = particles;
 
+	r13magic = { 0,36,12,12 };
+	magic.area_in_texture.push_back(&r13magic);
+	magic.name = "magic";
+	magic.minmax_x_offset = std::make_pair(0, collider.w);
+	magic.minmax_y_offset = std::make_pair(0, collider.h);
+	magic.minmax_speed_y = std::make_pair(-0.3, -0.5);
+	magic.minmax_scale = std::make_pair(0.5, 1);
+	magic.minmax_angle_speed = std::make_pair(5, 15);
+	magic.minmax_angle = std::make_pair(0, 360);
+	magic.minmax_lifespan = std::make_pair(300, 400);
+	magic.minmax_frequency = std::make_pair(5, 10);
+	magic.texture_name = particles;
+
 	book.AddFrame({ 192,0,22,22 });
 
 	facing_right.AddFrame({ 128,0,64,48 });
@@ -73,6 +93,12 @@ bool CloudSummoner::Loop(float dt)
 {
 	float d_to_origin = std::sqrt(std::pow(collider.x - initial_x, 2) + std::pow(collider.y - initial_y, 2));
 
+	if (lCurrentEmmiter != nullptr)
+	{
+		lCurrentEmmiter->position_x = collider.x;
+		lCurrentEmmiter->position_y = collider.y;
+	}
+
 	//STEP 1
 	collider.x = nextpos->x + oscilated_y;
 	collider.y = nextpos->y + oscilated_x;
@@ -81,7 +107,7 @@ bool CloudSummoner::Loop(float dt)
 	nextpos->y += speed_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
@@ -129,23 +155,21 @@ bool CloudSummoner::Loop(float dt)
 		aggro.y = collider.y - aggro.h/2;
 
 		//detect player
-		std::vector<collision*> collisions;
-		Engine->GetModule<ObjectManager>().GetCollisions(&aggro, collisions);
+		std::vector<collision> collisions;
+		Engine->GetModule<SceneController>().GetCollisions(&aggro, collisions);
 
-		for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+		for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 		{
-			if ((*it)->object != this)
+			if ((*it).object != this)
 			{
-				if ((*it)->object->IsSameTypeAs<Player>())
+				if ((*it).object->IsSameTypeAs<Player>())
 				{
 					state = CS_AGGRO;
-					following = (*it)->object;
+					following = (*it).object;
 					home = false;
 				}
 			}
 		}
-
-		Engine->GetModule<::Render>().RenderRect(aggro, RXColor{ 0, 255, 0, 50 }, true, RenderQueue::RENDER_DEBUG, 0);
 
 		last_state = CS_PATROL;
 
@@ -181,17 +205,28 @@ bool CloudSummoner::Loop(float dt)
 		{
 			shooting_timer.Reset();
 			shooting_timer.Start();
-			GameObject* obj = Engine->GetModule<ObjectManager>().AddObject(collider.x + collider.w/2 + 11, collider.y+ collider.h / 2 + 11, 22, 22, GetTypeIndex<CloudSummonerProjectile>());
+			GameObject* obj = Engine->GetModule<SceneController>().AddObject(collider.x + collider.w/2 + 11, collider.y+ collider.h / 2 + 11, 22, 22, GetTypeIndex<CloudSummonerProjectile>());
 
 			float proj_speed_x = -cos(angle) * projectile_speed;
 			float proj_speed_y = sin(angle) * projectile_speed;
 
 			((CloudSummonerProjectile*)obj)->Fire(proj_speed_x, proj_speed_y);
+			//Engine->GetModule<::Render>().RemoveParticleEmitter(lCurrentEmmiter);
+			if (lCurrentEmmiter != nullptr)
+			{
+				lCurrentEmmiter->Stop();
+			}
+			//lCurrentEmmiter = nullptr;
 		}
 		else if (shooting_timer.Read() > shooting_timer_total_cycle - shooting_timer_charge)
 		{
 			speed_x = 0;
 			speed_y = 0;
+			if (lCurrentEmmiter == nullptr)
+			{
+				lCurrentEmmiter = Engine->GetModule<::Render>().AddParticleEmitter(&magic, collider.x, collider.y, -1,-10);
+			}
+			lCurrentEmmiter->Resume();
 		}
 		else
 		{
@@ -283,16 +318,25 @@ bool CloudSummoner::Render()
 	return true;
 }
 
-void CloudSummoner::RecieveDamage(int dmg, int direction)
+void CloudSummoner::RenderDebug()
+{
+	Engine->GetModule<::Render>().RenderRect(aggro, RXColor{ 255, 255, 0, 100 }, true, RenderQueue::RENDER_DEBUG, 0);
+}
+
+bool CloudSummoner::RecieveDamage(int dmg, int direction)
 {
 	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
+		return false;
 	}
 
-	speed_x = -direction * speed_x;
-	speed_y = -10;
-
+	if (direction != 0)
+	{
+		speed_x = -direction * speed_x;
+		speed_y = -10;
+	}
+	return true;
 }

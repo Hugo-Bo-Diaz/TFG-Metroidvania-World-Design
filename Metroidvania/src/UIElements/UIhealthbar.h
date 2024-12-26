@@ -3,7 +3,6 @@
 
 #include "EngineElements/ParticleEmitter.h"
 #include "../GameObjects/Player.h"
-#include "Modules/Textures.h"
 #include "EngineElements/UIelement.h"
 
 enum playerresource
@@ -41,6 +40,6 @@ public:
 
 	int size_in_image = 48;
 
-	TextureID TextureHB;
+	RexTextureID TextureHB;
 };
 #endif // !UI_HEALTHBAR

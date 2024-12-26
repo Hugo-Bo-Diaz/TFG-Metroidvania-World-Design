@@ -2,9 +2,7 @@
 #define UI_TEXTBOX
 
 #include "EngineElements/ParticleEmitter.h"
-#include "Modules/Textures.h"
 
-#include "Modules/Text.h"
 #include "Modules/Gui.h"
 #include <string>
 #include <list>
@@ -15,7 +13,7 @@ public:
 	
 	int current_text = 0;
 
-	FontID mFont;
+	RexFontID mFont;
 	
 	std::vector<std::string>texts;
 	std::string author;
@@ -55,7 +53,7 @@ public:
 	RXRect small_center =	{ 128,0,32,48 };
 	RXRect small_right =	{ 160,0,32,48 };
 
-	TextureID TexTextBox;
+	RexTextureID TexTextBox;
 };
 
 #endif

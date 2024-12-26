@@ -1,7 +1,7 @@
 #ifndef LEAF__H
 #define LEAF__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "EngineElements/Animation.h"
 #include "EngineElements/ParticleEmitter.h"
 
@@ -35,8 +35,8 @@ public:
 	RXRect r10grass;
 	RXRect r11grass;
 
-	TextureID spells;
-	TextureID particles;
+	RexTextureID spells;
+	RexTextureID particles;
 };
 
 #endif // !PLAYER__REP__H

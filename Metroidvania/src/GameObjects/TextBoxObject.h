@@ -1,9 +1,9 @@
 #ifndef TEXT__BOX__OBJECT__H
 #define TEXT__BOX__OBJECT__H
 
-#include "Modules/ObjectManager.h"
+#include "Modules/SceneController.h"
 #include "Modules/Gui.h"
-#include "Modules/Textures.h"
+#include "Modules/Render.h"
 
 class UItextbox;
 
@@ -35,7 +35,7 @@ public:
 	RXRect rectanglekeyboard;
 	RXRect rectanglecontroller;
 
-	TextureID texture;
+	RexTextureID texture;
 };
 
 #endif

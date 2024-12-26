@@ -11,8 +11,8 @@ IceBlock::IceBlock()
 
 void IceBlock::Init()
 {
-	spells = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/spells.png");
-	wall_id = Engine->GetModule<ObjectManager>().AddWall(collider);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
+	wall_id = Engine->GetModule<SceneController>().AddWall(collider);
 }
 
 bool IceBlock::Loop(float dt)
@@ -21,8 +21,8 @@ bool IceBlock::Loop(float dt)
 
 	if(timer.Read()>life_expectancy)
 	{
-		Engine->GetModule<ObjectManager>().DeleteWall(wall_id);
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteWall(wall_id);
+		Engine->GetModule<SceneController>().DeleteObject(this);
 	}
 
 
@@ -38,7 +38,7 @@ bool IceBlock::Render()
 
 IceBlock::~IceBlock()
 {
-	Engine->GetModule<ObjectManager>().DeleteWall(wall_id);
+	Engine->GetModule<SceneController>().DeleteWall(wall_id);
 
 	GameObject::~GameObject();
 }

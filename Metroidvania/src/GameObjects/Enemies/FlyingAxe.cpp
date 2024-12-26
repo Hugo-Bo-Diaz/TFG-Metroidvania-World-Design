@@ -1,5 +1,5 @@
 #include "FlyingAxe.h"
-#include "Modules/Particles.h"
+#include "Modules/Render.h"
 #include "Application.h"
 #include "Modules/Audio.h"
 #include "../Player.h"
@@ -17,14 +17,18 @@ FlyingAxe::FlyingAxe(float _initial_y)
 
 void FlyingAxe::Destroy()
 {
-	Engine->GetModule<Particles>().AddParticleEmitter(&metal, collider.x, collider.y, 300);
+	Engine->GetModule<::Render>().AddParticleEmitter(&metal, collider.x, collider.y, 300);
+	if (nextpos != nullptr)
+	{
+		delete nextpos;
+	}
 }
 
 
 void FlyingAxe::Init()
 {
-	particles = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/particles.png");
-	floating_axe = Engine->GetModule<Textures>().Load_Texture("Assets/Sprites/enemies/floating_axe.png");
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/enemies/floating_axe.png", floating_axe);
 
 	mSFXHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/enemy_hit.wav");
 
@@ -62,6 +66,8 @@ void FlyingAxe::Init()
 	rotate_left.AddFrame({ 128,64,64,64 });
 	rotate_left.AddFrame({ 192,64,64,64 });
 	rotate_left.mTexture = floating_axe;
+
+	nextpos = new RXRect{ collider.x,collider.y, collider.w, collider.h };
 }
 
 bool FlyingAxe::Loop(float dt)
@@ -76,7 +82,7 @@ bool FlyingAxe::Loop(float dt)
 	nextpos->y += speed_y;
 
 	std::vector<RXRect*> colliders;
-	Engine->GetModule<ObjectManager>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
 	//IF IT HAS BEEN IN THIS STATE FOR MORE THAN 3 SECS GO BACKWARDS
 	for (int i = 0; i < colliders.size(); ++i)
@@ -86,7 +92,7 @@ bool FlyingAxe::Loop(float dt)
 		{
 			if (state = AXE_CHARGE)
 			{
-				Engine->GetModule<ObjectManager>().DeleteObject(this);
+				Engine->GetModule<SceneController>().DeleteObject(this);
 
 			}
 			else
@@ -141,26 +147,31 @@ bool FlyingAxe::Loop(float dt)
 		}
 
 		//detect player
-		std::vector<collision*> collisions;
-		Engine->GetModule<ObjectManager>().GetCollisions(&aggro, collisions);
+		std::vector<collision> collisions;
+		Engine->GetModule<SceneController>().GetCollisions(&aggro, collisions);
 
-		for (std::vector<collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+		for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
 		{
-			if ((*it)->object != this)
+			if ((*it).object != this)
 			{
-				if ((*it)->object->IsSameTypeAs<Player>())
+				if ((*it).object->IsSameTypeAs<Player>())
 				{
 					state = AXE_STARTING_CHARGE;
 					starting.Reset();
 					starting.Start();
 
-					float deltaX = (*it)->object->collider.x + (*it)->object->collider.w / 2 - x - 32;
-					float deltaY = (*it)->object->collider.y + (*it)->object->collider.h / 2 - y - 32;
+					float deltaX = (*it).object->collider.x + (*it).object->collider.w / 2 - x - 32;
+					float deltaY = (*it).object->collider.y + (*it).object->collider.h / 2 - y - 32;
 
-					float angle = atan2(deltaY, -deltaX);
+					float center_player_x = (*it).object->collider.x + (*it).object->collider.w;
+					float center_player_y = (*it).object->collider.y + (*it).object->collider.h;
 
-					charge_speed_x = cos(angle) * charge_speed;
-					charge_speed_y = sin(angle) * charge_speed;
+					float angle = 3.1428+ atan2(-deltaY, -deltaX);
+					angle = atan2((collider.y + 32) - center_player_y, (collider.x + 32) - center_player_x);
+					Logger::Console_log(LogLevel::LOG_DEBUG, std::to_string(angle*180/3.14).c_str());
+
+					charge_speed_x = -1 * cos(angle) * charge_speed;
+					charge_speed_y = -1 * sin(angle) * charge_speed;
 				}
 			}
 		}
@@ -258,17 +269,22 @@ bool FlyingAxe::Render()
 	return true;
 }
 
-void FlyingAxe::RecieveDamage(int dmg, int direction)
+bool FlyingAxe::RecieveDamage(int dmg, int direction)
 {
 	Engine->GetModule<Audio>().PlaySFX(mSFXHit);
 	health -= dmg;
 	if (health <= 0)
 	{
-		Engine->GetModule<ObjectManager>().DeleteObject(this);
+		Engine->GetModule<SceneController>().DeleteObject(this);
+		return false;
+	}
+	
+	if (direction != 0)
+	{
+		speed_x = -direction * speed_x;
+		speed_y = -10;
 	}
 
-	speed_x = -direction * speed_x;
-	speed_y = -10;
-
+	return true;
 }
 
