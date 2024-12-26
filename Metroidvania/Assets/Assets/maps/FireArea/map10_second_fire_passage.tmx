@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="48" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="20" nextobjectid="164">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="48" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="20" nextobjectid="172">
  <tileset firstgid="1" name="tileset01" tilewidth="48" tileheight="48" tilecount="176" columns="16">
-  <image source="tilesets/tileset01.png" width="768" height="528"/>
+  <image source="../tilesets/tileset01.png" width="768" height="528"/>
  </tileset>
  <tileset firstgid="177" name="tileset02" tilewidth="48" tileheight="48" tilecount="121" columns="11">
-  <image source="tilesets/tileset02.png" width="528" height="528"/>
+  <image source="../tilesets/tileset02.png" width="528" height="528"/>
  </tileset>
  <tileset firstgid="298" name="objects" tilewidth="48" tileheight="48" tilecount="64" columns="8">
-  <image source="objects.png" width="384" height="384"/>
+  <image source="../tilesets/objects.png" width="384" height="384"/>
  </tileset>
  <imagelayer id="17" name="Image Layer 1">
-  <image source="Backgrounds/fire_back.png"/>
+  <image source="../Backgrounds/fire_back.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="30"/>
+   <property name="depth" type="int" value="3000"/>
    <property name="parallax_x" type="float" value="0"/>
    <property name="parallax_y" type="float" value="0"/>
    <property name="repeat_y" type="bool" value="true"/>
   </properties>
  </imagelayer>
  <imagelayer id="18" name="Image Layer 2">
-  <image source="Backgrounds/fire_far.png"/>
+  <image source="Backgrounds/fire_far.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="20"/>
+   <property name="depth" type="int" value="2900"/>
    <property name="parallax_x" type="float" value="0.2"/>
    <property name="parallax_y" type="float" value="0.8"/>
    <property name="repeat_y" type="bool" value="false"/>
   </properties>
  </imagelayer>
  <imagelayer id="19" name="Image Layer 3">
-  <image source="Backgrounds/fire_front.png"/>
+  <image source="Backgrounds/fire_front.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="10"/>
+   <property name="depth" type="int" value="2800"/>
    <property name="parallax_x" type="float" value="0.3"/>
    <property name="parallax_y" type="float" value="0.9"/>
    <property name="repeat_y" type="bool" value="false"/>
@@ -38,6 +38,7 @@
  </imagelayer>
  <layer id="11" name="back_tiles" width="48" height="16">
   <properties>
+   <property name="depth" type="int" value="1000"/>
    <property name="tileset" type="int" value="1"/>
   </properties>
   <data>
@@ -813,6 +814,7 @@
  </layer>
  <layer id="12" name="front" width="48" height="16">
   <properties>
+   <property name="depth" type="int" value="900"/>
    <property name="tileset" type="int" value="1"/>
   </properties>
   <data>
@@ -1604,18 +1606,46 @@
   </object>
  </objectgroup>
  <objectgroup id="14" name="objects">
-  <object id="126" type="HazardLava" gid="306" x="432" y="768" width="816" height="144"/>
-  <object id="128" type="EnemyFlyingElemental" gid="315" x="1536" y="192" width="48" height="48">
+  <object id="164" type="HazardLava" x="432" y="624" width="816" height="144">
    <properties>
     <property name="color" type="int" value="0"/>
    </properties>
   </object>
-  <object id="146" type="HazardLava" gid="306" x="1488" y="768" width="576" height="96"/>
-  <object id="157" type="EnemyCoalJumper" gid="316" x="912" y="480" width="48" height="48"/>
-  <object id="158" type="EnemyGroundedElemental" gid="314" x="816" y="480" width="48" height="48"/>
-  <object id="159" type="EnemyCoalJumper" gid="316" x="1680" y="528" width="48" height="48"/>
-  <object id="162" type="EnemyGroundedElemental" gid="314" x="1440" y="384" width="48" height="48"/>
-  <object id="163" type="HazardLavaWaterfall" gid="306" x="528" y="624" width="144" height="528"/>
+  <object id="166" type="HazardLava" x="1488" y="672" width="576" height="96">
+   <properties>
+    <property name="color" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="165" type="HazardLavaWaterfall" x="528" y="96" width="144" height="528">
+   <properties>
+    <property name="color" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="167" type="EnemyCoalJumper" x="912" y="432" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="168" type="EnemyCoalJumper" x="1680" y="480" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="169" type="EnemyFlyingElemental" x="1536" y="144" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="170" type="EnemyGroundedElemental" x="1440" y="336" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="171" type="EnemyGroundedElemental" x="816" y="432" width="48" height="48">
+   <properties>
+    <property name="color" type="int" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
   <properties>

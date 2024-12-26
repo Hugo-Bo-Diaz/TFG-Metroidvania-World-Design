@@ -2,6 +2,20 @@
 <save_state>
 	<ValuesNode />
 	<ChildrenNode>
+		<Checkpoint>
+			<ValuesNode>
+				<last_checkpoint_id>31.000000</last_checkpoint_id>
+				<last_checkpoint_x>480.000000</last_checkpoint_x>
+				<last_checkpoint_y>144.000000</last_checkpoint_y>
+			</ValuesNode>
+			<ChildrenNode />
+		</Checkpoint>
+		<LoreLogs>
+			<ValuesNode>
+				<lore>1.000000</lore>
+			</ValuesNode>
+			<ChildrenNode />
+		</LoreLogs>
 		<LoreLogs>
 			<ValuesNode />
 			<ChildrenNode />

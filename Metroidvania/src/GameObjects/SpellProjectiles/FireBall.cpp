@@ -1,0 +1,119 @@
+#include "FireBall.h"
+#include "Application.h"
+#include "Modules/Input.h"
+#include "Modules/Render.h"
+#include "Modules/Audio.h"
+
+#include "../Enemies/CoalJumper.h"
+#include "../Enemies/GroundedElemental.h"
+#include "../Enemies/FlyingElemental.h"
+#include "../Enemies/ArmorTrap.h"
+#include "../Enemies/ShieldMonster.h"
+#include "../Enemies/ClingingCreature.h"
+#include "../Enemies/FlyingAxe.h"
+#include "../Enemies/FlyingShield.h"
+
+FireBall::FireBall()
+{
+	fireball_big.AddFrame({0,0,64,64});
+	fireball_small.AddFrame({96,0,32,32});
+
+	r1exp = { 0,0,12,12 };
+	explosion.area_in_texture.push_back(&r1exp);
+	explosion.name = "explosion";
+	explosion.minmax_x_offset = std::make_pair(-20, 20);
+	explosion.minmax_y_offset = std::make_pair(-20, 20);
+	explosion.minmax_speed_y = std::make_pair(-2, -3);
+	explosion.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	explosion.minmax_scale_speed = std::make_pair(0.01, 0.02);
+	explosion.minmax_lifespan = std::make_pair(200, 500);
+	explosion.minmax_frequency = std::make_pair(10, 50);
+	explosion.minmax_acc_y = std::make_pair(0.05, 0.2);
+}
+
+void FireBall::Init()
+{
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+	explosion.texture_name = particles;
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/spells.png", spells);
+
+	mSFXGroundHit = Engine->GetModule<Audio>().LoadSFX("Assets/SFX/hit_floor.wav");
+	fireball_big.mTexture = spells;
+	fireball_small.mTexture = spells;
+}
+void FireBall::Destroy()
+{
+	Engine->GetModule<::Render>().AddParticleEmitter(&explosion, collider.x, collider.y, 300);
+}
+
+bool FireBall::Loop(float dt)
+{
+	bool ret = true;
+
+	collider.x += direction * speed;
+
+	std::vector<RXRect*> colliders;
+	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 50, colliders);
+
+	for (int i = 0; i < colliders.size(); ++i)
+	{
+		RXRect result;
+		if (RXRectCollision(colliders[i], &collider, &result) == true)// he goin crash!
+		{
+			Engine->GetModule<SceneController>().DeleteObject(this);
+			Engine->GetModule<Audio>().PlaySFX(mSFXGroundHit);
+		}
+	}
+
+
+	std::vector<collision> collisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, collisions);
+
+	for (std::vector<collision>::iterator it = collisions.begin(); it != collisions.end(); it++)
+	{
+		if ((*it).object != this)
+		{
+			if ((*it).object->IsSameTypeAs<Enemy>())
+			{
+				((Enemy*)(*it).object)->RecieveDamage(damage, direction);
+				Engine->GetModule<SceneController>().DeleteObject(this);
+			}
+
+		}
+	}
+
+	return ret;
+}
+
+bool FireBall::Render()
+{
+	if (is_big)
+		Engine->GetModule<::Render>().RenderAnimation(fireball_big, collider.x, collider.y, -2);
+	else
+		Engine->GetModule<::Render>().RenderAnimation(fireball_small, collider.x, collider.y, -2);
+
+	return true;
+}
+
+void FireBall::Fire(bool left_dir, bool _is_big)
+{
+	if (left_dir)
+		direction = 1;
+	else
+		direction = -1;
+
+	is_big = _is_big;
+	
+	if (!is_big)
+	{
+		collider.y += 16;
+		collider.w = 16;
+		collider.h = 16;
+	}
+	else
+	{
+	damage += 3;
+	speed += 10;
+	}
+
+}

@@ -1,0 +1,64 @@
+#ifndef CLING__CREATURE__H
+#define CLING_CREATURE__H
+
+#include "Modules/SceneController.h"
+#include "EngineElements/Animation.h"
+#include "Enemy.h"
+#include "EngineElements/ParticleEmitter.h"
+#include "Modules/Audio.h"
+
+enum ClingCreatureDirection {
+	CLINGCREATURE_RIGHT,
+	CLINGCREATURE_DOWN,
+	CLINGCREATURE_LEFT,
+	CLINGCREATURE_UP,
+};
+
+class ClingCreature : public Enemy
+{
+public:
+	ClingCreature();
+	ClingCreature(std::list<ObjectProperty*>&);
+
+	void Init();
+	bool Loop(float dt);
+	bool Render();
+	void RenderDebug();
+	void Destroy();
+
+	ClingCreatureDirection curr_dir;
+
+	Animation animation;
+	float angle;
+	particle_preset stone_death;
+	particle_preset metal_and_sand;
+	RXRect r7buff;
+	RXRect r16sandfirst;
+	RXRect r17sandsecond;
+	RXRect r18metalfirst;
+
+	float speed_param = 1;
+
+	float animation_pace=500;
+	Timer animation_timer;
+
+	void TurnCorner(bool clockwise);
+	RXRect check_down;
+	RXRect check_front;
+
+	bool RecieveDamage(int dmg, int direction);
+	int health = 3;
+
+	int timesturned = 0;
+	bool hasturned = false;
+	bool shouldfall = false;
+	float accy = 1.0;
+	float speed_y = 0;
+
+	RexTextureID cling_enemy;
+	RexTextureID particles;
+
+	AudioID mSFXHit;
+};
+
+#endif // !CLING__CREATURE__H

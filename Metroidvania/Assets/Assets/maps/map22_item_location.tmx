@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="48" tileheight="48" infinite="0" nextlayerid="17" nextobjectid="71">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="48" tileheight="48" infinite="0" nextlayerid="17" nextobjectid="73">
  <properties>
   <property name="music" type="int" value="2"/>
  </properties>
@@ -12,7 +12,7 @@
  <imagelayer id="10" name="Image Layer 3">
   <image source="Backgrounds/ground_back.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="30"/>
+   <property name="depth" type="int" value="3000"/>
    <property name="parallax_x" type="float" value="1"/>
    <property name="parallax_y" type="float" value="1"/>
    <property name="repeat_y" type="bool" value="true"/>
@@ -21,7 +21,7 @@
  <imagelayer id="8" name="Image Layer 1">
   <image source="Backgrounds/ground_far.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="20"/>
+   <property name="depth" type="int" value="2900"/>
    <property name="parallax_x" type="float" value="0.8"/>
    <property name="parallax_y" type="float" value="0.8"/>
    <property name="repeat_y" type="bool" value="false"/>
@@ -30,7 +30,7 @@
  <imagelayer id="9" name="Image Layer 2">
   <image source="Backgrounds/ground_front.png" width="1024" height="576"/>
   <properties>
-   <property name="depth" type="int" value="10"/>
+   <property name="depth" type="int" value="2800"/>
    <property name="parallax_x" type="float" value="0.9"/>
    <property name="parallax_y" type="float" value="0.9"/>
    <property name="repeat_y" type="bool" value="false"/>
@@ -38,6 +38,7 @@
  </imagelayer>
  <layer id="11" name="back_tiles" width="32" height="32">
   <properties>
+   <property name="depth" type="int" value="1000"/>
    <property name="tileset" type="int" value="0"/>
   </properties>
   <data>
@@ -1069,6 +1070,7 @@
  </layer>
  <layer id="12" name="front" width="32" height="32">
   <properties>
+   <property name="depth" type="int" value="900"/>
    <property name="tileset" type="int" value="0"/>
   </properties>
   <data>
@@ -2121,14 +2123,14 @@
   </object>
  </objectgroup>
  <objectgroup id="14" name="objects">
-  <object id="68" type="HealthChargePickup" gid="182" x="768" y="480" width="48" height="48">
+  <object id="71" type="EnemyArmorTrap" x="576" y="1248" width="48" height="72"/>
+  <object id="72" type="HealthChargePickup" x="768" y="432" width="48" height="72">
    <properties>
     <property name="id" type="int" value="7"/>
     <property name="lore" type="int" value="15"/>
     <property name="text" value="this caslte seems intentionally confusing"/>
    </properties>
   </object>
-  <object id="70" type="EnemyArmorTrap" gid="196" x="576" y="1296" width="48" height="48"/>
  </objectgroup>
  <objectgroup color="#0000ff" id="13" name="walls">
   <properties>

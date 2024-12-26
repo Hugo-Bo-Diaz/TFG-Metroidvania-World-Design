@@ -1,0 +1,3 @@
+[submodule "Metroidvania/RexEngine"]
+	path = Metroidvania/RexEngine
+	url = https://github.com/Hugo-Bo-Diaz/RexEngine.git

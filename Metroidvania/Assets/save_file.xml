@@ -1,48 +1,29 @@
 <?xml version="1.0"?>
 <save_state>
-	<health current="4" max="4" />
-	<mana current="3" max="3" />
-	<spells>
-		<spell unlocked="true" />
-		<spell unlocked="false" />
-		<spell unlocked="false" />
-		<spell unlocked="false" />
-		<spell unlocked="false" />
-	</spells>
-	<checkpoint room_id="0" x="0" y="0" />
-	<collectables>
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-		<collectable picked_up="false" />
-	</collectables>
-	<lore />
+	<ValuesNode />
+	<ChildrenNode>
+		<Checkpoint>
+			<ValuesNode>
+				<last_checkpoint_id>2.000000</last_checkpoint_id>
+				<last_checkpoint_x>288.000000</last_checkpoint_x>
+				<last_checkpoint_y>240.000000</last_checkpoint_y>
+			</ValuesNode>
+			<ChildrenNode />
+		</Checkpoint>
+		<LoreLogs>
+			<ValuesNode />
+			<ChildrenNode />
+		</LoreLogs>
+		<Stats>
+			<ValuesNode>
+				<CurrentFragmentsHP>0.000000</CurrentFragmentsHP>
+				<CurrentFragmentsMana>0.000000</CurrentFragmentsMana>
+				<CurrentHP>4.000000</CurrentHP>
+				<CurrentMana>3.000000</CurrentMana>
+				<MaxHP>4.000000</MaxHP>
+				<MaxMana>3.000000</MaxMana>
+			</ValuesNode>
+			<ChildrenNode />
+		</Stats>
+	</ChildrenNode>
 </save_state>

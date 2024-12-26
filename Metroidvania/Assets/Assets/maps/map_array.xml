@@ -44,6 +44,23 @@
 	<room id = "38" path = "Assets/maps/map38_ascent_base.tmx"/>
 	<room id = "39" path = "Assets/maps/map39_link_ascent.tmx"/>
 	<room id = "40" path = "Assets/maps/map40_ruined_elevator.tmx"/>
+	<room id = "41" path = "Assets/maps/map41_item_above.tmx"/>
+	
+	<room id = "42" path = "Assets/maps/AirArea/map42_air_entrance.tmx"/>
+	<room id = "43" path = "Assets/maps/AirArea/map43_first_main_room.tmx"/>
+	<room id = "44" path = "Assets/maps/AirArea/map44_first_elevator.tmx"/>
+	<room id = "45" path = "Assets/maps/AirArea/map45_falling_block_item_room.tmx"/>
+	<room id = "46" path = "Assets/maps/AirArea/map46_first_hallway.tmx"/>
+	<room id = "47" path = "Assets/maps/AirArea/map47_second_elevator.tmx"/>
+	<room id = "48" path = "Assets/maps/AirArea/map48_second_main_room.tmx"/>
+	<room id = "49" path = "Assets/maps/AirArea/map49_item_bait_room.tmx"/>
+	<room id = "50" path = "Assets/maps/AirArea/map50_third_main_room.tmx"/>
+	<room id = "51" path = "Assets/maps/AirArea/map51_fall_into_book_room.tmx"/>
+	<room id = "52" path = "Assets/maps/AirArea/map52_book_room.tmx"/>
+	<room id = "53" path = "Assets/maps/AirArea/map53_item_after_book.tmx"/>
+	<room id = "54" path = "Assets/maps/AirArea/map54_vertical_after_book.tmx"/>
+	<room id = "55" path = "Assets/maps/AirArea/map55_item_wind_dark_cloud.tmx"/>
+	<room id = "56" path = "Assets/maps/AirArea/map56_hallway_backtrack.tmx"/>
 	
 
 </completemap>
