@@ -4,6 +4,7 @@
 #include "Modules/SceneController.h"
 #include "../include/EngineElements/Animation.h"
 #include "../Spells/Spell.h"
+#include "Modules/Render.h"
 #include "Modules/Audio.h"
 #include "RXPoint.h"
 
@@ -86,6 +87,12 @@ public:
 	float mobility_multiplier = 1.0f;
 
 	bool is_right = true;
+	bool isInWater = false;
+	RXRect r18waterfirst;
+	RXRect r19watersecond;
+	RXRect r20waterthird;
+	particle_preset water_splash;
+	RexTextureID particles;
 
 	Animation idle_right;
 	Animation idle_left;

@@ -21,6 +21,9 @@
 
 #include "Enemies/Enemy.h"
 #include "Enemies/CloudSummonerProjectile.h"
+#include "Enemies/WaterInjectorProjectile.h"
+
+#include "Hazards/HazardWater.h"
 
 Player::Player()
 {
@@ -148,6 +151,24 @@ void Player::Init()
 	walking_left.mTexture = playerTex;
 	walking_right.mTexture = playerTex;
 
+	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
+
+	r18waterfirst = { 0,48,12,12 };
+	r19watersecond = { 12,48,12,12 };
+	r20waterthird = { 24,48,12,12 };
+	water_splash.area_in_texture.push_back(&r18waterfirst);
+	water_splash.area_in_texture.push_back(&r19watersecond);
+	water_splash.area_in_texture.push_back(&r20waterthird);
+	water_splash.name = "water_splash";
+	water_splash.minmax_x_offset = std::make_pair(-24, 24);
+	water_splash.minmax_y_offset = std::make_pair(-5, 5);
+	water_splash.minmax_speed_x = std::make_pair(-3.0, 3.0);
+	water_splash.minmax_speed_y = std::make_pair(-4.0, -6.0);
+	water_splash.minmax_scale = std::make_pair(1, 1);
+	water_splash.minmax_lifespan = std::make_pair(200, 500);
+	water_splash.minmax_frequency = std::make_pair(1, 20);
+	water_splash.minmax_acc_y = std::make_pair(0.3, 0.4);
+	water_splash.texture_name = particles;
 }
 
 bool Player::Loop(float dt)
@@ -195,10 +216,44 @@ bool Player::Loop(float dt)
 	//	App->trk->SaveGame("save_file.xml");
 	//}
 
+	bool localisInWater = false;
+
+	std::vector<collision> WaterCollisions;
+	Engine->GetModule<SceneController>().GetCollisions(&collider, WaterCollisions);
+
+	for (std::vector<collision>::iterator it = WaterCollisions.begin(); it != WaterCollisions.end(); it++)
+	{
+		if ((*it).object != this)
+		{
+			if ((*it).object->IsSameTypeAs<HazardWater>())
+			{
+				if (collider.y - (*it).object->collider.y > -32)
+					localisInWater = true;
+			}
+		}
+	}
+
+	if (localisInWater != isInWater)
+	{
+		isInWater = localisInWater;
+		if (isInWater)
+		{
+			Engine->GetModule<::Render>().AddParticleEmitter(&water_splash, collider.x + collider.w / 2, collider.y + collider.h / 2, 200);
+		}
+	}
+
+
+	if (isInWater)
+		lTimeFactor *= 0.3;
+
 	//STEP 1
 	collider.x = nextpos->x;
 	collider.y = nextpos->y;
 
+	if (speed_y > acceleration_y)
+	{
+		grounded = false;
+	}
 	//STEP 2
 	speed_x += acceleration_x * lTimeFactor;
 	speed_y += acceleration_y * lTimeFactor;
@@ -216,17 +271,24 @@ bool Player::Loop(float dt)
 	nextpos->x += speed_x*mobility_multiplier * lTimeFactor;
 	//if (!grounded)
 	nextpos->y += speed_y*mobility_multiplier * lTimeFactor;
-	if (speed_y > acceleration_y)
-	{
-		grounded = false;
-	}
 
 	//STEP 3 oh boi
 	std::vector<RXRect*> colliders;
 	Engine->GetModule<SceneController>().GetNearbyWalls(collider.x + collider.w / 2, collider.y + collider.h / 2, 100, colliders);
 
+	bool isGroundedOnAnySurface = false;
+
 	for (int i = 0; i < colliders.size(); ++i)
 	{
+		RXPoint lPoint;
+		lPoint.x = collider.x + collider.w / 2;
+		lPoint.y = collider.y + collider.h + 5;
+		if (RXPointInRect(&lPoint,colliders[i]))
+		{
+			isGroundedOnAnySurface = true;
+		}
+
+
 		RXRect result;
 		if (RXRectCollision(colliders[i], nextpos, &result))// he goin crash!
 		{
@@ -261,6 +323,15 @@ bool Player::Loop(float dt)
 				}
 			}
 		}
+	}
+
+	if (isGroundedOnAnySurface)
+	{
+		grounded = true;
+	}
+	else
+	{
+		grounded = false;
 	}
 
 	float joyx;
@@ -378,7 +449,10 @@ bool Player::Loop(float dt)
 
 	if (jump)
 	{
-		speed_y = -13;
+		if (!isInWater)
+			speed_y = -13;
+		else
+			speed_y = -8;
 		grounded = false;
 		acceleration_y = 0.5;
 
@@ -475,7 +549,7 @@ bool Player::Loop(float dt)
 					AddHealth(-1, -1);
 				}
 			}
-			if ((*it).object->IsSameTypeAs<CloudSummonerProjectile>())
+			if ((*it).object->IsSameTypeAs<CloudSummonerProjectile>() || (*it).object->IsSameTypeAs<WaterInjectorProjectile>())
 			{
 				if ((*it).object->collider.x < collider.x)
 				{

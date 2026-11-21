@@ -50,6 +50,10 @@ void GroundedElemental::Init()
 	r16sandfirst = { 48,0,12,12 };
 	r17sandsecond = { 48,12,12,12 };
 
+	r18waterfirst = { 0,48,12,12 };
+	r19watersecond = { 12,48,12,12 };
+	r20waterthird = { 24,48,12,12 };
+
 	fire_ge_death.area_in_texture.push_back(&r14firegedeath);
 	fire_ge_death.area_in_texture.push_back(&r15firegedeath);
 	fire_ge_death.name = "fire grounded death";
@@ -77,6 +81,21 @@ void GroundedElemental::Init()
 	stone_death.minmax_frequency = std::make_pair(7, 15);
 	stone_death.minmax_acc_y = std::make_pair(0.1, 0.3);
 	stone_death.texture_name = particles;
+
+	water_death.area_in_texture.push_back(&r18waterfirst);
+	water_death.area_in_texture.push_back(&r19watersecond);
+	water_death.area_in_texture.push_back(&r20waterthird);
+	water_death.name = "water_death";
+	water_death.minmax_x_offset = std::make_pair(0, 48);
+	water_death.minmax_y_offset = std::make_pair(0, 48);
+	water_death.minmax_speed_x = std::make_pair(-0.6, 0.6);
+	water_death.minmax_speed_y = std::make_pair(-2, -3);
+	water_death.minmax_scale = std::make_pair(1, 1.5);
+	water_death.minmax_angle = std::make_pair(0, 360);
+	water_death.minmax_lifespan = std::make_pair(200, 500);
+	water_death.minmax_frequency = std::make_pair(7, 15);
+	water_death.minmax_acc_y = std::make_pair(0.1, 0.3);
+	water_death.texture_name = particles;
 }
 
 bool GroundedElemental::Loop(float dt)

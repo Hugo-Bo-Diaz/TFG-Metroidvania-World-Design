@@ -21,7 +21,7 @@ void WindSpellPickup::Init()
 	Engine->GetModule<::Render>().LoadTexture("Assets/Sprites/particles.png", particles);
 	Engine->GetModule<::Render>().LoadTexture("Assets/UI/books.png", spell_books);
 
-	windspellbook = { 0,52,52,64 };
+	windspellbook = { 54,0,52,64 };
 
 	if (Engine->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("SpellsUnlock") == nullptr)
 	{

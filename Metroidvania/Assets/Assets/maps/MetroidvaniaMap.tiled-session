@@ -3,15 +3,16 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "AirArea/map54_vertical_after_book.tmx",
+    "activeFile": "WaterArea/map73_item_room_waterfalls.tmx",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
+        "WaterArea",
         "tilesets",
-        "FireArea",
+        ".",
         "GroundArea",
         "FirePit",
-        "AirArea",
-        "."
+        "Castle",
+        "AirArea"
     ],
     "exportAsImage.useCurrentScale": false,
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -146,9 +147,9 @@
         "AirArea/map43_first_main_room.tmx": {
             "expandedObjectLayers": [
                 13,
-                16,
+                15,
                 14,
-                15
+                16
             ],
             "scale": 0.5,
             "selectedLayer": 6,
@@ -174,10 +175,10 @@
         },
         "AirArea/map44_first_elevator.tmx": {
             "expandedObjectLayers": [
+                15,
                 13,
-                16,
                 14,
-                15
+                16
             ],
             "scale": 0.5,
             "selectedLayer": 6,
@@ -203,16 +204,16 @@
         },
         "AirArea/map45_falling_block_item_room.tmx": {
             "expandedObjectLayers": [
-                16,
-                15,
                 14,
+                15,
+                16,
                 13
             ],
             "scale": 0.75,
-            "selectedLayer": 2,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 423.33333333333337,
-                "y": 657.3333333333334
+                "x": 450,
+                "y": 1200
             }
         },
         "AirArea/map45_falling_block_item_room.tmx#objects": {
@@ -262,15 +263,15 @@
         "AirArea/map47_second_elevator.tmx": {
             "expandedObjectLayers": [
                 13,
-                16,
+                15,
                 14,
-                15
+                16
             ],
             "scale": 0.33,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 713.6363636363636,
-                "y": 1051.5151515151515
+                "x": 384.8484848484849,
+                "y": 1153.030303030303
             }
         },
         "AirArea/map47_second_elevator.tmx#objects": {
@@ -320,15 +321,15 @@
         "AirArea/map49_item_bait_room.tmx": {
             "expandedObjectLayers": [
                 13,
-                16,
+                15,
                 14,
-                15
+                16
             ],
             "scale": 0.5516927083333333,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 736.8232239792308,
-                "y": 906.3016285107387
+                "x": 527.46754779325,
+                "y": 767.6374793485958
             }
         },
         "AirArea/map49_item_bait_room.tmx#objects": {
@@ -349,15 +350,15 @@
         "AirArea/map50_third_main_room.tmx": {
             "expandedObjectLayers": [
                 13,
-                16,
+                15,
                 14,
-                15
+                16
             ],
             "scale": 0.33,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 1077.2727272727273,
-                "y": 648.4848484848485
+                "x": 766.6666666666667,
+                "y": 768.1818181818182
             }
         },
         "AirArea/map50_third_main_room.tmx#objects": {
@@ -406,9 +407,9 @@
         },
         "AirArea/map52_book_room.tmx": {
             "expandedObjectLayers": [
+                14,
                 13,
                 16,
-                14,
                 15
             ],
             "scale": 0.5,
@@ -436,15 +437,15 @@
         "AirArea/map53_item_after_book.tmx": {
             "expandedObjectLayers": [
                 13,
-                16,
+                15,
                 14,
-                15
+                16
             ],
             "scale": 0.5,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 719,
-                "y": 2530
+                "x": 527,
+                "y": 1152
             }
         },
         "AirArea/map53_item_after_book.tmx#objects": {
@@ -493,15 +494,15 @@
         },
         "AirArea/map54_vertical_after_book.tmx": {
             "expandedObjectLayers": [
-                16,
+                15,
                 14,
-                15
+                16
             ],
             "scale": 0.5,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 895,
-                "y": 1290
+                "x": 1135,
+                "y": 1510
             }
         },
         "AirArea/map54_vertical_after_book.tmx#objects": {
@@ -522,9 +523,9 @@
         "AirArea/map55_item_wind_dark_cloud.tmx": {
             "expandedObjectLayers": [
                 13,
-                16,
+                15,
                 14,
-                15
+                16
             ],
             "scale": 0.5,
             "selectedLayer": 8,
@@ -551,9 +552,9 @@
         "AirArea/map56_hallway_backtrack.tmx": {
             "expandedObjectLayers": [
                 13,
-                16,
+                15,
                 14,
-                15
+                16
             ],
             "scale": 0.33,
             "selectedLayer": 6,
@@ -752,11 +753,15 @@
             "scaleInDock": 1
         },
         "Castle/map22_item_location.tmx": {
+            "expandedObjectLayers": [
+                15,
+                16
+            ],
             "scale": 0.33,
-            "selectedLayer": 7,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 443.9393939393939,
-                "y": 309.0909090909091
+                "x": 443.939393939394,
+                "y": 1563.6363636363635
             }
         },
         "Castle/map22_item_location.tmx#objects": {
@@ -1141,14 +1146,14 @@
         },
         "GroundArea/map23_rock_entrance.tmx": {
             "expandedObjectLayers": [
-                13,
-                16,
                 15,
+                13,
                 14,
+                16,
                 22
             ],
             "scale": 0.5,
-            "selectedLayer": 9,
+            "selectedLayer": 11,
             "viewCenter": {
                 "x": 2425,
                 "y": 410
@@ -1168,15 +1173,15 @@
         },
         "GroundArea/map24_rock_first_room.tmx": {
             "expandedObjectLayers": [
-                16,
                 15,
-                14
+                14,
+                16
             ],
-            "scale": 1,
-            "selectedLayer": 0,
+            "scale": 0.33,
+            "selectedLayer": 10,
             "viewCenter": {
-                "x": 479.5,
-                "y": 1444
+                "x": 395.4545454545455,
+                "y": 893.939393939394
             }
         },
         "GroundArea/map24_rock_first_room.tmx#objects": {
@@ -1193,17 +1198,17 @@
         },
         "GroundArea/map25_first_vertical.tmx": {
             "expandedObjectLayers": [
+                15,
+                13,
                 14,
                 16,
-                13,
-                15,
                 22
             ],
-            "scale": 0.75,
-            "selectedLayer": 0,
+            "scale": 0.33,
+            "selectedLayer": 11,
             "viewCenter": {
-                "x": 504.6666666666666,
-                "y": 868
+                "x": 477.27272727272737,
+                "y": 2803.030303030303
             }
         },
         "GroundArea/map25_first_vertical.tmx#objects": {
@@ -1220,13 +1225,14 @@
         },
         "GroundArea/map26_battle_room.tmx": {
             "expandedObjectLayers": [
+                15,
                 14
             ],
-            "scale": 0.7193033854166667,
-            "selectedLayer": 0,
+            "scale": 0.33,
+            "selectedLayer": 10,
             "viewCenter": {
-                "x": 654.1050821378467,
-                "y": 385.0948092501245
+                "x": 398.4848484848486,
+                "y": 854.5454545454545
             }
         },
         "GroundArea/map26_battle_room.tmx#objects": {
@@ -1243,11 +1249,12 @@
         },
         "GroundArea/map27_first_link.tmx": {
             "expandedObjectLayers": [
+                15,
                 14,
                 22
             ],
             "scale": 0.5,
-            "selectedLayer": 6,
+            "selectedLayer": 11,
             "viewCenter": {
                 "x": 741,
                 "y": 676
@@ -1268,14 +1275,15 @@
         },
         "GroundArea/map28_second_vertical.tmx": {
             "expandedObjectLayers": [
+                15,
                 14,
                 16
             ],
             "scale": 0.5,
-            "selectedLayer": 0,
+            "selectedLayer": 10,
             "viewCenter": {
                 "x": 395,
-                "y": 842
+                "y": 1118
             }
         },
         "GroundArea/map28_second_vertical.tmx#objects": {
@@ -1292,14 +1300,14 @@
         },
         "GroundArea/map29_two_items_room.tmx": {
             "expandedObjectLayers": [
-                14,
-                13
+                13,
+                14
             ],
             "scale": 0.33,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 1931.8181818181818,
-                "y": 672.7272727272727
+                "x": 1789.3939393939395,
+                "y": 1106.060606060606
             }
         },
         "GroundArea/map29_two_items_room.tmx#objects": {
@@ -1318,11 +1326,11 @@
             "expandedObjectLayers": [
                 14
             ],
-            "scale": 0.75,
-            "selectedLayer": 2,
+            "scale": 0.25,
+            "selectedLayer": 10,
             "viewCenter": {
-                "x": 514,
-                "y": 760
+                "x": -42,
+                "y": 960
             }
         },
         "GroundArea/map30_ground_spell_location.tmx#objects": {
@@ -1338,11 +1346,15 @@
             "scaleInDock": 1
         },
         "GroundArea/map31_third_vertical.tmx": {
-            "scale": 1,
-            "selectedLayer": 0,
+            "expandedObjectLayers": [
+                15,
+                16
+            ],
+            "scale": 0.33,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 514.5,
-                "y": 769
+                "x": 462.12121212121224,
+                "y": 863.6363636363636
             }
         },
         "GroundArea/map31_third_vertical.tmx#objects": {
@@ -1359,16 +1371,16 @@
         },
         "GroundArea/map32_big_rock_room.tmx": {
             "expandedObjectLayers": [
-                16,
                 15,
                 14,
+                16,
                 22
             ],
-            "scale": 1,
-            "selectedLayer": 6,
+            "scale": 0.5,
+            "selectedLayer": 11,
             "viewCenter": {
-                "x": 503.5,
-                "y": 643
+                "x": 299,
+                "y": 662
             }
         },
         "GroundArea/map32_big_rock_room.tmx#objects": {
@@ -1386,13 +1398,16 @@
         },
         "GroundArea/map33_link_top.tmx": {
             "expandedObjectLayers": [
-                14
+                15,
+                13,
+                14,
+                16
             ],
-            "scale": 0.25,
-            "selectedLayer": 0,
+            "scale": 0.5,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 1054,
-                "y": 508
+                "x": 717,
+                "y": 736
             }
         },
         "GroundArea/map33_link_top.tmx#objects": {
@@ -1408,15 +1423,11 @@
             "scaleInDock": 1
         },
         "GroundArea/map34_link_bottom.tmx": {
-            "expandedObjectLayers": [
-                14,
-                16
-            ],
-            "scale": 1,
+            "scale": 0.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 220.5,
-                "y": 424
+                "x": 527,
+                "y": 872
             }
         },
         "GroundArea/map34_link_bottom.tmx#objects": {
@@ -1462,7 +1473,7 @@
             "selectedLayer": 8,
             "viewCenter": {
                 "x": 528.3853702051739,
-                "y": 767.314897413024
+                "y": 530.9545049063337
             }
         },
         "GroundArea/map36_item_tease.tmx#objects": {
@@ -1485,7 +1496,7 @@
             "selectedLayer": 8,
             "viewCenter": {
                 "x": 769,
-                "y": 382
+                "y": 658
             }
         },
         "GroundArea/map37_middle_room.tmx#objects": {
@@ -1498,6 +1509,486 @@
             "scaleInDock": 1
         },
         "GroundArea/map37_middle_room.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map60_waterfall_climb.tmx": {
+            "expandedObjectLayers": [
+                16,
+                13,
+                14,
+                15
+            ],
+            "scale": 0.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 739,
+                "y": 940
+            }
+        },
+        "WaterArea/map60_waterfall_climb.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map60_waterfall_climb.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map60_waterfall_climb.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map60_waterfall_climb.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map60_waterfall_climb.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map60_waterfall_climb.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map61_first_big_room.tmx": {
+            "expandedObjectLayers": [
+                13,
+                14,
+                16,
+                15
+            ],
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 415.33333333333337,
+                "y": 1917.333333333333
+            }
+        },
+        "WaterArea/map61_first_big_room.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map61_first_big_room.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map61_first_big_room.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map61_first_big_room.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map61_first_big_room.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map61_first_big_room.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map62_item_room_climb.tmx": {
+            "expandedObjectLayers": [
+                13,
+                14,
+                16,
+                15
+            ],
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 373,
+                "y": 926
+            }
+        },
+        "WaterArea/map62_item_room_climb.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map62_item_room_climb.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map62_item_room_climb.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map62_item_room_climb.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map62_item_room_climb.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map62_item_room_climb.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map63_item_room_spike_floor.tmx": {
+            "expandedObjectLayers": [
+                16,
+                13,
+                14,
+                15
+            ],
+            "scale": 0.5813802083333333,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 482.47256438969765,
+                "y": 799.8208286674134
+            }
+        },
+        "WaterArea/map63_item_room_spike_floor.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map63_item_room_spike_floor.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map63_item_room_spike_floor.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map63_item_room_spike_floor.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map63_item_room_spike_floor.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map63_item_room_spike_floor.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map64_item_room_item_high.tmx": {
+            "expandedObjectLayers": [
+                13,
+                14,
+                16,
+                15
+            ],
+            "scale": 0.5813802083333333,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 401.6304591265399,
+                "y": 904.7435610302352
+            }
+        },
+        "WaterArea/map64_item_room_item_high.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map64_item_room_item_high.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map64_item_room_item_high.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map64_item_room_item_high.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map64_item_room_item_high.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map64_item_room_item_high.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map65_passageway_up.tmx": {
+            "expandedObjectLayers": [
+                16,
+                13,
+                14,
+                15
+            ],
+            "scale": 0.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 645,
+                "y": 222
+            }
+        },
+        "WaterArea/map65_passageway_up.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map65_passageway_up.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map65_passageway_up.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map65_passageway_up.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map65_passageway_up.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map65_passageway_up.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map66_square_before_room.tmx": {
+            "expandedObjectLayers": [
+                13,
+                14,
+                16,
+                15
+            ],
+            "scale": 0.5572591145833333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 517.7124832057948,
+                "y": 306.85904550499447
+            }
+        },
+        "WaterArea/map66_square_before_room.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map66_square_before_room.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map66_square_before_room.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map66_square_before_room.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map66_square_before_room.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map66_square_before_room.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map67_second_big_room.tmx": {
+            "expandedObjectLayers": [
+                14,
+                15,
+                13,
+                16
+            ],
+            "scale": 0.5,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1133,
+                "y": 2518
+            }
+        },
+        "WaterArea/map67_second_big_room.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map67_second_big_room.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map67_second_big_room.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map67_second_big_room.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map67_second_big_room.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map67_second_big_room.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map68_item_room_sideway.tmx": {
+            "expandedObjectLayers": [
+                16,
+                13,
+                14,
+                15
+            ],
+            "scale": 0.5813802083333333,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 733.5991041433371,
+                "y": 436.8913773796192
+            }
+        },
+        "WaterArea/map68_item_room_sideway.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map68_item_room_sideway.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map68_item_room_sideway.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map68_item_room_sideway.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map68_item_room_sideway.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map68_item_room_sideway.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map69_square_upwards.tmx": {
+            "expandedObjectLayers": [
+                14,
+                15,
+                13,
+                16
+            ],
+            "scale": 0.5572591145833333,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 490.7950230737777,
+                "y": 913.3991471464456
+            }
+        },
+        "WaterArea/map69_square_upwards.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map69_square_upwards.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map69_square_upwards.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map69_square_upwards.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map69_square_upwards.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map69_square_upwards.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map70_item_room_breakable.tmx": {
+            "expandedObjectLayers": [
+                14,
+                15,
+                13,
+                16
+            ],
+            "scale": 0.5813802083333333,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 389.59014557670776,
+                "y": 768
+            }
+        },
+        "WaterArea/map70_item_room_breakable.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map70_item_room_breakable.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map70_item_room_breakable.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map70_item_room_breakable.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map70_item_room_breakable.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map70_item_room_breakable.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map71_final ascension.tmx": {
+            "expandedObjectLayers": [
+                14,
+                15,
+                13,
+                16
+            ],
+            "scale": 0.5813802083333333,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 616.6360582306831,
+                "y": 1517.0795072788355
+            }
+        },
+        "WaterArea/map71_final ascension.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map71_final ascension.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map71_final ascension.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map71_final ascension.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map71_final ascension.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map71_final ascension.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map72_item_room_enemies.tmx": {
+            "expandedObjectLayers": [
+                14,
+                15,
+                13,
+                16
+            ],
+            "scale": 0.5572591145833333,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 767.1476137624862,
+                "y": 382.2279338746422
+            }
+        },
+        "WaterArea/map72_item_room_enemies.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map72_item_room_enemies.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map72_item_room_enemies.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map72_item_room_enemies.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map72_item_room_enemies.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map72_item_room_enemies.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map73_item_room_waterfalls.tmx": {
+            "expandedObjectLayers": [
+                14,
+                15,
+                13,
+                16
+            ],
+            "scale": 0.5572591145833333,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 305.96179683392717,
+                "y": 629.8685670891991
+            }
+        },
+        "WaterArea/map73_item_room_waterfalls.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map73_item_room_waterfalls.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map73_item_room_waterfalls.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map73_item_room_waterfalls.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map73_item_room_waterfalls.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map73_item_room_waterfalls.tmx#tileset05": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map74_book_room.tmx": {
+            "expandedObjectLayers": [
+                14,
+                15,
+                13,
+                16
+            ],
+            "scale": 0.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 769,
+                "y": 768
+            }
+        },
+        "WaterArea/map74_book_room.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map74_book_room.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map74_book_room.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map74_book_room.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map74_book_room.tmx#tileset04": {
+            "scaleInDock": 1
+        },
+        "WaterArea/map74_book_room.tmx#tileset05": {
             "scaleInDock": 1
         },
         "map0.tmx": {
@@ -1517,17 +2008,17 @@
         },
         "map0_entrance.tmx": {
             "expandedObjectLayers": [
-                17,
-                16,
-                15,
+                14,
                 13,
-                14
+                16,
+                17,
+                15
             ],
-            "scale": 0.33,
-            "selectedLayer": 7,
+            "scale": 1,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 2101.515151515152,
-                "y": 172.72727272727275
+                "x": 1152,
+                "y": 384.5
             }
         },
         "map0_entrance.tmx#objects": {
@@ -1674,10 +2165,10 @@
                 14
             ],
             "scale": 0.75,
-            "selectedLayer": 7,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 330,
-                "y": 1030.6666666666665
+                "x": 200.66666666666669,
+                "y": 524
             }
         },
         "map17_fire_exit.tmx#objects": {
@@ -1705,7 +2196,7 @@
         },
         "map19_first_spike_elevator.tmx": {
             "scale": 0.5,
-            "selectedLayer": 6,
+            "selectedLayer": 9,
             "viewCenter": {
                 "x": 371,
                 "y": 622
@@ -1718,11 +2209,14 @@
             "scaleInDock": 1
         },
         "map1_fire_pit.tmx": {
+            "expandedObjectLayers": [
+                15
+            ],
             "scale": 0.33,
-            "selectedLayer": 5,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 1665.151515151515,
-                "y": 1045.4545454545455
+                "x": 1665.1515151515152,
+                "y": 627.2727272727273
             }
         },
         "map1_fire_pit.tmx#tileset01": {
@@ -1781,8 +2275,8 @@
             "scale": 0.5,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 233,
-                "y": 626
+                "x": 521,
+                "y": 1196
             }
         },
         "map22_item_location.tmx#objects": {
@@ -2107,13 +2601,14 @@
         },
         "map38_ascent_base.tmx": {
             "expandedObjectLayers": [
-                14
+                14,
+                15
             ],
-            "scale": 1,
-            "selectedLayer": 8,
+            "scale": 0.5,
+            "selectedLayer": 10,
             "viewCenter": {
-                "x": 1929.5,
-                "y": 679
+                "x": 1573,
+                "y": 1334
             }
         },
         "map38_ascent_base.tmx#objects": {
@@ -2187,16 +2682,16 @@
         },
         "map40_ruined_elevator.tmx": {
             "expandedObjectLayers": [
-                16,
+                13,
                 15,
                 14,
-                13
+                16
             ],
             "scale": 0.33,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 983.3333333333333,
-                "y": 2093.939393939394
+                "x": 986.3636363636364,
+                "y": 1869.6969696969697
             }
         },
         "map40_ruined_elevator.tmx#objects": {
@@ -2208,14 +2703,14 @@
         "map41_item_above.tmx": {
             "expandedObjectLayers": [
                 16,
-                15,
-                13
+                13,
+                15
             ],
             "scale": 0.5,
-            "selectedLayer": 7,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 897,
-                "y": 870
+                "x": 711,
+                "y": 820
             }
         },
         "map41_item_above.tmx#objects": {
@@ -2248,6 +2743,84 @@
             "scaleInDock": 1
         },
         "map4_first_health_pickup.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map57_way_to_water.tmx": {
+            "expandedObjectLayers": [
+                14,
+                13,
+                16,
+                15
+            ],
+            "scale": 0.5721028645833333,
+            "selectedLayer": 10,
+            "viewCenter": {
+                "x": 504.2799431009958,
+                "y": 767.3445234708394
+            }
+        },
+        "map57_way_to_water.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map57_way_to_water.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map57_way_to_water.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map57_way_to_water.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "map58_underwater_passage.tmx": {
+            "expandedObjectLayers": [
+                16,
+                13,
+                14,
+                15
+            ],
+            "scale": 0.5721028645833333,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 768.2184921763871,
+                "y": 382.798293029872
+            }
+        },
+        "map58_underwater_passage.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map58_underwater_passage.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map58_underwater_passage.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map58_underwater_passage.tmx#tileset03": {
+            "scaleInDock": 1
+        },
+        "map59_climb_to_water.tmx": {
+            "expandedObjectLayers": [
+                16,
+                13,
+                14,
+                15
+            ],
+            "scale": 0.5,
+            "selectedLayer": 10,
+            "viewCenter": {
+                "x": 769,
+                "y": 768
+            }
+        },
+        "map59_climb_to_water.tmx#objects": {
+            "scaleInDock": 1
+        },
+        "map59_climb_to_water.tmx#tileset01": {
+            "scaleInDock": 1
+        },
+        "map59_climb_to_water.tmx#tileset02": {
+            "scaleInDock": 1
+        },
+        "map59_climb_to_water.tmx#tileset03": {
             "scaleInDock": 1
         },
         "map5_first_mana_pickup.tmx": {
@@ -2373,8 +2946,8 @@
             "scale": 0.75,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 1383.3333333333333,
-                "y": 276
+                "x": 587.3333333333333,
+                "y": 325.33333333333337
             }
         },
         "testing_grounds.tmx#spells": {
@@ -2423,32 +2996,27 @@
     "map.width": 27,
     "openFiles": [
         "AssetStorage.tmx",
-        "AirArea/map47_second_elevator.tmx",
-        "AirArea/map49_item_bait_room.tmx",
-        "AirArea/map54_vertical_after_book.tmx",
-        "AirArea/map55_item_wind_dark_cloud.tmx",
-        "AirArea/map50_third_main_room.tmx",
-        "AirArea/map56_hallway_backtrack.tmx",
-        "AirArea/map43_first_main_room.tmx",
-        "AirArea/map42_first_checkpoint.tmx",
-        "AirArea/map52_book_room.tmx",
-        "AirArea/map53_item_after_book.tmx"
+        "WaterArea/map70_item_room_breakable.tmx",
+        "WaterArea/map71_final ascension.tmx",
+        "WaterArea/map72_item_room_enemies.tmx",
+        "WaterArea/map74_book_room.tmx",
+        "WaterArea/map73_item_room_waterfalls.tmx"
     ],
     "project": "MetroidvaniaMap.tiled-project",
-    "property.type": "int",
+    "property.type": "bool",
     "recentFiles": [
-        "AirArea/map56_hallway_backtrack.tmx",
-        "AirArea/map55_item_wind_dark_cloud.tmx",
-        "AirArea/map54_vertical_after_book.tmx",
-        "AirArea/map53_item_after_book.tmx",
-        "AirArea/map52_book_room.tmx",
-        "AirArea/map51_fall_into_book_room.tmx",
-        "AirArea/map48_second_main_room.tmx",
-        "AirArea/map49_item_bait_room.tmx",
-        "AirArea/map47_second_elevator.tmx",
-        "AirArea/map46_first_hallway.tmx",
-        "AirArea/map45_falling_block_item_room.tmx",
-        "AirArea/map44_first_elevator.tmx"
+        "AssetStorage.tmx",
+        "WaterArea/map70_item_room_breakable.tmx",
+        "WaterArea/map71_final ascension.tmx",
+        "WaterArea/map72_item_room_enemies.tmx",
+        "WaterArea/map74_book_room.tmx",
+        "WaterArea/map73_item_room_waterfalls.tmx",
+        "WaterArea/map69_square_upwards.tmx",
+        "WaterArea/map68_item_room_sideway.tmx",
+        "WaterArea/map66_square_before_room.tmx",
+        "WaterArea/map67_second_big_room.tmx",
+        "WaterArea/map65_passageway_up.tmx",
+        "WaterArea/map64_item_room_item_high.tmx"
     ],
     "resizeMap.removeObjects": false,
     "tileset.embedInMap": true,

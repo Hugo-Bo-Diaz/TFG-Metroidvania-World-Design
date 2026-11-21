@@ -62,5 +62,25 @@
 	<room id = "55" path = "Assets/maps/AirArea/map55_item_wind_dark_cloud.tmx"/>
 	<room id = "56" path = "Assets/maps/AirArea/map56_hallway_backtrack.tmx"/>
 	
+	<room id = "57" path = "Assets/maps/map57_way_to_water.tmx"/>
+	<room id = "58" path = "Assets/maps/map58_underwater_passage.tmx"/>
+	<room id = "59" path = "Assets/maps/map59_climb_to_water.tmx"/>
+	
+	<room id = "60" path = "Assets/maps/WaterArea/map60_waterfall_climb.tmx"/>
+	<room id = "61" path = "Assets/maps/WaterArea/map61_first_big_room.tmx"/>
+	<room id = "62" path = "Assets/maps/WaterArea/map62_item_room_climb.tmx"/>
+	<room id = "63" path = "Assets/maps/WaterArea/map63_item_room_spike_floor.tmx"/>
+	<room id = "64" path = "Assets/maps/WaterArea/map64_item_room_item_high.tmx"/>
+	<room id = "65" path = "Assets/maps/WaterArea/map65_passageway_up.tmx"/>
+	<room id = "66" path = "Assets/maps/WaterArea/map66_square_before_room.tmx"/>
+	<room id = "67" path = "Assets/maps/WaterArea/map67_second_big_room.tmx"/>
+	<room id = "68" path = "Assets/maps/WaterArea/map68_item_room_sideway.tmx"/>
+	<room id = "69" path = "Assets/maps/WaterArea/map69_square_upwards.tmx"/>
+	<room id = "70" path = "Assets/maps/WaterArea/map70_item_room_breakable.tmx"/>
+	<room id = "71" path = "Assets/maps/WaterArea/map71_final ascension.tmx"/>
+	<room id = "72" path = "Assets/maps/WaterArea/map72_item_room_enemies.tmx"/>
+	<room id = "73" path = "Assets/maps/WaterArea/map73_item_room_waterfalls.tmx"/>
+	<room id = "74" path = "Assets/maps/WaterArea/map74_book_room.tmx"/>
+	
 
 </completemap>

@@ -4,19 +4,21 @@
 	<ChildrenNode>
 		<Checkpoint>
 			<ValuesNode>
-				<last_checkpoint_id>2.000000</last_checkpoint_id>
-				<last_checkpoint_x>288.000000</last_checkpoint_x>
-				<last_checkpoint_y>240.000000</last_checkpoint_y>
+				<last_checkpoint_id>42.000000</last_checkpoint_id>
+				<last_checkpoint_x>1055.000000</last_checkpoint_x>
+				<last_checkpoint_y>866.000000</last_checkpoint_y>
 			</ValuesNode>
 			<ChildrenNode />
 		</Checkpoint>
 		<LoreLogs>
-			<ValuesNode />
+			<ValuesNode>
+				<Lore17>17.000000</Lore17>
+			</ValuesNode>
 			<ChildrenNode />
 		</LoreLogs>
 		<Stats>
 			<ValuesNode>
-				<CurrentFragmentsHP>0.000000</CurrentFragmentsHP>
+				<CurrentFragmentsHP>1.000000</CurrentFragmentsHP>
 				<CurrentFragmentsMana>0.000000</CurrentFragmentsMana>
 				<CurrentHP>4.000000</CurrentHP>
 				<CurrentMana>3.000000</CurrentMana>
@@ -25,5 +27,11 @@
 			</ValuesNode>
 			<ChildrenNode />
 		</Stats>
+		<pickups>
+			<ValuesNode>
+				<Pickup13>1.000000</Pickup13>
+			</ValuesNode>
+			<ChildrenNode />
+		</pickups>
 	</ChildrenNode>
 </save_state>

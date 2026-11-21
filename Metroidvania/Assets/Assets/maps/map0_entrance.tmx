@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="48" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="18" nextobjectid="54">
+<map version="1.11" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="48" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="18" nextobjectid="60">
  <properties>
   <property name="music" type="int" value="1"/>
  </properties>
@@ -824,7 +824,8 @@
   <object id="12" x="96" y="144" width="48" height="48"/>
   <object id="13" x="480" y="528" width="288" height="48"/>
   <object id="14" x="528" y="480" width="240" height="48"/>
-  <object id="15" x="960" y="528" width="96" height="48"/>
+  <object id="15" x="720" y="432" width="48" height="48"/>
+  <object id="59" x="528" y="432" width="48" height="48"/>
   <object id="16" x="1152" y="432" width="144" height="144"/>
   <object id="17" x="1296" y="480" width="48" height="96"/>
   <object id="22" x="2064" y="96" width="144" height="48"/>
@@ -1616,9 +1617,10 @@
     <property name="text" value="why would someone burn these books"/>
    </properties>
   </object>
+  <object id="54" type="HazardWaterfall" x="576" y="96" width="144" height="384"/>
  </objectgroup>
  <objectgroup color="#aa00ff" id="17" name="checkpoints">
-  <object id="38" x="528" y="384" width="240" height="96">
+  <object id="38" x="1008" y="288" width="240" height="96">
    <properties>
     <property name="room_id" type="int" value="0"/>
     <property name="x" type="int" value="96"/>

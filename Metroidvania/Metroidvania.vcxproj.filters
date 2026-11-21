@@ -219,6 +219,27 @@
     <ClCompile Include="src\GameObjects\SpellProjectiles\Freeze.cpp">
       <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameObjects\Enemies\WaterBucket.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\Enemies\WaterInjector.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\Enemies\WaterInjectorProjectile.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\Enemies\WaterBucketDrop.cpp">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\Hazards\HazardWater.cpp">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\Hazards\HazardWaterfall.cpp">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObjects\Pickups\WaterSpellPickup.cpp">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameObjects\Enemies\ArmorTrap.h">
@@ -403,6 +424,27 @@
     </ClInclude>
     <ClInclude Include="src\GameObjects\SpellProjectiles\Freeze.h">
       <Filter>Resource Files\GameObjects\SpellProjectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Enemies\WaterBucket.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Enemies\WaterInjector.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Enemies\WaterInjectorProjectile.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Enemies\WaterBucketDrop.h">
+      <Filter>Resource Files\GameObjects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Hazards\HazardWater.h">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Hazards\HazardWaterfall.h">
+      <Filter>Resource Files\GameObjects\Hazards</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObjects\Pickups\WaterSpellPickup.h">
+      <Filter>Resource Files\GameObjects\Pickups</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

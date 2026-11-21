@@ -3024,7 +3024,7 @@
    <properties>
     <property name="horizontal" type="bool" value="false"/>
     <property name="id_point" type="int" value="0"/>
-    <property name="id_room" type="int" value="32"/>
+    <property name="id_room" type="int" value="33"/>
    </properties>
   </object>
  </objectgroup>

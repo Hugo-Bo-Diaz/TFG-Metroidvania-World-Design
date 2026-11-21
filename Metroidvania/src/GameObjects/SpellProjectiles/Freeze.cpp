@@ -16,6 +16,9 @@
 
 #include "../Hazards/HazardsRockBlock.h"
 
+std::map<Freeze*,Enemy*> Freeze::mEnemiesFrozen;
+
+
 Freeze::Freeze()
 {
 }
@@ -31,6 +34,14 @@ void Freeze::Destroy()
 	{
 		mTarget->active = true;
 	}
+	
+	for (auto it = Freeze::mEnemiesFrozen.begin(); it != Freeze::mEnemiesFrozen.end(); ++it) {
+		if (it->second == mTarget) {
+			Freeze::mEnemiesFrozen.erase(it);
+			break;
+		}
+	}
+
 	Engine->GetModule<SceneController>().DeleteWall(mWallID);
 }
 
@@ -67,6 +78,17 @@ void Freeze::SetTarget(GameObject* aObject)
 	if (aObject == nullptr)
 		return;
 
+	auto it = std::find_if(Freeze::mEnemiesFrozen.begin(), Freeze::mEnemiesFrozen.end(),[aObject](const auto& pair) { return pair.second == aObject; });
+	if (it == Freeze::mEnemiesFrozen.end()) 
+	{
+		Freeze::mEnemiesFrozen.insert({ this,(Enemy*)aObject });
+	}
+	else
+	{
+		Engine->GetModule<SceneController>().DeleteObject(this);
+		return;
+	}
+		
 	mTarget = aObject;
 
 	collider.x = mTarget->collider.x;

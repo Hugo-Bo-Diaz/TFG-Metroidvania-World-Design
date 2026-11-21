@@ -23,6 +23,8 @@
 
 #include "GameObjects/Pickups/FireSpellPickup.h"
 #include "GameObjects/Pickups/GroundSpellPickup.h"
+#include "GameObjects/Pickups/WindSpellPickup.h"
+#include "GameObjects/Pickups/WaterSpellPickup.h"
 
 #include "GameObjects/Pickups/MaxHealthPickup.h"
 #include "GameObjects/Pickups/MaxManaPickup.h"
@@ -39,6 +41,10 @@
 #include "GameObjects/Enemies/DarkCloud.h"
 #include "GameObjects/Enemies/CloudSummoner.h"
 #include "GameObjects/Enemies/CloudSummonerProjectile.h"
+#include "GameObjects/Enemies/WaterInjectorProjectile.h"
+#include "GameObjects/Enemies/WaterInjector.h"
+#include "GameObjects/Enemies/WaterBucketDrop.h"
+#include "GameObjects/Enemies/WaterBucket.h"
 
 #include "GameObjects/Hazards/HazardLava.h"
 #include "GameObjects/Hazards/HazardLavaWaterfall.h"
@@ -46,6 +52,8 @@
 #include "GameObjects/Hazards/HazardsRockBlock.h"
 #include "GameObjects/Hazards/CloudTrampoline.h"
 #include "GameObjects/Hazards/HazardGroundCrumble.h"
+#include "GameObjects/Hazards/HazardWater.h"
+#include "GameObjects/Hazards/HazardWaterfall.h"
 #include "GameObjects/Portal.h"
 
 #include "GameObjects/CheckPoint.h"
@@ -96,6 +104,8 @@ int main(int argc, char* args[])
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<HazardSpikes>("HazardSpikes"));
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<HazardRockBlock>("HazardRockBlock"));
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<HazardGroundCrumble>("HazardGroundCrumble"));
+	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<HazardWater>("HazardWater"));
+	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<HazardWaterfall>("HazardWaterfall"));
 	
 	//projectiles
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<WindSlash>("ProjectileWindSlash"));
@@ -114,6 +124,8 @@ int main(int argc, char* args[])
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<MaxManaPickup>("ManaChargePickup"));
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<FireSpellPickup>("SpellUnlockFire"));
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<GroundSpellPickup>("SpellUnlockGround"));
+	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<WindSpellPickup>("SpellUnlockWind"));
+	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<WaterSpellPickup>("SpellUnlockWater"));
 
 	//Enemies
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<ArmorTrap>("EnemyArmorTrap"));
@@ -128,10 +140,16 @@ int main(int argc, char* args[])
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<GroundedElemental>("EnemyGroundedElemental"));
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<ShieldMonster>("EnemyShieldMonster"));
 	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<DarkCloud>("EnemyDarkCloud"));
+	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<WaterInjector>("EnemyWaterInjector"));
+	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<WaterInjectorProjectile>("EnemyWaterInjectorProjectile"));
+	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<WaterBucket>("EnemyWaterBucket"));
+	App->mAPI->GetModule<SceneController>().AddFactory(new Factory<WaterBucketDrop>("EnemyWaterBucketDrop"));
 
 
 	App->mAPI->GetModule<SceneController>().AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingMainMenu,&MetroidVaniaSceneProcessor::GetInstance()));
 	App->mAPI->GetModule<SceneController>().AssignLoadFunction(std::bind(&MetroidVaniaSceneProcessor::SceneCreationMainMenu,&MetroidVaniaSceneProcessor::GetInstance()));
+	//App->mAPI->GetModule<SceneController>().AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingInGame,&MetroidVaniaSceneProcessor::GetInstance()));
+	//App->mAPI->GetModule<SceneController>().AssignLoadFunction(std::bind(&MetroidVaniaSceneProcessor::SceneCreationInGame,&MetroidVaniaSceneProcessor::GetInstance()));
 	//App->mAPI->GetModule<SceneController>().LoadMap("Assets/maps/map0_entrance.tmx");
 
 	UIMainMenu* lMainMenu = new UIMainMenu();

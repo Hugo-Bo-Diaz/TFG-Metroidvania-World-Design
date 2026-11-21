@@ -77,6 +77,16 @@ bool IceShard::Loop(float dt)
 						Freeze* freeze = (Freeze*)Engine->GetModule<SceneController>().AddObject((*it).object->collider.x, (*it).object->collider.y, 32, 32, GetTypeIndex<Freeze>());
 						freeze->SetTarget((*it).object);
 					}
+					else
+					{
+						for (auto iter = Freeze::mEnemiesFrozen.begin(); iter != Freeze::mEnemiesFrozen.end(); ++iter) {
+							if (iter->second == (Enemy*)(*it).object) {
+
+								Engine->GetModule<SceneController>().DeleteObject(iter->first);
+								break;
+							}
+						}
+					}
 				}
 				Engine->GetModule<SceneController>().DeleteObject(this);
 			}

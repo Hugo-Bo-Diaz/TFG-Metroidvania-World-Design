@@ -5,6 +5,8 @@
 #include "EngineElements/Animation.h"
 #include "Modules/Render.h"
 #include "Modules/Audio.h"
+#include "../Enemies/Enemy.h"
+#include <map>
 
 class Freeze : public GameObject
 {
@@ -32,6 +34,8 @@ public:
 	float scale_y = 1.0f;
 
 	AudioID mSFXGroundHit;
+
+	static std::map<Freeze*,Enemy*> mEnemiesFrozen;
 };
 
 #endif // !PLAYER__REP__H

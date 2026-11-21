@@ -38,7 +38,7 @@ void MetroidVaniaSceneProcessor::SceneProcessingMainMenu()
 	{
 		App->mAPI->GetModule<SceneController>().AssignGameLoopFunction(std::bind(&MetroidVaniaSceneProcessor::SceneProcessingInGame, &MetroidVaniaSceneProcessor::GetInstance()));
 		App->mAPI->GetModule<SceneController>().AssignLoadFunction(std::bind(&MetroidVaniaSceneProcessor::SceneCreationInGame, &MetroidVaniaSceneProcessor::GetInstance()));
-		App->mAPI->GetModule<SceneController>().LoadMap("Assets/maps/map0_entrance.tmx");
+		App->mAPI->GetModule<SceneController>().LoadMap("Assets/maps/WaterArea/map66_square_before_room.tmx");
 
 		Section* lSection = App->mAPI->GetModule<ProgressTracker>().GetBaseSaveSection()->GetChild("Stats");
 		if (lSection == nullptr)

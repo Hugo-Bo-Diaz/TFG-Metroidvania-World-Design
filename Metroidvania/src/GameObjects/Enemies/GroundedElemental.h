@@ -11,6 +11,7 @@ enum GroundedElementalColor
 	RED_GROUNDELEMENTAL,
 	BROWN_GROUNDEDELEMENTAL,
 	GREY_GROUNDEDELEMENTAL,
+	BLUE_GROUNDEDELEMENTAL
 };
 
 class GroundedElemental : public Enemy
@@ -40,10 +41,14 @@ public:
 	Animation walking_right;
 	particle_preset fire_ge_death;
 	particle_preset stone_death;
+	particle_preset water_death;
 	RXRect r14firegedeath;
 	RXRect r15firegedeath;
 	RXRect r16sandfirst;
 	RXRect r17sandsecond;
+	RXRect r18waterfirst;
+	RXRect r19watersecond;
+	RXRect r20waterthird;
 
 	void SetAnimations(GroundedElementalColor c);
 	bool knocked_up = false;

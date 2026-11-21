@@ -6353,15 +6353,15 @@
   <object id="104" type="Portal" x="2352" y="384" width="48" height="192">
    <properties>
     <property name="horizontal" type="bool" value="false"/>
-    <property name="id_point" type="int" value="0"/>
-    <property name="id_room" type="int" value="33"/>
+    <property name="id_point" type="int" value="4"/>
+    <property name="id_room" type="int" value="25"/>
    </properties>
   </object>
   <object id="107" type="Portal" x="-96" y="336" width="48" height="192">
    <properties>
     <property name="horizontal" type="bool" value="false"/>
     <property name="id_point" type="int" value="1"/>
-    <property name="id_room" type="int" value="31"/>
+    <property name="id_room" type="int" value="33"/>
    </properties>
   </object>
   <object id="185" type="Portal" x="-96" y="1152" width="48" height="192">
